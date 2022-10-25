@@ -1,0 +1,16 @@
+@use '/src/styles/mixins/vwConvert';
+@use '/src/styles/constants/colors';
+
+.gnb {
+  ul {
+    display: flex;
+    justify-content: space-around;
+    background-color: colors.$INDIGO;
+
+    a {
+      display: block;
+      padding: 20px;
+      color: colors.$WHITE;
+    }
+  }
+}

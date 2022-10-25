@@ -1,0 +1,29 @@
+@use '/src/styles/constants/colors';
+@use '/src/styles/mixins/flexbox';
+
+.button {
+  @include flexbox.flexbox;
+  border: 1px solid colors.$GRAYA;
+  transition: 200ms;
+
+  +.button {
+    margin-left: 16px;
+  }
+
+  &.primary {
+    height: 40px;
+    padding: 0 24px;
+    font-size: 14px;
+    border-radius: 12px;
+  }
+
+  &.secondary {}
+
+  &.nagative {}
+
+  &.back {}
+
+  &.like {}
+
+  &.more {}
+}

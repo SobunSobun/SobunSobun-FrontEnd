@@ -1,0 +1,8 @@
+@mixin boxShadow($offset: 4, $blur: 16) {
+  box-shadow: 0 $offset * 1px $blur * 1px rgba(9, 32, 157, 12%);
+}
+
+@mixin fontOscine($weight: bold) {
+  font-family: $oscine;
+  font-weight: $weight;
+}

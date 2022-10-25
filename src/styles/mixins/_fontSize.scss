@@ -1,0 +1,38 @@
+@use 'sass:math';
+@use '/src/styles/constants/sizes';
+
+$BROWSER_CONTEXT_PC: 18;
+$BROWSER_CONTEXT_TB: 16;
+$BROWSER_CONTEXT_MO: 14;
+
+@mixin vwFontSizePC($pc-pixel) {
+  // font-size: $pc-pixel*1px;
+  font-size: math.div($pc-pixel * 100, 1280) * 1vw;
+  @media (min-width: sizes.$SCREEN_LG) {
+    font-size: $pc-pixel * 1px;
+  }
+}
+@mixin vwFontSizeTB($tb-pixel) {
+  // font-size: $tb-pixel*1px;
+  font-size: math.div($tb-pixel * 100, 1024) * 1vw;
+}
+@mixin vwFontSizeMO($mo-pixel) {
+  // font-size: $mo-pixel/360*768*1px;
+  font-size: math.div($mo-pixel * 100, 360) * 1vw;
+  // @media (max-width:360px) {
+  //	font-size: $mo-pixel*1px;
+  //	font-size: $mo-pixel*100/360*1vw;
+  // }
+}
+
+@mixin emFontSizePC($pixels, $context: $BROWSER_CONTEXT_PC) {
+  font-size: calc($pixels / $context) * 1rem;
+}
+
+@mixin emFontSizeTB($pixels, $context: $BROWSER_CONTEXT_TB) {
+  font-size: calc($pixels / $context) * 1rem;
+}
+
+@mixin emFontSizeMO($pixels, $context: $BROWSER_CONTEXT_MO) {
+  font-size: calc($pixels / $context) * 1rem;
+}

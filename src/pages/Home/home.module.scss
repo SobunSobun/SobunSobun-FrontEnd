@@ -1,0 +1,9 @@
+@use '/src/styles/mixins/fontSize';
+
+.home {
+  color: rgb(201, 21, 21);
+
+  h1 {
+    @include fontSize.emFontSizeMO(50);
+  }
+}

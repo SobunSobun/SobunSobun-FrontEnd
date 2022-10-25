@@ -1,0 +1,136 @@
+@use '/src/styles/constants/sizes';
+@use 'sass:list';
+
+// vw conversion PC
+@mixin pc($property, $pc-pixel) {
+  @if type-of($pc-pixel) == number {
+    // #{$property}: $pc-pixel*1px;
+    #{$property}: calc($pc-pixel * 100 / 1680) * 1vw;
+
+    @media (min-width: sizes.$SCREEN_LG) {
+      #{$property}: $pc-pixel * 1px;
+    }
+  } @else if type-of($pc-pixel) == string {
+    #{$property}: auto;
+
+    @media (min-width: sizes.$SCREEN_LG) {
+      #{$property}: auto;
+    }
+  } @else if type-of($pc-pixel) == list {
+    // $px: ();
+    $vw: ();
+
+    @each $value in $pc-pixel {
+      @if type-of($value) == number {
+        // $px: append($px, $value*1px);
+        $vw: list.append($vw, $value * 100 / 1680 * 1vw);
+      } @else if type-of($value) == string {
+        // $px: append($px, auto);
+        $vw: list.append($vw, auto);
+      }
+    }
+
+    // #{$property}: $px;
+    #{$property}: $vw;
+
+    $px: ();
+
+    @each $value in $pc-pixel {
+      @if type-of($value) == number {
+        $px: list.append($px, $value * 1px);
+      } @else if type-of($value) == string {
+        $px: list.append($px, auto);
+      }
+    }
+
+    @media (min-width: sizes.$SCREEN_LG) {
+      #{$property}: $px;
+    }
+  }
+}
+
+// vw conversion Tablet - for 1024
+@mixin tb($property, $tb-pixel) {
+  @if type-of($tb-pixel) == number {
+    // @media (max-width: $screen-md) {
+    //	//#{$property}: $tb-pixel*1px;
+    //	#{$property}: $tb-pixel*100/1024*1vw;
+    //  }
+    #{$property}: calc($tb-pixel * 100 / 1024) * 1vw;
+  } @else if type-of($tb-pixel) == string {
+    // @media (max-width: $screen-md) {
+    //	#{$property}: auto;
+    //  }
+    #{$property}: auto;
+  } @else if type-of($tb-pixel) == list {
+    // $px: ();
+    $vw: ();
+
+    @each $value in $tb-pixel {
+      @if type-of($value) == number {
+        // $px: append($px, $value*1px);
+        $vw: list.append($vw, $value * 100 / 1024 * 1vw);
+      } @else if type-of($value) == string {
+        // $px: append($px, auto);
+        $vw: list.append($vw, auto);
+      }
+    }
+
+    // @media (max-width: $screen-md) {
+    //	//#{$property}:$px;
+    //	#{$property}:$vw;
+    // }
+    #{$property}: $vw;
+  }
+}
+
+// vw conversion Mobile
+@mixin mo($property, $mo-pixel) {
+  @if type-of($mo-pixel) == number {
+    // #{$property}: $mo-pixel/360*800*1px;
+    #{$property}: calc($mo-pixel * 100 / 360) * 1vw;
+    // @media (max-width:360px) {
+    //	#{$property}: $mo-pixel*1px;
+    //	#{$property}: $mo-pixel*100/360*1vw;
+    //  }
+  } @else if type-of($mo-pixel) == string {
+    #{$property}: auto;
+    // @media (max-width:360px) {
+    //	#{$property}: auto;
+    //  }
+  } @else if type-of($mo-pixel) == list {
+    // $px: ();
+    $vw: ();
+
+    @each $value in $mo-pixel {
+      @if type-of($value) == number {
+        // $px: append($px, $value/360*768*1px);
+        $vw: list.append($vw, calc($value * 100 / 360) * 1vw);
+      } @else if type-of($value) == string {
+        // $px: list.append($px, auto);
+        $vw: list.append($vw, auto);
+      }
+    }
+
+    // #{$property}:$px;
+    #{$property}: $vw;
+
+    // $px: ();
+    $vw: ();
+
+    @each $value in $mo-pixel {
+      @if type-of($value) == number {
+        // $px: append($px, $value*1px);
+        $vw: list.append($vw, calc($value * 100 / 360) * 1vw);
+      } @else if type-of($value) == string {
+        // $px: append($px, auto);
+        $vw: list.append($vw, auto);
+      }
+    }
+
+    @media (max-width: 360px) {
+      // #{$property}:$px;
+      #{$property}: $vw;
+    }
+  }
+}
