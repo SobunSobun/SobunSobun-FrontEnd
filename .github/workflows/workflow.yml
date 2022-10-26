@@ -34,7 +34,8 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
       # S3에 업로드
       - name: S3 Deploy
-        run: aws s3 sync ./build s3://sobunsobun --profile=sobunsobun
+        run: |
+          aws s3 cp --recursive --region ap-northeast-2 build s3://sobunsobun
       
  
         
