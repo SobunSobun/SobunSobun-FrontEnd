@@ -1,0 +1,36 @@
+# workflow 이름설정
+name: sobunsobun CI/CD 
+
+# master branch에 push 될 때만 실행
+on:
+  push:
+    branches:
+      -master
+      
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    # 환경 변수 설정
+    env: 
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          
+    steps:
+      # 저장소 체크아웃
+      - name: Checkout source code
+        uses: actions/checkout@v2
+      # 의존성 설치
+      - name: Install Dependencies
+        run: yarn install
+      # 프로젝트 빌드
+      - name: Project Build
+        run: yarn build
+      # S3에 업로드
+      - name: S3 Deploy
+        run: aws s3 sync ./build s3://sobunsobun --profile=sobunsobun
+      
+ 
+        
+       
+    
+  
