@@ -2,11 +2,11 @@ import { Route, Routes } from 'react-router-dom'
 
 import styles from './routes.module.scss'
 
-import Layout from '../components/Layout/Layout'
-import Home from '../pages/Home/Home'
-import Bookmark from '../pages/Bookmark/Bookmark'
-import MyPost from '../pages/MyPost/MyPost'
-import Profile from '../pages/Profile/Profile'
+import Layout from 'components/Layout/Layout'
+import Home from 'pages/Home/Home'
+import Bookmark from 'pages/Bookmark/Bookmark'
+import MyPost from 'pages/MyPost/MyPost'
+import Profile from 'pages/Profile/Profile'
 
 const RootRoute = () => {
   return (
