@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import styles from 'styles'
+import styles from './header.module.scss'
 
 interface Props {
   leftChild?: ReactNode
@@ -9,10 +9,10 @@ interface Props {
 
 const Header = ({ leftChild, headText, rightChild }: Props) => {
   return (
-    <header>
-      <div className={styles.btnLeft}>{leftChild}</div>
+    <header className={styles.header}>
+      <div className={styles.leftChild}>{leftChild}</div>
       <div className={styles.headText}>{headText}</div>
-      <div className={styles.btnRight}>{rightChild}</div>
+      <div className={styles.rightChild}>{rightChild}</div>
     </header>
   )
 }

@@ -1,0 +1,17 @@
+@charset "utf-8";
+
+// common
+.contentsInner {
+  padding: 20px;
+}
+
+.blind {
+  position: absolute;
+  top: -999px;
+  left: -999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  font-size: 1px;
+  line-height: 0;
+}

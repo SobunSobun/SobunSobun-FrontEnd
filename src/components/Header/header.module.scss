@@ -1,0 +1,16 @@
+@use '/src/styles/constants/colors';
+
+.header {
+  display: flex;
+  align-items: center;
+  height: 60px;
+  border: 1px solid colors.$BLUE;
+
+  .leftChild {
+    margin-right: 30px;
+  }
+
+  .headText {
+    color: colors.$GRAY2;
+  }
+}
