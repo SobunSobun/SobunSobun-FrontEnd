@@ -1,14 +1,14 @@
 import { Route, Routes } from 'react-router-dom'
 
-import styles from './routes.module.scss'
-
-import Layout from 'components/Layout/Layout'
 import Home from 'pages/Home/Home'
 import Bookmark from 'pages/Bookmark/Bookmark'
 import MyPost from 'pages/MyPost/MyPost'
 import Profile from 'pages/Profile/Profile'
 import Signup from 'pages/Signup/Signup'
 import Login from 'pages/Login/Login'
+import Layout from 'components/Layout/Layout'
+
+import styles from './routes.module.scss'
 
 const RootRoute = () => {
   return (

@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom'
 
-import styles from './layout.module.scss'
 import GNB from '../GNB/GNB'
+import styles from './layout.module.scss'
 
 const Layout = () => {
   return (

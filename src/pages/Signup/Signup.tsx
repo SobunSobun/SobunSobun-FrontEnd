@@ -1,7 +1,7 @@
-import styles from './signup.module.scss'
-
 import Header from 'components/Header/Header'
 import Button from 'components/Button/Button'
+
+import styles from './signup.module.scss'
 
 const Signup = () => {
   return (

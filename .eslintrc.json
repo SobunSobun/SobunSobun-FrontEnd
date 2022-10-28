@@ -17,6 +17,9 @@
       "version": "detect"
     }
   },
+  "plugins": [
+    "import"
+  ],
   "rules": {
     "prettier/prettier": [
       "error",
@@ -41,7 +44,28 @@
     "react/react-in-jsx-scope": "off",
     "import/prefer-default-export": "off",
     "import/no-unresolved": "off",
-    "import/order": "off",
+    "import/order": [
+      "error", {
+          "groups": [
+              "builtin", 
+              "external", 
+              "internal", 
+              "parent", 
+              "sibling", 
+              "index", 
+              "object",
+              "type"
+          ],
+          "pathGroups": [
+              {
+                  "pattern": "react",
+                  "group": "builtin",
+                  "position": "before"
+              }
+          ],
+          "pathGroupsExcludedImportTypes": ["react"]
+      }
+  ],
     "import/no-anonymous-default-export": "off",
     "import/no-extraneous-dependencies": [
       "error",
