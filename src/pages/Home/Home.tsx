@@ -1,6 +1,5 @@
-import styles from './home.module.scss'
-
 import Header from 'components/Header/Header'
+import styles from './home.module.scss'
 
 const Home = () => {
   return (

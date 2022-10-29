@@ -1,0 +1,20 @@
+@use '/src/styles/constants/colors';
+
+.login {
+  .line {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 30px;
+  }
+
+  .textInput {
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid colors.$GRAY2;
+  }
+
+  .guide {
+    padding-top: 10px;
+    color: colors.$RED;
+  }
+}

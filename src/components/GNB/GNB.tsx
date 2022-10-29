@@ -1,6 +1,6 @@
-import styles from './gnb.module.scss'
 import { NavLink } from 'react-router-dom'
 import cx from 'classnames'
+import styles from './gnb.module.scss'
 
 const navData = ['home', 'bookmark', 'mypost', 'profile']
 
