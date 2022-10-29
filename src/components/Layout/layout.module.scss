@@ -5,7 +5,6 @@
 .layout {
   width: 100%;
   min-width: 280px;
-  @include vwConvert.pc(min-width, 280);
   min-height: 100%;
   margin: 0 auto;
   color: colors.$GRAY6;
@@ -17,20 +16,10 @@
     min-height: 100vh;
     margin: 0 auto;
     background-color: colors.$BG_WHITE;
-    // border: 1px solid #dddddd;
-    // height: calc(100vh - 13.8889vw);
   }
 
   .inner {
     flex: 1;
-    padding: 20px;
     overflow-y: auto;
-    // @include vwConvert.mo(padding, 20);
   }
-
-  // .gnbWrapper {
-  //   @include vwConvert.mo(height, 50);
-  //   width: 100%;
-  //   max-width: 768px;
-  // }
 }
