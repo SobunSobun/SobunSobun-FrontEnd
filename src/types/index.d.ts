@@ -1,5 +1,9 @@
-// export interface anyItem {
-//   a: number
-//   b: string
-//   [key: string]: number
-// }
+export interface authData {
+  user: null | string
+  pwd: null | string
+  accessToken: null | string
+}
+export interface myInfo {
+  nickname: string
+  email: string
+}
