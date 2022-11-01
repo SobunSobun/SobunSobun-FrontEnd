@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import { useSetRecoilState } from 'recoil'
 import { authInfo } from 'recoil/user.atom'
 import Button from 'components/Button/Button'
-import { useCookies } from 'react-cookie'
+// import { useCookies } from 'react-cookie'
 
 import styles from './login.module.scss'
 
@@ -19,38 +19,53 @@ axios.defaults.baseURL = 'http://13.124.221.119:8000'
 axios.defaults.withCredentials = true
 
 const EMAIL_REGEX = /[a-zA-Z0-9._+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9.]+/gm
+const JWT_EXPIRY_TIME = 24 * 3600 * 1000
 
 const Login = () => {
   const navigate = useNavigate()
   const [loginSuccess, setLoginSuccess] = useState(false)
-  // const [cookies, setCookie, removeCookie] = useCookies(['auth_token'])
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormValues>()
 
-  const onSubmit = async (data: FormValues) => {
-    console.log(data)
-    const v1 = EMAIL_REGEX.test(data.email)
-
-    if (!v1) {
-      alert('Invalid Entry')
-      return
-    }
-
-    try {
-      const response = await axios.post('/user/login', data)
-      // if()
-      const { access } = response.data
-      axios.defaults.headers.common.Authorization = `Bearer ${access}`
-      // localStorage.setItem('auth_token', accessToken)
-      // navigate('/')
-      axios.get('/user/me').then((res) => {
-        console.log(res)
+  const onSubmit = (data: FormValues) => {
+    axios
+      .post('/user/login', data)
+      .then(onLoginSuccess)
+      .catch((error) => {
+        console.log(error)
       })
-    } catch (err) {
-      console.log(err)
+  }
+
+  // const onSilentRefresh = () => {
+  //   axios
+  //     .post('/silent-refresh', data)
+  //     .then(onLoginSuccess)
+  //     .catch((error) => {
+  //       // ... 로그인 실패 처리
+  //     })
+  // }
+
+  const onLoginSuccess = (response: any) => {
+    const { access } = response.data
+    console.log(access)
+
+    if (response.status === 201) {
+      // accessToken 설정
+      axios.defaults.headers.common.Authorization = `Bearer ${access}`
+      axios
+        .get('/user/me')
+        .then((res) => {
+          console.log(axios.defaults.headers.common.Authorization)
+          console.log(res)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+      // accessToken 만료하기 1분 전에 로그인 연장
+      // setTimeout(onSilentRefresh, JWT_EXPIRY_TIME - 60000)
     }
   }
 
