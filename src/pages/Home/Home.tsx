@@ -1,4 +1,4 @@
-import Header from 'components/Header/Header'
+import Header from 'components/Header'
 import styles from './home.module.scss'
 
 const Home = () => {

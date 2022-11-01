@@ -6,7 +6,7 @@ import MyPost from 'pages/MyPost/MyPost'
 import Profile from 'pages/Profile/Profile'
 import Signup from 'pages/Signup/Signup'
 import Login from 'pages/Login/Login'
-import Layout from 'components/Layout/Layout'
+import Layout from 'components/Layout'
 
 import styles from './routes.module.scss'
 
