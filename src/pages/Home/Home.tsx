@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
-import Button from 'components/Button/Button'
-import Header from 'components/Header/Header'
+import Button from 'components/Button'
+import Header from 'components/Header'
 import styles from './home.module.scss'
 
 const list = ['리스트1', '리스트2', '리스트3']

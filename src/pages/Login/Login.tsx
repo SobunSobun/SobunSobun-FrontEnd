@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form'
 import axios from 'axios'
-import Button from 'components/Button/Button'
+import Button from 'components/Button'
 import styles from './login.module.scss'
 
 type FormValues = {
