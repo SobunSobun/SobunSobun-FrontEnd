@@ -5,7 +5,7 @@ import cx from 'classnames'
 import styles from './button.module.scss'
 
 interface Props {
-  type: 'back' | 'like' | 'more' | 'primary' | 'secondary' | 'nagative'
+  type: 'back' | 'like' | 'more' | 'primary' | 'secondary' | 'negative'
   onClick?: () => void
   text?: string
   submit?: true
