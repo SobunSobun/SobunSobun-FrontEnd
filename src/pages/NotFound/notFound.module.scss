@@ -2,5 +2,5 @@
 
 .notFound {
   min-height: 100vh;
-  @include flexbox(center, center);
+  @include flexbox.flexbox(center, center);
 }
