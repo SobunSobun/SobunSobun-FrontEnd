@@ -1,9 +1,0 @@
-{
-    "version": 3,
-    "mappings": "AAAA,IAAI,CAAJ,8BAAI;AAEJ,AAAA,IAAI,CAAC;EACH,OAAO,EAAE,IAAI;EACb,WAAW,EAAE,MAAM;EACnB,eAAe,EAAE,MAAM;CACxB",
-    "sources": [
-        "../routes/routes.module.scss"
-    ],
-    "names": [],
-    "file": "routes.module.css"
-}

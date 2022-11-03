@@ -1,15 +1,9 @@
 @use '/src/styles/constants/sizes';
 @use '/src/styles/mixins/fontSize';
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
-@import url('//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Noto+Sans+KR:wght@400;700&family=Noto+Serif+KR:wght@400;700&display=swap');
 
 html {
-  // @include vw-font-size-pc(16);
-  // @media (max-width: $screen-md) {
-  //   @include vw-font-size-tb(16);
-  // }
-  // font-size: 16px;
   @include fontSize.vwFontSizePC(16);
   @media (max-width: sizes.$SCREEN_SM) {
     @include fontSize.vwFontSizeMO(14);
