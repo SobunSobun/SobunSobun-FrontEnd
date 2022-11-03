@@ -1,0 +1,6 @@
+@use '/src/styles/mixins/flexbox';
+
+.notFound {
+  min-height: 100vh;
+  @include flexbox(center, center);
+}

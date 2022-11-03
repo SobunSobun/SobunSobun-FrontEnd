@@ -3,9 +3,9 @@ import { useForm } from 'react-hook-form'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 
+import Button from 'components/Button'
 import { useSetRecoilState } from 'recoil'
 import { authInfo } from 'recoil/user.atom'
-import Button from 'components/Button/Button'
 
 import styles from './login.module.scss'
 
