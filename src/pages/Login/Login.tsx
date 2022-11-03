@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom'
 import { useSetRecoilState } from 'recoil'
 import { authInfo } from 'recoil/user.atom'
 import Button from 'components/Button/Button'
-// import { useCookies } from 'react-cookie'
 
 import styles from './login.module.scss'
 
@@ -39,15 +38,6 @@ const Login = () => {
       })
   }
 
-  // const onSilentRefresh = () => {
-  //   axios
-  //     .post('/silent-refresh', data)
-  //     .then(onLoginSuccess)
-  //     .catch((error) => {
-  //       // ... 로그인 실패 처리
-  //     })
-  // }
-
   const onLoginSuccess = (response: any) => {
     const { access } = response.data
     console.log(access)
@@ -64,8 +54,6 @@ const Login = () => {
         .catch((error) => {
           console.log(error)
         })
-      // accessToken 만료하기 1분 전에 로그인 연장
-      // setTimeout(onSilentRefresh, JWT_EXPIRY_TIME - 60000)
     }
   }
 

@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import { RecoilRoot } from 'recoil'
 import { QueryClient, QueryClientProvider } from 'react-query'
-import { CookiesProvider } from 'react-cookie'
 import reportWebVitals from './reportWebVitals'
 import RootRoute from './routes'
 
@@ -16,15 +15,13 @@ const queryClient = new QueryClient({
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <React.StrictMode>
-    <CookiesProvider>
-      <BrowserRouter>
-        <QueryClientProvider client={queryClient}>
-          <RecoilRoot>
-            <RootRoute />
-          </RecoilRoot>
-        </QueryClientProvider>
-      </BrowserRouter>
-    </CookiesProvider>
+    <BrowserRouter>
+      <QueryClientProvider client={queryClient}>
+        <RecoilRoot>
+          <RootRoute />
+        </RecoilRoot>
+      </QueryClientProvider>
+    </BrowserRouter>
   </React.StrictMode>
 )
 
