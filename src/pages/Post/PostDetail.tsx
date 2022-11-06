@@ -16,8 +16,8 @@ const PostDetail = () => {
       <div className='contentsInner'>
         게시글 상세 {id}
         <div className={styles.editBtn}>
-          <Button type='primary' onClick={goToEdit} text='수정' />
-          <Button type='primary' onClick={deletePost} text='삭제' />
+          <Button basic type='primary' onClick={goToEdit} text='수정' />
+          <Button basic type='primary' onClick={deletePost} text='삭제' />
         </div>
       </div>
     </div>

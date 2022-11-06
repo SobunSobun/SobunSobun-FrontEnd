@@ -7,6 +7,7 @@ import Button from 'components/Button'
 import { useSetRecoilState } from 'recoil'
 import { authInfo } from 'recoil/user.atom'
 
+import Greeting from 'components/Greeting'
 import styles from './login.module.scss'
 
 type FormValues = {
@@ -60,30 +61,25 @@ const Login = () => {
   return (
     <div className={styles.login}>
       <div className='contentsInner'>
-        {loginSuccess ? (
-          <section>
-            <p>로그인 되었습니다.</p>
-          </section>
-        ) : (
-          <form onSubmit={handleSubmit(onSubmit)} autoComplete='off'>
-            <div className={styles.line}>
-              <label htmlFor='email'>Email</label>
-              <input type='text' id='email' className={styles.textInput} {...register('email', { required: true })} />
-              {errors.email?.type === 'required' && <span className={styles.guide}> 이메일을 입력해주세요</span>}
-            </div>
-            <div className={styles.line}>
-              <label htmlFor='password'>Password</label>
-              <input
-                type='password'
-                id='password'
-                className={styles.textInput}
-                {...register('password', { required: true })}
-              />
-              {errors.password?.type === 'required' && <span className={styles.guide}>비밀번호를 입력해주세요</span>}
-            </div>
-            <Button type='primary' text='로그인하기' submit />
-          </form>
-        )}
+        <Greeting />
+        <form onSubmit={handleSubmit(onSubmit)} autoComplete='off'>
+          <div className={styles.line}>
+            <label htmlFor='email'>Email</label>
+            <input type='text' id='email' className={styles.textInput} {...register('email', { required: true })} />
+            {errors.email?.type === 'required' && <span className={styles.guide}> 이메일을 입력해주세요</span>}
+          </div>
+          <div className={styles.line}>
+            <label htmlFor='password'>Password</label>
+            <input
+              type='password'
+              id='password'
+              className={styles.textInput}
+              {...register('password', { required: true })}
+            />
+            {errors.password?.type === 'required' && <span className={styles.guide}>비밀번호를 입력해주세요</span>}
+          </div>
+          <Button basic type='primary' text='로그인하기' submit />
+        </form>
       </div>
     </div>
   )

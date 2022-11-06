@@ -9,14 +9,15 @@ interface Props {
   onClick?: () => void
   text?: string
   submit?: true
+  basic?: true
 }
 
-const Button = memo(({ type, onClick, text, submit }: Props) => {
+const Button = memo(({ type, onClick, text, submit, basic }: Props) => {
   const navigate = useNavigate()
   return (
     <button
       type={submit ? 'submit' : 'button'}
-      className={cx(styles.button, styles[type])}
+      className={cx(styles.button, styles[type], { [styles.basic]: basic })}
       onClick={type === 'back' ? () => navigate(-1) : onClick}
     >
       {text}
