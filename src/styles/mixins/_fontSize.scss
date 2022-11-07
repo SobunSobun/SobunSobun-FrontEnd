@@ -1,9 +1,8 @@
 @use 'sass:math';
 @use '/src/styles/constants/sizes';
 
-$BROWSER_CONTEXT_PC: 18;
-$BROWSER_CONTEXT_TB: 16;
-$BROWSER_CONTEXT_MO: 14;
+$BROWSER_CONTEXT_PC: 16;
+$BROWSER_CONTEXT_MO: 16;
 
 @mixin vwFontSizePC($pc-pixel) {
   // font-size: $pc-pixel*1px;
@@ -35,4 +34,5 @@ $BROWSER_CONTEXT_MO: 14;
 
 @mixin emFontSizeMO($pixels, $context: $BROWSER_CONTEXT_MO) {
   font-size: calc($pixels / $context) * 1rem;
+  // font-size: (math.div($pixels, $context)) * 1rem;
 }

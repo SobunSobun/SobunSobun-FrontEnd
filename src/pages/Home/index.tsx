@@ -27,7 +27,7 @@ const Home = () => {
           </ul>
         </div>
         <div className={styles.writeBtn}>
-          <Button type='primary' onClick={goToWrite} text='새글쓰기' />
+          <Button basic type='primary' onClick={goToWrite} text='새글쓰기' />
         </div>
       </div>
     </div>

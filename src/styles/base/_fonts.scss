@@ -6,7 +6,7 @@
 html {
   @include fontSize.vwFontSizePC(16);
   @media (max-width: sizes.$SCREEN_SM) {
-    @include fontSize.vwFontSizeMO(14);
+    @include fontSize.vwFontSizeMO(16);
   }
 }
 
@@ -18,12 +18,11 @@ p,
 span,
 div,
 select {
-  font-family: 'Spoqa Han Sans Neo', Inter, Arial, PingFangSC-Regular, 'Microsoft YaHei', sans-serif;
-  font-feature-settings: 'tnum';
+  font-family: 'Noto Sans KR', sans-serif;
 }
 
 header {
-  font-family: 'Nanum Pen Script', sans-serif;
+  font-family: 'Noto Sans KR', sans-serif;
 }
 
 input[type='number'] {
