@@ -1,7 +1,8 @@
 @use '/src/styles/constants/colors';
 
 .app {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 100%;
+  min-width: 280px;
+  min-height: 100%;
+  margin: 0 auto;
 }

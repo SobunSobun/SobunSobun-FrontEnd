@@ -1,26 +1,44 @@
-@use '/src/styles/constants/colors';
-@use '/src/styles/mixins/flexbox';
+@use 'styles/constants/colors';
+@use 'styles/mixins/flexbox';
+@use 'styles/constants/sizes';
+@use 'styles/mixins/vwConvert';
+@use 'styles/mixins/fontSize';
 
 .button {
   @include flexbox.flexbox;
-  transition: 200ms;
+  transition: color 200ms;
 
-  +.button {
+  + .button {
     margin-left: 16px;
   }
 
-  &.primary {
-    height: 40px;
-    padding: 0 24px;
-    font-size: 14px;
-    color: colors.$WHITE;
+  &.basic {
+    width: 100%;
+    height: 59px;
+    padding: 18px;
+    font-size: 20px;
+    color: colors.$BLACK;
     background-color: colors.$PRIMARY;
-    border-radius: 12px;
+    border-radius: 15px;
+    @media (max-width: sizes.$SCREEN_SM) {
+      @include vwConvert.mo(height, 59);
+      @include vwConvert.mo(border-radius, 15);
+      @include vwConvert.mo(padding, 18);
+      @include fontSize.emFontSizeMO(20);
+    }
   }
 
-  &.secondary {}
+  &.primary {
+    background-color: colors.$PRIMARY;
+  }
 
-  &.nagative {}
+  &.secondary {
+    // background-color: colors.$PRIMARY;
+  }
+
+  &.negative {
+    background-color: colors.$GRAY_D9;
+  }
 
   &.back {
     width: 60px;
@@ -28,7 +46,9 @@
     background: url('../../assets/svgs/arrow_prev.svg') no-repeat center/70% auto;
   }
 
-  &.like {}
+  &.like {
+  }
 
-  &.more {}
+  &.more {
+  }
 }

@@ -2,6 +2,7 @@
 // http://meyerweb.com/eric/tools/css/reset/
 // v2.0 | 20110126
 // License: none (public domain)
+@use '/src/styles/constants/fonts';
 
 html,
 body,
@@ -19,7 +20,6 @@ h6,
 p,
 blockquote,
 pre,
-a,
 abbr,
 acronym,
 address,
@@ -86,11 +86,16 @@ audio,
 video {
   padding: 0;
   margin: 0;
-  font: inherit;
-  font-size: 100%;
+  box-sizing: border-box;
+  word-break: keep-all;
+  word-wrap: break-word;
   vertical-align: baseline;
   border: 0;
 }
+a {
+  box-sizing: border-box;
+}
+
 /* HTML5 display-role reset for older browsers */
 article,
 aside,
@@ -107,7 +112,9 @@ section {
 }
 
 body {
-  line-height: 1;
+  letter-spacing: -0.01em;
+  line-height: 1.4;
+  color: #222;
 }
 
 ol,
@@ -132,4 +139,33 @@ q::after {
 table {
   border-collapse: collapse;
   border-spacing: 0;
+}
+
+input,
+select,
+textarea {
+  vertical-align: middle;
+  box-sizing: border-box;
+  border-radius: 0;
+  font-family: fonts.$PRIMERY_FONT;
+  font-size: 1rem;
+}
+
+input {
+  margin: 0;
+}
+
+img,
+fieldset {
+  border: 0;
+}
+
+button {
+  box-sizing: border-box;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  font-family: fonts.$PRIMERY_FONT;
+  font-size: 1rem;
 }

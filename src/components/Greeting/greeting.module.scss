@@ -1,0 +1,21 @@
+@use 'src/styles/mixins/fontSize';
+@use '/src/styles/constants/sizes';
+@use '/src/styles/mixins/vwConvert';
+
+.greeting {
+  text-align: center;
+
+  .logo {
+    @media (max-width: sizes.$SCREEN_SM) {
+      @include vwConvert.mo(width, 185);
+      @include vwConvert.mo(height, 54);
+    }
+  }
+
+  .desc {
+    font-weight: 700;
+    @media (max-width: sizes.$SCREEN_SM) {
+      @include fontSize.emFontSizeMO(20);
+    }
+  }
+}
