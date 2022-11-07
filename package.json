@@ -2,6 +2,7 @@
   "name": "foundation-ts",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://15.164.112.119:8080",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -33,7 +34,6 @@
     "@testing-library/user-event": "^13.2.1",
     "axios": "^0.27.2",
     "classnames": "^2.3.1",
-    "lodash": "^4.17.21",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-hook-form": "^7.38.0",

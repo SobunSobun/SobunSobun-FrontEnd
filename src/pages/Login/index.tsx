@@ -15,15 +15,14 @@ type FormValues = {
   password: string
 }
 
-axios.defaults.baseURL = 'http://13.124.221.119:8000'
-axios.defaults.withCredentials = true
+// axios.defaults.baseURL = 'http://15.164.112.119:8080'
+// axios.defaults.withCredentials = true
 
 const EMAIL_REGEX = /[a-zA-Z0-9._+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9.]+/gm
 const JWT_EXPIRY_TIME = 24 * 3600 * 1000
 
 const Login = () => {
   const navigate = useNavigate()
-  const [loginSuccess, setLoginSuccess] = useState(false)
   const {
     register,
     handleSubmit,
@@ -31,8 +30,9 @@ const Login = () => {
   } = useForm<FormValues>()
 
   const onSubmit = (data: FormValues) => {
+    console.log(data)
     axios
-      .post('/user/login', data)
+      .post('/login', data)
       .then(onLoginSuccess)
       .catch((error) => {
         console.log(error)
@@ -40,6 +40,7 @@ const Login = () => {
   }
 
   const onLoginSuccess = (response: any) => {
+    console.log(response)
     const { access } = response.data
     console.log(access)
 
