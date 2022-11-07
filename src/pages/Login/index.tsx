@@ -1,11 +1,11 @@
-import { useState } from 'react'
+// import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
+// import { useNavigate } from 'react-router-dom'
 
 import Button from 'components/Button'
-import { useSetRecoilState } from 'recoil'
-import { authInfo } from 'recoil/user.atom'
+// import { useSetRecoilState } from 'recoil'
+// import { authInfo } from 'recoil/user.atom'
 
 import Greeting from 'components/Greeting'
 import styles from './login.module.scss'
@@ -18,11 +18,11 @@ type FormValues = {
 // axios.defaults.baseURL = 'http://15.164.112.119:8080'
 // axios.defaults.withCredentials = true
 
-const EMAIL_REGEX = /[a-zA-Z0-9._+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9.]+/gm
-const JWT_EXPIRY_TIME = 24 * 3600 * 1000
+// const EMAIL_REGEX = /[a-zA-Z0-9._+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9.]+/gm
+// const JWT_EXPIRY_TIME = 24 * 3600 * 1000
 
 const Login = () => {
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
   const {
     register,
     handleSubmit,
@@ -35,6 +35,7 @@ const Login = () => {
       .post('/login', data)
       .then(onLoginSuccess)
       .catch((error) => {
+        // eslint-disable-next-line no-console
         console.log(error)
       })
   }
@@ -42,7 +43,7 @@ const Login = () => {
   const onLoginSuccess = (response: any) => {
     console.log(response)
     const { access } = response.data
-    console.log(access)
+    // console.log(access)
 
     if (response.status === 201) {
       // accessToken 설정
@@ -50,10 +51,11 @@ const Login = () => {
       axios
         .get('/user/me')
         .then((res) => {
-          console.log(axios.defaults.headers.common.Authorization)
+          // console.log(axios.defaults.headers.common.Authorization)
           console.log(res)
         })
         .catch((error) => {
+          // eslint-disable-next-line no-console
           console.log(error)
         })
     }
