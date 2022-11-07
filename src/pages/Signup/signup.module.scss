@@ -16,8 +16,10 @@
         }
     }
     .button{
+        cursor: pointer;
         background: colors.$PRIMARY;
         &:disabled{
+            cursor: auto;
             background: colors.$GRAY6;
         }   
     }
