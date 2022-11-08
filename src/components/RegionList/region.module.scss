@@ -1,8 +1,14 @@
 @use '/src/styles/constants/colors';
+@use '/src/styles/mixins/vwConvert';
+@use 'src/styles/mixins/fontSize';
+@use '/src/styles/constants/sizes';
 
 .wrapper {
   & li {
     padding: 0px 16px;
+    @media (max-width: sizes.$SCREEN_SM) {
+      @include vwConvert.mo(padding, 0 16);
+    }
     &.active {
       background-color: colors.$PRIMARY;
     }
@@ -12,6 +18,9 @@
       padding: 16px 0px;
       width: 100%;
       border-bottom: 1px solid #e5e5e5;
+      @media (max-width: sizes.$SCREEN_SM) {
+        @include vwConvert.mo(padding, 16 0);
+      }
     }
   }
 }

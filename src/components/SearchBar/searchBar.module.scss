@@ -1,3 +1,6 @@
+@use '/src/styles/mixins/vwConvert';
+@use '/src/styles/constants/sizes';
+
 .wrapper {
   position: relative;
   & .searchIcon {
@@ -10,6 +13,9 @@
     border-bottom: 1px solid rgba(0, 0, 0, 0.3);
     &::placeholder {
       color: #000;
+    }
+    @media (max-width: sizes.$SCREEN_SM) {
+      @include vwConvert.mo(padding, 0 24 12 24);
     }
   }
 }
