@@ -1,0 +1,38 @@
+@use '/src/styles/constants/colors';
+@use '/src/styles/mixins/flexbox';
+@use '/src/styles/mixins/vwConvert';
+@use 'src/styles/mixins/fontSize';
+@use '/src/styles/constants/sizes';
+
+.line {
+  margin-top:35px;
+  padding-bottom:5px;
+  border-bottom: 2px solid colors.$GRAYD;
+  @media (max-width: sizes.$SCREEN_SM) {
+    @include vwConvert.mo(margin-top, 35);
+    @include vwConvert.mo(padding-bottom, 5);
+    @include fontSize.emFontSizeMO(20);
+  }
+  label{
+    font-size:13px;
+    color:colors.$BLACK;
+    @media (max-width: sizes.$SCREEN_SM) {
+      @include fontSize.emFontSizeMO(13);
+    }
+  }
+  input{
+    margin-top:16px;
+    width:100%;
+    font-size:15px;
+    @media (max-width: sizes.$SCREEN_SM) {
+      @include fontSize.emFontSizeMO(15);
+    }
+    &::placeholder{
+      font-size:15px;
+      color: colors.$GRAYA;
+      @media (max-width: sizes.$SCREEN_SM) {
+        @include fontSize.emFontSizeMO(15);
+      }
+    }
+  }
+}

@@ -3,5 +3,5 @@ semi: false
 printWidth: 120
 proseWrap: never
 singleQuote: true
-htmlWhitespaceSensitivity: "css"
-endOfLine: "lf"
+htmlWhitespaceSensitivity: 'css'
+endOfLine: 'lf'
