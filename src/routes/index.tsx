@@ -16,19 +16,19 @@ const RootRoute = () => {
   return (
     <div className={styles.app}>
       <Routes>
-        <Route path='/' element={<Layout />}>
-          <Route path='/login' element={<Login />} />
+        <Route element={<Layout />}>
+          <Route path='login' element={<Login />} />
+          <Route path='splash' element={<Splash />} />
         </Route>
         <Route path='/' element={<LayoutGnb />}>
-          <Route path='/splash' element={<Splash />} />
-          <Route path='/' element={<Home />} />
-          <Route path='/signup' element={<Signup />} />
-          <Route path='/profile' element={<Profile />} />
-          <Route path='/mypost' element={<MyPost />} />
-          <Route path='/bookmark' element={<Bookmark />} />
-          <Route path='/post/write' element={<PostWrite />} />
-          <Route path='/post/edit' element={<PostEdit />} />
-          <Route path='/post/detail/:id' element={<PostDetail />} />
+          <Route path='' element={<Home />} />
+          <Route path='signup' element={<Signup />} />
+          <Route path='profile' element={<Profile />} />
+          <Route path='mypost' element={<MyPost />} />
+          <Route path='bookmark' element={<Bookmark />} />
+          <Route path='post/write' element={<PostWrite />} />
+          <Route path='post/edit' element={<PostEdit />} />
+          <Route path='post/detail/:id' element={<PostDetail />} />
         </Route>
         <Route path='*' element={<NotFound />} />
       </Routes>

@@ -30,4 +30,4 @@ const LayoutGnb = () => {
   )
 }
 
-// export default LayoutGnb
+export default LayoutGnb
