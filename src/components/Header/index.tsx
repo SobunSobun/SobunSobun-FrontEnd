@@ -11,7 +11,7 @@ const Header = ({ leftChild, headText, rightChild }: Props) => {
   return (
     <header className={styles.header}>
       <div className={styles.leftChild}>{leftChild}</div>
-      <div className={styles.headText}>{headText}</div>
+      <h2 className={styles.headText}>{headText}</h2>
       <div className={styles.rightChild}>{rightChild}</div>
     </header>
   )

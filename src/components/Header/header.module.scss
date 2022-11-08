@@ -1,16 +1,23 @@
 @use '/src/styles/constants/colors';
+@use 'styles/constants/sizes';
+@use 'styles/mixins/vwConvert';
+@use 'styles/mixins/fontSize';
 
 .header {
   display: flex;
   align-items: center;
   height: 60px;
-  border: 1px solid colors.$BLUE;
+//   border: 1px solid colors.$BLUE;
 
   .leftChild {
     margin-right: 30px;
   }
 
   .headText {
+    font-size:30px;
     color: colors.$GRAY2;
+    @media (max-width: sizes.$SCREEN_SM) {
+        @include fontSize.emFontSizeMO(30);
+      }
   }
 }
