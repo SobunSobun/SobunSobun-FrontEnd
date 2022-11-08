@@ -9,6 +9,7 @@ import NotFound from 'pages/NotFound'
 import { PostDetail, PostEdit, PostWrite } from 'pages/Post'
 import MyPost from 'pages/MyPost'
 import Bookmark from 'pages/Bookmark'
+import LocalAuth from 'pages/LocalAuth'
 import styles from './routes.module.scss'
 
 const RootRoute = () => {
@@ -17,6 +18,7 @@ const RootRoute = () => {
       <Routes>
         <Route path='/' element={<Layout />}>
           <Route path='/' element={<Home />} />
+          <Route path='local' element={<LocalAuth />} />
           <Route path='/signup' element={<Signup />} />
           <Route path='/login' element={<Login />} />
           <Route path='/profile' element={<Profile />} />

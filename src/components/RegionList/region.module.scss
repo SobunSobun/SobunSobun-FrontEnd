@@ -1,0 +1,17 @@
+@use '/src/styles/constants/colors';
+
+.wrapper {
+  & li {
+    padding: 0px 16px;
+    &.active {
+      background-color: colors.$PRIMARY;
+    }
+    & button {
+      display: inline-block;
+      text-align: left;
+      padding: 16px 0px;
+      width: 100%;
+      border-bottom: 1px solid #e5e5e5;
+    }
+  }
+}
