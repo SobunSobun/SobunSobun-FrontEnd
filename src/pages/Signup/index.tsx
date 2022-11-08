@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import Button from 'components/Button'
 import Header from 'components/Header'
+// import { useLocation } from 'react-router-dom'
 import Input from 'components/Input'
 import axios from 'axios'
 import styles from './signup.module.scss'
@@ -21,6 +22,9 @@ type SignupFormValues = {
 }
 
 const Signup = () => {
+  // const { state } = useLocation()
+  // const locationState = (state as { myRegion: string }).myRegion
+  // console.log('test: ', locationState)
   const [isActive, setIsActive] = useState<boolean | undefined>(false)
   const [nicknameDuplicate, setNicknameDuplicate] = useState<string>('')
   const {
