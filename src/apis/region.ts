@@ -1,8 +1,8 @@
 /* eslint-disable */
 import axios from 'axios'
 
-export const getRegions = async ({ data }: { data: string }) => {
-  return await axios
+export const getRegions = ({ data }: { data: string }) => {
+  return axios
     .get('https://dapi.kakao.com/v2/local/search/address.json', {
       params: {
         analyze_type: 'similar',
