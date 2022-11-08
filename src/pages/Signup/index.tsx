@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import Button from 'components/Button'
 import Header from 'components/Header'
@@ -13,10 +13,16 @@ type FormValues = {
   nickname: string
 }
 
-axios.defaults.withCredentials = true
+type SignupFormValues = {
+  email: string
+  password: string
+  nickname: string
+  location?: string
+}
 
 const Signup = () => {
-  const [isActive, setIsActive] = useState<Boolean>(false)
+  const [isActive, setIsActive] = useState<boolean | undefined>(false)
+  const [nicknameDuplicate, setNicknameDuplicate] = useState<string>('')
   const {
     register,
     handleSubmit,
@@ -24,21 +30,42 @@ const Signup = () => {
     formState: { errors, isValid },
   } = useForm<FormValues>({ mode: 'onChange' })
 
-  // const [dataAAA, setData] = useState('')
   const password = useRef('')
+  const nickname = useRef('')
   password.current = watch('password')
+  nickname.current = watch('nickname')
 
-  const onSubmit = async (data: FormValues) => {
-    console.log('data', data)
+  const onSubmit = async (data: SignupFormValues) => {
     try {
-      const result = await axios.post('http://15.164.112.119:8080/join', data, { withCredentials: true })
-      console.log(result)
+      //   console.log(data)
+      await axios
+        .post('/join', {
+          email: data.email,
+          password: data.password,
+          nickname: data.nickname,
+          location: '동작구 상도동',
+        })
+        .then((response) => {
+          console.log(response.data)
+        })
     } catch (error: any) {
-      console.log(1)
+      console.log(error)
     }
   }
-  const duplicateCheck = () => {
-    console.log(1)
+  const duplicateCheck = async (_nickData: SignupFormValues['nickname']) => {
+    try {
+      await axios.post('/join/nicknameDuplicateCheck', _nickData).then((response) => {
+        if (response.data === '가입 가능한 닉네임') {
+          setIsActive(true)
+          setNicknameDuplicate('멋진 닉네임이네요!')
+        } else {
+          setIsActive(false)
+          setNicknameDuplicate('중복된 닉네임입니다.')
+        }
+      })
+    } catch (error: any) {
+      console.log(error)
+    }
   }
 
   return (
@@ -51,9 +78,9 @@ const Signup = () => {
               <input
                 type='text'
                 id='email'
-                placeholder='test@email.com'
+                placeholder='예) test@email.com'
                 {...register('email', {
-                  required: { value: true, message: '필수 입력란입니다.' },
+                  required: { value: true, message: '필수 정보입니다.' },
                   pattern: {
                     value: /[a-zA-Z0-9._+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9.]+/gm,
                     message: '이메일형식에 맞지 않습니다.',
@@ -75,7 +102,7 @@ const Signup = () => {
                 id='password'
                 placeholder='6자 이상 입력해주세요.'
                 {...register('password', {
-                  required: { value: true, message: '필수 입력란입니다.' },
+                  required: { value: true, message: '필수 정보입니다.' },
                   minLength: { value: 6, message: '6자 이상 입력해주세요.' },
                 })}
               />
@@ -93,8 +120,9 @@ const Signup = () => {
                 type='password'
                 id='passwordConfirm'
                 className={styles.textInput}
+                placeholder='비밀번호를 확인해주세요.'
                 {...register('passwordConfirm', {
-                  required: { value: true, message: '필수 입력란입니다.' },
+                  required: { value: true, message: '필수 정보입니다.' },
                   validate: (value) => value === password.current,
                 })}
               />
@@ -112,17 +140,24 @@ const Signup = () => {
                 type='text'
                 id='nickname'
                 className={styles.textInput}
-                {...register('nickname', { required: { value: true, message: '필수 입력란입니다.' } })}
+                placeholder='닉네임을 입력해주세요.'
+                {...register('nickname', {
+                  required: { value: true, message: '필수 정보입니다.' },
+                  onChange: () => setIsActive(false),
+                })}
               />
-              <Button type='primary' text='중복체크' onClick={duplicateCheck} />
+              <Button type='primary' text='중복체크' onClick={() => duplicateCheck(nickname.current)} />
             </Input>
             <div className={styles.errorMessage}>
-              <p>{errors.nickname?.type === 'required' && errors.nickname.message}</p>
+              <p>
+                {nickname.current === '' ? '' : <span className={styles.duplicate}>{nicknameDuplicate}</span>}
+                {errors.nickname?.type === 'required' && errors.nickname.message}
+              </p>
             </div>
           </div>
-          <button type='button' className={styles.button} disabled={!isValid}>
-            회원가입
-          </button>
+          <div className={styles.signupBtn}>
+            <Button type={!(isActive && isValid) ? 'negative' : 'primary'} text='회원가입' submit />
+          </div>
         </form>
       </div>
     </div>

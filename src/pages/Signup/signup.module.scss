@@ -9,19 +9,20 @@
         button{
             position: absolute;
             right: 0;
-            top: 5px;
+            top: 20px;
+            width:84px;
+            height:23px;
+            font-size: 12px;
             @media (max-width: sizes.$SCREEN_SM) {
                 @include vwConvert.mo(top, 20);
+                @include vwConvert.mo(width, 84);
+                @include vwConvert.mo(height, 23);
+                @include fontSize.emFontSizeMO(12)
             }
         }
-    }
-    .button{
-        cursor: pointer;
-        background: colors.$PRIMARY;
-        &:disabled{
-            cursor: auto;
-            background: colors.$GRAY6;
-        }   
+        .duplicate{
+            color: colors.$PRIMARY
+        }
     }
     .errorMessage{
         margin-top:5px;
@@ -31,5 +32,11 @@
             @include vwConvert.mo(margin-top, 5);
             @include fontSize.emFontSizeMO(12);
         }
+    }
+    .signupBtn{
+        margin-top:50px;
+        @media (max-width: sizes.$SCREEN_SM) {
+            @include vwConvert.mo(margin-top, 50);
+        }   
     }
 }
