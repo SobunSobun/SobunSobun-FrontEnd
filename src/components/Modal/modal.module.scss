@@ -14,12 +14,6 @@
   height: 100%;
   display: flex;
   justify-content: center;
-  @media (max-width: sizes.$SCREEN_SM) {
-    @include vwConvert.mo(top, 0);
-    @include vwConvert.mo(bottom, 0);
-    @include vwConvert.mo(left, 0);
-    @include vwConvert.mo(right, 0);
-  }
 }
 
 .backGround {
