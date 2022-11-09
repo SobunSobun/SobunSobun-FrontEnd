@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import Button from 'components/Button'
 import Header from 'components/Header'
-// import { useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import Input from 'components/Input'
 import axios from 'axios'
 import styles from './signup.module.scss'
@@ -22,9 +22,8 @@ type SignupFormValues = {
 }
 
 const Signup = () => {
-  // const { state } = useLocation()
-  // const locationState = (state as { myRegion: string }).myRegion
-  // console.log('test: ', locationState)
+  const { state } = useLocation()
+  const locationState = (state as { myRegion: string }).myRegion
   const [isActive, setIsActive] = useState<boolean | undefined>(false)
   const [nicknameDuplicate, setNicknameDuplicate] = useState<string>('')
   const {
@@ -42,23 +41,23 @@ const Signup = () => {
   const onSubmit = async (data: SignupFormValues) => {
     try {
       //   console.log(data)
-      await axios
-        .post('/join', {
-          email: data.email,
-          password: data.password,
-          nickname: data.nickname,
-          location: '동작구 상도동',
-        })
-        .then((response) => {
-          console.log(response.data)
-        })
+      const formData = new FormData()
+      formData.append('email', data.email)
+      formData.append('password', data.password)
+      formData.append('nickname', data.nickname)
+      formData.append('location', locationState)
+      await axios.post('/join', formData).then((response) => {
+        console.log(response.data)
+      })
     } catch (error: any) {
       console.log(error)
     }
   }
   const duplicateCheck = async (_nickData: SignupFormValues['nickname']) => {
     try {
-      await axios.post('/join/nicknameDuplicateCheck', _nickData).then((response) => {
+      const formData = new FormData()
+      formData.append('nickname', _nickData)
+      await axios.post('/join/nicknameDuplicateCheck', formData).then((response) => {
         if (response.data === '가입 가능한 닉네임') {
           setIsActive(true)
           setNicknameDuplicate('멋진 닉네임이네요!')
