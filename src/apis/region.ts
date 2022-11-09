@@ -1,4 +1,3 @@
-/* eslint-disable */
 import axios from 'axios'
 
 export const getRegions = ({ data }: { data: string }) => {

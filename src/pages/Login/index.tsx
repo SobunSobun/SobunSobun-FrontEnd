@@ -9,6 +9,7 @@ import Button from 'components/Button'
 
 import Greeting from 'components/Greeting'
 import Input from 'components/Input'
+import { defaultInstance } from 'apis/client'
 import styles from './login.module.scss'
 
 type FormValues = {
@@ -24,17 +25,31 @@ const Login = () => {
     formState: { errors },
   } = useForm<FormValues>()
 
-  const onSubmit = (data: FormValues) => {
+  const onSubmit = async (data: FormValues) => {
     const formData = new FormData()
     formData.append('email', data.email)
     formData.append('password', data.password)
-    axios
-      .post('/login', formData)
-      .then(onLoginSuccess)
-      .catch((error) => {
-        // eslint-disable-next-line no-console
-        console.log(error)
-      })
+    try {
+      await defaultInstance.post('/login', formData)
+      // const formData = new FormData()
+      // formData.append('email', data.email)
+      // formData.append('password', data.password)
+      // console.log(data)
+      // const response = await loginApi(formData)
+      // console.log(response)
+      // localStorage.setItem('sobunsobun', response.data)
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.log(error)
+    }
+
+    // axios
+    //   .post('/login', formData)
+    //   .then(onLoginSuccess)
+    //   .catch((error) => {
+    //     // eslint-disable-next-line no-console
+    //     console.log(error)
+    //   })
   }
 
   const onLoginSuccess = (response: any) => {
