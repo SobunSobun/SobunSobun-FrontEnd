@@ -5,12 +5,16 @@ import SearchBar from 'components/SearchBar'
 import RegionList from 'components/RegionList'
 import { getRegions } from 'apis/region'
 import { useNavigate } from 'react-router-dom'
+import useModal from 'hooks/useModal'
+import { TwoButtonModal } from 'components/Modal'
 import styles from './localAuth.module.scss'
 
 const LocalAuth = () => {
   const [regions, setRegions] = useState<Array<string>>([])
   const [searchValue, setSearchValue] = useState<string>('')
   const [myRegion, setMyRegion] = useState<string>('')
+
+  const { isOpen, onClose, setIsOpen } = useModal()
 
   const navigate = useNavigate()
 
@@ -39,8 +43,8 @@ const LocalAuth = () => {
   )
   return (
     <>
+      <Header leftChild={<Button type='customBack' onClick={() => setIsOpen(true)} />} />
       <div className={styles.wrapper}>
-        <Header leftChild={<Button type='back' />} />
         <h1 style={{ paddingBottom: 16 }}>내 동네 설정하기</h1>
         <SearchBar value={searchValue} onChange={onChangeSearchValue} onSearch={onSearch} />
       </div>
@@ -56,6 +60,14 @@ const LocalAuth = () => {
           isDisabled={myRegion === ''}
         />
       </div>
+      <TwoButtonModal
+        show={isOpen}
+        close={onClose}
+        message='회원가입을 종료하시겠습니까?'
+        yesCallBack={() => {
+          navigate('/')
+        }}
+      />
     </>
   )
 }

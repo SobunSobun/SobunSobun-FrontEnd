@@ -1,0 +1,74 @@
+@use 'styles/constants/sizes';
+@use '/src/styles/constants/colors';
+@use '/src/styles/mixins/vwConvert';
+@use 'src/styles/mixins/fontSize';
+
+.outer {
+  position: fixed;
+  z-index: 10001;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  @media (max-width: sizes.$SCREEN_SM) {
+    @include vwConvert.mo(top, 0);
+    @include vwConvert.mo(bottom, 0);
+    @include vwConvert.mo(left, 0);
+    @include vwConvert.mo(right, 0);
+  }
+}
+
+.backGround {
+  width: 100%;
+  height: 100%;
+  max-width: 768px;
+  background: rgba(81, 81, 81, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.inner {
+  background-color: #fff;
+  width: 90%;
+  max-width: 738px;
+  border-radius: 7px;
+  @media (max-width: sizes.$SCREEN_SM) {
+    max-width: 400px;
+  }
+}
+
+.twoButton {
+  &_container {
+    text-align: center;
+    p {
+      padding: 24px 0px;
+      border-bottom: 1px solid colors.$GRAY_CF;
+      @media (max-width: sizes.$SCREEN_SM) {
+        @include vwConvert.mo(padding, 24 0);
+        @include fontSize.emFontSizeMO(16);
+      }
+    }
+  }
+
+  &_buttonSection {
+    width: 100%;
+    display: flex;
+    flex: 1 1;
+    button {
+      width: 100%;
+      padding: 20px 0px;
+      @media (max-width: sizes.$SCREEN_SM) {
+        @include vwConvert.mo(padding, 20 0);
+        @include fontSize.emFontSizeMO(16);
+      }
+      &:first-child {
+        border-right: 1px solid colors.$GRAY_CF;
+      }
+    }
+  }
+}
