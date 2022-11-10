@@ -32,9 +32,8 @@ const Login = () => {
     formData.append('email', data.email)
     formData.append('password', data.password)
     try {
-      await defaultInstance.post('/login', formData, {
-        withCredentials: true,
-      })
+      const response = await defaultInstance.post('/login', formData)
+      console.log(response)
     } catch (error) {
       // eslint-disable-next-line no-console
       console.log(error)
