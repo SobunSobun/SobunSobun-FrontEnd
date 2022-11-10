@@ -2,7 +2,6 @@
   "name": "foundation-ts",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://15.164.112.119:8080",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

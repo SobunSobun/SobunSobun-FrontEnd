@@ -1,9 +1,12 @@
 /* eslint-disable */
 import axios from 'axios'
+import { region, kakaoResponse } from 'types'
 
-export const getRegions = ({ data }: { data: string }) => {
+
+
+export const getRegions = ({ data }: { data: string }): Promise<Array<region>> => {
   return axios
-    .get('https://dapi.kakao.com/v2/local/search/address.json', {
+    .get<kakaoResponse>('https://dapi.kakao.com/v2/local/search/address.json', {
       params: {
         analyze_type: 'similar',
         query: data,
@@ -15,10 +18,6 @@ export const getRegions = ({ data }: { data: string }) => {
       },
     })
     .then((res) => {
-      // const returnArray = res.data.documents.map((v) => ({
-      //   id: Date.now(),
-      //   address: v.address_name,
-      // }))
-      return res.data.documents.map((v: any) => v.address_name)
+      return res.data.documents.map((v) => ({ address_name: v.address_name, location: { lat: v.y, lon: v.x } }))
     })
 }

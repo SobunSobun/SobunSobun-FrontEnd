@@ -5,6 +5,7 @@ import Header from 'components/Header'
 import { useLocation } from 'react-router-dom'
 import Input from 'components/Input'
 import axios from 'axios'
+import { region } from 'types'
 import styles from './signup.module.scss'
 
 type FormValues = {
@@ -23,7 +24,7 @@ type SignupFormValues = {
 
 const Signup = () => {
   const { state } = useLocation()
-  const locationState = (state as { myRegion: string }).myRegion
+  const locationState = (state as { myRegion: region }).myRegion
   const [isActive, setIsActive] = useState<boolean | undefined>(false)
   const [nicknameDuplicate, setNicknameDuplicate] = useState<string>('')
   const {
@@ -45,7 +46,9 @@ const Signup = () => {
       formData.append('email', data.email)
       formData.append('password', data.password)
       formData.append('nickname', data.nickname)
-      formData.append('location', locationState)
+      formData.append('location', locationState.address_name)
+      formData.append('lat', locationState.location.lat)
+      formData.append('lon', locationState.location.lon)
       await axios.post('/join', formData).then((response) => {
         console.log(response.data)
       })
