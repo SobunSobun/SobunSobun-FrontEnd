@@ -168,7 +168,7 @@ const Signup = () => {
             </div>
           </div>
           <div className={styles.signupBtn}>
-            <Button type={!(isActive && isValid) ? 'negative' : 'primary'} text='회원가입' submit />
+            <Button basic type={!(isActive && isValid) ? 'negative' : 'primary'} text='회원가입' submit />
           </div>
         </form>
       </div>

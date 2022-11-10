@@ -4,20 +4,25 @@
 @use 'styles/mixins/fontSize';
 
 .header {
-  display: flex;
-  align-items: center;
-  height: 60px;
-//   border: 1px solid colors.$BLUE;
+  padding: 21px 16px;
 
   .leftChild {
-    margin-right: 30px;
+    margin-bottom: 25px;
   }
 
   .headText {
-    font-size:30px;
+    font-size: 33px;
     color: colors.$GRAY2;
-    @media (max-width: sizes.$SCREEN_SM) {
-        @include fontSize.emFontSizeMO(30);
-      }
+  }
+  @media (max-width: sizes.$SCREEN_SM) {
+    @include vwConvert.mo(padding, 21 16);
+
+    .leftChild {
+      @include vwConvert.mo(margin-bottom, 25);
+    }
+
+    .headText {
+      @include fontSize.emFontSizeMO(33);
+    }
   }
 }

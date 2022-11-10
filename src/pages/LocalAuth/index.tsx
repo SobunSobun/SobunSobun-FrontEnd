@@ -44,9 +44,8 @@ const LocalAuth = () => {
   )
   return (
     <>
-      <Header leftChild={<Button type='customBack' onClick={() => setIsOpen(true)} />} />
+      <Header headText='내 동네 설정하기' leftChild={<Button type='customBack' onClick={() => setIsOpen(true)} />} />
       <div className={styles.wrapper}>
-        <h1 style={{ paddingBottom: 16 }}>내 동네 설정하기</h1>
         <SearchBar value={searchValue} onChange={onChangeSearchValue} onSearch={onSearch} />
       </div>
       {regions && <RegionList data={regions} setRegion={onSetMyRegion} />}

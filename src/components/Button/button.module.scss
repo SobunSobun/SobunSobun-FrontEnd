@@ -14,66 +14,44 @@
 
   &.basic {
     width: 100%;
-    height: 59px;
-    padding: 18px;
-    font-size: 20px;
+    height: 57px;
+    padding: 15px;
+    font-size: 19px;
     color: colors.$BLACK;
     background-color: colors.$PRIMARY;
     border-radius: 15px;
     @media (max-width: sizes.$SCREEN_SM) {
-      @include vwConvert.mo(height, 59);
+      @include vwConvert.mo(height, 57);
       @include vwConvert.mo(border-radius, 15);
-      @include vwConvert.mo(padding, 18);
-      @include fontSize.emFontSizeMO(20);
+      @include vwConvert.mo(padding, 15);
+      @include fontSize.emFontSizeMO(19);
     }
   }
 
   &.primary {
-    width: 100%;
-    height: 59px;
-    padding: 18px;
-    font-size: 20px;
-    color: colors.$BLACK;
     background-color: colors.$PRIMARY;
-    border-radius: 15px;
-    @media (max-width: sizes.$SCREEN_SM) {
-      @include vwConvert.mo(height, 59);
-      @include vwConvert.mo(border-radius, 15);
-      @include vwConvert.mo(padding, 18);
-      @include fontSize.emFontSizeMO(20);
-    }
-  }
-
-  &.secondary {
-    // background-color: colors.$PRIMARY;
   }
 
   &.negative {
-    width: 100%;
-    height: 59px;
-    padding: 18px;
-    font-size: 20px;
-    color: colors.$BLACK;
     background-color: colors.$GRAY_D9;
-    border-radius: 15px;
+  }
+
+  &.back,
+  &.customBack {
+    width: 19.5px;
+    height: 34.5px;
+    background: url('../../assets/svgs/arrow_prev.svg') no-repeat center/70% auto;
     @media (max-width: sizes.$SCREEN_SM) {
-      @include vwConvert.mo(height, 59);
-      @include vwConvert.mo(border-radius, 15);
-      @include vwConvert.mo(padding, 18);
-      @include fontSize.emFontSizeMO(20);
+      @include vwConvert.mo(width, 19.5);
+      @include vwConvert.mo(height, 34.5);
     }
   }
 
-  &.back {
-    width: 60px;
-    height: 60px;
-    background: url('../../assets/svgs/arrow_prev.svg') no-repeat center/70% auto;
-  }
-  &.customBack {
-    width: 60px;
-    height: 60px;
-    background: url('../../assets/svgs/arrow_prev.svg') no-repeat center/70% auto;
-  }
+  // &.customBack {
+  //   width: 60px;
+  //   height: 60px;
+  //   background: url('../../assets/svgs/arrow_prev.svg') no-repeat center/70% auto;
+  // }
 
   &.like {
   }

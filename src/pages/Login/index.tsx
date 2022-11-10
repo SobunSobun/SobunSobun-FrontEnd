@@ -1,5 +1,5 @@
+import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
 import Button from 'components/Button'
 
@@ -14,14 +14,25 @@ type FormValues = {
 }
 
 const Login = () => {
+  const [isActive, setIsActive] = useState<boolean>(false)
   const navigate = useNavigate()
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm<FormValues>()
 
+  useEffect(() => {
+    if (watch('email') !== '' && watch('password') !== '') {
+      setIsActive(true)
+    } else {
+      setIsActive(false)
+    }
+  }, [watch()])
+
   const onSubmit = async (data: FormValues) => {
+    console.log('데이터 전송')
     const formData = new FormData()
     formData.append('email', data.email)
     formData.append('password', data.password)
@@ -41,47 +52,30 @@ const Login = () => {
     }
   }
 
-  const onLoginSuccess = (response: any) => {
-    const { data } = response
-
-    if (response.status === 200) {
-      // accessToken 설정
-      console.log(data)
-      localStorage.setItem('sobunsobun', data)
-      axios.defaults.headers.common.Authorization = `Bearer ${data}`
-      // axios
-      //   .get('/user/me')
-      //   .then((res) => {
-      //     // console.log(axios.defaults.headers.common.Authorization)
-      //     console.log(res.data)
-      //   })
-      //   .catch((error) => {
-      //     // eslint-disable-next-line no-console
-      //     console.log(error)
-      //   })
-    }
-  }
-
   return (
     <div className={styles.login}>
       <div className='contentsInner'>
         <Greeting />
-        <form onSubmit={handleSubmit(onSubmit)} autoComplete='off'>
-          <Input type='line' htmlFor='email' text='이메일'>
-            <input
-              type='text'
-              id='email'
-              placeholder='예)sobunsobun@subun.co.kr'
-              {...register('email', { required: true })}
-            />
-          </Input>
-          {errors.email?.type === 'required' && <span className={styles.guide}> 이메일을 입력해주세요</span>}
-          <Input type='line' htmlFor='password' text='비밀번호'>
-            <input type='password' id='password' {...register('password', { required: true })} />
-          </Input>
-          {errors.password?.type === 'required' && <span className={styles.guide}>비밀번호를 입력해주세요</span>}
+        <form className={styles.form} onSubmit={handleSubmit(onSubmit)} autoComplete='off'>
+          <div className={styles.line}>
+            <Input type='line' htmlFor='email' text='이메일'>
+              <input
+                type='text'
+                id='email'
+                placeholder='예)sobunsobun@subun.co.kr'
+                {...register('email', { required: true })}
+              />
+            </Input>
+            {errors.email?.type === 'required' && <span className={styles.guide}> 이메일을 입력해주세요</span>}
+          </div>
+          <div className={styles.line}>
+            <Input type='line' htmlFor='password' text='비밀번호'>
+              <input type='password' id='password' {...register('password', { required: true, min: 6 })} />
+            </Input>
+            {errors.password?.type === 'required' && <span className={styles.guide}>비밀번호를 입력해주세요</span>}
+          </div>
           <div className={styles.buttonWrap}>
-            <Button basic type='primary' text='로그인하기' submit />
+            <Button basic type={isActive ? 'primary' : 'negative'} text='로그인하기' submit />
             <Link to='/local' className={styles.signupButton}>
               회원가입
             </Link>
