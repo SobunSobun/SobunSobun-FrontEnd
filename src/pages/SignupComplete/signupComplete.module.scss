@@ -1,0 +1,45 @@
+@use 'styles/constants/colors';
+@use 'styles/constants/sizes';
+@use 'styles/mixins/vwConvert';
+@use 'styles/mixins/fontSize';
+
+.signupComplete {
+  .greeting {
+    font-size: 33px;
+    font-weight: 700;
+  }
+
+  .desc {
+    padding-top: 10px;
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  .profile {
+    padding-top: 84px;
+    margin-bottom: 123px;
+    text-align: center;
+
+    .image {}
+
+    .name {
+      font-size: 19px;
+    }
+  }
+
+  @media (max-width: sizes.$SCREEN_SM) {
+    .greeting {
+      @include fontSize.emFontSizeMO(33);
+    }
+
+    .desc {
+      @include vwConvert.mo(padding-top, 10);
+      @include fontSize.emFontSizeMO(20);
+    }
+
+    .profile {
+      @include vwConvert.mo(padding-top, 30);
+      @include vwConvert.mo(margin-bottom, 123);
+    }
+  }
+}

@@ -1,4 +1,31 @@
+@use '/src/styles/constants/sizes';
+@use '/src/styles/mixins/vwConvert';
+@use '/src/styles/constants/colors';
+
 .splash {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+
+  .buttonWrap {
+    margin-top: 185px;
+    text-align: center;
+  }
+
+  .loginButton {
+    display: inline-block;
+    margin-top: 19px;
+    color: colors.$BLACK;
+  }
+
+  @media (max-width: sizes.$SCREEN_SM) {
+    .buttonWrap {
+      @include vwConvert.mo(margin-top, 185);
+    }
+
+    .loginButton {
+      @include vwConvert.mo(margin-top, 19);
+    }
+  }
 }

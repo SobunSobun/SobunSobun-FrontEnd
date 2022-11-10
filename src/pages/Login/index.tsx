@@ -1,6 +1,7 @@
 // import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 // import { useNavigate } from 'react-router-dom'
 
 import Button from 'components/Button'
@@ -17,8 +18,9 @@ type FormValues = {
   password: string
 }
 
+// const navigate = useNavigate()
+
 const Login = () => {
-  // const navigate = useNavigate()
   const {
     register,
     handleSubmit,
@@ -30,26 +32,13 @@ const Login = () => {
     formData.append('email', data.email)
     formData.append('password', data.password)
     try {
-      await defaultInstance.post('/login', formData)
-      // const formData = new FormData()
-      // formData.append('email', data.email)
-      // formData.append('password', data.password)
-      // console.log(data)
-      // const response = await loginApi(formData)
-      // console.log(response)
-      // localStorage.setItem('sobunsobun', response.data)
+      await defaultInstance.post('/login', formData, {
+        withCredentials: true,
+      })
     } catch (error) {
       // eslint-disable-next-line no-console
       console.log(error)
     }
-
-    // axios
-    //   .post('/login', formData)
-    //   .then(onLoginSuccess)
-    //   .catch((error) => {
-    //     // eslint-disable-next-line no-console
-    //     console.log(error)
-    //   })
   }
 
   const onLoginSuccess = (response: any) => {
@@ -91,7 +80,12 @@ const Login = () => {
             <input type='password' id='password' {...register('password', { required: true })} />
           </Input>
           {errors.password?.type === 'required' && <span className={styles.guide}>비밀번호를 입력해주세요</span>}
-          <Button basic type='primary' text='로그인하기' submit />
+          <div className={styles.buttonWrap}>
+            <Button basic type='primary' text='로그인하기' submit />
+            <Link to='/signup' className={styles.signupButton}>
+              회원가입
+            </Link>
+          </div>
         </form>
       </div>
     </div>
