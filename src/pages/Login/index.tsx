@@ -1,13 +1,11 @@
-// import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import axios from 'axios'
-// import { useNavigate } from 'react-router-dom'
-
+import { Link, useNavigate } from 'react-router-dom'
 import Button from 'components/Button'
-// import { useSetRecoilState } from 'recoil'
-// import { authInfo } from 'recoil/user.atom'
 
 import Greeting from 'components/Greeting'
+import Input from 'components/Input'
+import { defaultInstance } from 'apis/client'
 import styles from './login.module.scss'
 
 type FormValues = {
@@ -15,49 +13,52 @@ type FormValues = {
   password: string
 }
 
-// axios.defaults.baseURL = 'http://15.164.112.119:8080'
-// axios.defaults.withCredentials = true
-
-// const EMAIL_REGEX = /[a-zA-Z0-9._+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9.]+/gm
-// const JWT_EXPIRY_TIME = 24 * 3600 * 1000
-
 const Login = () => {
-  // const navigate = useNavigate()
+  const navigate = useNavigate()
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormValues>()
 
-  const onSubmit = (data: FormValues) => {
-    console.log(data)
-    axios
-      .post('/login', data)
-      .then(onLoginSuccess)
-      .catch((error) => {
-        // eslint-disable-next-line no-console
-        console.log(error)
-      })
+  const onSubmit = async (data: FormValues) => {
+    const formData = new FormData()
+    formData.append('email', data.email)
+    formData.append('password', data.password)
+    try {
+      const response = await defaultInstance.post('/login', formData)
+
+      if (response.data === '아이디 틀림') {
+        console.log(response)
+        alert('아이디와 비밀번호를 다시 한번 확인해주세요!')
+      } else {
+        localStorage.setItem('sobunsobun', response.data)
+        navigate('/home')
+      }
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.log(error)
+    }
   }
 
   const onLoginSuccess = (response: any) => {
-    console.log(response)
-    const { access } = response.data
-    // console.log(access)
+    const { data } = response
 
-    if (response.status === 201) {
+    if (response.status === 200) {
       // accessToken 설정
-      axios.defaults.headers.common.Authorization = `Bearer ${access}`
-      axios
-        .get('/user/me')
-        .then((res) => {
-          // console.log(axios.defaults.headers.common.Authorization)
-          console.log(res)
-        })
-        .catch((error) => {
-          // eslint-disable-next-line no-console
-          console.log(error)
-        })
+      console.log(data)
+      localStorage.setItem('sobunsobun', data)
+      axios.defaults.headers.common.Authorization = `Bearer ${data}`
+      // axios
+      //   .get('/user/me')
+      //   .then((res) => {
+      //     // console.log(axios.defaults.headers.common.Authorization)
+      //     console.log(res.data)
+      //   })
+      //   .catch((error) => {
+      //     // eslint-disable-next-line no-console
+      //     console.log(error)
+      //   })
     }
   }
 
@@ -66,22 +67,25 @@ const Login = () => {
       <div className='contentsInner'>
         <Greeting />
         <form onSubmit={handleSubmit(onSubmit)} autoComplete='off'>
-          <div className={styles.line}>
-            <label htmlFor='email'>Email</label>
-            <input type='text' id='email' className={styles.textInput} {...register('email', { required: true })} />
-            {errors.email?.type === 'required' && <span className={styles.guide}> 이메일을 입력해주세요</span>}
-          </div>
-          <div className={styles.line}>
-            <label htmlFor='password'>Password</label>
+          <Input type='line' htmlFor='email' text='이메일'>
             <input
-              type='password'
-              id='password'
-              className={styles.textInput}
-              {...register('password', { required: true })}
+              type='text'
+              id='email'
+              placeholder='예)sobunsobun@subun.co.kr'
+              {...register('email', { required: true })}
             />
-            {errors.password?.type === 'required' && <span className={styles.guide}>비밀번호를 입력해주세요</span>}
+          </Input>
+          {errors.email?.type === 'required' && <span className={styles.guide}> 이메일을 입력해주세요</span>}
+          <Input type='line' htmlFor='password' text='비밀번호'>
+            <input type='password' id='password' {...register('password', { required: true })} />
+          </Input>
+          {errors.password?.type === 'required' && <span className={styles.guide}>비밀번호를 입력해주세요</span>}
+          <div className={styles.buttonWrap}>
+            <Button basic type='primary' text='로그인하기' submit />
+            <Link to='/local' className={styles.signupButton}>
+              회원가입
+            </Link>
           </div>
-          <Button basic type='primary' text='로그인하기' submit />
         </form>
       </div>
     </div>

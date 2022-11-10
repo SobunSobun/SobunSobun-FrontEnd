@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import Button from 'components/Button'
 import Header from 'components/Header'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import Input from 'components/Input'
 import axios from 'axios'
 import { region } from 'types'
@@ -25,6 +25,7 @@ type SignupFormValues = {
 const Signup = () => {
   const { state } = useLocation()
   const locationState = (state as { myRegion: region }).myRegion
+  const navigate = useNavigate()
   const [isActive, setIsActive] = useState<boolean | undefined>(false)
   const [nicknameDuplicate, setNicknameDuplicate] = useState<string>('')
   const {
@@ -51,6 +52,7 @@ const Signup = () => {
       formData.append('lon', locationState.location.lon)
       await axios.post('/join', formData).then((response) => {
         console.log(response.data)
+        navigate('/complete')
       })
     } catch (error: any) {
       console.log(error)

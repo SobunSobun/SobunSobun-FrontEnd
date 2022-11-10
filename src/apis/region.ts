@@ -1,8 +1,5 @@
-/* eslint-disable */
 import axios from 'axios'
 import { region, kakaoResponse } from 'types'
-
-
 
 export const getRegions = ({ data }: { data: string }): Promise<Array<region>> => {
   return axios
