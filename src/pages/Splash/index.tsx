@@ -6,7 +6,7 @@ import styles from './splash.module.scss'
 const Splash = () => {
   const navigate = useNavigate()
   const onMoveToSignUp = () => {
-    navigate('/signup')
+    navigate('/local')
   }
   return (
     <div className={styles.splash}>
