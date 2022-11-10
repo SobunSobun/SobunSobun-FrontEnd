@@ -49,7 +49,7 @@ const Signup = () => {
       formData.append('location', locationState)
       await axios.post('/join', formData).then((response) => {
         console.log(response.data)
-        navigate('/complete')
+        navigate('/complete', { state: { nickname: data.nickname } })
       })
     } catch (error: any) {
       console.log(error)
