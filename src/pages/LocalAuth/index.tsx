@@ -7,12 +7,13 @@ import { getRegions } from 'apis/region'
 import { useNavigate } from 'react-router-dom'
 import useModal from 'hooks/useModal'
 import { TwoButtonModal } from 'components/Modal'
+import { region } from 'types'
 import styles from './localAuth.module.scss'
 
 const LocalAuth = () => {
-  const [regions, setRegions] = useState<Array<string>>([])
+  const [regions, setRegions] = useState<Array<region>>([])
   const [searchValue, setSearchValue] = useState<string>('')
-  const [myRegion, setMyRegion] = useState<string>('')
+  const [myRegion, setMyRegion] = useState<region | null>(null)
 
   const { isOpen, onClose, setIsOpen } = useModal()
 
@@ -36,7 +37,7 @@ const LocalAuth = () => {
   }
 
   const onSetMyRegion = useCallback(
-    (v: string) => {
+    (v: region) => {
       setMyRegion(v)
     },
     [setMyRegion]
@@ -57,7 +58,7 @@ const LocalAuth = () => {
           onClick={() => {
             navigate('/signup', { state: { myRegion } })
           }}
-          isDisabled={myRegion === ''}
+          isDisabled={myRegion === null}
         />
       </div>
       <TwoButtonModal

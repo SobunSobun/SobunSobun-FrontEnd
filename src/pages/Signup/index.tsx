@@ -1,10 +1,13 @@
 import React, { useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { useLocation, useNavigate } from 'react-router-dom'
 import Button from 'components/Button'
 import Header from 'components/Header'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { TwoButtonModal } from 'components/Modal'
 import Input from 'components/Input'
-import axios from 'axios'
+import { region } from 'types'
+import { defaultInstance } from 'apis/client'
+import useModal from 'hooks/useModal'
 import styles from './signup.module.scss'
 
 type FormValues = {
@@ -23,8 +26,10 @@ type SignupFormValues = {
 
 const Signup = () => {
   const { state } = useLocation()
+  const locationState = (state as { myRegion: region }).myRegion
   const navigate = useNavigate()
-  const locationState = (state as { myRegion: string }).myRegion
+
+  const { isOpen, onClose, setIsOpen } = useModal()
   const [isActive, setIsActive] = useState<boolean | undefined>(false)
   const [nicknameDuplicate, setNicknameDuplicate] = useState<string>('')
   const {
@@ -46,8 +51,10 @@ const Signup = () => {
       formData.append('email', data.email)
       formData.append('password', data.password)
       formData.append('nickname', data.nickname)
-      formData.append('location', locationState)
-      await axios.post('/join', formData).then((response) => {
+      formData.append('location', locationState.address_name)
+      formData.append('lat', locationState.location.lat)
+      formData.append('lon', locationState.location.lon)
+      await defaultInstance.post('/join', formData).then((response) => {
         console.log(response.data)
         navigate('/complete', { state: { nickname: data.nickname } })
       })
@@ -59,7 +66,7 @@ const Signup = () => {
     try {
       const formData = new FormData()
       formData.append('nickname', _nickData)
-      await axios.post('/join/nicknameDuplicateCheck', formData).then((response) => {
+      await defaultInstance.post('/join/nicknameDuplicateCheck', formData).then((response) => {
         if (response.data === '가입 가능한 닉네임') {
           setIsActive(true)
           setNicknameDuplicate('멋진 닉네임이네요!')
@@ -75,7 +82,7 @@ const Signup = () => {
 
   return (
     <div className={styles.signup}>
-      <Header headText='회원가입' leftChild={<Button type='back' />} />
+      <Header headText='회원가입' leftChild={<Button type='customBack' onClick={() => setIsOpen(true)} />} />
       <div className='contentsInner'>
         <form onSubmit={handleSubmit(onSubmit)} autoComplete='off'>
           <div className={styles.formBox}>
@@ -165,6 +172,14 @@ const Signup = () => {
           </div>
         </form>
       </div>
+      <TwoButtonModal
+        show={isOpen}
+        close={onClose}
+        message='회원가입을 종료하시겠습니까?'
+        yesCallBack={() => {
+          navigate('/')
+        }}
+      />
     </div>
   )
 }

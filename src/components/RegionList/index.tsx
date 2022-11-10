@@ -1,18 +1,22 @@
 import React, { useCallback, useState } from 'react'
+import { region } from 'types'
 import styles from './region.module.scss'
 
 interface Props {
-  data: Array<string>
-  setRegion: (v: string) => void
+  data: Array<region>
+  setRegion: (v: region) => void
 }
 const RegionList = ({ data, setRegion }: Props) => {
   const [selected, setSelected] = useState<null | string>(null)
 
   const onSelectRegion = useCallback(
-    (v: string) => {
-      setSelected(v)
-      const strArr = v.split(' ')
-      setRegion(`${strArr[strArr.length - 2]} ${strArr[strArr.length - 1]}`)
+    (v: region) => {
+      setSelected(v.address_name)
+      const strArr = v.address_name.split(' ')
+      setRegion({
+        address_name: `${strArr[strArr.length - 2]} ${strArr[strArr.length - 1]}`,
+        location: { lat: v.location.lat, lon: v.location.lon },
+      })
     },
     [setRegion]
   )
@@ -20,9 +24,9 @@ const RegionList = ({ data, setRegion }: Props) => {
   return (
     <ul className={styles.wrapper}>
       {data.map((v) => (
-        <li key={v} className={selected === v ? styles.active : ''}>
+        <li key={v.address_name} className={selected === v.address_name ? styles.active : ''}>
           <button type='button' onClick={() => onSelectRegion(v)}>
-            {v}
+            {v.address_name}
           </button>
         </li>
       ))}
