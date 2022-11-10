@@ -4,7 +4,7 @@ const BASE_URL = 'http://15.164.112.119:8080'
 
 const axiosApi = (url: string) => {
   const instance = axios.create({
-    // baseURL: url,
+    baseURL: url,
     withCredentials: true,
   })
   return instance
