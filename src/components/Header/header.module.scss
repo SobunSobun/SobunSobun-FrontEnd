@@ -1,10 +1,10 @@
-@use '/src/styles/constants/colors';
-@use 'styles/constants/sizes';
-@use 'styles/mixins/vwConvert';
-@use 'styles/mixins/fontSize';
+@use 'src/styles/constants/colors';
+@use 'src/styles/constants/sizes';
+@use 'src/styles/mixins/vwConvert';
+@use 'src/styles/mixins/fontSize';
 
 .header {
-  padding: 21px 16px;
+  padding: 21px 16px 0;
 
   .leftChild {
     margin-bottom: 25px;
@@ -14,8 +14,9 @@
     font-size: 33px;
     color: colors.$GRAY2;
   }
+
   @media (max-width: sizes.$SCREEN_SM) {
-    @include vwConvert.mo(padding, 21 16);
+    @include vwConvert.mo(padding, 21 16 0);
 
     .leftChild {
       @include vwConvert.mo(margin-bottom, 25);

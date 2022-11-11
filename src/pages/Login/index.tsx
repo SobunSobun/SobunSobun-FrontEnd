@@ -29,10 +29,9 @@ const Login = () => {
     } else {
       setIsActive(false)
     }
-  }, [watch()])
+  }, [watch(), watch])
 
   const onSubmit = async (data: FormValues) => {
-    console.log('데이터 전송')
     const formData = new FormData()
     formData.append('email', data.email)
     formData.append('password', data.password)

@@ -4,9 +4,9 @@
 
 .wrapper {
   position: relative;
-  padding: 0 16px 16px;
+  padding: 16px;
   @media (max-width: sizes.$SCREEN_SM) {
-    @include vwConvert.mo(padding, 0 16 16);
+    @include vwConvert.mo(padding, 16);
   }
 }
 

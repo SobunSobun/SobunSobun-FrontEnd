@@ -16,13 +16,9 @@ const SignupComplete = () => {
 
   return (
     <div className={styles.signupComplete}>
-      <div className='contentsInner'>
-        <Header leftChild={<Button type='back' />} />
-        <p className={styles.greeting}>
-          반가워요
-          <br />
-          <span>{state.nickname}</span>님
-        </p>
+      <Header leftChild={<Button type='back' />} headText='반가워요' />
+      <div className={styles.inner}>
+        <p className={styles.greeting}>{state.nickname}님</p>
         <p className={styles.desc}>이웃과 소분해서 소분소분 함께해요</p>
         <div className={styles.profile}>
           <ProfileImage className={styles.image} />

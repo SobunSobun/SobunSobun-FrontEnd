@@ -1,8 +1,8 @@
-@use 'styles/constants/colors';
-@use 'styles/mixins/flexbox';
-@use 'styles/constants/sizes';
-@use 'styles/mixins/vwConvert';
-@use 'styles/mixins/fontSize';
+@use 'src/styles/constants/colors';
+@use 'src/styles/mixins/flexbox';
+@use 'src/styles/constants/sizes';
+@use 'src/styles/mixins/vwConvert';
+@use 'src/styles/mixins/fontSize';
 
 .button {
   @include flexbox.flexbox;
@@ -53,9 +53,9 @@
   //   background: url('../../assets/svgs/arrow_prev.svg') no-repeat center/70% auto;
   // }
 
-  &.like {
-  }
+  // &.like {
+  // }
 
-  &.more {
-  }
+  // &.more {
+  // }
 }
