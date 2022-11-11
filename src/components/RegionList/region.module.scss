@@ -5,18 +5,20 @@
 
 .wrapper {
   & li {
-    padding: 0px 16px;
+    padding: 0 16px;
     @media (max-width: sizes.$SCREEN_SM) {
       @include vwConvert.mo(padding, 0 16);
     }
+
     &.active {
       background-color: colors.$PRIMARY;
     }
+
     & button {
       display: inline-block;
-      text-align: left;
-      padding: 16px 0px;
       width: 100%;
+      padding: 16px 0;
+      text-align: left;
       border-bottom: 1px solid #e5e5e5;
       @media (max-width: sizes.$SCREEN_SM) {
         @include vwConvert.mo(padding, 16 0);

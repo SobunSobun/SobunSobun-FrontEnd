@@ -3,19 +3,19 @@
 @use '/src/styles/constants/sizes';
 
 .wrapper {
-  padding: 16px;
   position: relative;
+  padding: 16px;
   @media (max-width: sizes.$SCREEN_SM) {
     @include vwConvert.mo(padding, 16);
   }
 }
 
 .nextButton {
-  max-width: 768px;
-  padding: 0px 16px;
-  width: 100%;
   position: absolute;
   bottom: 90px;
+  width: 100%;
+  max-width: 768px;
+  padding: 0 16px;
   @media (max-width: sizes.$SCREEN_SM) {
     @include vwConvert.mo(padding-right, 16);
     @include vwConvert.mo(padding-left, 16);
