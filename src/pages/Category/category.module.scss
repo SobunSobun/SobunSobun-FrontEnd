@@ -1,3 +1,31 @@
-.category {
+@use '/src/styles/constants/colors';
+@use 'src/styles/constants/sizes';
+@use 'src/styles/mixins/vwConvert';
 
+.category {
+  .list {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 25px;
+    margin-right: -20px;
+    margin-bottom: 240px;
+    overflow-x: hidden;
+  }
+
+  @media (max-width: sizes.$SCREEN_SM) {
+    .list {
+      @include vwConvert.mo(margin-top, 25);
+      @include vwConvert.mo(margin-right, -9);
+      @include vwConvert.mo(margin-bottom, 100);
+    }
+
+    .buttonWrap {
+      position: fixed;
+      left: 50%;
+      width: 100%;
+      transform: translateX(-50%);
+      @include vwConvert.mo(bottom, 45);
+      @include vwConvert.mo(padding, 0 20);
+    }
+  }
 }

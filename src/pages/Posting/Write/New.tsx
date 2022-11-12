@@ -1,5 +1,11 @@
+import Editor from '../Editor'
+
 const New = () => {
-  return <div>New</div>
+  return (
+    <div>
+      <Editor />
+    </div>
+  )
 }
 
 export default New
