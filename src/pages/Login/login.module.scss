@@ -4,7 +4,7 @@
 @use 'src/styles/mixins/fontSize';
 
 .login {
-  padding-top: 128px;
+  padding-top: 60px;
 
   .form {
     padding-top: 78px;
@@ -23,7 +23,7 @@
   }
 
   .buttonWrap {
-    padding: 200px 17px 101px;
+    padding: 100px 17px 60px;
     text-align: center;
   }
 
@@ -35,7 +35,7 @@
   }
 
   @media (max-width: sizes.$SCREEN_SM) {
-    @include vwConvert.mo(padding-top, 128);
+    @include vwConvert.mo(padding-top, 80);
 
     .line {
       @include vwConvert.mo(margin-bottom, 5);
@@ -51,7 +51,7 @@
     }
 
     .buttonWrap {
-      @include vwConvert.mo(padding, 150 17 20 17);
+      @include vwConvert.mo(padding, 100 17 20 17);
     }
 
     .signupButton {
