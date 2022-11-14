@@ -9,17 +9,18 @@
 
     button {
       position: absolute;
-      top: 27px;
       right: 0;
+      bottom: 43px;
       width: 84px;
-      height: 32px;
+      height: 23px;
+      padding: 0;
       font-size: 12px;
       border-radius: 6px;
 
       @media (max-width: sizes.$SCREEN_SM) {
-        @include vwConvert.mo(top, 27);
+        @include vwConvert.mo(bottom, 43);
         @include vwConvert.mo(width, 84);
-        @include vwConvert.mo(height, 32);
+        @include vwConvert.mo(height, 23);
         @include fontSize.emFontSizeMO(12);
         @include vwConvert.mo(border-radius, 6);
       }
