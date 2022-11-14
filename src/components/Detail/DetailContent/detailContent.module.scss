@@ -1,0 +1,98 @@
+@use '/src/styles/constants/colors';
+@use '/src/styles/mixins/flexbox';
+@use '/src/styles/mixins/vwConvert';
+@use 'src/styles/mixins/fontSize';
+@use '/src/styles/constants/sizes';
+
+.detailContent {
+  position: relative;
+
+  .detailTime {
+    position: absolute;
+    top: -15px;
+    right: 0;
+    font-size: 11px;
+    color: colors.$GRAYA;
+    @media (max-width: sizes.$SCREEN_SM) {
+      @include vwConvert.mo(top, -15);
+      @include fontSize.emFontSizeMO(11);
+    }
+  }
+
+  .detailNickname {
+    display: flex;
+
+    .profile {
+      display: block;
+      width: 32px;
+      height: 32px;
+      overflow: hidden;
+      background: colors.$GRAYA;
+      border-radius: 50%;
+
+      @media (max-width: sizes.$SCREEN_SM) {
+        @include vwConvert.mo(width, 32);
+        @include vwConvert.mo(height, 32);
+      }
+    }
+
+    .nickname {
+      margin-left: 8px;
+      font-size: 20px;
+      @media (max-width: sizes.$SCREEN_SM) {
+        @include vwConvert.mo(margin-left, 8);
+        @include fontSize.emFontSizeMO(20);
+      }
+    }
+  }
+
+  .detailList {
+    margin-top: 10px;
+    @media (max-width: sizes.$SCREEN_SM) {
+      @include vwConvert.mo(margin-top, 10);
+    }
+
+    ul {
+      display: flex;
+
+      li {
+        padding: 3px 8px;
+        font-size: 10px;
+        color: colors.$GRAY6;
+        background: colors.$GRAYE;
+        border-radius: 15px;
+        @media (max-width: sizes.$SCREEN_SM) {
+          @include vwConvert.mo(padding, 3 8);
+          @include fontSize.emFontSizeMO(10);
+        }
+
+        & + li {
+          margin-left: 8px;
+          @media (max-width: sizes.$SCREEN_SM) {
+            @include vwConvert.mo(margin-left, 8);
+          }
+        }
+      }
+    }
+  }
+
+  .detailText {
+    margin-top: 16px;
+    font-size: 16px;
+    @media (max-width: sizes.$SCREEN_SM) {
+      @include vwConvert.mo(margin-top, 16);
+      @include fontSize.emFontSizeMO(16);
+    }
+  }
+
+  .detailBtn {
+    padding: 16px 0;
+    margin-top: 16px;
+    border-top: 1px solid colors.$GRAYD;
+    border-bottom: 1px solid colors.$GRAYD;
+    @media (max-width: sizes.$SCREEN_SM) {
+      @include vwConvert.mo(padding, 16 0);
+      @include vwConvert.mo(margin-top, 16);
+    }
+  }
+}

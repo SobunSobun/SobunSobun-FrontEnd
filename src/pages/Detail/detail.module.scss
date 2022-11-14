@@ -1,0 +1,41 @@
+@use '/src/styles/constants/colors';
+@use '/src/styles/mixins/flexbox';
+@use '/src/styles/mixins/vwConvert';
+@use 'src/styles/mixins/fontSize';
+@use '/src/styles/constants/sizes';
+
+.detail {
+  .headerWrap {
+    padding: 21px 16px 11px;
+    @media (max-width: sizes.$SCREEN_SM) {
+      @include vwConvert.mo(padding, 21 16 11);
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      padding: 0 0 11px;
+      border-bottom: 1px solid colors.$GRAYD;
+      @media (max-width: sizes.$SCREEN_SM) {
+        @include vwConvert.mo(padding, 0 0 11);
+      }
+
+      > div {
+        &:nth-of-type(2) {
+          display: flex;
+          align-items: flex-end;
+          cursor: pointer;
+
+          svg {
+            width: 26px;
+            height: 26px;
+            @media (max-width: sizes.$SCREEN_SM) {
+              @include vwConvert.mo(width, 26);
+              @include vwConvert.mo(height, 26);
+            }
+          }
+        }
+      }
+    }
+  }
+}

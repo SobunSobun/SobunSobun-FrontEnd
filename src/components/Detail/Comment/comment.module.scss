@@ -1,0 +1,47 @@
+@use '/src/styles/constants/colors';
+@use '/src/styles/mixins/flexbox';
+@use '/src/styles/mixins/vwConvert';
+@use 'src/styles/mixins/fontSize';
+@use '/src/styles/constants/sizes';
+
+.comment {
+  .commentList {
+    min-height: 300px;
+  }
+
+  .commentSingle,
+  .commentReply {
+    margin-top: 18px;
+  }
+
+  .commentReply {
+    padding-left: 30px;
+  }
+
+  .commentBox {
+    display: flex;
+
+    .nickname,
+    .text {
+      margin-left: 6px;
+      font-size: 15px;
+    }
+  }
+
+  .commentInfo {
+    margin-top: 8px;
+  }
+
+  .commentInput {
+    padding-top: 17px;
+    border-top: 1px solid colors.$GRAYD;
+
+    input {
+      width: 100%;
+      height: 46px;
+      padding: 10px 13px;
+      background: colors.$GRAY_D9;
+      border-radius: 15px;
+    }
+  }
+}
