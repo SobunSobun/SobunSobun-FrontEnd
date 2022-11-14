@@ -5,6 +5,7 @@ import Header from 'components/Header'
 import Button from 'components/Button'
 import { categoryList } from 'utils/categoryList'
 import CategoryItem from 'pages/Category/CategoryItem'
+import FloatingElem from 'components/FloatingElem'
 
 import styles from './category.module.scss'
 
@@ -37,9 +38,10 @@ const Category = () => {
             />
           ))}
         </ul>
-        <div className={styles.buttonWrap}>
+        <FloatingElem offsetBottom={45}>
           <Button basic type={product === -1 ? 'negative' : 'primary'} text='다음' onClick={handleMoveToWrite} />
-        </div>
+        </FloatingElem>
+        {/* <div className={styles.buttonWrap} /> */}
       </div>
     </div>
   )

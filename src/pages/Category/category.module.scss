@@ -8,7 +8,7 @@
     flex-wrap: wrap;
     margin-top: 25px;
     margin-right: -20px;
-    margin-bottom: 240px;
+    // margin-bottom: 120px;
     overflow-x: hidden;
   }
 
@@ -17,15 +17,6 @@
       @include vwConvert.mo(margin-top, 25);
       @include vwConvert.mo(margin-right, -9);
       @include vwConvert.mo(margin-bottom, 100);
-    }
-
-    .buttonWrap {
-      position: fixed;
-      left: 50%;
-      width: 100%;
-      transform: translateX(-50%);
-      @include vwConvert.mo(bottom, 45);
-      @include vwConvert.mo(padding, 0 20);
     }
   }
 }
