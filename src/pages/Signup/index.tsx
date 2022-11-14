@@ -90,7 +90,7 @@ const Signup = () => {
               <input
                 type='text'
                 id='email'
-                placeholder='예) test@email.com'
+                placeholder='예) sobunsobun@subun.co.kr'
                 {...register('email', {
                   required: { value: true, message: '필수 정보입니다.' },
                   pattern: {
@@ -158,7 +158,7 @@ const Signup = () => {
                   onChange: () => setIsActive(false),
                 })}
               />
-              <Button type='primary' text='중복체크' onClick={() => duplicateCheck(nickname.current)} />
+              <Button basic type='primary' text='중복체크' onClick={() => duplicateCheck(nickname.current)} />
             </Input>
             <div className={styles.errorMessage}>
               <p>
@@ -168,7 +168,7 @@ const Signup = () => {
             </div>
           </div>
           <div className={styles.signupBtn}>
-            <Button basic type={!(isActive && isValid) ? 'negative' : 'primary'} text='회원가입' submit />
+            <Button basic type={!(isActive && isValid) ? 'negative' : 'primary'} text='다음' submit />
           </div>
         </form>
       </div>
