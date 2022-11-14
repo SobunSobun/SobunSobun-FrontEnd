@@ -3,13 +3,17 @@
 
 .editor {
   .form {
-    padding-bottom: 140px;
+    padding-bottom: 45px;
     border-top: 1px solid rgba(0, 0, 0, 10%);
   }
 
   .line {
     padding: 14px 0;
     border-bottom: 1px solid colors.$LINE_1;
+
+    &.noPadding {
+      padding: 0;
+    }
   }
 
   .label {
@@ -39,7 +43,7 @@
     height: 200px;
     resize: none;
   }
-
+  // 카운터
   .counter {
     display: flex;
     align-items: center;
@@ -64,12 +68,13 @@
       text-align: center;
     }
   }
-
+  // 장소
   .place {
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
+    padding: 14px 0;
 
     .label {
       padding-bottom: 0;
@@ -80,26 +85,45 @@
       transform: scaleX(-1);
     }
   }
-
+  // 날짜
   .datePicker {
+    display: flex;
+    align-items: center;
     width: 120px;
-    cursor: pointer;
 
     .datePickerInput {
-      width: 100%;
+      width: 92%;
+      cursor: pointer;
+      border-bottom: 1px solid colors.$LINE_1;
     }
   }
-
+  // 시간
   .time {
     display: flex;
     align-items: center;
+
+    input {
+      font-size: 15px;
+      line-height: 15px;
+    }
 
     .inputDatepicker {
       // width: auto;
     }
 
     .inputNumber {
-      width: 30px;
+      width: 18px;
+      border-bottom: 1px solid colors.$LINE_1;
     }
+
+    .unit {
+      padding-right: 4px;
+      font-size: 15px;
+      line-height: 15px;
+    }
+  }
+
+  .buttonWrap {
+    padding-top: 84px;
   }
 }

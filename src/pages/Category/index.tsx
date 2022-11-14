@@ -41,7 +41,6 @@ const Category = () => {
         <FloatingElem offsetBottom={45}>
           <Button basic type={product === -1 ? 'negative' : 'primary'} text='다음' onClick={handleMoveToWrite} />
         </FloatingElem>
-        {/* <div className={styles.buttonWrap} /> */}
       </div>
     </div>
   )

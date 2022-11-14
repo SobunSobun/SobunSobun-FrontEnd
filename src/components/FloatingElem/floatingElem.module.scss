@@ -2,14 +2,13 @@
 @use 'src/styles/mixins/vwConvert';
 
 .floatingElem {
-  position: fixed;
-  left: 50%;
-  width: 100%;
-  max-width: 768px;
-  padding: 0 17px;
-  transform: translateX(-50%);
-
+  margin-top: 100px;
   @media (max-width: sizes.$SCREEN_SM) {
+    position: fixed;
+    left: 50%;
+    width: 100%;
+    max-width: 768px;
+    transform: translateX(-50%);
     @include vwConvert.mo(padding, 0 17);
   }
 }
