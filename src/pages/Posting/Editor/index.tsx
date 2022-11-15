@@ -5,7 +5,7 @@ import { useRecoilState } from 'recoil'
 import { dateState } from 'recoil/post.atom'
 
 import Button from 'components/Button'
-import { TimePickerModal } from 'components/Modal'
+import TimePickerModal from 'pages/Posting/TimpickerModal'
 
 import useModal from 'hooks/useModal'
 
@@ -36,8 +36,9 @@ const onSubmit = async (data: FormValues) => {
 const Editor = () => {
   const [count, setCount] = useState<number>(2)
   const [date, setDate] = useRecoilState(dateState)
-  const [hour, setHour] = useState(0)
-  const [minutes, setMinutes] = useState(0)
+  const [slot, setSlot] = useState('AM')
+  const [hour, setHour] = useState('00')
+  const [minutes, setMinutes] = useState('00')
   const { isOpen, onClose, setIsOpen } = useModal()
   const {
     register,
@@ -118,10 +119,10 @@ const Editor = () => {
               <span className={styles.unit}>월 </span>
               <span className={styles.num}>{date.getDate()}</span>
               <span className={styles.unit}>일</span>
+              <span className={styles.slot}>{slot}</span>
               <span className={styles.num}>{hour}</span>
-              <span className={styles.unit}>시 </span>
+              <span className={styles.semi}>:</span>
               <span className={styles.num}>{minutes}</span>
-              <span className={styles.unit}> 분</span>
             </button>
           </div>
         </div>

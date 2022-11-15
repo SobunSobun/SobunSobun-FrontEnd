@@ -1,28 +1,27 @@
+import { useState, ChangeEvent } from 'react'
 import styles from './dropDown.module.scss'
 
 interface Props {
   list: Array<string>
+  value: string
+  onChange: (e: ChangeEvent<HTMLSelectElement>) => void
 }
 
-const DropDown = ({ list }: Props) => {
+const DropDown = ({ list, value, onChange }: Props) => {
+  // const [selected, setSelected] = useState('')
+  // const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
+  //   setSelected(e.target.value)
+  // }
   return (
-    <div className={styles.dropDown}>
-      <select name='' id=''>
-        {list.map((item) => {
-          return (
-            <option key={item} value={item}>
-              {item}
-            </option>
-          )
-        })}
-        {/* <option value='01'>01</option>
-        <option value='02'>02</option>
-        <option value='03'>03</option>
-        <option value='04'>04</option>
-        <option value='05'>05</option>
-        <option value='06'>06</option> */}
-      </select>
-    </div>
+    <select name='' id='' className={styles.dropDown} value={value} onChange={onChange}>
+      {list.map((item) => {
+        return (
+          <option key={item} value={item}>
+            {item}
+          </option>
+        )
+      })}
+    </select>
   )
 }
 

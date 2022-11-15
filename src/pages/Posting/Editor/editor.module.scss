@@ -93,26 +93,28 @@
     .popupBtn {
       display: flex;
       align-items: center;
-      height: 31px;
-      margin-right: 10px;
-      font-size: 15px;
-      line-height: 24px;
+      font-size: 16px;
 
       span {
         display: block;
-        padding-top: 4px;
-        border-bottom: 1px solid colors.$LINE_1;
       }
 
       .num {
-        width: 26px;
         color: colors.$GRAY_2_T30;
         text-align: center;
       }
 
       .unit {
-        padding-right: 4px;
-        border-color: transparent
+        padding-right: 8px;
+      }
+
+      .slot {
+        padding-right: 8px;
+        color: colors.$GRAY_2_T30;
+      }
+
+      .semi {
+        padding: 0 4px;
       }
     }
   }
