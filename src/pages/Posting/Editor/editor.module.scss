@@ -43,6 +43,7 @@
     height: 200px;
     resize: none;
   }
+
   // 카운터
   .counter {
     display: flex;
@@ -68,6 +69,7 @@
       text-align: center;
     }
   }
+
   // 장소
   .place {
     display: flex;
@@ -85,41 +87,33 @@
       transform: scaleX(-1);
     }
   }
-  // 날짜
-  .datePicker {
-    display: flex;
-    align-items: center;
-    width: 120px;
 
-    .datePickerInput {
-      width: 92%;
-      cursor: pointer;
-      border-bottom: 1px solid colors.$LINE_1;
-    }
-  }
   // 시간
-  .time {
-    display: flex;
-    align-items: center;
-
-    input {
+  .timePicker {
+    .popupBtn {
+      display: flex;
+      align-items: center;
+      height: 31px;
+      margin-right: 10px;
       font-size: 15px;
-      line-height: 15px;
-    }
+      line-height: 24px;
 
-    .inputDatepicker {
-      // width: auto;
-    }
+      span {
+        display: block;
+        padding-top: 4px;
+        border-bottom: 1px solid colors.$LINE_1;
+      }
 
-    .inputNumber {
-      width: 18px;
-      border-bottom: 1px solid colors.$LINE_1;
-    }
+      .num {
+        width: 26px;
+        color: colors.$GRAY_2_T30;
+        text-align: center;
+      }
 
-    .unit {
-      padding-right: 4px;
-      font-size: 15px;
-      line-height: 15px;
+      .unit {
+        padding-right: 4px;
+        border-color: transparent
+      }
     }
   }
 

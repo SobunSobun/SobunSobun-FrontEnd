@@ -1,15 +1,19 @@
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import DatePicker from 'react-datepicker'
 import { cx } from 'styles'
+import { useRecoilState } from 'recoil'
+import { dateState } from 'recoil/post.atom'
 
 import Button from 'components/Button'
+import { TimePickerModal } from 'components/Modal'
+
+import useModal from 'hooks/useModal'
+
 import { MinusIcon, PlusIcon, ArrowPrevIcon } from 'assets/svgs'
 import 'react-datepicker/dist/react-datepicker.css'
+import styles from './editor.module.scss'
 
 // import { axiosAuthApi } from 'apis/client'
-
-import styles from './editor.module.scss'
 
 type FormValues = {
   title: string
@@ -31,7 +35,10 @@ const onSubmit = async (data: FormValues) => {
 
 const Editor = () => {
   const [count, setCount] = useState<number>(2)
-  const [startDate, setStartDate] = useState<null | Date>(null)
+  const [date, setDate] = useRecoilState(dateState)
+  const [hour, setHour] = useState(0)
+  const [minutes, setMinutes] = useState(0)
+  const { isOpen, onClose, setIsOpen } = useModal()
   const {
     register,
     handleSubmit,
@@ -48,21 +55,12 @@ const Editor = () => {
     }
   }
 
-  const handleInputCount = (e: ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target
-    setCount(Number(value))
+  const handleTimpicker = () => {
+    console.log('time picker')
   }
 
-  const handleBlurInput = (e: React.FocusEvent<HTMLInputElement>) => {
-    if (['0', '1', '01', '02'].includes(e.target.value)) {
-      setCount(2)
-    }
-  }
-
-  const handleOnInput = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value.length > 3) {
-      e.target.value = e.target.value.substr(0, 3)
-    }
+  const handleOpenDatePopup = () => {
+    console.log('팝업오픈')
   }
 
   const handleUpload = () => {
@@ -98,17 +96,7 @@ const Editor = () => {
             <button type='button' onClick={handleDecrease}>
               <MinusIcon />
             </button>
-            <input
-              id='count'
-              type='number'
-              min='2'
-              className={styles.current}
-              value={count}
-              onChange={handleInputCount}
-              onInput={handleOnInput}
-              maxLength={3}
-              onBlur={handleBlurInput}
-            />
+            <span className={styles.current}>{count}</span>
             <button type='button' onClick={handleIncrease}>
               <PlusIcon />
             </button>
@@ -124,28 +112,24 @@ const Editor = () => {
           <label htmlFor='time' className={styles.label}>
             만날 시간
           </label>
-          <div className={styles.time}>
-            <div className={styles.datePicker}>
-              <DatePicker
-                selected={startDate}
-                onChange={(date: Date) => setStartDate(date)}
-                dateFormat='yyyy년 M월 d일'
-                placeholderText='날짜를 선택하세요'
-                className={styles.datePickerInput}
-                minDate={new Date()}
-              />
-            </div>
-
-            <input type='tel' className={styles.inputNumber} value={13} placeholder='13' />
-            <p className={styles.unit}>시 </p>
-            <input type='tel' className={styles.inputNumber} value={30} placeholder='30' />
-            <p className={styles.unit}> 분</p>
+          <div className={styles.timePicker}>
+            <button type='button' className={styles.popupBtn} onClick={() => setIsOpen(true)}>
+              <span className={styles.num}>{date.getMonth() + 1}</span>
+              <span className={styles.unit}>월 </span>
+              <span className={styles.num}>{date.getDate()}</span>
+              <span className={styles.unit}>일</span>
+              <span className={styles.num}>{hour}</span>
+              <span className={styles.unit}>시 </span>
+              <span className={styles.num}>{minutes}</span>
+              <span className={styles.unit}> 분</span>
+            </button>
           </div>
         </div>
         <div className={styles.buttonWrap}>
           <Button basic type='negative' text='다음' onClick={handleUpload} />
         </div>
       </form>
+      <TimePickerModal show={isOpen} close={onClose} />
     </div>
   )
 }
