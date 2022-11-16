@@ -6,9 +6,9 @@
 
 .detail {
   .headerWrap {
-    padding: 21px 16px 11px;
+    padding: 21px 16px 0;
     @media (max-width: sizes.$SCREEN_SM) {
-      @include vwConvert.mo(padding, 21 16 11);
+      @include vwConvert.mo(padding, 21 16 0);
     }
 
     header {
