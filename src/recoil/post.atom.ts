@@ -1,5 +1,5 @@
 import { atom } from 'recoil'
-import { Time } from 'types/index'
+import { Time, Place } from 'types/index'
 
 export const postingDateState = atom<Date>({
   key: '#dateState',
@@ -9,4 +9,9 @@ export const postingDateState = atom<Date>({
 export const postingTimeState = atom<Time>({
   key: '#timeState',
   default: { slot: 'AM', hour: '00', minutes: '00' },
+})
+
+export const postingPlaceState = atom<Place>({
+  key: '#placeState',
+  default: { place: '', address: '' },
 })

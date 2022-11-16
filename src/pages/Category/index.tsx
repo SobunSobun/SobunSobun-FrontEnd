@@ -10,14 +10,14 @@ import FloatingElem from 'components/FloatingElem'
 import styles from './category.module.scss'
 
 const Category = () => {
-  const [product, setProduct] = useState<number>(-1)
+  const [product, setProduct] = useState('')
   const navigate = useNavigate()
   const handleMoveToWrite = () => {
-    navigate('/new')
+    navigate('/new', { state: { category: product } })
   }
 
-  const handleClickProduct = useCallback((id: number) => {
-    setProduct(id)
+  const handleClickProduct = useCallback((item: string) => {
+    setProduct(item)
   }, [])
 
   return (
@@ -33,13 +33,13 @@ const Category = () => {
             <CategoryItem
               key={item.categoryId}
               {...item}
-              isSelected={item.categoryId === product}
+              isSelected={item.categoryTitle === product}
               onClick={handleClickProduct}
             />
           ))}
         </ul>
         <FloatingElem offsetBottom={45}>
-          <Button basic type={product === -1 ? 'negative' : 'primary'} text='다음' onClick={handleMoveToWrite} />
+          <Button basic type={product === '' ? 'negative' : 'primary'} text='다음' onClick={handleMoveToWrite} />
         </FloatingElem>
       </div>
     </div>

@@ -2,17 +2,16 @@ import { cx } from 'styles'
 import styles from './categoryItem.module.scss'
 
 interface Props {
-  categoryId: number
   categoryImg: string
   categoryTitle: string
-  onClick: (value: number) => void
+  onClick: (value: string) => void
   isSelected: boolean
 }
 
-const CategoryItem = ({ categoryId, categoryImg, categoryTitle, onClick, isSelected }: Props) => {
+const CategoryItem = ({ categoryImg, categoryTitle, onClick, isSelected }: Props) => {
   return (
     <li className={cx(styles.categoryItem, { [styles.isActive]: isSelected })}>
-      <button type='button' onClick={() => onClick(categoryId)}>
+      <button type='button' onClick={() => onClick(categoryTitle)}>
         <span className={styles.image}>
           <img src={categoryImg} alt='상품 아이콘' />
         </span>

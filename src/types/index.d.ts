@@ -12,6 +12,10 @@ export interface Time {
   hour: string
   minutes: string
 }
+export interface Place {
+  place: string
+  address: string
+}
 
 /* 동네 인증 */
 export interface region {
