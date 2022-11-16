@@ -7,12 +7,41 @@ declare global {
   }
 }
 
-interface placeType {
+interface MapDataType {
+  address_name: string
+  category_group_code: string
+  category_group_name: string
+  category_name: string
+  distance: string
+  id: string
+  phone: string
+  place_name: string
+  place_url: string
+  road_address_name: string
+  x: string
+  y: string
+}
+
+interface PlaceType {
   place_name: string
   road_address_name: string
   address_name: string
-  phone: string
   place_url: string
+}
+
+interface PaginationType {
+  current: number
+  first: number
+  gotoFirst: () => void
+  gotoLast: () => void
+  gotoPage: (arg0: number) => void
+  hasNextPage: Boolean
+  hasPrevPage: Boolean
+  last: number
+  nextPage: () => void
+  perPage: number
+  prevPage: () => void
+  totalCount: number
 }
 
 export interface Props {
@@ -45,13 +74,13 @@ const Map = ({ searchKeyword }: Props) => {
     searchPlaces()
 
     // 키워드 검색을 요청하는 함수
-    // eslint-disable-next-line consistent-return
+
     function searchPlaces() {
       const keyword = searchKeyword
 
       if (!keyword.replace(/^\s+|\s+$/g, '')) {
         console.log('키워드를 입력해주세요!')
-        return false
+        return
       }
 
       // 장소검색 객체를 통해 키워드로 장소검색을 요청
@@ -59,11 +88,12 @@ const Map = ({ searchKeyword }: Props) => {
     }
 
     // 장소검색이 완료됐을 때 호출되는 콜백함수
-    function placesSearchCB(data: any, status: any, pagination: any) {
+    function placesSearchCB(data: Array<MapDataType>, status: string, pagination: PaginationType) {
       if (status === kakao.maps.services.Status.OK) {
         // 정상적으로 검색이 완료됐으면
         // 검색 목록과 마커를 표출
         displayPlaces(data)
+        console.log(data, status, pagination)
 
         // 페이지 번호를 표출
         displayPagination(pagination)
@@ -75,8 +105,9 @@ const Map = ({ searchKeyword }: Props) => {
     }
 
     // 검색 결과 목록과 마커를 표출하는 함수
-    function displayPlaces(places: string | any[]) {
-      const listEl = document.getElementById('places-list')
+    // function displayPlaces(places: string | any[]) {
+    function displayPlaces(places: Array<MapDataType>) {
+      const listEl = document.getElementById('placesList')
       const resultEl = document.getElementById('search-result')
       const fragment = document.createDocumentFragment()
       const bounds = new kakao.maps.LatLngBounds()
@@ -129,7 +160,7 @@ const Map = ({ searchKeyword }: Props) => {
     }
 
     // 검색결과 항목을 Element로 반환하는 함수
-    function getListItem(index: number, places: placeType) {
+    function getListItem(index: number, places: PlaceType) {
       const el = document.createElement('li')
       const itemStr = `
           <div class="info">
@@ -150,9 +181,6 @@ const Map = ({ searchKeyword }: Props) => {
              	     ${places.address_name}
                   </span>`
               }
-              <span class="info-item tel">
-                ${places.phone}
-              </span>
             </a>
           </div>
           `
@@ -243,12 +271,8 @@ const Map = ({ searchKeyword }: Props) => {
     <div className={styles.map}>
       <div id='map' style={{ width: '100vw', height: '50vh' }} />
       <div id='search-result'>
-        <p className='result-text'>
-          <span className='result-keyword'>{searchKeyword}</span>
-          검색 결과
-        </p>
         <div className='scroll-wrapper'>
-          <ul id='places-list' />
+          <ul id='placesList' />
         </div>
         <div id='pagination' />
       </div>

@@ -1,4 +1,5 @@
-import { useState, useEffect, ChangeEvent, FormEvent } from 'react'
+import { useState, ChangeEvent, FormEvent } from 'react'
+import { SearchIcon } from 'assets/svgs'
 import Map from '../Map'
 import styles from './mapContainer.module.scss'
 
@@ -26,11 +27,17 @@ const MapContainer = () => {
   }
 
   return (
-    <div className={styles.map}>
-      <form action='' onSubmit={handleSubmit}>
-        <input type='text' value={searchInput} onChange={handleChangeText} />
-        <button type='submit'>검색</button>
-      </form>
+    <div className={styles.mapContainer}>
+      <div className={styles.search}>
+        <form action='' onSubmit={handleSubmit} className={styles.searchForm}>
+          <div className={styles.searchInner}>
+            <button type='submit' className={styles.searcButton}>
+              <SearchIcon />
+            </button>
+            <input type='text' className={styles.searchInput} value={searchInput} onChange={handleChangeText} />
+          </div>
+        </form>
+      </div>
       <Map searchKeyword={keyword} />
     </div>
   )
