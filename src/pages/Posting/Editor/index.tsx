@@ -1,8 +1,8 @@
 import { ChangeEvent, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { cx } from 'styles'
-import { useRecoilState } from 'recoil'
-import { dateState } from 'recoil/post.atom'
+import { useRecoilValue } from 'recoil'
+import { postingDateState, postingTimeState } from 'recoil/post.atom'
 
 import Button from 'components/Button'
 import TimePickerModal from 'pages/Posting/TimpickerModal'
@@ -35,10 +35,8 @@ const onSubmit = async (data: FormValues) => {
 
 const Editor = () => {
   const [count, setCount] = useState<number>(2)
-  const [date, setDate] = useRecoilState(dateState)
-  const [slot, setSlot] = useState('AM')
-  const [hour, setHour] = useState('00')
-  const [minutes, setMinutes] = useState('00')
+  const date = useRecoilValue(postingDateState)
+  const time = useRecoilValue(postingTimeState)
   const { isOpen, onClose, setIsOpen } = useModal()
   const {
     register,
@@ -46,23 +44,6 @@ const Editor = () => {
     watch,
     formState: { errors },
   } = useForm<FormValues>()
-
-  const handleIncrease = () => {
-    setCount((prev) => prev + 1)
-  }
-  const handleDecrease = () => {
-    if (count > 2) {
-      setCount((prev) => prev - 1)
-    }
-  }
-
-  const handleTimpicker = () => {
-    console.log('time picker')
-  }
-
-  const handleOpenDatePopup = () => {
-    console.log('팝업오픈')
-  }
 
   const handleUpload = () => {
     console.log('게시글 업로드')
@@ -94,11 +75,11 @@ const Editor = () => {
             모집 인원
           </label>
           <div className={styles.counter}>
-            <button type='button' onClick={handleDecrease}>
+            <button type='button' onClick={() => setCount(count - 1)}>
               <MinusIcon />
             </button>
             <span className={styles.current}>{count}</span>
-            <button type='button' onClick={handleIncrease}>
+            <button type='button' onClick={() => setCount(count + 1)}>
               <PlusIcon />
             </button>
           </div>
@@ -119,15 +100,15 @@ const Editor = () => {
               <span className={styles.unit}>월 </span>
               <span className={styles.num}>{date.getDate()}</span>
               <span className={styles.unit}>일</span>
-              <span className={styles.slot}>{slot}</span>
-              <span className={styles.num}>{hour}</span>
+              <span className={styles.slot}>{time.slot}</span>
+              <span className={styles.num}>{time.hour}</span>
               <span className={styles.semi}>:</span>
-              <span className={styles.num}>{minutes}</span>
+              <span className={styles.num}>{time.minutes}</span>
             </button>
           </div>
         </div>
         <div className={styles.buttonWrap}>
-          <Button basic type='negative' text='다음' onClick={handleUpload} />
+          <Button basic type='negative' text='완료' onClick={handleUpload} />
         </div>
       </form>
       <TimePickerModal show={isOpen} close={onClose} />

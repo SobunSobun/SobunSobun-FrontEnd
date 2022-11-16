@@ -15,6 +15,7 @@ import Splash from 'pages/Splash'
 import SignupComplete from 'pages/SignupComplete'
 import New from 'pages/Posting/Write/New'
 import Edit from 'pages/Posting/Write/Edit'
+import MapContainer from 'pages/Posting/MapContainer'
 
 import styles from './routes.module.scss'
 
@@ -31,6 +32,7 @@ const RootRoute = () => {
           <Route path='category' element={<Category />} />
           <Route path='new' element={<New />} />
           <Route path='edit/:id' element={<Edit />} />
+          <Route path='map' element={<MapContainer />} />
         </Route>
         <Route element={<LayoutGnb />}>
           <Route path='home' element={<Home />} />

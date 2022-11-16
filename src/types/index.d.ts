@@ -7,6 +7,11 @@ export interface myInfo {
   nickname: string
   email: string
 }
+export interface Time {
+  slot: string
+  hour: string
+  minutes: string
+}
 
 /* 동네 인증 */
 export interface region {
