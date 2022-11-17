@@ -1,0 +1,24 @@
+@use '/src/styles/mixins/vwConvert';
+@use 'src/styles/mixins/fontSize';
+@use '/src/styles/constants/sizes';
+
+.wrapper {
+  position: relative;
+  padding: 16px;
+  @media (max-width: sizes.$SCREEN_SM) {
+    @include vwConvert.mo(padding, 16);
+  }
+}
+
+.nextButton {
+  position: absolute;
+  bottom: 90px;
+  width: 100%;
+  max-width: 768px;
+  padding: 0 16px;
+  @media (max-width: sizes.$SCREEN_SM) {
+    @include vwConvert.mo(padding-right, 16);
+    @include vwConvert.mo(padding-left, 16);
+    @include vwConvert.mo(bottom, 90);
+  }
+}

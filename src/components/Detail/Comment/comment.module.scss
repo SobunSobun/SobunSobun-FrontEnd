@@ -1,0 +1,117 @@
+@use '/src/styles/constants/colors';
+@use '/src/styles/mixins/flexbox';
+@use '/src/styles/mixins/vwConvert';
+@use 'src/styles/mixins/fontSize';
+@use '/src/styles/constants/sizes';
+
+.comment {
+  .commentList {
+    min-height: 300px;
+    @media (max-width: sizes.$SCREEN_SM) {
+      @include vwConvert.mo(min-height, 300);
+    }
+  }
+
+  .commentSingle,
+  .commentReply {
+    margin-top: 17px;
+    @media (max-width: sizes.$SCREEN_SM) {
+      @include vwConvert.mo(margin-top, 17);
+    }
+  }
+
+  .commentReply {
+    padding-left: 30px;
+    @media (max-width: sizes.$SCREEN_SM) {
+      @include vwConvert.mo(padding-left, 30);
+    }
+  }
+
+  .commentBox {
+    display: flex;
+
+    .nickname,
+    .text {
+      margin-left: 6px;
+      font-size: 15px;
+      @media (max-width: sizes.$SCREEN_SM) {
+        @include vwConvert.mo(margin-left, 6);
+        @include fontSize.emFontSizeMO(15);
+      }
+    }
+
+    .profile {
+      flex: none;
+      width: 23px;
+      height: 23px;
+      background: colors.$GRAY_CF;
+      border-radius: 50%;
+      @media (max-width: sizes.$SCREEN_SM) {
+        @include vwConvert.mo(width, 23);
+        @include vwConvert.mo(height, 23);
+      }
+    }
+
+    .nickname {
+      font-weight: bold;
+    }
+  }
+
+  .commentInfo {
+    margin: 8px 0 0 30px;
+    font-size: 11px;
+    color: colors.$GRAYA;
+    @media (max-width: sizes.$SCREEN_SM) {
+      @include vwConvert.mo(margin, 8 0 0 30);
+      @include fontSize.emFontSizeMO(11);
+    }
+
+    .btn {
+      margin-left: 16px;
+      cursor: pointer;
+      @media (max-width: sizes.$SCREEN_SM) {
+        @include vwConvert.mo(margin-left, 16);
+      }
+    }
+  }
+
+  .commentListNone {
+    margin-top: 50px;
+    font-size: 16px;
+    color: colors.$GRAYA;
+    text-align: center;
+    @media (max-width: sizes.$SCREEN_SM) {
+      @include vwConvert.mo(margin-top, 50);
+      @include fontSize.emFontSizeMO(16);
+    }
+  }
+
+  .commentInput {
+    padding-top: 17px;
+    border-top: 1px solid colors.$GRAYD;
+    @media (max-width: sizes.$SCREEN_SM) {
+      @include vwConvert.mo(padding-top, 17);
+    }
+
+    input {
+      width: 100%;
+      height: 46px;
+      padding: 10px 13px;
+      font-size: 15px;
+      background: colors.$GRAY_D9;
+      border-radius: 15px;
+      @media (max-width: sizes.$SCREEN_SM) {
+        @include vwConvert.mo(height, 46);
+        @include vwConvert.mo(padding, 10 13);
+        @include fontSize.emFontSizeMO(15);
+      }
+
+      &::placeholder {
+        font-size: 15px;
+        @media (max-width: sizes.$SCREEN_SM) {
+          @include fontSize.emFontSizeMO(15);
+        }
+      }
+    }
+  }
+}

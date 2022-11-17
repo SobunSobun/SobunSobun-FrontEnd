@@ -1,0 +1,22 @@
+@use '/src/styles/constants/colors';
+@use 'src/styles/constants/sizes';
+@use 'src/styles/mixins/vwConvert';
+
+.category {
+  .list {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 25px;
+    margin-right: -20px;
+    // margin-bottom: 120px;
+    overflow-x: hidden;
+  }
+
+  @media (max-width: sizes.$SCREEN_SM) {
+    .list {
+      @include vwConvert.mo(margin-top, 25);
+      @include vwConvert.mo(margin-right, -9);
+      @include vwConvert.mo(margin-bottom, 100);
+    }
+  }
+}
