@@ -17,6 +17,7 @@ const Home = () => {
 
   return (
     <div className={styles.container}>
+      <div>커밋 테스트</div>
       <section className={styles.headerSection}>
         <Header headText='이웃과 함께 소분해요' />
         <CategorySlider data={categorise} now={selectedCategory} setNow={setSelectedCategory} />
