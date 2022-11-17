@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useLocation, useNavigate } from 'react-router-dom'
 import Button from 'components/Button'
@@ -80,6 +80,12 @@ const Signup = () => {
     }
   }
 
+  useEffect(() => {
+    if (nickname.current) {
+      setNicknameDuplicate('')
+    }
+  }, [nickname.current])
+
   return (
     <div className={styles.signup}>
       <Header headText='회원가입' leftChild={<Button type='customBack' onClick={() => setIsOpen(true)} />} />
@@ -158,11 +164,16 @@ const Signup = () => {
                   onChange: () => setIsActive(false),
                 })}
               />
-              <Button basic type='primary' text='중복체크' onClick={() => duplicateCheck(nickname.current)} />
+              <Button
+                basic
+                type={isActive ? 'primary' : 'negative'}
+                text='중복체크'
+                onClick={() => duplicateCheck(nickname.current)}
+              />
             </Input>
             <div className={styles.errorMessage}>
               <p>
-                {nickname.current === '' ? '' : <span className={styles.duplicate}>{nicknameDuplicate}</span>}
+                <span className={isActive ? `${styles.duplicate}` : `${styles.red}`}>{nicknameDuplicate}</span>
                 {errors.nickname?.type === 'required' && errors.nickname.message}
               </p>
             </div>

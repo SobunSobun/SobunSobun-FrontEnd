@@ -1,0 +1,69 @@
+@use '/src/styles/constants/colors';
+@use '/src/styles/mixins/vwConvert';
+@use 'src/styles/mixins/fontSize';
+@use '/src/styles/constants/sizes';
+
+.map {
+  position: relative;
+
+  .mapArea {
+    width: 768px;
+    height: 100vh;
+  }
+
+  .searchResult {
+    position: absolute;
+    bottom: 30px;
+    z-index: 9;
+    width: 100%;
+  }
+
+  .searchItem {
+    width: 269px;
+    height: 107px;
+    padding: 18px;
+    background-color: colors.$PRIMARY;
+    border-radius: 15px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 25%);
+
+    .marketName {
+      display: block;
+      padding-bottom: 2.8px;
+      font-size: 17px;
+      font-weight: 700;
+    }
+
+    .marketAddress {
+      display: block;
+      font-size: 10px;
+    }
+  }
+
+  @media (max-width: sizes.$SCREEN_SM) {
+    .mapArea {
+      width: 100%;
+      height: 100vh;
+    }
+
+    .searchResult {
+      position: absolute;
+      @include vwConvert.mo(bottom, 30);
+    }
+
+    .searchItem {
+      @include vwConvert.mo(width, 269);
+      @include vwConvert.mo(height, 107);
+      @include vwConvert.mo(padding, 18);
+      @include vwConvert.mo(border-radius, 15);
+
+      .marketName {
+        @include vwConvert.mo(padding-bottom, 2.8);
+        @include fontSize.emFontSizeMO(17);
+      }
+
+      .marketAddress {
+        @include fontSize.emFontSizeMO(10);
+      }
+    }
+  }
+}

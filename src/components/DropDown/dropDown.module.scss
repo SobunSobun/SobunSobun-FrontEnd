@@ -1,0 +1,22 @@
+@use '/src/styles/constants/colors';
+
+.dropDown {
+  appearance: none;
+  width: 80px;
+  height: 35px;
+  padding: 5px 10px 5px 24px;
+  margin-right: 8px;
+  font-size: 16px;
+  color: colors.$GRAY_92;
+  background: url('../../assets/svgs/dropdown_arrow.svg') no-repeat calc(100% - 8px) / 100% auto;
+  background-color: #f3f3f3;
+  background-size: 11px;
+  border: 1px solid #87e0ac;
+  border-radius: 10px;
+  outline: 0 none;
+
+  option {
+    padding: 3px 0;
+    border-radius: 10px;
+  }
+}
