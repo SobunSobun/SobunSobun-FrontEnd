@@ -1,62 +1,20 @@
-@use 'src/styles/constants/colors';
-@use 'src/styles/constants/sizes';
-@use 'src/styles/mixins/vwConvert';
-@use 'src/styles/mixins/fontSize';
+@use '/src/styles/constants/colors';
 
 .login {
-  padding-top: 60px;
-
-  .form {
-    padding-top: 78px;
+  .line {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 30px;
   }
 
-  .line {
-    position: relative;
-    margin-bottom: 5px;
+  .textInput {
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid colors.$GRAY2;
   }
 
   .guide {
-    position: absolute;
-    top: 70px;
-    font-size: 12px;
+    padding-top: 10px;
     color: colors.$RED;
-  }
-
-  .buttonWrap {
-    padding: 100px 17px 60px;
-    text-align: center;
-  }
-
-  .signupButton {
-    display: block;
-    padding: 17px;
-    font-size: 14px;
-    color: colors.$BLACK;
-  }
-
-  @media (max-width: sizes.$SCREEN_SM) {
-    @include vwConvert.mo(padding-top, 80);
-
-    .line {
-      @include vwConvert.mo(margin-bottom, 5);
-    }
-
-    .form {
-      @include vwConvert.mo(padding-top, 78);
-    }
-
-    .guide {
-      @include vwConvert.mo(top, 70);
-      @include vwConvert.mo(font-size, 12);
-    }
-
-    .buttonWrap {
-      @include vwConvert.mo(padding, 100 17 20 17);
-    }
-
-    .signupButton {
-      @include vwConvert.mo(padding, 17);
-      @include fontSize.emFontSizeMO(14);
-    }
   }
 }

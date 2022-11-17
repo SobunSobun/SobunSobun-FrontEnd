@@ -3,67 +3,40 @@
 @use 'src/styles/mixins/fontSize';
 @use '/src/styles/constants/sizes';
 
-.signup {
-  .nickname {
-    position: relative;
-
-    button {
-      position: absolute;
-      right: 0;
-      bottom: 43px;
-      width: 84px;
-      height: 23px;
-      padding: 0;
-      font-size: 12px;
-      border-radius: 6px;
-
-      @media (max-width: sizes.$SCREEN_SM) {
-        @include vwConvert.mo(bottom, 43);
-        @include vwConvert.mo(width, 84);
-        @include vwConvert.mo(height, 23);
-        @include fontSize.emFontSizeMO(12);
-        @include vwConvert.mo(border-radius, 6);
-      }
+.signup{
+    .nickname{
+        position: relative;
+        button{
+            position: absolute;
+            right: 0;
+            top: 20px;
+            width:84px;
+            height:23px;
+            font-size: 12px;
+            @media (max-width: sizes.$SCREEN_SM) {
+                @include vwConvert.mo(top, 20);
+                @include vwConvert.mo(width, 84);
+                @include vwConvert.mo(height, 23);
+                @include fontSize.emFontSizeMO(12)
+            }
+        }
+        .duplicate{
+            color: colors.$PRIMARY
+        }
     }
-
-    .duplicate {
-      color: colors.$PRIMARY;
+    .errorMessage{
+        margin-top:5px;
+        font-size: 12px;
+        color: colors.$RED;
+        @media (max-width: sizes.$SCREEN_SM) {
+            @include vwConvert.mo(margin-top, 5);
+            @include fontSize.emFontSizeMO(12);
+        }
     }
-
-    .red {
-      color: colors.$RED;
+    .signupBtn{
+        margin-top:50px;
+        @media (max-width: sizes.$SCREEN_SM) {
+            @include vwConvert.mo(margin-top, 50);
+        }   
     }
-  }
-
-  .formBox {
-    position: relative;
-
-    &:first-child {
-      margin-top: 27px;
-
-      @media (max-width: sizes.$SCREEN_SM) {
-        @include vwConvert.mo(margin-top, 27);
-      }
-    }
-  }
-
-  .errorMessage {
-    position: absolute;
-    top: 70px;
-    font-size: 12px;
-    color: colors.$RED;
-
-    @media (max-width: sizes.$SCREEN_SM) {
-      @include vwConvert.mo(top, 70);
-      @include fontSize.emFontSizeMO(12);
-    }
-  }
-
-  .signupBtn {
-    margin-top: 50px;
-
-    @media (max-width: sizes.$SCREEN_SM) {
-      @include vwConvert.mo(margin-top, 50);
-    }
-  }
 }

@@ -1,3 +1,6 @@
-<svg width="15" height="24" viewBox="0 0 15 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M12.6844 23.875C12.2336 23.875 11.8391 23.7108 11.501 23.3823L1.13217 13.3645C0.455943 12.7076 0.455943 11.6674 1.13217 11.0653L11.4447 0.992682C12.1209 0.335773 13.1916 0.335773 13.8115 0.992682C14.4877 1.64959 14.4877 2.6897 13.8115 3.29186L4.68238 12.2149L13.8115 21.0831C14.4877 21.74 14.4877 22.7802 13.8115 23.3823C13.5297 23.7108 13.0789 23.875 12.6844 23.875Z" fill="#172B4D"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26">
+  <g id="그룹_1065" data-name="그룹 1065" transform="translate(0 -4)">
+    <rect id="사각형_150" data-name="사각형 150" width="26" height="26" transform="translate(0 4)" fill="none"/>
+    <path id="패스_137" data-name="패스 137" d="M3029.129,4036.5l-7,7,7,7" transform="translate(-3012.629 -4026)" fill="none" stroke="#707070" stroke-linecap="round" stroke-width="2"/>
+  </g>
 </svg>

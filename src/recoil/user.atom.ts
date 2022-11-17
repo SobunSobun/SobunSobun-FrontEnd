@@ -5,4 +5,3 @@ export const authInfo = atom<authData>({
   key: '#authInfo',
   default: { user: null, pwd: null, accessToken: null },
 })
-

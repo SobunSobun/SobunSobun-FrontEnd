@@ -1,29 +1,23 @@
-@use 'src/styles/constants/colors';
-@use 'src/styles/constants/sizes';
-@use 'src/styles/mixins/vwConvert';
-@use 'src/styles/mixins/fontSize';
+@use '/src/styles/constants/colors';
+@use 'styles/constants/sizes';
+@use 'styles/mixins/vwConvert';
+@use 'styles/mixins/fontSize';
 
 .header {
-  padding: 21px 16px 0;
+  display: flex;
+  align-items: center;
+  height: 60px;
+//   border: 1px solid colors.$BLUE;
 
   .leftChild {
-    margin-bottom: 25px;
+    margin-right: 30px;
   }
 
   .headText {
-    font-size: 33px;
+    font-size:30px;
     color: colors.$GRAY2;
-  }
-
-  @media (max-width: sizes.$SCREEN_SM) {
-    @include vwConvert.mo(padding, 21 16 0);
-
-    .leftChild {
-      @include vwConvert.mo(margin-bottom, 25);
-    }
-
-    .headText {
-      @include fontSize.emFontSizeMO(33);
-    }
+    @media (max-width: sizes.$SCREEN_SM) {
+        @include fontSize.emFontSizeMO(30);
+      }
   }
 }

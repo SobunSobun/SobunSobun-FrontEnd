@@ -1,44 +1,9 @@
 @use '/src/styles/mixins/fontSize';
-@use 'src/styles/mixins/vwConvert';
-@use 'src/styles/constants/sizes';
-@use 'src/styles/constants/colors';
 
-.container {
-  width: 100%;
-  height: inherit;
-  background-color: colors.$GRAYE;
-}
-.headerSection {
-  position: fixed;
-  max-width: 768px;
-  width: 100%;
-  background-color: colors.$GRAYE;
-  height: 120px;
-  z-index: 10;
-  @media (max-width: sizes.$SCREEN_SM) {
-    @include vwConvert.mo(height, 120);
-  }
-  ul {
-    padding: 16px 0px 0px 16px;
-    @media (max-width: sizes.$SCREEN_SM) {
-      @include vwConvert.mo(padding, 16 0 0 16);
-    }
-  }
-}
-.cardSection {
-  padding: 136px 16px 16px 16px;
-  background-color: colors.$GRAYE;
-  @media (max-width: sizes.$SCREEN_SM) {
-    @include vwConvert.mo(padding-top, 136 16 16 16);
-  }
-}
+.home {
+  color: rgb(201, 21, 21);
 
-.cardList {
-  display: grid;
-  gap: 10px;
-  grid-template-columns: 1fr 1fr;
-  @media (max-width: sizes.$SCREEN_SM) {
-    grid-template-columns: 1fr;
-    @include vwConvert.mo(gap, 10);
+  h1 {
+    @include fontSize.emFontSizeMO(50);
   }
 }
