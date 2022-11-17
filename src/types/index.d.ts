@@ -13,6 +13,48 @@ export interface Time {
   minutes: string
 }
 
+export interface Keyword {
+  searchKeyword: string
+}
+
+/* 게시글 올리기 - 만날장소 () */
+export interface MapDataType {
+  address_name: string
+  category_group_code: string
+  category_group_name: string
+  category_name: string
+  distance: string
+  id: string
+  phone: string
+  place_name: string
+  place_url: string
+  road_address_name: string
+  x: string
+  y: string
+}
+
+export interface PlaceType {
+  place_name: string
+  road_address_name: string
+  address_name: string
+  place_url: string
+}
+
+export interface PaginationType {
+  current: number
+  first: number
+  gotoFirst: () => void
+  gotoLast: () => void
+  gotoPage: (arg0: number) => void
+  hasNextPage: Boolean
+  hasPrevPage: Boolean
+  last: number
+  nextPage: () => void
+  perPage: number
+  prevPage: () => void
+  totalCount: number
+}
+
 /* 동네 인증 */
 export interface region {
   address_name: string
@@ -21,6 +63,7 @@ export interface region {
     lon: string
   }
 }
+
 /*
 address_name	String	전체 지번 주소 또는 전체 도로명 주소, 입력에 따라 결정됨
 address_type	String	address_name의 값의 타입(Type)

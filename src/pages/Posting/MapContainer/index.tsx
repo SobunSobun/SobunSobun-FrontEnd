@@ -3,12 +3,6 @@ import { SearchIcon } from 'assets/svgs'
 import Map from '../Map'
 import styles from './mapContainer.module.scss'
 
-declare global {
-  interface Window {
-    kakao: any
-  }
-}
-
 const MapContainer = () => {
   const [searchInput, setSearchInput] = useState('')
   const [keyword, setKeyword] = useState('')

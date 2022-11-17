@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react'
+import { UseGeoLocation } from 'hooks/useGeoLocation'
+import { Keyword, MapDataType, PaginationType, PlaceType } from 'types'
 import styles from './map.module.scss'
 
 declare global {
@@ -7,68 +9,26 @@ declare global {
   }
 }
 
-interface MapDataType {
-  address_name: string
-  category_group_code: string
-  category_group_name: string
-  category_name: string
-  distance: string
-  id: string
-  phone: string
-  place_name: string
-  place_url: string
-  road_address_name: string
-  x: string
-  y: string
-}
-
-interface PlaceType {
-  place_name: string
-  road_address_name: string
-  address_name: string
-  place_url: string
-}
-
-interface PaginationType {
-  current: number
-  first: number
-  gotoFirst: () => void
-  gotoLast: () => void
-  gotoPage: (arg0: number) => void
-  hasNextPage: Boolean
-  hasPrevPage: Boolean
-  last: number
-  nextPage: () => void
-  perPage: number
-  prevPage: () => void
-  totalCount: number
-}
-
-export interface Props {
-  searchKeyword: string
-}
-
-const { kakao } = window as any
-
-const Map = ({ searchKeyword }: Props) => {
+const Map = ({ searchKeyword }: Keyword) => {
   let markers: any[] = []
+  const { lat, lng } = UseGeoLocation()
 
   // 검색어가 바뀔 때마다 재렌더링되도록 useEffect 사용
   useEffect(() => {
     const mapContainer = document.getElementById('map')
     const mapOption = {
-      center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
+      center: new window.kakao.maps.LatLng(lat, lng), // 지도의 중심좌표
       level: 3, // 지도의 확대 레벨
     }
 
     // 지도를 생성
-    const map = new kakao.maps.Map(mapContainer, mapOption)
+    const map = new window.kakao.maps.Map(mapContainer, mapOption)
 
     // 장소 검색 객체를 생성
-    const ps = new kakao.maps.services.Places()
+    const ps = new window.kakao.maps.services.Places()
 
     // 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성
-    const infowindow = new kakao.maps.InfoWindow({ zIndex: 1 })
+    const infowindow = new window.kakao.maps.InfoWindow({ zIndex: 1 })
 
     // 키워드로 장소를 검색합니다
     searchPlaces()
@@ -89,7 +49,7 @@ const Map = ({ searchKeyword }: Props) => {
 
     // 장소검색이 완료됐을 때 호출되는 콜백함수
     function placesSearchCB(data: Array<MapDataType>, status: string, pagination: PaginationType) {
-      if (status === kakao.maps.services.Status.OK) {
+      if (status === window.kakao.maps.services.Status.OK) {
         // 정상적으로 검색이 완료됐으면
         // 검색 목록과 마커를 표출
         displayPlaces(data)
@@ -97,9 +57,9 @@ const Map = ({ searchKeyword }: Props) => {
 
         // 페이지 번호를 표출
         displayPagination(pagination)
-      } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
+      } else if (status === window.kakao.maps.services.Status.ZERO_RESULT) {
         alert('검색 결과가 존재하지 않습니다.')
-      } else if (status === kakao.maps.services.Status.ERROR) {
+      } else if (status === window.kakao.maps.services.Status.ERROR) {
         alert('검색 결과 중 오류가 발생했습니다.')
       }
     }
@@ -110,7 +70,7 @@ const Map = ({ searchKeyword }: Props) => {
       const listEl = document.getElementById('placesList')
       const resultEl = document.getElementById('search-result')
       const fragment = document.createDocumentFragment()
-      const bounds = new kakao.maps.LatLngBounds()
+      const bounds = new window.kakao.maps.LatLngBounds()
 
       // 검색 결과 목록에 추가된 항목들을 제거
       listEl && removeAllChildNods(listEl)
@@ -120,7 +80,7 @@ const Map = ({ searchKeyword }: Props) => {
 
       for (let i = 0; i < places.length; i += 1) {
         // 마커를 생성하고 지도에 표시
-        const placePosition = new kakao.maps.LatLng(places[i].y, places[i].x)
+        const placePosition = new window.kakao.maps.LatLng(places[i].y, places[i].x)
         const marker = addMarker(placePosition, i, undefined)
         const itemEl = getListItem(i, places[i]) // 검색 결과 항목 Element를 생성
 
@@ -128,20 +88,20 @@ const Map = ({ searchKeyword }: Props) => {
         // LatLngBounds 객체에 좌표를 추가
         // eslint-disable-next-line prettier/prettier
         bounds.extend(placePosition)
-        ;(function (_marker: any, title: string) {
-          kakao.maps.event.addListener(_marker, 'mouseover', function () {
+        ;((_marker: any, title: string) => {
+          window.kakao.maps.event.addListener(_marker, 'mouseover', () => {
             displayInfowindow(_marker, title)
           })
 
-          kakao.maps.event.addListener(_marker, 'mouseout', function () {
+          window.kakao.maps.event.addListener(_marker, 'mouseout', () => {
             infowindow.close()
           })
 
-          itemEl.onmouseover = function () {
+          itemEl.onmouseover = () => {
             displayInfowindow(_marker, title)
           }
 
-          itemEl.onmouseout = function () {
+          itemEl.onmouseout = () => {
             infowindow.close()
           }
         })(marker, places[i].place_name)
@@ -194,14 +154,14 @@ const Map = ({ searchKeyword }: Props) => {
     // 마커를 생성하고 지도 위에 마커를 표시하는 함수
     function addMarker(position: any, idx: number, title: undefined) {
       const imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png' // 마커 이미지 url, 스프라이트 이미지
-      const imageSize = new kakao.maps.Size(36, 37) // 마커 이미지의 크기
+      const imageSize = new window.kakao.maps.Size(36, 37) // 마커 이미지의 크기
       const imgOptions = {
-        spriteSize: new kakao.maps.Size(36, 691), // 스프라이트 이미지의 크기
-        spriteOrigin: new kakao.maps.Point(0, idx * 46 + 10), // 스프라이트 이미지 중 사용할 영역의 좌상단 좌표
-        offset: new kakao.maps.Point(13, 37), // 마커 좌표에 일치시킬 이미지 내에서의 좌표
+        spriteSize: new window.kakao.maps.Size(36, 691), // 스프라이트 이미지의 크기
+        spriteOrigin: new window.kakao.maps.Point(0, idx * 46 + 10), // 스프라이트 이미지 중 사용할 영역의 좌상단 좌표
+        offset: new window.kakao.maps.Point(13, 37), // 마커 좌표에 일치시킬 이미지 내에서의 좌표
       }
-      const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imgOptions)
-      const marker = new kakao.maps.Marker({
+      const markerImage = new window.kakao.maps.MarkerImage(imageSrc, imageSize, imgOptions)
+      const marker = new window.kakao.maps.Marker({
         position, // 마커의 위치
         image: markerImage,
       })
@@ -239,8 +199,8 @@ const Map = ({ searchKeyword }: Props) => {
         if (z === pagination.current) {
           el.className = 'on'
         } else {
-          el.onclick = (function (k) {
-            return function () {
+          el.onclick = ((k) => {
+            return () => {
               pagination.gotoPage(k)
             }
           })(z)
