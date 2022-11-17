@@ -13,6 +13,7 @@ import Bookmark from 'pages/Bookmark'
 import LocalAuth from 'pages/LocalAuth'
 import Splash from 'pages/Splash'
 import SignupComplete from 'pages/SignupComplete'
+import Detail from 'pages/Detail'
 import styles from './routes.module.scss'
 
 const RootRoute = () => {
@@ -26,6 +27,7 @@ const RootRoute = () => {
           <Route path='signup' element={<Signup />} />
           <Route path='complete' element={<SignupComplete />} />
           <Route path='category' element={<Category />} />
+          <Route path='detail/:id' element={<Detail />} />
         </Route>
         <Route element={<LayoutGnb />}>
           <Route path='home' element={<Home />} />
