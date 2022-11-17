@@ -73,32 +73,28 @@
   }
 
   .detailList {
-    margin-top: 15px;
+    margin-top: 10px;
     @media (max-width: sizes.$SCREEN_SM) {
-      @include vwConvert.mo(margin-top, 15);
+      @include vwConvert.mo(margin-top, 10);
     }
 
     ul {
       display: flex;
+      flex-wrap: wrap;
 
       li {
         display: flex;
         align-items: center;
         padding: 3px 8px;
+        margin: 5px 8px 0 0;
         font-size: 10px;
         color: colors.$GRAY6;
         background: colors.$GRAYE;
         border-radius: 15px;
         @media (max-width: sizes.$SCREEN_SM) {
+          @include vwConvert.mo(margin, 5 8 0 0);
           @include vwConvert.mo(padding, 3 8);
           @include fontSize.emFontSizeMO(10);
-        }
-
-        & + li {
-          margin-left: 8px;
-          @media (max-width: sizes.$SCREEN_SM) {
-            @include vwConvert.mo(margin-left, 8);
-          }
         }
 
         svg {
