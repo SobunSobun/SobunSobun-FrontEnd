@@ -41,6 +41,7 @@
     "react-router-dom": "6",
     "react-scripts": "5.0.1",
     "recoil": "^0.7.3-alpha.2",
+    "swiper": "^8.4.4",
     "web-vitals": "^2.1.0"
   },
   "devDependencies": {
