@@ -11,11 +11,10 @@ const axiosApi = (url: string) => {
 }
 
 const axiosAuthApi = (url: string) => {
-  const token = '소분토큰'
   const instance = axios.create({
     baseURL: url,
     withCredentials: true,
-    headers: { SOBUNSOBUN: token },
+    headers: { SOBUNSOBUN: `${localStorage.getItem('sobunsobun')}` },
   })
   return instance
 }

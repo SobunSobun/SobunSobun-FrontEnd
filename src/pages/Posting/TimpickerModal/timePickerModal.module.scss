@@ -1,0 +1,29 @@
+.timePickerModal {
+  position: relative;
+  padding: 38px 42px;
+
+  .title {
+    padding-bottom: 10px;
+    font-weight: bold;
+  }
+
+  .line {
+    display: flex;
+    padding-bottom: 9px;
+  }
+
+  .semi {
+    display: block;
+    padding-right: 4px;
+  }
+
+  .buttonWrap {
+    padding-top: 35px;
+  }
+
+  .closeBtn {
+    position: absolute;
+    top: 17px;
+    right: 20px;
+  }
+}

@@ -31,6 +31,7 @@
   max-width: 738px;
   background-color: colors.$WHITE;
   border-radius: 7px;
+
   @media (max-width: sizes.$SCREEN_SM) {
     max-width: 400px;
   }
@@ -43,6 +44,7 @@
     p {
       padding: 24px 0;
       border-bottom: 1px solid colors.$GRAY_CF;
+
       @media (max-width: sizes.$SCREEN_SM) {
         @include vwConvert.mo(padding, 24 0);
         @include fontSize.emFontSizeMO(16);
@@ -58,6 +60,7 @@
     button {
       width: 100%;
       padding: 20px 0;
+
       @media (max-width: sizes.$SCREEN_SM) {
         @include vwConvert.mo(padding, 20 0);
         @include fontSize.emFontSizeMO(16);
