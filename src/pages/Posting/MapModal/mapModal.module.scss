@@ -1,6 +1,8 @@
 @use '/src/styles/constants/colors';
+@use '/src/styles/mixins/vwConvert';
+@use '/src/styles/constants/sizes';
 
-.mapContainer {
+.mapModal {
   position: relative;
 
   .search {
@@ -38,5 +40,28 @@
   .searchInput {
     width: 100%;
     padding: 18px 10px 18px 0;
+  }
+
+  @media (max-width: sizes.$SCREEN_SM) {
+    .search {
+      @include vwConvert.mo(top, 39);
+      @include vwConvert.mo(height, 57);
+    }
+
+    .searchForm {
+      @include vwConvert.mo(padding, 0 16);
+    }
+
+    .searchInner {
+      @include vwConvert.mo(border-radius, 14);
+    }
+
+    .searcButton {
+      width: 26%;
+    }
+
+    .searchInput {
+      @include vwConvert.mo(padding, 18 10 18 0);
+    }
   }
 }

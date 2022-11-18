@@ -11,7 +11,7 @@ interface Props {
 
 const TwoButtonModal = ({ show, close, message, yesCallBack }: Props) => {
   return (
-    <ModalLayout show={show}>
+    <ModalLayout show={show} width='basic'>
       <div className={styles.twoButton_container}>
         <p>{message}</p>
         <section className={styles.twoButton_buttonSection}>

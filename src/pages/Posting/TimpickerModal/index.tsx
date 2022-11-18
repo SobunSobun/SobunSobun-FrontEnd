@@ -6,18 +6,15 @@ import { postingDateState, postingTimeState } from 'recoil/post.atom'
 import DropDown from 'components/DropDown'
 import ModalLayout from 'components/Modal/ModalLayout'
 import { CloseIcon } from 'assets/svgs'
-import styles from './timePickerModal.module.scss'
+import { ModalPropsType } from 'types'
 
-interface Props {
-  show: boolean
-  close: () => void
-}
+import styles from './timePickerModal.module.scss'
 
 const slotArr = ['AM', 'PM']
 const hourArr = ['00', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11']
 const minutesArr = ['00', '10', '20', '30', '40', '50']
 
-const TimePickerModal = ({ show, close }: Props) => {
+const TimePickerModal = ({ show, close }: ModalPropsType) => {
   const [date, setDate] = useRecoilState(postingDateState)
   const [time, setTime] = useRecoilState(postingTimeState)
   const [localDate, setLocalDate] = useState(date)
@@ -44,7 +41,7 @@ const TimePickerModal = ({ show, close }: Props) => {
   }
 
   return (
-    <ModalLayout show={show}>
+    <ModalLayout show={show} width='small'>
       <div className={styles.timePickerModal}>
         <p className={styles.title}>소분 날짜</p>
         <div className={styles.line}>
