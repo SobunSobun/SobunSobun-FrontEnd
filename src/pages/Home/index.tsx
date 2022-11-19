@@ -5,6 +5,7 @@ import Card from 'components/Card'
 import { CategorySlider } from 'components/Slider'
 import { category, feed } from 'types'
 import { CATEGORIES } from 'utils/constants'
+import { PlusIcon } from 'assets/svgs'
 
 import styles from './home.module.scss'
 
@@ -17,13 +18,15 @@ const Home = () => {
 
   return (
     <div className={styles.container}>
-      <div>커밋 테스트</div>
+      <button type='button' className={styles.plus} onClick={() => navigate('/category')}>
+        <PlusIcon className={styles.plusIcon} />
+      </button>
       <section className={styles.headerSection}>
-        <Header headText='이웃과 함께 소분해요' />
+        {/* OO동 은 user 정보 가져오는 api를 useQuery로 가져와야 될 듯? */}
+        <Header headText='OO동 소분 시장' />
         <CategorySlider data={categorise} now={selectedCategory} setNow={setSelectedCategory} />
       </section>
       <section className={styles.cardSection}>
-        <div>now : {selectedCategory}</div>
         <ul className={styles.cardList}>
           {selectedCategory === '전체'
             ? data.map((item) => {
