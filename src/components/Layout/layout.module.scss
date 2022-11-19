@@ -1,6 +1,7 @@
 @charset "utf-8";
 @use '/src/styles/constants/colors';
 @use '/src/styles/mixins/vwConvert';
+@use 'src/styles/constants/sizes';
 
 .layout {
   width: 100%;
@@ -20,7 +21,13 @@
 
   .inner {
     flex: 1;
-    height: calc(100vh - 44px);
+    height: calc(100vh - 83px);
     overflow-y: auto;
+  }
+
+  @media (max-width: sizes.$SCREEN_SM) {
+    .inner {
+      height: calc(100vh - 10.8073vw);
+    }
   }
 }

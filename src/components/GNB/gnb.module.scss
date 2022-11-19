@@ -1,20 +1,43 @@
 @use 'src/styles/mixins/vwConvert';
 @use 'src/styles/constants/colors';
 @use 'src/styles/constants/sizes';
+@use 'src/styles/mixins/fontSize';
 
 .gnb {
   ul {
     display: flex;
     justify-content: space-around;
-    background-color: colors.$INDIGO;
+    background-color: colors.$WHITE;
 
     a {
       display: block;
-      padding: 15px;
+      height: 83px;
+      padding: 13px;
       font-size: 10px;
-      color: colors.$WHITE;
-      @media (max-width: sizes.$SCREEN_SM) {
-        @include vwConvert.mo(padding, 15);
+      color: colors.$BLACK;
+      text-align: center;
+
+      &.isActive {
+        color: colors.$PRIMARY;
+
+        svg {
+          fill: colors.$PRIMARY;
+        }
+      }
+    }
+
+    .title {
+      padding-top: 9px;
+    }
+    @media (max-width: sizes.$SCREEN_SM) {
+      a {
+        @include vwConvert.mo(height, 83);
+        @include vwConvert.mo(padding, 13);
+        @include fontSize.emFontSizeMO(10);
+      }
+
+      .title {
+        @include vwConvert.mo(padding-top, 9);
       }
     }
   }
