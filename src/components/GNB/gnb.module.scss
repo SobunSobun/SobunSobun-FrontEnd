@@ -21,7 +21,9 @@
         color: colors.$PRIMARY;
 
         svg {
-          fill: colors.$PRIMARY;
+          path {
+            fill: colors.$PRIMARY;
+          }
         }
       }
     }

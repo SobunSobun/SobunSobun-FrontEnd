@@ -8,25 +8,28 @@
   height: inherit;
   background-color: colors.$GRAYE;
 }
+
 .headerSection {
   position: fixed;
-  max-width: 768px;
-  width: 100%;
-  background-color: colors.$GRAYE;
-  height: 120px;
   z-index: 10;
+  width: 100%;
+  max-width: 768px;
+  height: 120px;
+  background-color: colors.$GRAYE;
   @media (max-width: sizes.$SCREEN_SM) {
     @include vwConvert.mo(height, 120);
   }
+
   ul {
-    padding: 16px 0px 0px 16px;
+    padding: 16px 0 0 16px;
     @media (max-width: sizes.$SCREEN_SM) {
       @include vwConvert.mo(padding, 16 0 0 16);
     }
   }
 }
+
 .cardSection {
-  padding: 136px 16px 16px 16px;
+  padding: 136px 16px 16px;
   background-color: colors.$GRAYE;
   @media (max-width: sizes.$SCREEN_SM) {
     @include vwConvert.mo(padding-top, 136 16 16 16);
@@ -35,8 +38,8 @@
 
 .cardList {
   display: grid;
-  gap: 10px;
   grid-template-columns: 1fr 1fr;
+  gap: 10px;
   @media (max-width: sizes.$SCREEN_SM) {
     grid-template-columns: 1fr;
     @include vwConvert.mo(gap, 10);
