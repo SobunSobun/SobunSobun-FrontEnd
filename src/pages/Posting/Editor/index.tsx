@@ -6,6 +6,7 @@ import { postingDateState, postingTimeState, postingPlaceState } from 'recoil/po
 
 import Button from 'components/Button'
 import TimePickerModal from 'pages/Posting/TimpickerModal'
+import MapModal from 'pages/Posting/MapModal'
 
 import useModal from 'hooks/useModal'
 import { authInstance } from 'apis/client'
@@ -63,7 +64,9 @@ const Editor = () => {
   const time = useRecoilValue(postingTimeState)
   const market = useRecoilValue(postingPlaceState)
   const [fullTime, setFullTime] = useState('')
-  const { isOpen, onClose, setIsOpen } = useModal()
+  const [timePickerModal, setTimePickerModal] = useState(false)
+  const [mapModal, setMapModal] = useState(false)
+  // const { isOpen, onClose, setIsOpen } = useModal()
   const {
     register,
     handleSubmit,
@@ -134,7 +137,7 @@ const Editor = () => {
           </div>
         </div>
         <div className={cx(styles.line, styles.noPadding)}>
-          <button type='button' className={styles.place} onClick={handleMoveToMap}>
+          <button type='button' className={styles.place} onClick={() => setMapModal(true)}>
             <p className={styles.label}>만날 장소</p>
             <ArrowPrevIcon className={styles.arrow} />
           </button>
@@ -146,7 +149,7 @@ const Editor = () => {
             만날 시간
           </label>
           <div className={styles.timePicker}>
-            <button type='button' className={styles.popupBtn} onClick={() => setIsOpen(true)}>
+            <button type='button' className={styles.popupBtn} onClick={() => setTimePickerModal(true)}>
               <span className={styles.num}>{date.getMonth() + 1}</span>
               <span className={styles.unit}>월 </span>
               <span className={styles.num}>{date.getDate()}</span>
@@ -163,7 +166,8 @@ const Editor = () => {
           <Button basic type='primary' text='완료' submit />
         </div>
       </form>
-      <TimePickerModal show={isOpen} close={onClose} />
+      <TimePickerModal show={timePickerModal} close={() => setTimePickerModal(false)} />
+      <MapModal show={mapModal} close={() => setMapModal(false)} />
     </div>
   )
 }
