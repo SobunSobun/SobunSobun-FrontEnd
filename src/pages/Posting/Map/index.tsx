@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { UseGeoLocation } from 'hooks/useGeoLocation'
 import { Swiper, SwiperSlide } from 'swiper/react'
+import SwiperCore from 'swiper'
 import { IMAGE_PATH } from 'assets/images'
 import { Keyword, MapDataType } from 'types'
+import cx from 'classnames'
 import 'swiper/swiper.min.css'
 import styles from './map.module.scss'
 
@@ -17,40 +19,42 @@ const markerSize = new window.kakao.maps.Size(14, 20)
 const markerImage = new window.kakao.maps.MarkerImage(markerSrc, markerSize)
 
 const Map = ({ searchKeyword, close }: Keyword) => {
-  const { lat, lng } = UseGeoLocation()
   const container = useRef(null)
+  const { lat, lng } = UseGeoLocation()
   const [keywordResult, setKeywordResult] = useState<MapDataType[]>([])
-  // const navigate = useNavigate()
+  // const [swiper, setSwiper] = useState<SwiperCore>()
+  const [pickPlace, setPickPlace] = useState('')
 
   useEffect(() => {
+    // 지도 생성 및 객체 리턴
     const options = {
       center: new window.kakao.maps.LatLng(lat, lng), // 지도의 중심좌표
       level: 3, // 지도의 확대 레벨
     }
-
-    const map = new window.kakao.maps.Map(container.current, options) // 지도 생성 및 객체 리턴
+    const map = new window.kakao.maps.Map(container.current, options)
     const ps = new window.kakao.maps.services.Places(map)
 
     /* 카테고리 검색 성공 callback */
     const categoryCallback = (data: Array<MapDataType>, status: string) => {
       if (status === window.kakao.maps.services.Status.OK) {
-        data.forEach((el: MapDataType) => {
+        data.forEach((el: MapDataType, index: number) => {
           const marker = new window.kakao.maps.Marker({
             position: new window.kakao.maps.LatLng(el.y, el.x),
             image: markerImage,
+            clickable: true,
+            // data: index,
           })
+          // marker.setTitle(index)
           marker.setMap(map)
 
           // 마커에 클릭이벤트
           window.kakao.maps.event.addListener(marker, 'click', () => {
-            // 인포윈도우 생성
-            // const infowindow = new window.kakao.maps.InfoWindow({
-            //   content: `<div style="padding:5px;">${el.place_name}</div>`,
-            // })
-            // infowindow.open(map, marker)
             setKeywordResult(data)
             const moveLatLon = new window.kakao.maps.LatLng(el.y, el.x)
             map.panTo(moveLatLon)
+            setPickPlace(el.id)
+            setKeywordResult(data)
+            console.log(el)
           })
         })
       }
@@ -63,18 +67,15 @@ const Map = ({ searchKeyword, close }: Keyword) => {
           const marker = new window.kakao.maps.Marker({
             position: new window.kakao.maps.LatLng(el.y, el.x),
             image: markerImage,
+            clickable: true,
           })
           marker.setMap(map)
 
-          // 마커에 클릭이벤트를 등록합니다
+          // 마커에 클릭이벤트
           window.kakao.maps.event.addListener(marker, 'click', () => {
-            // 인포윈도우 생성
-            // const infowindow = new window.kakao.maps.InfoWindow({
-            //   content: `<div style="padding:5px;">${el.place_name}</div>`,
-            // })
-            // infowindow.open(map, marker)
             const moveLatLon = new window.kakao.maps.LatLng(el.y, el.x)
             map.panTo(moveLatLon)
+            // setPickPlace(el.id)
           })
         })
 
@@ -92,7 +93,27 @@ const Map = ({ searchKeyword, close }: Keyword) => {
         location: map.getCenter(),
       })
     }
+
+    // if (pickPlace.x && pickPlace.y) {
+    //   console.log(pickPlace.x, pickPlace.y)
+    //   const moveLatLon = new window.kakao.maps.LatLng(pickPlace.x, pickPlace.y)
+    //   map.panTo(moveLatLon)
+    // }
   }, [lat, lng, searchKeyword])
+
+  // useEffect(() => {
+  //   if (pickPlace) {
+  //     slideMove(pickPlace)
+  //   }
+  // }, [pickPlace])
+
+  // const slideMove = (index: number) => {
+  //   if (index === 0 && idx === 0) {
+  //     return
+  //   } else {
+  //     swiper.slideTo(index, 1000)
+  //   }
+  // }
   return (
     <div className={styles.map}>
       <div id='map' className={styles.mapArea} ref={container} />
@@ -100,14 +121,20 @@ const Map = ({ searchKeyword, close }: Keyword) => {
         <div className={styles.list}>
           <Swiper grabCursor centeredSlides slidesPerView='auto'>
             {keywordResult.map((item) => {
+              // console.log(item)
               return (
                 <SwiperSlide key={item.id} className={styles.swiperItem}>
                   <button
                     type='button'
-                    className={styles.itemInner}
+                    className={cx(styles.itemInner, { [styles.active]: item.id === pickPlace })}
+                    // className={cx(styles.itemInner)}
                     onClick={() => {
-                      close()
+                      // close()
+                      // setPickPlace({ x: item.x, y: item.y })
+                      // map.panTo(moveLatLon)
                     }}
+                    // data-lan={item.x}
+                    // data-lat={item.y}
                   >
                     <span className={styles.market}>{item.place_name}</span>
                     <span className={styles.address}>{item.address_name}</span>
