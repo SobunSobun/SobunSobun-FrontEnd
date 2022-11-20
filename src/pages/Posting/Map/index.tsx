@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
+import { useRecoilState } from 'recoil'
 import { UseGeoLocation } from 'hooks/useGeoLocation'
-import { Swiper, SwiperSlide } from 'swiper/react'
-import SwiperCore from 'swiper'
 import { IMAGE_PATH } from 'assets/images'
 import { Keyword, MapDataType } from 'types'
 import cx from 'classnames'
+import { postingPlaceState } from 'recoil/post.atom'
 import 'swiper/swiper.min.css'
 import styles from './map.module.scss'
 
@@ -14,22 +14,23 @@ declare global {
   }
 }
 
-const markerSrc = IMAGE_PATH.mapMarker
 const markerSize = new window.kakao.maps.Size(14, 20)
-const markerImage = new window.kakao.maps.MarkerImage(markerSrc, markerSize)
+const activeMarkerSize = new window.kakao.maps.Size(36, 50)
 
 const Map = ({ searchKeyword, close }: Keyword) => {
-  const container = useRef(null)
   const { lat, lng } = UseGeoLocation()
-  const [keywordResult, setKeywordResult] = useState<MapDataType[]>([])
-  // const [swiper, setSwiper] = useState<SwiperCore>()
-  const [pickPlace, setPickPlace] = useState('')
+  const container = useRef(null)
+  const [, setMarket] = useRecoilState(postingPlaceState)
+  const [itemActive, setItemActive] = useState(false)
+  const [itemInfo, setItemInfo] = useState({ market: '', address: '' })
 
   useEffect(() => {
+    let markers: any[] = []
+    let selectedMarker: any = null // 클릭한 마커를 담을 변수
     // 지도 생성 및 객체 리턴
     const options = {
       center: new window.kakao.maps.LatLng(lat, lng), // 지도의 중심좌표
-      level: 3, // 지도의 확대 레벨
+      level: 3,
     }
     const map = new window.kakao.maps.Map(container.current, options)
     const ps = new window.kakao.maps.services.Places(map)
@@ -37,52 +38,75 @@ const Map = ({ searchKeyword, close }: Keyword) => {
     /* 카테고리 검색 성공 callback */
     const categoryCallback = (data: Array<MapDataType>, status: string) => {
       if (status === window.kakao.maps.services.Status.OK) {
-        data.forEach((el: MapDataType, index: number) => {
-          const marker = new window.kakao.maps.Marker({
-            position: new window.kakao.maps.LatLng(el.y, el.x),
-            image: markerImage,
-            clickable: true,
-            // data: index,
-          })
-          // marker.setTitle(index)
-          marker.setMap(map)
-
-          // 마커에 클릭이벤트
-          window.kakao.maps.event.addListener(marker, 'click', () => {
-            setKeywordResult(data)
-            const moveLatLon = new window.kakao.maps.LatLng(el.y, el.x)
-            map.panTo(moveLatLon)
-            setPickPlace(el.id)
-            setKeywordResult(data)
-            console.log(el)
-          })
-        })
+        addMarker(data)
       }
     }
     /* 마트 키워드로 검색한 결과 */
     const keywordCallback = (data: Array<MapDataType>, status: string) => {
       if (status === window.kakao.maps.services.Status.OK) {
-        setKeywordResult(data)
-        data.forEach((el: MapDataType) => {
-          const marker = new window.kakao.maps.Marker({
-            position: new window.kakao.maps.LatLng(el.y, el.x),
-            image: markerImage,
-            clickable: true,
-          })
-          marker.setMap(map)
-
-          // 마커에 클릭이벤트
-          window.kakao.maps.event.addListener(marker, 'click', () => {
-            const moveLatLon = new window.kakao.maps.LatLng(el.y, el.x)
-            map.panTo(moveLatLon)
-            // setPickPlace(el.id)
-          })
-        })
+        removeMarker()
+        setItemInfo({ market: '', address: '' })
+        addMarker(data)
 
         const moveLatLon = new window.kakao.maps.LatLng(data[0].y, data[0].x)
         map.panTo(moveLatLon)
       }
     }
+    /* 마커 추가하기 */
+    const addMarker = (data: Array<MapDataType>) => {
+      const normalImage = createMarkerImage(IMAGE_PATH.mapMarker, markerSize)
+      const clickImage = createMarkerImage(IMAGE_PATH.mapMarkerActive, activeMarkerSize)
+      data.forEach((el: MapDataType) => {
+        const position = new window.kakao.maps.LatLng(el.y, el.x)
+        const marker = new window.kakao.maps.Marker({
+          position,
+          image: normalImage,
+          clickable: true,
+        })
+        marker.setMap(map)
+        markers.push(marker) // 배열에 생성된 마커를 추가
+        marker.normalImage = normalImage
+
+        // 마커에 클릭이벤트
+        window.kakao.maps.event.addListener(marker, 'click', () => {
+          const moveLatLon = position
+          map.panTo(moveLatLon)
+
+          const place = data.filter((item) => item.id === el.id)
+          setItemInfo({ market: place[0].place_name, address: place[0].address_name })
+
+          setItemActive(false)
+
+          // 클릭된 마커가 없고, click 마커가 클릭된 마커가 아니면 마커의 이미지를 클릭 이미지로 변경
+          if (!selectedMarker || selectedMarker !== marker) {
+            // 클릭된 마커 객체가 null이 아니면 클릭된 마커의 이미지를 기본 이미지로 변경
+            !!selectedMarker && selectedMarker.setImage(selectedMarker.normalImage)
+
+            // 현재 클릭된 마커의 이미지는 클릭 이미지로 변경
+            marker.setImage(clickImage)
+          }
+
+          // 클릭된 마커를 현재 클릭된 마커 객체로 설정
+          selectedMarker = marker
+        })
+      })
+    }
+
+    /* 마커 제거하기 */
+    const removeMarker = () => {
+      markers.forEach((marker) => {
+        marker.setMap(null)
+      })
+      markers = []
+    }
+
+    // markerImage 객체를 생성하여 반환하는 함수
+    const createMarkerImage = (markerUrl: string, _markerSize: { height: number; width: number }) => {
+      const markerImg = new window.kakao.maps.MarkerImage(markerUrl, _markerSize)
+
+      return markerImg
+    }
+
     // 처음 지도 진입시 마트 키워드로 검색된 결과가 마커로 나타남
     ps.categorySearch('MT1', categoryCallback, {
       location: map.getCenter(),
@@ -93,56 +117,34 @@ const Map = ({ searchKeyword, close }: Keyword) => {
         location: map.getCenter(),
       })
     }
-
-    // if (pickPlace.x && pickPlace.y) {
-    //   console.log(pickPlace.x, pickPlace.y)
-    //   const moveLatLon = new window.kakao.maps.LatLng(pickPlace.x, pickPlace.y)
-    //   map.panTo(moveLatLon)
-    // }
   }, [lat, lng, searchKeyword])
 
-  // useEffect(() => {
-  //   if (pickPlace) {
-  //     slideMove(pickPlace)
-  //   }
-  // }, [pickPlace])
+  const handleSetMarket = () => {
+    setItemActive(true)
+    setMarket({ place: itemInfo.market, address: itemInfo.address })
+    setTimeout(() => {
+      close()
+    }, 300)
+  }
 
-  // const slideMove = (index: number) => {
-  //   if (index === 0 && idx === 0) {
-  //     return
-  //   } else {
-  //     swiper.slideTo(index, 1000)
-  //   }
-  // }
   return (
     <div className={styles.map}>
       <div id='map' className={styles.mapArea} ref={container} />
-      {keywordResult.length > 0 && (
-        <div className={styles.list}>
-          <Swiper grabCursor centeredSlides slidesPerView='auto'>
-            {keywordResult.map((item) => {
-              // console.log(item)
-              return (
-                <SwiperSlide key={item.id} className={styles.swiperItem}>
-                  <button
-                    type='button'
-                    className={cx(styles.itemInner, { [styles.active]: item.id === pickPlace })}
-                    // className={cx(styles.itemInner)}
-                    onClick={() => {
-                      // close()
-                      // setPickPlace({ x: item.x, y: item.y })
-                      // map.panTo(moveLatLon)
-                    }}
-                    // data-lan={item.x}
-                    // data-lat={item.y}
-                  >
-                    <span className={styles.market}>{item.place_name}</span>
-                    <span className={styles.address}>{item.address_name}</span>
-                  </button>
-                </SwiperSlide>
-              )
-            })}
-          </Swiper>
+      {itemInfo.market && (
+        <div className={styles.item}>
+          <button
+            type='button'
+            className={cx(styles.itemInner, { [styles.active]: itemActive })}
+            onClick={handleSetMarket}
+          >
+            <span className={styles.image}>
+              <img src={IMAGE_PATH.mapImage} alt='' />
+            </span>
+            <dl className={styles.desc}>
+              <dt className={styles.market}>{itemInfo.market}</dt>
+              <dd className={styles.address}>{itemInfo.address}</dd>
+            </dl>
+          </button>
         </div>
       )}
     </div>

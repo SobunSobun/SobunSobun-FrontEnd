@@ -32,33 +32,25 @@
   background-color: colors.$WHITE;
   border-radius: 7px;
 
-  // &.full {
-  //   width: 100%;
-  // }
+  &.full {
+    width: 100%;
+  }
 
-  // &.small {
-  //   width: 326px;
-  // }
+  &.small {
+    width: 326px;
+  }
 
   @media (max-width: sizes.$SCREEN_SM) {
     max-width: 400px;
 
-    // &.full {
-    //   width: 100%;
-    // }
+    &.full {
+      max-width: 100%;
+    }
 
     // &.small {
     //   width: 326px;
     // }
   }
-}
-
-.full {
-  width: 100%;
-}
-
-.small {
-  width: 326px;
 }
 
 .twoButton {

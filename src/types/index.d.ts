@@ -44,13 +44,6 @@ export interface ModalPropsType {
   close: () => void
 }
 
-// export interface PlaceType {
-//   place_name: string
-//   road_address_name: string
-//   address_name: string
-//   place_url: string
-// }
-
 export interface PaginationType {
   current: number
   first: number

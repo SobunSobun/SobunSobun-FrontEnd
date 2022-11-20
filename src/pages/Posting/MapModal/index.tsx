@@ -29,7 +29,7 @@ const MapModal = ({ show, close }: ModalPropsType) => {
         <div className={styles.search}>
           <form action='' onSubmit={handleSubmit} className={styles.searchForm}>
             <div className={styles.searchInner}>
-              <button type='submit' className={styles.searcButton}>
+              <button type='submit' className={styles.searchButton}>
                 <SearchIcon />
               </button>
               <input
