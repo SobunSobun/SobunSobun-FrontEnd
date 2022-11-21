@@ -43,7 +43,7 @@ const Login = () => {
       const response = await defaultInstance.post('/login', formData)
 
       if (response.data === '아이디 틀림') {
-        console.log(response)
+        // console.log(response)
         setWarning(true)
       } else {
         localStorage.setItem('sobunsobun', response.data)

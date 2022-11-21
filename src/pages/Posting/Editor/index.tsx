@@ -64,6 +64,7 @@ const Editor = () => {
 
     try {
       const response = await authInstance.post('/post/register', formData)
+      // eslint-disable-next-line no-console
       console.log(response)
       navigate('/home')
     } catch (error) {
