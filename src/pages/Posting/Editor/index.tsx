@@ -1,17 +1,18 @@
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { cx } from 'styles'
+import { useLocation, useNavigate } from 'react-router-dom'
+import cx from 'classnames'
 import { useRecoilValue } from 'recoil'
+
 import { postingDateState, postingTimeState, postingPlaceState } from 'recoil/post.atom'
+import { authInstance } from 'apis/client'
+import { MinusIcon, PlusIcon, ArrowPrevIcon } from 'assets/svgs'
 
 import Button from 'components/Button'
 import TimePickerModal from 'pages/Posting/TimpickerModal'
 import MapModal from 'pages/Posting/MapModal'
 
-import { authInstance } from 'apis/client'
-import { useLocation, useNavigate } from 'react-router-dom'
-import { MinusIcon, PlusIcon, ArrowPrevIcon } from 'assets/svgs'
-import 'react-datepicker/dist/react-datepicker.css'
+import './datepicker_custom.css'
 import styles from './editor.module.scss'
 
 interface FormValues {
@@ -62,7 +63,6 @@ const Editor = () => {
     // formData.append('address', market.address)
 
     try {
-      console.log(formData)
       const response = await authInstance.post('/post/register', formData)
       console.log(response)
       navigate('/home')
@@ -103,20 +103,12 @@ const Editor = () => {
           />
         </div>
         <div className={styles.line}>
-          <label htmlFor='count' className={styles.label}>
-            모집 인원
-          </label>
+          <p className={styles.label}>모집 인원</p>
           <div className={styles.counter}>
             <button type='button' onClick={handleDecrease}>
               <MinusIcon />
             </button>
-            <input
-              type='text'
-              className={styles.current}
-              id='recruitmentNumber'
-              value={count}
-              {...register('recruitmentNumber', { required: true })}
-            />
+            <span className={styles.current}>{count}</span>
             <button type='button' onClick={handleIncrease}>
               <PlusIcon />
             </button>

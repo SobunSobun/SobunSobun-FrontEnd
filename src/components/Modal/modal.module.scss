@@ -37,7 +37,9 @@
   }
 
   &.small {
-    width: 326px;
+    width: 332px;
+    max-height: 80vh;
+    overflow-y: auto;
   }
 
   @media (max-width: sizes.$SCREEN_SM) {
@@ -47,9 +49,10 @@
       max-width: 100%;
     }
 
-    // &.small {
-    //   width: 326px;
-    // }
+    &.small {
+      width: 90%;
+      max-width: 100%;
+    }
   }
 }
 

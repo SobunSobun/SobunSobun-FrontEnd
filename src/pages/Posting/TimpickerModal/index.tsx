@@ -1,11 +1,11 @@
 import { useState, ChangeEvent, Dispatch, SetStateAction } from 'react'
 import { useRecoilState } from 'recoil'
+import cx from 'classnames'
 import DatePicker from 'react-datepicker'
 import Button from 'components/Button'
 import { postingDateState, postingTimeState } from 'recoil/post.atom'
 import DropDown from 'components/DropDown'
 import ModalLayout from 'components/Modal/ModalLayout'
-import { CloseIcon } from 'assets/svgs'
 import { ModalPropsType } from 'types'
 
 import styles from './timePickerModal.module.scss'
@@ -53,7 +53,7 @@ const TimePickerModal = ({ show, close }: ModalPropsType) => {
           />
         </div>
         <p className={styles.title}>소분 시간</p>
-        <div className={styles.line}>
+        <div className={cx(styles.line, styles.dropdownWrap)}>
           <DropDown
             list={slotArr}
             value={localSlot}
@@ -75,7 +75,7 @@ const TimePickerModal = ({ show, close }: ModalPropsType) => {
           <Button basic type='primary' text='확인' onClick={handleSetData} />
         </div>
         <button type='button' onClick={handleClosePopup} className={styles.closeBtn}>
-          <CloseIcon />
+          닫기
         </button>
       </div>
     </ModalLayout>

@@ -22,6 +22,7 @@
   .label {
     display: inline-block;
     padding-bottom: 12px;
+    font-size: 16px;
     font-weight: 600;
   }
 
@@ -62,6 +63,10 @@
 
       &:active {
         background-color: colors.$PRIMARY;
+      }
+
+      svg {
+        width: 50%;
       }
     }
 
@@ -146,6 +151,7 @@
 
     .label {
       @include vwConvert.mo(padding-bottom, 12);
+      @include fontSize.emFontSizeMO(16);
     }
 
     .textInput,
@@ -183,7 +189,6 @@
 
       .arrow {
         @include vwConvert.mo(margin-right, 5);
-        margin-right: 5px;
       }
     }
 
