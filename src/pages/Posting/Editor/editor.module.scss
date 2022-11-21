@@ -1,5 +1,5 @@
 @use '/src/styles/constants/colors';
-@use '/src/styles/mixins/flexbox';
+// @use '/src/styles/mixins/flexbox';
 @use '/src/styles/mixins/vwConvert';
 @use 'src/styles/mixins/fontSize';
 @use '/src/styles/constants/sizes';
@@ -48,36 +48,6 @@
     resize: none;
   }
 
-  // 카운터
-  .counter {
-    display: flex;
-    align-items: center;
-
-    button {
-      width: 24px;
-      height: 24px;
-      line-height: 24px;
-      background-color: colors.$GRAY_D9;
-      border-radius: 50%;
-      @include flexbox.flexbox(center, center);
-
-      &:active {
-        background-color: colors.$PRIMARY;
-      }
-
-      svg {
-        width: 50%;
-      }
-    }
-
-    .current {
-      width: 40px;
-      min-width: 20px;
-      padding: 0 5px;
-      text-align: center;
-    }
-  }
-
   // 장소
   .place {
     display: flex;
@@ -100,46 +70,6 @@
     .arrow {
       margin-right: 5px;
       transform: scaleX(-1);
-    }
-  }
-
-  // 시간
-  .timePicker {
-    .popupBtn {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      width: 100%;
-      padding: 14px 0;
-      font-size: 16px;
-
-      .label {
-        width: 100%;
-        padding-bottom: 8px;
-        text-align: left;
-      }
-
-      span {
-        display: block;
-      }
-
-      .num {
-        color: colors.$GRAY_2_T30;
-        text-align: center;
-      }
-
-      .unit {
-        padding: 0 8px 0 3px;
-      }
-
-      .slot {
-        padding-right: 8px;
-        color: colors.$GRAY_2_T30;
-      }
-
-      .semi {
-        padding: 0 4px;
-      }
     }
   }
 
@@ -175,21 +105,6 @@
       @include vwConvert.mo(height, 200);
     }
 
-    // 카운터
-    .counter {
-      button {
-        @include vwConvert.mo(width, 24);
-        @include vwConvert.mo(height, 24);
-        @include vwConvert.mo(line-height, 24);
-      }
-
-      .current {
-        @include vwConvert.mo(width, 40);
-        @include vwConvert.mo(max-width, 20);
-        @include vwConvert.mo(padding, 0 5);
-      }
-    }
-
     // 장소
     .place {
       @include vwConvert.mo(padding, 14 0);
@@ -200,30 +115,6 @@
 
       .arrow {
         @include vwConvert.mo(margin-right, 5);
-      }
-    }
-
-    // 시간
-    .timePicker {
-      .popupBtn {
-        @include vwConvert.mo(padding, 14 0);
-        @include fontSize.emFontSizeMO(16);
-
-        .label {
-          @include vwConvert.mo(padding-bottom, 8);
-        }
-
-        .unit {
-          @include vwConvert.mo(padding, 0 8 0 3);
-        }
-
-        .slot {
-          @include vwConvert.mo(padding-right, 8);
-        }
-
-        .semi {
-          @include vwConvert.mo(padding, 0 4);
-        }
       }
     }
 

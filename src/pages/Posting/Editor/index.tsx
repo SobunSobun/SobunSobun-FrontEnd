@@ -6,11 +6,13 @@ import { useRecoilValue } from 'recoil'
 
 import { postingDateState, postingTimeState, postingPlaceState } from 'recoil/post.atom'
 import { authInstance } from 'apis/client'
-import { MinusIcon, PlusIcon, ArrowPrevIcon } from 'assets/svgs'
+import { ArrowPrevIcon } from 'assets/svgs'
 
 import Button from 'components/Button'
 import TimePickerModal from 'pages/Posting/TimpickerModal'
 import MapModal from 'pages/Posting/MapModal'
+import Counter from '../Counter'
+import TimePicker from '../TimePicker'
 
 import './datepicker_custom.css'
 import styles from './editor.module.scss'
@@ -43,15 +45,6 @@ const Editor = () => {
   const [mapModal, setMapModal] = useState(false)
   const { register, handleSubmit } = useForm<FormValues>()
 
-  const handleIncrease = () => {
-    setCount((prev) => prev + 1)
-  }
-  const handleDecrease = () => {
-    if (count > 2) {
-      setCount((prev) => prev - 1)
-    }
-  }
-
   const onSubmit = async (data: FormValues) => {
     const formData = new FormData()
     formData.append('title', data.title)
@@ -66,7 +59,7 @@ const Editor = () => {
       const response = await authInstance.post('/post/register', formData)
       // eslint-disable-next-line no-console
       console.log(response)
-      navigate('/home')
+      navigate('/upload-complete', { state: { type: '작성' } })
     } catch (error) {
       // eslint-disable-next-line no-console
       console.log(error)
@@ -104,15 +97,7 @@ const Editor = () => {
         </div>
         <div className={styles.line}>
           <p className={styles.label}>모집 인원</p>
-          <div className={styles.counter}>
-            <button type='button' onClick={handleDecrease}>
-              <MinusIcon />
-            </button>
-            <span className={styles.current}>{count}</span>
-            <button type='button' onClick={handleIncrease}>
-              <PlusIcon />
-            </button>
-          </div>
+          <Counter count={count} setCount={setCount} />
         </div>
         <div className={cx(styles.line, styles.noPadding)}>
           <button type='button' className={styles.place} onClick={() => setMapModal(true)}>
@@ -121,19 +106,7 @@ const Editor = () => {
           </button>
         </div>
         <div className={cx(styles.line, styles.noPadding)}>
-          <div className={styles.timePicker}>
-            <button type='button' className={styles.popupBtn} onClick={() => setTimePickerModal(true)}>
-              <span className={styles.label}>만날 시간</span>
-              <span className={styles.num}>{date.getMonth() + 1}</span>
-              <span className={styles.unit}>월 </span>
-              <span className={styles.num}>{date.getDate()}</span>
-              <span className={styles.unit}>일</span>
-              <span className={styles.slot}>{time.slot}</span>
-              <span className={styles.num}>{time.hour}</span>
-              <span className={styles.semi}>:</span>
-              <span className={styles.num}>{time.minutes}</span>
-            </button>
-          </div>
+          <TimePicker onClick={setTimePickerModal} />
         </div>
         <div className={styles.buttonWrap}>
           <Button basic type='primary' text='완료' submit />

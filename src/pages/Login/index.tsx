@@ -55,6 +55,19 @@ const Login = () => {
     }
   }
 
+  const submitErrorMessage = () => {
+    const message =
+      warning && watchEmailValue && watchPasswordValue ? (
+        <span className={styles.guide}>
+          이메일 또는 비밀번호를 잘못 입력했습니다. <br />
+          입력하신 내용을 다시 확인해주세요.
+        </span>
+      ) : (
+        ''
+      )
+    return message
+  }
+
   return (
     <div className={styles.login}>
       <div className='contentsInner'>
@@ -76,14 +89,7 @@ const Login = () => {
               <input type='password' id='password' {...register('password', { required: true, min: 6 })} />
             </Input>
             {errors.password?.type === 'required' && <span className={styles.guide}>비밀번호를 입력해주세요</span>}
-            {warning && watchEmailValue && watchPasswordValue ? (
-              <span className={styles.guide}>
-                이메일 또는 비밀번호를 잘못 입력했습니다. <br />
-                입력하신 내용을 다시 확인해주세요.
-              </span>
-            ) : (
-              ''
-            )}
+            {submitErrorMessage()}
           </div>
           <div className={styles.buttonWrap}>
             <Button type={watchEmailValue && watchPasswordValue ? 'primary' : 'negative'} text='로그인하기' submit />

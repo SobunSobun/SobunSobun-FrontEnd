@@ -13,7 +13,7 @@ const Splash = () => {
       <div className='contentsInner'>
         <Greeting />
         <div className={styles.buttonWrap}>
-          <Button type='secondary' text='시작하기' onClick={onMoveToSignUp} />
+          <Button type='primary' text='시작하기' onClick={onMoveToSignUp} />
           <Link to='/login' className={styles.loginButton}>
             이미 계정이 있나요? 로그인
           </Link>

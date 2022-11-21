@@ -3,7 +3,7 @@ import { useRecoilState } from 'recoil'
 import cx from 'classnames'
 import DatePicker from 'react-datepicker'
 import Button from 'components/Button'
-import { postingDateState, postingTimeState } from 'recoil/post.atom'
+import { postingDateState, postingTimeState, modalChangeState } from 'recoil/post.atom'
 import DropDown from 'components/DropDown'
 import ModalLayout from 'components/Modal/ModalLayout'
 import { ModalPropsType } from 'types'
@@ -17,12 +17,16 @@ const minutesArr = ['00', '10', '20', '30', '40', '50']
 const TimePickerModal = ({ show, close }: ModalPropsType) => {
   const [date, setDate] = useRecoilState(postingDateState)
   const [time, setTime] = useRecoilState(postingTimeState)
+  const [, setTimeChange] = useRecoilState(modalChangeState)
   const [localDate, setLocalDate] = useState(date)
   const [localSlot, setLocalSlot] = useState(time.slot)
   const [localHour, setLocalHour] = useState(time.hour)
   const [localMinutes, setLocalMinutes] = useState(time.minutes)
 
   const handleSetData = () => {
+    if (localDate !== date || localSlot !== time.slot || localHour !== time.hour || localMinutes !== time.minutes) {
+      setTimeChange(true)
+    }
     setDate(localDate)
     setTime({ slot: localSlot, hour: localHour, minutes: localMinutes })
     close()
@@ -33,6 +37,7 @@ const TimePickerModal = ({ show, close }: ModalPropsType) => {
     setLocalSlot(time.slot)
     setLocalHour(time.hour)
     setLocalMinutes(time.minutes)
+
     close()
   }
 
@@ -47,6 +52,7 @@ const TimePickerModal = ({ show, close }: ModalPropsType) => {
         <div className={styles.line}>
           <DatePicker
             className={styles.datePickerInput}
+            minDate={new Date()}
             selected={localDate}
             onChange={(pickDate: Date) => setLocalDate(pickDate)}
             inline
