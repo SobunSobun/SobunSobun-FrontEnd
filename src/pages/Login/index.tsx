@@ -86,12 +86,7 @@ const Login = () => {
             )}
           </div>
           <div className={styles.buttonWrap}>
-            <Button
-              basic
-              type={watchEmailValue && watchPasswordValue ? 'primary' : 'negative'}
-              text='로그인하기'
-              submit
-            />
+            <Button type={watchEmailValue && watchPasswordValue ? 'primary' : 'negative'} text='로그인하기' submit />
             <Link to='/local' className={styles.signupButton}>
               회원가입
             </Link>

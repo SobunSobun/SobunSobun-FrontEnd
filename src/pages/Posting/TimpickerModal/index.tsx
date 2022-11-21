@@ -72,7 +72,7 @@ const TimePickerModal = ({ show, close }: ModalPropsType) => {
           />
         </div>
         <div className={styles.buttonWrap}>
-          <Button basic type='primary' text='확인' onClick={handleSetData} />
+          <Button type='primary' text='확인' onClick={handleSetData} />
         </div>
         <button type='button' onClick={handleClosePopup} className={styles.closeBtn}>
           닫기

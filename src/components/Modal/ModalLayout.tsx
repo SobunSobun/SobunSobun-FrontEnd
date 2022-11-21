@@ -6,10 +6,10 @@ import styles from './modal.module.scss'
 interface Props {
   children: ReactNode
   show: boolean
-  width: 'basic' | 'full' | 'small'
+  width?: 'basic' | 'full' | 'small'
 }
 
-const ModalLayout = ({ children, show, width }: Props) => {
+const ModalLayout = ({ children, show, width = 'basic' }: Props) => {
   return show ? (
     <ModalPortal>
       <div className={styles.outer}>

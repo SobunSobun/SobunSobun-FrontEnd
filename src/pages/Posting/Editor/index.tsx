@@ -92,7 +92,6 @@ const Editor = () => {
             placeholder='제목을 입력해주세요.(30자 내외)'
             {...register('title', { required: true })}
           />
-          <input type='hidden' id='category' value={state.category} {...register('category', { required: true })} />
         </div>
         <div className={styles.line}>
           <textarea
