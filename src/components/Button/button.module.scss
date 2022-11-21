@@ -8,7 +8,7 @@
   @include flexbox.flexbox;
   transition: color 200ms;
 
-  + .button {
+  +.button {
     margin-left: 16px;
   }
 
@@ -20,6 +20,7 @@
     color: colors.$BLACK;
     background-color: colors.$PRIMARY;
     border-radius: 15px;
+
     @media (max-width: sizes.$SCREEN_SM) {
       @include vwConvert.mo(height, 57);
       @include vwConvert.mo(border-radius, 15);
@@ -36,11 +37,16 @@
     background-color: colors.$GRAY_D9;
   }
 
+  &:disabled {
+    background-color: colors.$GRAY_D9;
+  }
+
   &.back,
   &.customBack {
     width: 19.5px;
     height: 34.5px;
     background: url('../../assets/svgs/arrow_prev.svg') no-repeat center/70% auto;
+
     @media (max-width: sizes.$SCREEN_SM) {
       @include vwConvert.mo(width, 19.5);
       @include vwConvert.mo(height, 34.5);

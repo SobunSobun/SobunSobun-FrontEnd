@@ -1,8 +1,14 @@
 @charset "utf-8";
+@use 'src/styles/constants/sizes';
+@use 'src/styles/mixins/vwConvert';
 
 // common
 .contentsInner {
   padding: 20px;
+
+  @media (max-width: sizes.$SCREEN_SM) {
+    @include vwConvert.mo(padding, 20);
+  }
 }
 
 .blind {

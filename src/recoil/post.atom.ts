@@ -8,7 +8,7 @@ export const postingDateState = atom<Date>({
 
 export const postingTimeState = atom<Time>({
   key: '#timeState',
-  default: { slot: 'AM', hour: '00', minutes: '00' },
+  default: { slot: 'AM', hour: '01', minutes: '00' },
 })
 
 export const postingPlaceState = atom<Place>({
