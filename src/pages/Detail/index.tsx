@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Button from 'components/Button'
 import Comment from 'components/Detail/Comment'
 import DetailContent from 'components/Detail/DetailContent'
