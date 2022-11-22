@@ -28,12 +28,31 @@
 
 .inner {
   width: 90%;
-  max-width: 738px;
+  // max-width: 738px;
   background-color: colors.$WHITE;
   border-radius: 7px;
 
+  &.full {
+    width: 100%;
+  }
+
+  &.small {
+    width: 332px;
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+
   @media (max-width: sizes.$SCREEN_SM) {
     max-width: 400px;
+
+    &.full {
+      max-width: 100%;
+    }
+
+    &.small {
+      width: 90%;
+      max-width: 100%;
+    }
   }
 }
 

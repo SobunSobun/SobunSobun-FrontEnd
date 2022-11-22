@@ -19,6 +19,7 @@ export interface Place {
 
 export interface Keyword {
   searchKeyword: string
+  close: () => void
 }
 
 /* 게시글 올리기 - 만날장소 () */
@@ -37,11 +38,10 @@ export interface MapDataType {
   y: string
 }
 
-export interface PlaceType {
-  place_name: string
-  road_address_name: string
-  address_name: string
-  place_url: string
+/* modal show, close type */
+export interface ModalPropsType {
+  show: boolean
+  close: () => void
 }
 
 export interface PaginationType {

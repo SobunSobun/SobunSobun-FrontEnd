@@ -164,7 +164,6 @@ const Signup = () => {
                 })}
               />
               <Button
-                basic
                 type={isActive ? 'primary' : 'negative'}
                 text='중복체크'
                 onClick={() => duplicateCheck(nickname.current)}
@@ -178,7 +177,7 @@ const Signup = () => {
             </div>
           </div>
           <div className={styles.signupBtn}>
-            <Button basic type={!(isActive && isValid) ? 'negative' : 'primary'} text='다음' submit />
+            <Button type={!(isActive && isValid) ? 'negative' : 'primary'} text='다음' submit />
           </div>
         </form>
       </div>

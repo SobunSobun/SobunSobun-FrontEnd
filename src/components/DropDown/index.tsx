@@ -1,4 +1,4 @@
-import { useState, ChangeEvent } from 'react'
+import { ChangeEvent } from 'react'
 import styles from './dropDown.module.scss'
 
 interface Props {

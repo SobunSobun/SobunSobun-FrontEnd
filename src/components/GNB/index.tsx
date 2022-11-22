@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom'
 import cx from 'classnames'
-import { HomeIcon, FavoriteIcon, PostIcon, ProfileIcon, LikeIcon } from 'assets/svgs'
+import { HomeIcon, FavoriteIcon, PostIcon, ProfileIcon } from 'assets/svgs'
 
 import styles from './gnb.module.scss'
 

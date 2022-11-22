@@ -39,7 +39,7 @@ const Category = () => {
           ))}
         </ul>
         <FloatingElem offsetBottom={45}>
-          <Button basic type={product === '' ? 'negative' : 'primary'} text='다음' onClick={handleMoveToWrite} />
+          <Button type={product === '' ? 'negative' : 'primary'} text='다음' onClick={handleMoveToWrite} />
         </FloatingElem>
       </div>
     </div>
