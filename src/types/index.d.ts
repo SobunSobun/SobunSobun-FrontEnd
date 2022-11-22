@@ -99,14 +99,32 @@ export interface kakaoResponse {
 
 /* 메인페이지 */
 export interface feed {
-  id: number
+  postId: number
   nickname: string
   title: string
   market: string
   meetingTime: string
-  recruitmentNumber: number
-  createdAt: Date
+  recruitNumber: number
+  createdAt: Date | number[]
   category: Omit<category, '전체'>
+  last?: boolean
 }
 
-export type category = '전체' | '과일' | '채소' | '계란' | '축산' | '생수' | '기타'
+interface FeedResponse {
+  feedList: Array<feed>
+  nowPage: number
+  isLast: boolean
+}
+
+type category = '전체' | '과일' | '채소' | '계란' | '축산' | '생수' | '기타'
+
+/* api 리턴 타입 */
+type getFeedType = ({
+  category,
+  pageParam,
+  size,
+}: {
+  category: string
+  pageParam: number
+  size: number
+}) => Promise<FeedResponse>

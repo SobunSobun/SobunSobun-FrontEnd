@@ -3,13 +3,14 @@ import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import { RecoilRoot } from 'recoil'
 import { QueryClient, QueryClientProvider } from 'react-query'
+import { ReactQueryDevtools } from 'react-query/devtools'
 import reportWebVitals from './reportWebVitals'
 import RootRoute from './routes'
 
 import './styles/index.scss'
 
 const queryClient = new QueryClient({
-  defaultOptions: { queries: { refetchOnMount: false } },
+  defaultOptions: { queries: { refetchOnMount: false, refetchOnWindowFocus: false, retry: 1 } },
 })
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
@@ -20,6 +21,7 @@ root.render(
         <RecoilRoot>
           <RootRoute />
         </RecoilRoot>
+        <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </BrowserRouter>
   </React.StrictMode>

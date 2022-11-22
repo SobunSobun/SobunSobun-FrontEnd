@@ -32,7 +32,7 @@ const LocalAuth = () => {
       setRegions([...res])
       setSearchValue('')
     } catch (e) {
-      console.log(e)
+      navigate('/error')
     }
   }
 

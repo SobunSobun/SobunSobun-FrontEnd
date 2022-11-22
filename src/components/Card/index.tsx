@@ -18,7 +18,7 @@ interface Props {
 const Card = ({ data }: Props) => {
   return (
     <article className={styles.card}>
-      <span>{dayjs(data.createdAt).fromNow()}</span>
+      <span>{dayjs(data.createdAt as Date).fromNow()}</span>
       <div>{data.nickname}</div>
       <h3>{data.title}</h3>
       <section>
@@ -28,11 +28,11 @@ const Card = ({ data }: Props) => {
         </p>
         <p>
           <TimeIcon />
-          {data.meetingTime}
+          {`${dayjs(data.meetingTime).format('YYYY. MM. DD \xa0 hh시 m분')} `}
         </p>
         <p>
           <PeopleIcon />
-          {data.recruitmentNumber}/4
+          {data.recruitNumber}/4
         </p>
       </section>
       <CategoryIcon type={data.category} />
