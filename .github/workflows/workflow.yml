@@ -22,6 +22,13 @@ jobs:
       # 의존성 설치
       - name: Install Dependencies
         run: yarn install
+      # env 설정
+      - name: Setting .env
+        run : |
+          echo "REACT_APP_KAKAO_LOCAL_KEY=${{ secrets.REACT_APP_KAKAO_LOCAL_KEY }}" >> .env
+          echo "REACT_APP_KAKAO_MAP_KEY=${{ secrets.REACT_APP_KAKAO_MAP_KEY }}" >> .env
+          echo "SASS_PATH=${{ secrets.SASS_PATH }}" >> .env
+          cat .env
       # 프로젝트 빌드
       - name: Project Build
         run: yarn build
