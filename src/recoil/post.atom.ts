@@ -15,3 +15,8 @@ export const postingPlaceState = atom<Place>({
   key: '#placeState',
   default: { place: '', address: '' },
 })
+
+export const modalChangeState = atom({
+  key: '#modalChangeState',
+  default: false,
+})

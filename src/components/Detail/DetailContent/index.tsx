@@ -61,7 +61,6 @@ const DetailContent = () => {
       </div>
       <div className={styles.detailBtn}>
         <Button
-          basic
           type={isJoin ? 'primary' : 'negative'}
           text={isJoin ? '참여완료' : '참여하기'}
           onClick={() => setIsOpen(true)}

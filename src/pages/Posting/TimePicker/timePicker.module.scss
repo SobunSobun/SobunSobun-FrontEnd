@@ -1,0 +1,74 @@
+@use '/src/styles/constants/colors';
+@use '/src/styles/mixins/vwConvert';
+@use 'src/styles/mixins/fontSize';
+@use '/src/styles/constants/sizes';
+
+// 시간
+.timePicker {
+  .popupBtn {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 100%;
+    padding: 14px 0;
+    font-size: 16px;
+
+    &.update span {
+      color: colors.$BLACK;
+    }
+
+    .label {
+      width: 100%;
+      padding-bottom: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      text-align: left;
+    }
+
+    span {
+      display: block;
+    }
+
+    .num {
+      color: colors.$GRAY_2_T30;
+      text-align: center;
+    }
+
+    .unit {
+      padding: 0 8px 0 3px;
+    }
+
+    .slot {
+      padding-right: 8px;
+      color: colors.$GRAY_2_T30;
+    }
+
+    .semi {
+      padding: 0 4px;
+    }
+  }
+
+  @media (max-width: sizes.$SCREEN_SM) {
+    .popupBtn {
+      @include vwConvert.mo(padding, 14 0);
+      @include fontSize.emFontSizeMO(16);
+
+      .label {
+        @include vwConvert.mo(padding-bottom, 8);
+        @include fontSize.emFontSizeMO(16);
+      }
+
+      .unit {
+        @include vwConvert.mo(padding, 0 8 0 3);
+      }
+
+      .slot {
+        @include vwConvert.mo(padding-right, 8);
+      }
+
+      .semi {
+        @include vwConvert.mo(padding, 0 4);
+      }
+    }
+  }
+}

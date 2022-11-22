@@ -14,7 +14,7 @@ type FormValues = {
 }
 
 const Login = () => {
-  const [isActive, setIsActive] = useState<boolean>(false)
+  const [warning, setWarning] = useState(false)
   const navigate = useNavigate()
   const {
     register,
@@ -23,13 +23,17 @@ const Login = () => {
     formState: { errors },
   } = useForm<FormValues>()
 
+  const watchEmailValue = watch('email', '')
+  const watchPasswordValue = watch('password', '')
+
   useEffect(() => {
-    if (watch('email') !== '' && watch('password') !== '') {
-      setIsActive(true)
-    } else {
-      setIsActive(false)
-    }
-  }, [watch(), watch])
+    const subscription = watch((value) => {
+      if (!value.email || !value.password) {
+        setWarning(false)
+      }
+    })
+    return () => subscription.unsubscribe()
+  }, [watch])
 
   const onSubmit = async (data: FormValues) => {
     const formData = new FormData()
@@ -39,8 +43,8 @@ const Login = () => {
       const response = await defaultInstance.post('/login', formData)
 
       if (response.data === '아이디 틀림') {
-        console.log(response)
-        alert('아이디와 비밀번호를 다시 한번 확인해주세요!')
+        // console.log(response)
+        setWarning(true)
       } else {
         localStorage.setItem('sobunsobun', response.data)
         navigate('/home')
@@ -51,6 +55,19 @@ const Login = () => {
     }
   }
 
+  const submitErrorMessage = () => {
+    const message =
+      warning && watchEmailValue && watchPasswordValue ? (
+        <span className={styles.guide}>
+          이메일 또는 비밀번호를 잘못 입력했습니다. <br />
+          입력하신 내용을 다시 확인해주세요.
+        </span>
+      ) : (
+        ''
+      )
+    return message
+  }
+
   return (
     <div className={styles.login}>
       <div className='contentsInner'>
@@ -59,7 +76,7 @@ const Login = () => {
           <div className={styles.line}>
             <Input type='line' htmlFor='email' text='이메일'>
               <input
-                type='text'
+                type='email'
                 id='email'
                 placeholder='예)sobunsobun@subun.co.kr'
                 {...register('email', { required: true })}
@@ -72,9 +89,10 @@ const Login = () => {
               <input type='password' id='password' {...register('password', { required: true, min: 6 })} />
             </Input>
             {errors.password?.type === 'required' && <span className={styles.guide}>비밀번호를 입력해주세요</span>}
+            {submitErrorMessage()}
           </div>
           <div className={styles.buttonWrap}>
-            <Button basic type={isActive ? 'primary' : 'negative'} text='로그인하기' submit />
+            <Button type={watchEmailValue && watchPasswordValue ? 'primary' : 'negative'} text='로그인하기' submit />
             <Link to='/local' className={styles.signupButton}>
               회원가입
             </Link>

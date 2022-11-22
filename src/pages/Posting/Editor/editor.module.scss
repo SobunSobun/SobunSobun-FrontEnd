@@ -1,5 +1,8 @@
 @use '/src/styles/constants/colors';
-@use '/src/styles/mixins/flexbox';
+// @use '/src/styles/mixins/flexbox';
+@use '/src/styles/mixins/vwConvert';
+@use 'src/styles/mixins/fontSize';
+@use '/src/styles/constants/sizes';
 
 .editor {
   .form {
@@ -19,6 +22,7 @@
   .label {
     display: inline-block;
     padding-bottom: 12px;
+    font-size: 16px;
     font-weight: 600;
   }
 
@@ -44,32 +48,6 @@
     resize: none;
   }
 
-  // 카운터
-  .counter {
-    display: flex;
-    align-items: center;
-
-    button {
-      width: 24px;
-      height: 24px;
-      line-height: 24px;
-      background-color: colors.$GRAY_D9;
-      border-radius: 50%;
-      @include flexbox.flexbox(center, center);
-
-      &:active {
-        background-color: colors.$PRIMARY;
-      }
-    }
-
-    .current {
-      width: 40px;
-      min-width: 20px;
-      padding: 0 5px;
-      text-align: center;
-    }
-  }
-
   // 장소
   .place {
     display: flex;
@@ -78,7 +56,14 @@
     width: 100%;
     padding: 14px 0;
 
+    span {
+      display: block;
+      padding-left: 20px;
+      text-align: right;
+    }
+
     .label {
+      flex-shrink: 0;
       padding-bottom: 0;
     }
 
@@ -88,38 +73,53 @@
     }
   }
 
-  // 시간
-  .timePicker {
-    .popupBtn {
-      display: flex;
-      align-items: center;
-      font-size: 16px;
-
-      span {
-        display: block;
-      }
-
-      .num {
-        color: colors.$GRAY_2_T30;
-        text-align: center;
-      }
-
-      .unit {
-        padding-right: 8px;
-      }
-
-      .slot {
-        padding-right: 8px;
-        color: colors.$GRAY_2_T30;
-      }
-
-      .semi {
-        padding: 0 4px;
-      }
-    }
-  }
-
   .buttonWrap {
     padding-top: 84px;
+  }
+
+  @media (max-width: sizes.$SCREEN_SM) {
+    .form {
+      @include vwConvert.mo(padding-bottom, 25);
+    }
+
+    .line {
+      @include vwConvert.mo(padding, 14 0);
+    }
+
+    .label {
+      @include vwConvert.mo(padding-bottom, 12);
+      @include fontSize.emFontSizeMO(16);
+    }
+
+    .textInput,
+    .textarea {
+      @include fontSize.emFontSizeMO(15);
+    }
+
+    .textInput {
+      @include vwConvert.mo(height, 26);
+      @include vwConvert.mo(line-height, 26);
+    }
+
+    .textarea {
+      @include vwConvert.mo(height, 200);
+    }
+
+    // 장소
+    .place {
+      @include vwConvert.mo(padding, 14 0);
+
+      span {
+        @include vwConvert.mo(padding-left, 20);
+      }
+
+      .arrow {
+        @include vwConvert.mo(margin-right, 5);
+      }
+    }
+
+    .buttonWrap {
+      @include vwConvert.mo(padding-top, 84);
+    }
   }
 }

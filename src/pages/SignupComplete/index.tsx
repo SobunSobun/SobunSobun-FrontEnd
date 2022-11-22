@@ -25,7 +25,6 @@ const SignupComplete = () => {
           <p className={styles.name}>서초동</p>
         </div>
         <Button
-          basic
           type='primary'
           text='다음'
           submit
