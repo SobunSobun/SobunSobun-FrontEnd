@@ -1,0 +1,41 @@
+@use '/src/styles/constants/sizes';
+@use '/src/styles/mixins/vwConvert';
+@use '/src/styles/constants/colors';
+@use 'src/styles/mixins/fontSize';
+
+.uploadComplete {
+  .image {
+    margin-top: 80px;
+    text-align: center;
+
+    img {
+      width: 271px;
+      height: 281px;
+    }
+  }
+
+  .message {
+    padding-top: 30px;
+    font-size: 25px;
+    font-weight: 500;
+    line-height: 30px;
+    text-align: center;
+  }
+
+  @media (max-width: sizes.$SCREEN_SM) {
+    .image {
+      @include vwConvert.mo(margin-top, 100);
+
+      img {
+        @include vwConvert.mo(width, 271);
+        @include vwConvert.mo(height, 281);
+      }
+    }
+
+    .message {
+      @include vwConvert.mo(padding-top, 30);
+      @include vwConvert.mo(font-size, 25);
+      @include vwConvert.mo(line-height, 30);
+    }
+  }
+}

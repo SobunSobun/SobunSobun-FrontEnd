@@ -13,7 +13,7 @@ interface Props {
   isDisabled?: boolean
 }
 
-const Button = memo(({ type, onClick, text, submit, basic, isDisabled = false }: Props) => {
+const Button = memo(({ type, onClick, text, submit, basic = true, isDisabled = false }: Props) => {
   const navigate = useNavigate()
   return (
     <button

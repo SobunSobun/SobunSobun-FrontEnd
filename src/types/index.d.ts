@@ -19,6 +19,7 @@ export interface Place {
 
 export interface Keyword {
   searchKeyword: string
+  close: () => void
 }
 
 /* 게시글 올리기 - 만날장소 () */
@@ -37,11 +38,10 @@ export interface MapDataType {
   y: string
 }
 
-export interface PlaceType {
-  place_name: string
-  road_address_name: string
-  address_name: string
-  place_url: string
+/* modal show, close type */
+export interface ModalPropsType {
+  show: boolean
+  close: () => void
 }
 
 export interface PaginationType {
@@ -99,14 +99,32 @@ export interface kakaoResponse {
 
 /* 메인페이지 */
 export interface feed {
-  id: number
+  postId: number
   nickname: string
   title: string
   market: string
   meetingTime: string
-  recruitmentNumber: number
-  createdAt: Date
+  recruitNumber: number
+  createdAt: Date | number[]
   category: Omit<category, '전체'>
+  last?: boolean
 }
 
-export type category = '전체' | '과일' | '채소' | '계란' | '축산' | '생수' | '기타'
+interface FeedResponse {
+  feedList: Array<feed>
+  nowPage: number
+  isLast: boolean
+}
+
+type category = '전체' | '과일' | '채소' | '계란' | '축산' | '생수' | '기타'
+
+/* api 리턴 타입 */
+type getFeedType = ({
+  category,
+  pageParam,
+  size,
+}: {
+  category: string
+  pageParam: number
+  size: number
+}) => Promise<FeedResponse>

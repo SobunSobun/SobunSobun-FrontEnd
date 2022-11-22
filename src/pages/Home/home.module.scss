@@ -3,42 +3,86 @@
 @use 'src/styles/constants/sizes';
 @use 'src/styles/constants/colors';
 
+/* 수정 해야하는 부분 */
 .container {
+  position: relative;
   width: 100%;
-  height: inherit;
+  height: 100%;
+  overflow-y: auto;
   background-color: colors.$GRAYE;
 }
+
 .headerSection {
   position: fixed;
-  max-width: 768px;
-  width: 100%;
-  background-color: colors.$GRAYE;
-  height: 120px;
   z-index: 10;
+  width: 100%;
+  max-width: 768px;
+  height: 120px;
+  background-color: colors.$GRAYE;
+
+  ul {
+    padding: 16px 0 0 16px;
+  }
   @media (max-width: sizes.$SCREEN_SM) {
     @include vwConvert.mo(height, 120);
-  }
-  ul {
-    padding: 16px 0px 0px 16px;
-    @media (max-width: sizes.$SCREEN_SM) {
+
+    ul {
       @include vwConvert.mo(padding, 16 0 0 16);
     }
   }
 }
+
 .cardSection {
-  padding: 136px 16px 16px 16px;
+  padding: 136px 16px 16px;
   background-color: colors.$GRAYE;
   @media (max-width: sizes.$SCREEN_SM) {
-    @include vwConvert.mo(padding-top, 136 16 16 16);
+    @include vwConvert.mo(padding, 136 16 16 16);
   }
 }
 
 .cardList {
   display: grid;
-  gap: 10px;
   grid-template-columns: 1fr 1fr;
+  gap: 10px;
   @media (max-width: sizes.$SCREEN_SM) {
     grid-template-columns: 1fr;
     @include vwConvert.mo(gap, 10);
+  }
+}
+
+.plus {
+  position: fixed;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 54px;
+  height: 54px;
+  background-color: colors.$PRIMARY;
+  filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 25%));
+  border-radius: 50%;
+
+  &Icon {
+    path {
+      fill: white;
+    }
+    width: 20px;
+    height: 20px;
+  }
+  @media (min-width: sizes.$SCREEN_SM) {
+    bottom: 95px;
+    left: 50%;
+    transform: translate(314px, 0);
+  }
+  @media (max-width: sizes.$SCREEN_SM) {
+    @include vwConvert.mo(bottom, 95);
+    @include vwConvert.mo(right, 16);
+    @include vwConvert.mo(width, 54);
+    @include vwConvert.mo(height, 54);
+
+    &Icon {
+      @include vwConvert.mo(width, 20);
+      @include vwConvert.mo(height, 20);
+    }
   }
 }

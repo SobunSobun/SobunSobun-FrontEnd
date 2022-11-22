@@ -1,8 +1,31 @@
 import { NavLink } from 'react-router-dom'
 import cx from 'classnames'
+import { HomeIcon, FavoriteIcon, PostIcon, ProfileIcon } from 'assets/svgs'
+
 import styles from './gnb.module.scss'
 
-const navData = ['home', 'bookmark', 'mypost', 'profile']
+const navData = [
+  {
+    link: 'home',
+    title: '홈',
+    icon: <HomeIcon />,
+  },
+  {
+    link: 'bookmark',
+    title: '관심목록',
+    icon: <FavoriteIcon />,
+  },
+  {
+    link: 'mypost',
+    title: '게시물',
+    icon: <PostIcon />,
+  },
+  {
+    link: 'profile',
+    title: '마이페이지',
+    icon: <ProfileIcon />,
+  },
+]
 
 const GNB = () => {
   return (
@@ -10,12 +33,10 @@ const GNB = () => {
       <ul>
         {navData.map((item) => {
           return (
-            <li key={`gnb-item-${item}`}>
-              <NavLink
-                to={item === 'home' ? '' : item}
-                className={({ isActive }) => cx({ [styles.isActive]: isActive })}
-              >
-                <p>{`${item}`}</p>
+            <li key={item.link}>
+              <NavLink to={item.link} className={({ isActive }) => cx({ [styles.isActive]: isActive })}>
+                {item.icon}
+                <p className={styles.title}>{item.title}</p>
               </NavLink>
             </li>
           )

@@ -1,37 +1,50 @@
+import { ChangeEvent, FormEvent, useState } from 'react'
 import styles from './comment.module.scss'
+import SingleComment from './SingleComment'
 
 const Comment = () => {
+  const [commentValue, setCommentValue] = useState('')
+  const [commentArray, setCommentArray] = useState([
+    {
+      nickname: 'Joo',
+      content: '혹시 5시 30분도 가능하나요?',
+      time: '9시간 전',
+    },
+  ])
+
+  const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
+    setCommentValue(e.target.value)
+  }
+
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    if (commentValue === '') return
+    if (commentArray) {
+      setCommentArray((commentValueList) => [...commentValueList, { nickname: '', time: '', content: commentValue }])
+    }
+    setCommentValue('')
+
+    // console.log(commentArray)
+    // axios.post()
+  }
+
   return (
     <div className={styles.comment}>
       <div className={styles.commentList}>
-        <div className={styles.commentListBlock}>
-          <div className={styles.commentSingle}>
-            <div className={styles.commentBox}>
-              <span className={styles.profile} />
-              <span className={styles.nickname}>닉네임</span>
-              <div className={styles.text}>혹시 5시 30분도 가능하나요?</div>
-            </div>
-            <div className={styles.commentInfo}>
-              <span>9시간 전</span>
-              <span className={styles.btn}>답글쓰기</span>
-            </div>
+        {commentArray ? (
+          <div className={styles.commentListBlock}>
+            {commentArray.map((comment, index: number) => {
+              // eslint-disable-next-line react/no-array-index-key
+              return <SingleComment comment={comment} key={index} />
+            })}
           </div>
-          <div className={styles.commentReply}>
-            <div className={styles.commentBox}>
-              <span className={styles.profile} />
-              <span className={styles.nickname}>ZEONE</span>
-              <div className={styles.text}>가능합니다~</div>
-            </div>
-            <div className={styles.commentInfo}>
-              <span>9시간 전</span>
-            </div>
-          </div>
-        </div>
-        {/* <div className={styles.commentListNone}>아직 댓글이 없어요!</div> */}
+        ) : (
+          <div className={styles.commentListNone}>아직 댓글이 없어요!</div>
+        )}
       </div>
-      <div className={styles.commentInput}>
-        <input type='text' placeholder='댓글을 입력해주세요.' />
-      </div>
+      <form className={styles.commentInput} onSubmit={onSubmit}>
+        <input type='text' value={commentValue} onChange={handleInput} placeholder='댓글을 입력해주세요.' />
+      </form>
     </div>
   )
 }

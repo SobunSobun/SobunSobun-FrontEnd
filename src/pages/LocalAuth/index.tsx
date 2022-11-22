@@ -32,7 +32,7 @@ const LocalAuth = () => {
       setRegions([...res])
       setSearchValue('')
     } catch (e) {
-      console.log(e)
+      navigate('/error')
     }
   }
 
@@ -51,7 +51,6 @@ const LocalAuth = () => {
       {regions && <RegionList data={regions} setRegion={onSetMyRegion} />}
       <div className={styles.nextButton}>
         <Button
-          basic
           type={myRegion ? 'primary' : 'negative'}
           text='다음'
           onClick={() => {

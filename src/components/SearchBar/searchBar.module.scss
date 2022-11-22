@@ -1,19 +1,24 @@
 @use '/src/styles/mixins/vwConvert';
 @use '/src/styles/constants/sizes';
+@use '/src/styles/constants/colors';
 
 .wrapper {
   position: relative;
+
   & .searchIcon {
     position: absolute;
     transform: translateY(4px);
   }
+
   & input {
     width: 100%;
-    padding: 0px 24px 12px 24px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+    padding: 0 24px 12px;
+    border-bottom: 1px solid rgba(0, 0, 0, 30%);
+
     &::placeholder {
-      color: #000;
+      color: colors.$BLACK;
     }
+
     @media (max-width: sizes.$SCREEN_SM) {
       @include vwConvert.mo(padding, 0 24 12 24);
     }

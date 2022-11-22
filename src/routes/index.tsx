@@ -15,7 +15,7 @@ import Splash from 'pages/Splash'
 import SignupComplete from 'pages/SignupComplete'
 import New from 'pages/Posting/Write/New'
 import Edit from 'pages/Posting/Write/Edit'
-import MapContainer from 'pages/Posting/MapContainer'
+import UploadComplete from 'pages/UploadComplete'
 import Detail from 'pages/Detail'
 import styles from './routes.module.scss'
 
@@ -31,8 +31,9 @@ const RootRoute = () => {
           <Route path='complete' element={<SignupComplete />} />
           <Route path='category' element={<Category />} />
           <Route path='new' element={<New />} />
-          <Route path='edit/:id' element={<Edit />} />
-          <Route path='map' element={<MapContainer />} />
+          {/* <Route path='edit/:id' element={<Edit />} /> */}
+          <Route path='edit' element={<Edit />} />
+          <Route path='upload-complete' element={<UploadComplete />} />
           <Route path='detail/:id' element={<Detail />} />
         </Route>
         <Route element={<LayoutGnb />}>

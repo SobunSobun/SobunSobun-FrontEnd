@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Button from 'components/Button'
 import { TwoButtonModal } from 'components/Modal'
 import useModal from 'hooks/useModal'
@@ -14,12 +14,7 @@ const DetailContent = () => {
     setIsLike(!isLike)
   }
 
-  const joinHandler = () => {
-    if (isJoin) {
-      setIsJoin(true)
-    } else {
-      setIsJoin(false)
-    }
+  const handleJoin = () => {
     setIsJoin(!isJoin)
     onClose()
   }
@@ -71,7 +66,7 @@ const DetailContent = () => {
         show={isOpen}
         close={onClose}
         message={isJoin ? '참여를 취소하시겠습니까?' : '참여하시겠습니까?'}
-        yesCallBack={joinHandler}
+        yesCallBack={handleJoin}
       />
     </div>
   )

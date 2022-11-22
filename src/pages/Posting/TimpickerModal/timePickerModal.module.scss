@@ -1,6 +1,17 @@
+@use '/src/styles/constants/colors';
+@use '/src/styles/mixins/flexbox';
+@use '/src/styles/mixins/vwConvert';
+@use 'src/styles/mixins/fontSize';
+@use '/src/styles/constants/sizes';
+
 .timePickerModal {
   position: relative;
-  padding: 38px 42px;
+  padding: 38px 25px;
+  overflow-x: hidden;
+
+  .datePickerInput {
+    width: 100%;
+  }
 
   .title {
     padding-bottom: 10px;
@@ -21,9 +32,49 @@
     padding-top: 35px;
   }
 
+  .dropdownWrap {
+    margin-right: -8px;
+  }
+
   .closeBtn {
     position: absolute;
     top: 17px;
-    right: 20px;
+    right: 15px;
+    width: 39px;
+    height: 39px;
+    font-size: 0;
+    background: url('../../../assets/svgs/close.svg') no-repeat center/34% auto;
+  }
+
+  @media (max-width: sizes.$SCREEN_SM) {
+    @include vwConvert.mo(padding, 38 24);
+
+    .title {
+      @include vwConvert.mo(padding-bottom, 10);
+    }
+
+    .line {
+      @include vwConvert.mo(padding-bottom, 9);
+    }
+
+    .semi {
+      @include vwConvert.mo(padding-right, 4);
+    }
+
+    .buttonWrap {
+      @include vwConvert.mo(padding-top, 35);
+    }
+
+    .dropdownWrap {
+      @include vwConvert.mo(margin-right, -8);
+    }
+
+    .closeBtn {
+      position: absolute;
+      @include vwConvert.mo(top, 17);
+      @include vwConvert.mo(right, 15);
+      @include vwConvert.mo(width, 39);
+      @include vwConvert.mo(height, 39);
+    }
   }
 }

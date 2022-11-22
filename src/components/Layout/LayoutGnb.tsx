@@ -12,6 +12,7 @@ const LayoutGnb = () => {
   }, 300)
 
   useEffect(() => {
+    handleResize()
     window.addEventListener('resize', handleResize)
     return () => {
       window.removeEventListener('resize', handleResize)
