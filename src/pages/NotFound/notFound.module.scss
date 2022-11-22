@@ -1,6 +1,52 @@
-@use '/src/styles/mixins/flexbox';
+@use 'src/styles/constants/colors';
+@use 'src/styles/constants/sizes';
+@use 'src/styles/mixins/vwConvert';
+@use 'src/styles/mixins/fontSize';
 
 .notFound {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 768px;
   min-height: 100vh;
-  @include flexbox.flexbox(center, center);
+  margin: 0 auto;
+  text-align: center;
+
+  .inner {
+    padding: 100px 0;
+  }
+
+  strong {
+    display: block;
+    padding: 25px 0 20px;
+    font-size: 25px;
+    font-weight: bold;
+  }
+
+  .desc {
+    font-size: 15px;
+  }
+
+  .buttonWrap {
+    padding: 37px 63px 0;
+  }
+
+  @media (max-width: sizes.$SCREEN_SM) {
+    .inner {
+      @include vwConvert.mo(padding, 100 0);
+    }
+
+    strong {
+      @include vwConvert.mo(padding, 25 0 20);
+      @include fontSize.emFontSizeMO(25);
+    }
+
+    .desc {
+      @include fontSize.emFontSizeMO(15);
+    }
+
+    .buttonWrap {
+      @include vwConvert.mo(padding, 37 63 0);
+    }
+  }
 }
