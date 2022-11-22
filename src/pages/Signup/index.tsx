@@ -56,7 +56,7 @@ const Signup = () => {
       formData.append('lon', locationState.location.lon)
       await defaultInstance.post('/join', formData).then((response) => {
         console.log(response.data)
-        navigate('/complete', { state: { nickname: data.nickname } })
+        navigate('/complete', { state: { nickname: data.nickname, region: locationState.address_name } })
       })
     } catch (error: any) {
       console.log(error)

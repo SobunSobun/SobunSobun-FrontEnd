@@ -7,12 +7,21 @@ import styles from './signupComplete.module.scss'
 interface RouteState {
   state: {
     nickname: string
+    region: string
   }
 }
 
 const SignupComplete = () => {
   const navigate = useNavigate()
   const { state } = useLocation() as RouteState
+
+  const handleRegion = () => {
+    if (state.region) {
+      const regionArray = state.region.split(' ')
+      return <p className={styles.name}>{regionArray[regionArray.length - 1]}</p>
+    }
+    return ''
+  }
 
   return (
     <div className={styles.signupComplete}>
@@ -22,11 +31,11 @@ const SignupComplete = () => {
         <p className={styles.desc}>이웃과 소분해서 소분소분 함께해요</p>
         <div className={styles.profile}>
           <ProfileImage className={styles.image} />
-          <p className={styles.name}>서초동</p>
+          {handleRegion()}
         </div>
         <Button
           type='primary'
-          text='다음'
+          text='로그인 하기'
           submit
           onClick={() => {
             navigate('/login')
