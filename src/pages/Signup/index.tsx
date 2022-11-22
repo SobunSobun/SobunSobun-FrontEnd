@@ -28,7 +28,6 @@ const Signup = () => {
   const { state } = useLocation()
   const locationState = (state as { myRegion: region }).myRegion
   const navigate = useNavigate()
-
   const { isOpen, onClose, setIsOpen } = useModal()
   const [isActive, setIsActive] = useState<boolean | undefined>(false)
   const [nicknameDuplicate, setNicknameDuplicate] = useState<string>('')
@@ -56,7 +55,7 @@ const Signup = () => {
       formData.append('lon', locationState.location.lon)
       await defaultInstance.post('/join', formData).then((response) => {
         console.log(response.data)
-        navigate('/complete', { state: { nickname: data.nickname } })
+        navigate('/complete', { state: { nickname: data.nickname, address_name: locationState.address_name } })
       })
     } catch (error: any) {
       console.log(error)

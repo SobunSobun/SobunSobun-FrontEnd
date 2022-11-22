@@ -13,15 +13,17 @@
   position: absolute;
   width: 100%;
   max-width: 768px;
+
   ul {
     display: flex;
     flex-wrap: nowrap;
+    gap: 6px;
     width: 100%;
     overflow-x: auto;
-    gap: 6px;
     @media (max-width: sizes.$SCREEN_SM) {
       gap: 6px;
     }
+
     & li {
       flex: 1;
       padding: 5px 28px;
@@ -32,19 +34,21 @@
     }
   }
 }
+
 .space {
   margin-left: 10px;
   @media (max-width: sizes.$SCREEN_SM) {
     @include vwConvert.mo(margin-left, 10);
   }
 }
+
 .item {
-  text-align: center;
-  background-color: #fff;
-  border-radius: 18px;
-  color: #515151;
-  font-weight: 400;
   font-size: 12px;
+  font-weight: 400;
+  color: rgb(81, 81, 81);
+  text-align: center;
+  background-color: #ffffff;
+  border-radius: 18px;
   @media (max-width: sizes.$SCREEN_SM) {
     @include fontSize.emFontSizeMO(12);
   }
