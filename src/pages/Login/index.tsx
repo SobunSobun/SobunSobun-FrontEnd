@@ -15,6 +15,7 @@ type FormValues = {
 
 const Login = () => {
   const [warning, setWarning] = useState(false)
+  const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
   const {
     register,
@@ -39,6 +40,7 @@ const Login = () => {
     const formData = new FormData()
     formData.append('email', data.email)
     formData.append('password', data.password)
+    setLoading(true)
     try {
       const response = await defaultInstance.post('/login', formData)
 
@@ -52,6 +54,8 @@ const Login = () => {
     } catch (error) {
       // eslint-disable-next-line no-console
       console.log(error)
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -92,7 +96,12 @@ const Login = () => {
             {submitErrorMessage()}
           </div>
           <div className={styles.buttonWrap}>
-            <Button type={watchEmailValue && watchPasswordValue ? 'primary' : 'negative'} text='로그인하기' submit />
+            <Button
+              type={watchEmailValue && watchPasswordValue ? 'primary' : 'negative'}
+              text='로그인하기'
+              submit
+              loading={loading}
+            />
             <Link to='/local' className={styles.signupButton}>
               회원가입
             </Link>

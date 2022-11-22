@@ -2,6 +2,8 @@ import { memo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import cx from 'classnames'
 
+import { IMAGE_PATH } from 'assets/images'
+
 import styles from './button.module.scss'
 
 interface Props {
@@ -11,17 +13,19 @@ interface Props {
   submit?: true
   basic?: true
   isDisabled?: boolean
+  loading?: boolean
 }
 
-const Button = memo(({ type, onClick, text, submit, basic = true, isDisabled = false }: Props) => {
+const Button = memo(({ type, onClick, text, submit, basic = true, isDisabled = false, loading = false }: Props) => {
   const navigate = useNavigate()
   return (
     <button
       type={submit ? 'submit' : 'button'}
-      className={cx(styles.button, styles[type], { [styles.basic]: basic })}
+      className={cx(styles.button, styles[type], { [styles.basic]: basic, [styles.loading]: loading })}
       onClick={type === 'back' ? () => navigate(-1) : onClick}
-      disabled={isDisabled}
+      disabled={isDisabled || loading}
     >
+      {loading && <img src={IMAGE_PATH.spinner} className={styles.spinner} alt='' />}
       {text}
     </button>
   )
