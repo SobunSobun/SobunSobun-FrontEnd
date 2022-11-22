@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useLocation, useNavigate } from 'react-router-dom'
 import Button from 'components/Button'
@@ -38,10 +38,8 @@ const Signup = () => {
     formState: { errors, isValid },
   } = useForm<FormValues>({ mode: 'onChange' })
 
-  const password = useRef('')
-  const nickname = useRef('')
-  password.current = watch('password')
-  nickname.current = watch('nickname')
+  const passwordCurrent = watch('password')
+  const nicknameCurrent = watch('nickname')
 
   const onSubmit = async (data: SignupFormValues) => {
     try {
@@ -53,11 +51,11 @@ const Signup = () => {
       formData.append('location', locationState.address_name)
       formData.append('lat', locationState.location.lat)
       formData.append('lon', locationState.location.lon)
-      await defaultInstance.post('/join', formData).then((response) => {
-        console.log(response.data)
+      await defaultInstance.post('/join', formData).then(() => {
         navigate('/complete', { state: { nickname: data.nickname, address_name: locationState.address_name } })
       })
     } catch (error: any) {
+      // eslint-disable-next-line no-console
       console.log(error)
     }
   }
@@ -65,25 +63,27 @@ const Signup = () => {
     try {
       const formData = new FormData()
       formData.append('nickname', _nickData)
-      await defaultInstance.post('/join/nicknameDuplicateCheck', formData).then((response) => {
-        if (response.data === '가입 가능한 닉네임') {
-          setIsActive(true)
-          setNicknameDuplicate('멋진 닉네임이네요!')
-        } else {
-          setIsActive(false)
-          setNicknameDuplicate('중복된 닉네임입니다.')
-        }
-      })
+      if (nicknameCurrent)
+        await defaultInstance.post('/join/nicknameDuplicateCheck', formData).then((response) => {
+          if (response.data === '가입 가능한 닉네임') {
+            setIsActive(true)
+            setNicknameDuplicate('멋진 닉네임이네요!')
+          } else {
+            setIsActive(false)
+            setNicknameDuplicate('중복된 닉네임입니다.')
+          }
+        })
     } catch (error: any) {
+      // eslint-disable-next-line no-console
       console.log(error)
     }
   }
 
   useEffect(() => {
-    if (nickname.current) {
+    if (nicknameCurrent) {
       setNicknameDuplicate('')
     }
-  }, [nickname.current])
+  }, [nicknameCurrent])
 
   return (
     <div className={styles.signup}>
@@ -140,7 +140,7 @@ const Signup = () => {
                 placeholder='비밀번호를 확인해주세요.'
                 {...register('passwordConfirm', {
                   required: { value: true, message: '필수 정보입니다.' },
-                  validate: (value) => value === password.current,
+                  validate: (value) => value === passwordCurrent,
                 })}
               />
             </Input>
@@ -166,7 +166,7 @@ const Signup = () => {
               <Button
                 type={isActive ? 'primary' : 'negative'}
                 text='중복체크'
-                onClick={() => duplicateCheck(nickname.current)}
+                onClick={() => duplicateCheck(nicknameCurrent)}
               />
             </Input>
             <div className={styles.errorMessage}>

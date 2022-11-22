@@ -88,9 +88,11 @@
 
   .commentInput {
     padding-top: 17px;
+    margin-top: 20px;
     border-top: 1px solid colors.$GRAYD;
     @media (max-width: sizes.$SCREEN_SM) {
       @include vwConvert.mo(padding-top, 17);
+      @include vwConvert.mo(margin-top, 20);
     }
 
     input {
@@ -111,6 +113,15 @@
         @media (max-width: sizes.$SCREEN_SM) {
           @include fontSize.emFontSizeMO(15);
         }
+      }
+    }
+
+    &.replyInput {
+      padding-left: 30px;
+      margin-top: 0;
+      border-top: none;
+      @media (max-width: sizes.$SCREEN_SM) {
+        @include vwConvert.mo(padding-left, 30);
       }
     }
   }
