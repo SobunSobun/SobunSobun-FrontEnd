@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useMutation } from 'react-query'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
 import Button from 'components/Button'
@@ -13,9 +14,10 @@ type FormValues = {
   password: string
 }
 
+export const loginAPI = (formData: any) => defaultInstance.post<any>('/login', formData)
+
 const Login = () => {
   const [warning, setWarning] = useState(false)
-  const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
   const {
     register,
@@ -36,28 +38,6 @@ const Login = () => {
     return () => subscription.unsubscribe()
   }, [watch])
 
-  const onSubmit = async (data: FormValues) => {
-    const formData = new FormData()
-    formData.append('email', data.email)
-    formData.append('password', data.password)
-    setLoading(true)
-    try {
-      const response = await defaultInstance.post('/login', formData)
-
-      if (response.data === '아이디 틀림' || response.data === '비밀번호 틀림') {
-        setWarning(true)
-      } else {
-        localStorage.setItem('sobunsobun', response.data)
-        navigate('/home')
-      }
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.log(error)
-    } finally {
-      setLoading(false)
-    }
-  }
-
   const submitErrorMessage = () => {
     const message =
       warning && watchEmailValue && watchPasswordValue ? (
@@ -69,6 +49,28 @@ const Login = () => {
         ''
       )
     return message
+  }
+
+  // login form 제출
+  const { data, mutate, isLoading, isSuccess } = useMutation(loginAPI, {
+    onError(err) {
+      // eslint-disable-next-line no-console
+      console.log(err)
+      setWarning(true)
+    },
+  })
+
+  if (isSuccess) {
+    localStorage.setItem('sobunsobun', data.data)
+    navigate('/home')
+  }
+
+  const onSubmit = async (value: FormValues) => {
+    const formData = new FormData()
+    formData.append('email', value.email)
+    formData.append('password', value.password)
+
+    mutate(formData)
   }
 
   return (
@@ -99,7 +101,7 @@ const Login = () => {
               type={watchEmailValue && watchPasswordValue ? 'primary' : 'negative'}
               text='로그인하기'
               submit
-              loading={loading}
+              loading={isLoading}
             />
             <Link to='/local' className={styles.signupButton}>
               회원가입
