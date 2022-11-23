@@ -2,9 +2,11 @@ import Button from 'components/Button'
 import Comment from 'components/Detail/Comment'
 import DetailContent from 'components/Detail/DetailContent'
 import Header from 'components/Header'
+import { useParams } from 'react-router-dom'
 import styles from './detail.module.scss'
 
 const Detail = () => {
+  const { id } = useParams()
   return (
     <div className={styles.detail}>
       <div className={styles.headerWrap}>
@@ -20,7 +22,7 @@ const Detail = () => {
         />
       </div>
       <div className='contentsInner'>
-        <DetailContent />
+        <DetailContent id={id} />
         <Comment />
       </div>
     </div>
