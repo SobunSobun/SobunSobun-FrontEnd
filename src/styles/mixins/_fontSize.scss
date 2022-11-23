@@ -17,7 +17,7 @@ $BROWSER_CONTEXT_MO: 16;
 }
 @mixin vwFontSizeMO($mo-pixel) {
   // font-size: $mo-pixel/360*768*1px;
-  font-size: math.div($mo-pixel * 100, 360) * 1vw;
+  font-size: math.div($mo-pixel * 100, 390) * 1vw;
   // @media (max-width:360px) {
   //	font-size: $mo-pixel*1px;
   //	font-size: $mo-pixel*100/360*1vw;

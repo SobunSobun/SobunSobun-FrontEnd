@@ -88,7 +88,7 @@
 @mixin mo($property, $mo-pixel) {
   @if type-of($mo-pixel) == number {
     // #{$property}: $mo-pixel/360*800*1px;
-    #{$property}: calc($mo-pixel * 100 / 360) * 1vw;
+    #{$property}: calc($mo-pixel * 100 / 390) * 1vw;
     // @media (max-width:360px) {
     //	#{$property}: $mo-pixel*1px;
     //	#{$property}: $mo-pixel*100/360*1vw;
@@ -105,7 +105,7 @@
     @each $value in $mo-pixel {
       @if type-of($value) == number {
         // $px: append($px, $value/360*768*1px);
-        $vw: list.append($vw, calc($value * 100 / 360) * 1vw);
+        $vw: list.append($vw, calc($value * 100 / 390) * 1vw);
       } @else if type-of($value) == string {
         // $px: list.append($px, auto);
         $vw: list.append($vw, auto);
@@ -121,7 +121,7 @@
     @each $value in $mo-pixel {
       @if type-of($value) == number {
         // $px: append($px, $value*1px);
-        $vw: list.append($vw, calc($value * 100 / 360) * 1vw);
+        $vw: list.append($vw, calc($value * 100 / 390) * 1vw);
       } @else if type-of($value) == string {
         // $px: append($px, auto);
         $vw: list.append($vw, auto);
