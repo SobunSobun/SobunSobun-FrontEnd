@@ -6,7 +6,7 @@ import Button from 'components/Button'
 
 import Greeting from 'components/Greeting'
 import Input from 'components/Input'
-import { defaultInstance } from 'apis/client'
+import { defaultInstance, isAxiosError } from 'apis/client'
 import styles from './login.module.scss'
 
 type FormValues = {
@@ -14,10 +14,12 @@ type FormValues = {
   password: string
 }
 
-export const loginAPI = (formData: any) => defaultInstance.post<any>('/login', formData)
+const loginAPI = (formData: FormData) => defaultInstance.post('/login', formData)
 
 const Login = () => {
-  const [warning, setWarning] = useState(false)
+  const [emailError, setEmailError] = useState('')
+  const [passwordError, setPasswordError] = useState('')
+  const [otherError, setOtherError] = useState('')
   const navigate = useNavigate()
   const {
     register,
@@ -30,40 +32,37 @@ const Login = () => {
   const watchPasswordValue = watch('password', '')
 
   useEffect(() => {
-    const subscription = watch((value) => {
-      if (!value.email || !value.password) {
-        setWarning(false)
-      }
+    const subscription = watch(() => {
+      setEmailError('')
+      setPasswordError('')
+      setOtherError('')
     })
     return () => subscription.unsubscribe()
   }, [watch])
 
-  const submitErrorMessage = () => {
-    const message =
-      warning && watchEmailValue && watchPasswordValue ? (
-        <span className={styles.guide}>
-          이메일 또는 비밀번호를 잘못 입력했습니다. <br />
-          입력하신 내용을 다시 확인해주세요.
-        </span>
-      ) : (
-        ''
-      )
-    return message
-  }
-
   // login form 제출
-  const { data, mutate, isLoading, isSuccess } = useMutation(loginAPI, {
+  const { mutate, isLoading } = useMutation(loginAPI, {
+    onSuccess(response) {
+      localStorage.setItem('sobunsobun', response.data)
+      navigate('/home')
+    },
     onError(err) {
-      // eslint-disable-next-line no-console
-      console.log(err)
-      setWarning(true)
+      setEmailError('')
+      setPasswordError('')
+      setOtherError('')
+
+      if (isAxiosError(err)) {
+        const status = err.response?.status
+        if (status === 401) {
+          setPasswordError('비밀번호를 잘못 입력하셨습니다.')
+        } else if (status === 404) {
+          setEmailError('존재하는 이메일이 없습니다.')
+        } else {
+          setOtherError('앗! 에러가 발생했습니다. 다시 시도해주세요')
+        }
+      }
     },
   })
-
-  if (isSuccess) {
-    localStorage.setItem('sobunsobun', data.data)
-    navigate('/home')
-  }
 
   const onSubmit = async (value: FormValues) => {
     const formData = new FormData()
@@ -88,13 +87,15 @@ const Login = () => {
               />
             </Input>
             {errors.email?.type === 'required' && <span className={styles.guide}> 이메일을 입력해주세요</span>}
+            {emailError && <span className={styles.guide}>{emailError}</span>}
           </div>
           <div className={styles.line}>
             <Input type='line' htmlFor='password' text='비밀번호'>
               <input type='password' id='password' {...register('password', { required: true, min: 6 })} />
             </Input>
             {errors.password?.type === 'required' && <span className={styles.guide}>비밀번호를 입력해주세요</span>}
-            {submitErrorMessage()}
+            {passwordError && <span className={styles.guide}>{passwordError}</span>}
+            {otherError && <span className={styles.guide}>{otherError}</span>}
           </div>
           <div className={styles.buttonWrap}>
             <Button
