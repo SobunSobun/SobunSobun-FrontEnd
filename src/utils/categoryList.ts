@@ -2,33 +2,33 @@ import { IMAGE_PATH } from 'assets/images'
 
 export const categoryList = [
   {
-    categoryId: 1,
+    categoryId: 'fruit',
     categoryImg: IMAGE_PATH.fruits1,
-    categoryTitle: '쌈채소',
+    categoryTitle: '과일',
   },
   {
-    categoryId: 2,
+    categoryId: 'vegetable',
     categoryImg: IMAGE_PATH.fruits2,
-    categoryTitle: '양파',
+    categoryTitle: '채소',
   },
   {
-    categoryId: 3,
+    categoryId: 'egg',
     categoryImg: IMAGE_PATH.fruits3,
-    categoryTitle: '토마토',
+    categoryTitle: '계란',
   },
   {
-    categoryId: 4,
+    categoryId: 'meat',
     categoryImg: IMAGE_PATH.fruits2,
-    categoryTitle: '미역',
+    categoryTitle: '축산',
   },
   {
-    categoryId: 5,
+    categoryId: 'water',
     categoryImg: IMAGE_PATH.fruits3,
-    categoryTitle: '무',
+    categoryTitle: '생수',
   },
   {
-    categoryId: 6,
+    categoryId: 'etc',
     categoryImg: IMAGE_PATH.fruits1,
-    categoryTitle: '자두',
+    categoryTitle: '기타',
   },
 ]

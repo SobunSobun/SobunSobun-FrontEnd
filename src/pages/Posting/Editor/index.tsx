@@ -53,7 +53,7 @@ const Editor = () => {
     formData.append('category', state.category)
     formData.append('market', market.place)
     formData.append('meetingTime', fullTime)
-    // formData.append('address', market.address)
+    formData.append('marketAddress', market.address)
 
     try {
       const response = await authInstance.post('/post/register', formData)
