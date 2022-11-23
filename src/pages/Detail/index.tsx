@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-=======
 import React from 'react'
->>>>>>> ab005eadc4e4c15744e09b3a8527b5288c75486d
 import Button from 'components/Button'
 import Comment from 'components/Detail/Comment'
 import DetailContent from 'components/Detail/DetailContent'
