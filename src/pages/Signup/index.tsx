@@ -63,7 +63,7 @@ const Signup = () => {
     try {
       const formData = new FormData()
       formData.append('nickname', _nickData)
-      if (nicknameCurrent)
+      if (nicknameCurrent) {
         await defaultInstance.post('/join/nicknameDuplicateCheck', formData).then((response) => {
           if (response.data === '가입 가능한 닉네임') {
             setIsActive(true)
@@ -73,6 +73,7 @@ const Signup = () => {
             setNicknameDuplicate('중복된 닉네임입니다.')
           }
         })
+      }
     } catch (error: any) {
       // eslint-disable-next-line no-console
       console.log(error)
