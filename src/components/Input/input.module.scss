@@ -32,7 +32,7 @@
 
     &::placeholder {
       font-size: 15px;
-      color: colors.$GRAYA;
+      color: colors.$GRAYB;
       @media (max-width: sizes.$SCREEN_SM) {
         @include fontSize.emFontSizeMO(15);
       }

@@ -7,7 +7,7 @@ import styles from './signupComplete.module.scss'
 interface RouteState {
   state: {
     nickname: string
-    region: string
+    address_name: string
   }
 }
 
@@ -16,8 +16,8 @@ const SignupComplete = () => {
   const { state } = useLocation() as RouteState
 
   const handleRegion = () => {
-    if (state.region) {
-      const regionArray = state.region.split(' ')
+    if (state.address_name) {
+      const regionArray = state.address_name.split(' ')
       return <p className={styles.name}>{regionArray[regionArray.length - 1]}</p>
     }
     return ''

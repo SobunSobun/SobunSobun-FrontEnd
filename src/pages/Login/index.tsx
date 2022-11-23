@@ -15,6 +15,7 @@ type FormValues = {
 
 const Login = () => {
   const [warning, setWarning] = useState(false)
+  const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
   const {
     register,
@@ -39,11 +40,11 @@ const Login = () => {
     const formData = new FormData()
     formData.append('email', data.email)
     formData.append('password', data.password)
+    setLoading(true)
     try {
       const response = await defaultInstance.post('/login', formData)
 
-      if (response.data === '아이디 틀림') {
-        // console.log(response)
+      if (response.data === '아이디 틀림' || response.data === '비밀번호 틀림') {
         setWarning(true)
       } else {
         localStorage.setItem('sobunsobun', response.data)
@@ -52,6 +53,8 @@ const Login = () => {
     } catch (error) {
       // eslint-disable-next-line no-console
       console.log(error)
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -92,7 +95,12 @@ const Login = () => {
             {submitErrorMessage()}
           </div>
           <div className={styles.buttonWrap}>
-            <Button type={watchEmailValue && watchPasswordValue ? 'primary' : 'negative'} text='로그인하기' submit />
+            <Button
+              type={watchEmailValue && watchPasswordValue ? 'primary' : 'negative'}
+              text='로그인하기'
+              submit
+              loading={loading}
+            />
             <Link to='/local' className={styles.signupButton}>
               회원가입
             </Link>

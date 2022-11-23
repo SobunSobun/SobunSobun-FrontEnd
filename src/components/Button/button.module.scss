@@ -37,9 +37,20 @@
     background-color: colors.$GRAY_D9;
   }
 
-  &:disabled {
-    background-color: colors.$GRAY_D9;
+  &.loading {
+    cursor: default;
+    opacity: 0.6;
+
+    .spinner {
+      width: 20px;
+      height: 20px;
+      margin-right: 10px;
+    }
   }
+
+  // &:disabled {
+  //   background-color: colors.$GRAY_D9;
+  // }
 
   &.back,
   &.customBack {
@@ -52,16 +63,4 @@
       @include vwConvert.mo(height, 34.5);
     }
   }
-
-  // &.customBack {
-  //   width: 60px;
-  //   height: 60px;
-  //   background: url('../../assets/svgs/arrow_prev.svg') no-repeat center/70% auto;
-  // }
-
-  // &.like {
-  // }
-
-  // &.more {
-  // }
 }
