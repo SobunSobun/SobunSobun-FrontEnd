@@ -7,6 +7,7 @@ import styles from './layout.module.scss'
 
 const LayoutGnb = () => {
   const [innerHeight, setInnerHeight] = useState<number>()
+
   const handleResize = useDebounce(() => {
     setInnerHeight(window.innerHeight)
   }, 300)

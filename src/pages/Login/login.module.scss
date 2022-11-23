@@ -35,7 +35,7 @@
   }
 
   @media (max-width: sizes.$SCREEN_SM) {
-    @include vwConvert.mo(padding-top, 140);
+    @include vwConvert.mo(padding-top, 100);
 
     .line {
       @include vwConvert.mo(margin-bottom, 5);
