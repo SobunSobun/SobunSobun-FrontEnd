@@ -6,6 +6,7 @@ const Comment = () => {
   const [commentValue, setCommentValue] = useState('')
   const [commentArray, setCommentArray] = useState([
     {
+      id: 1,
       nickname: 'Joo',
       content: '혹시 5시 30분도 가능하나요?',
       time: '9시간 전',
@@ -20,7 +21,10 @@ const Comment = () => {
     e.preventDefault()
     if (commentValue === '') return
     if (commentArray) {
-      setCommentArray((commentValueList) => [...commentValueList, { nickname: '', time: '', content: commentValue }])
+      setCommentArray((commentValueList) => [
+        ...commentValueList,
+        { id: 1, nickname: '', time: '', content: commentValue },
+      ])
     }
     setCommentValue('')
 
@@ -33,9 +37,8 @@ const Comment = () => {
       <div className={styles.commentList}>
         {commentArray ? (
           <div className={styles.commentListBlock}>
-            {commentArray.map((comment, index: number) => {
-              // eslint-disable-next-line react/no-array-index-key
-              return <SingleComment comment={comment} key={index} />
+            {commentArray.map((comment) => {
+              return <SingleComment comment={comment} key={comment.id} />
             })}
           </div>
         ) : (
