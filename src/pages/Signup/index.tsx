@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useMutation } from 'react-query'
 import { useForm } from 'react-hook-form'
 import { useLocation, useNavigate } from 'react-router-dom'
 import Button from 'components/Button'
@@ -24,13 +25,17 @@ type SignupFormValues = {
   location?: string
 }
 
+const signupAPI = (formData: FormData) => defaultInstance.post('/join', formData)
+
 const Signup = () => {
   const { state } = useLocation()
   const locationState = (state as { myRegion: region }).myRegion
   const navigate = useNavigate()
   const { isOpen, onClose, setIsOpen } = useModal()
-  const [isActive, setIsActive] = useState<boolean | undefined>(false)
+  const [nicknameActive, setNicknameActive] = useState(false)
+  const [emailActive, setEmailActive] = useState(false)
   const [nicknameDuplicate, setNicknameDuplicate] = useState('')
+  const [emailDuplicate, setEmailDuplicate] = useState('')
   const {
     register,
     handleSubmit,
@@ -38,38 +43,43 @@ const Signup = () => {
     formState: { errors, isValid },
   } = useForm<FormValues>({ mode: 'onChange' })
 
+  const emailCurrent = watch('email')
   const passwordCurrent = watch('password')
   const nicknameCurrent = watch('nickname')
 
-  const onSubmit = async (data: SignupFormValues) => {
-    try {
-      //   console.log(data)
-      const formData = new FormData()
-      formData.append('email', data.email)
-      formData.append('password', data.password)
-      formData.append('nickname', data.nickname)
-      formData.append('location', locationState.address_name)
-      formData.append('lat', locationState.location.lat)
-      formData.append('lon', locationState.location.lon)
-      await defaultInstance.post('/join', formData).then(() => {
-        navigate('/complete', { state: { nickname: data.nickname, address_name: locationState.address_name } })
-      })
-    } catch (error: any) {
+  const { mutate } = useMutation(signupAPI, {
+    onSuccess: () => {
+      navigate('/complete', { state: { nickname: nicknameCurrent, address_name: locationState.address_name } })
+    },
+    onError: (err) => {
       // eslint-disable-next-line no-console
-      console.log(error)
-    }
+      console.log(err)
+    },
+  })
+
+  const onSubmit = async (_data: SignupFormValues) => {
+    const formData = new FormData()
+    formData.append('email', _data.email)
+    formData.append('password', _data.password)
+    formData.append('nickname', _data.nickname)
+    formData.append('location', locationState.address_name)
+    formData.append('lat', locationState.location.lat)
+    formData.append('lon', locationState.location.lon)
+
+    mutate(formData)
   }
-  const duplicateCheck = async (_nickData: SignupFormValues['nickname']) => {
+
+  const nicknameDuplicateCheck = async (_nickData: SignupFormValues['nickname']) => {
     try {
       const formData = new FormData()
       formData.append('nickname', _nickData)
-      if (nicknameCurrent) {
+      if (nicknameCurrent && errors.nickname?.type !== 'maxLength') {
         await defaultInstance.post('/join/nicknameDuplicateCheck', formData).then((response) => {
           if (response.data === '가입 가능한 닉네임') {
-            setIsActive(true)
+            setNicknameActive(true)
             setNicknameDuplicate('멋진 닉네임이네요!')
           } else {
-            setIsActive(false)
+            setNicknameActive(false)
             setNicknameDuplicate('중복된 닉네임입니다.')
           }
         })
@@ -80,10 +90,33 @@ const Signup = () => {
     }
   }
 
-  useEffect(() => {
-    if (nicknameCurrent) {
-      setNicknameDuplicate('')
+  const emailDuplicateCheck = async (_emailData: SignupFormValues['email']) => {
+    try {
+      const formData = new FormData()
+      formData.append('email', _emailData)
+      if (emailCurrent && errors.email?.type !== 'pattern') {
+        await defaultInstance.post('/join/emailDuplicateCheck', formData).then((response) => {
+          if (response.data === '가입 가능한 이메일') {
+            setEmailActive(true)
+            setEmailDuplicate('사용 가능한 이메일입니다.')
+          } else {
+            setEmailActive(false)
+            setEmailDuplicate('중복된 이메일입니다.')
+          }
+        })
+      }
+    } catch (error: any) {
+      // eslint-disable-next-line no-console
+      console.log(error)
     }
+  }
+
+  useEffect(() => {
+    setEmailDuplicate('')
+  }, [emailCurrent])
+
+  useEffect(() => {
+    setNicknameDuplicate('')
   }, [nicknameCurrent])
 
   return (
@@ -103,11 +136,18 @@ const Signup = () => {
                     value: /[a-zA-Z0-9._+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9.]+/gm,
                     message: '이메일형식에 맞지 않습니다.',
                   },
+                  onChange: () => setEmailActive(false),
                 })}
+              />
+              <Button
+                type={emailActive ? 'primary' : 'negative'}
+                text='중복체크'
+                onClick={() => emailDuplicateCheck(emailCurrent)}
               />
             </Input>
             <div className={styles.errorMessage}>
               <p>
+                <span className={emailActive ? `${styles.duplicate}` : `${styles.red}`}>{emailDuplicate}</span>
                 {errors.email?.type === 'required' && errors.email.message}
                 {errors.email?.type === 'pattern' && errors.email.message}
               </p>
@@ -152,7 +192,7 @@ const Signup = () => {
               </p>
             </div>
           </div>
-          <div className={styles.nickname}>
+          <div className={styles.formBox}>
             <Input type='line' htmlFor='nickname' text='닉네임'>
               <input
                 type='text'
@@ -161,24 +201,31 @@ const Signup = () => {
                 placeholder='닉네임을 입력해주세요.'
                 {...register('nickname', {
                   required: { value: true, message: '필수 정보입니다.' },
-                  onChange: () => setIsActive(false),
+                  maxLength: { value: 6, message: '6자 이하로 입력해주세요.' },
+                  onChange: () => setNicknameActive(false),
                 })}
               />
               <Button
-                type={isActive ? 'primary' : 'negative'}
+                type={nicknameActive ? 'primary' : 'negative'}
                 text='중복체크'
-                onClick={() => duplicateCheck(nicknameCurrent)}
+                onClick={() => nicknameDuplicateCheck(nicknameCurrent)}
               />
             </Input>
             <div className={styles.errorMessage}>
               <p>
-                <span className={isActive ? `${styles.duplicate}` : `${styles.red}`}>{nicknameDuplicate}</span>
+                <span className={nicknameActive ? `${styles.duplicate}` : `${styles.red}`}>{nicknameDuplicate}</span>
                 {errors.nickname?.type === 'required' && errors.nickname.message}
+                {errors.nickname?.type === 'maxLength' && errors.nickname.message}
               </p>
             </div>
           </div>
           <div className={styles.signupBtn}>
-            <Button type={!(isActive && isValid) ? 'negative' : 'primary'} text='다음' submit />
+            <Button
+              type={!(nicknameActive && emailActive && isValid) ? 'negative' : 'primary'}
+              text='다음'
+              isDisabled={!(nicknameActive && emailActive && isValid)}
+              submit
+            />
           </div>
         </form>
       </div>
