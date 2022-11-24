@@ -4,29 +4,120 @@
 @use 'src/styles/mixins/fontSize';
 
 .profile {
+  h3 {
+    padding: 40px 0 30px;
+    font-size: 40px;
+    font-weight: bold;
+  }
+
+  .pcBlind {
+    display: none;
+  }
+
   .top {
+    display: flex;
+    align-items: center;
+
     .image {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 88px;
-      height: 88px;
+      position: relative;
+      width: 120px;
+      height: 120px;
+      margin-right: 15px;
       overflow: hidden;
       border-radius: 50%;
+
+      >* {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
 
       img {
         width: 100%;
       }
+
+      svg {
+        display: none;
+      }
+
+      &.edit {
+        img {
+          opacity: 0.8;
+        }
+
+        svg {
+          display: block;
+        }
+      }
     }
 
     .greeting {
-      font-size: 25px;
+      font-size: 30px;
+    }
+  }
+
+  form {
+    padding-top: 30px;
+
+    .buttonWrap {
+      margin-bottom: 42px;
+    }
+  }
+
+  .setting {
+    p {
+      padding-bottom: 5px;
+      font-size: 15px;
+      color: #626262;
+    }
+
+    button {
+      padding: 10px;
+      border: 1px solid black;
     }
   }
 
   @media (max-width: sizes.$SCREEN_SM) {
-    .greeting {
+    h3 {
+      @include vwConvert.mo(padding, 75 0 30);
       @include fontSize.emFontSizeMO(25);
+    }
+
+    .pcBlind {
+      display: block;
+    }
+
+    .top {
+      .image {
+        position: relative;
+        @include vwConvert.mo(width, 88);
+        @include vwConvert.mo(height, 88);
+        @include vwConvert.mo(margin-right, 15);
+      }
+
+      .greeting {
+        @include fontSize.emFontSizeMO(25);
+      }
+    }
+
+    form {
+      @include vwConvert.mo(padding-top, 18);
+
+      .buttonWrap {
+        @include vwConvert.mo(margin-bottom, 42);
+      }
+    }
+
+    .setting {
+      p {
+        @include vwConvert.mo(padding-bottom, 5);
+        @include fontSize.emFontSizeMO(15);
+      }
+
+      button {
+        @include vwConvert.mo(padding, 10);
+      }
     }
   }
 }

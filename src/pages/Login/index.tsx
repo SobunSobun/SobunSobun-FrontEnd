@@ -78,7 +78,7 @@ const Login = () => {
         <Greeting />
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)} autoComplete='off'>
           <div className={styles.line}>
-            <Input type='line' htmlFor='email' text='이메일'>
+            <Input htmlFor='email' text='이메일'>
               <input
                 type='email'
                 id='email'
@@ -90,7 +90,7 @@ const Login = () => {
             {emailError && <span className={styles.guide}>{emailError}</span>}
           </div>
           <div className={styles.line}>
-            <Input type='line' htmlFor='password' text='비밀번호'>
+            <Input htmlFor='password' text='비밀번호'>
               <input type='password' id='password' {...register('password', { required: true, min: 6 })} />
             </Input>
             {errors.password?.type === 'required' && <span className={styles.guide}>비밀번호를 입력해주세요</span>}

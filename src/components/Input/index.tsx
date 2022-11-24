@@ -4,15 +4,15 @@ import cx from 'classnames'
 import styles from './input.module.scss'
 
 interface Props {
-  type: 'line'
+  type?: 'basic' | 'round'
   text?: string
   htmlFor: string
   children?: React.ReactNode
 }
 
-const Input = memo(({ type, text, htmlFor, children }: Props) => {
+const Input = memo(({ text, htmlFor, children, type = 'basic' }: Props) => {
   return (
-    <div className={(cx(styles.input), styles[type])}>
+    <div className={cx(styles.input, styles[type])}>
       <label htmlFor={htmlFor}>{text}</label>
       {children}
     </div>
