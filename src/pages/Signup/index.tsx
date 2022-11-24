@@ -92,7 +92,7 @@ const Signup = () => {
       <div className='contentsInner'>
         <form onSubmit={handleSubmit(onSubmit)} autoComplete='off'>
           <div className={styles.formBox}>
-            <Input type='line' htmlFor='email' text='이메일주소'>
+            <Input htmlFor='email' text='이메일주소'>
               <input
                 type='text'
                 id='email'
@@ -114,7 +114,7 @@ const Signup = () => {
             </div>
           </div>
           <div className={styles.formBox}>
-            <Input type='line' htmlFor='password' text='비밀번호'>
+            <Input htmlFor='password' text='비밀번호'>
               <input
                 type='password'
                 id='password'
@@ -133,7 +133,7 @@ const Signup = () => {
             </div>
           </div>
           <div className={styles.formBox}>
-            <Input type='line' htmlFor='passwordConfirm' text='비밀번호 확인'>
+            <Input htmlFor='passwordConfirm' text='비밀번호 확인'>
               <input
                 type='password'
                 id='passwordConfirm'
@@ -153,7 +153,7 @@ const Signup = () => {
             </div>
           </div>
           <div className={styles.nickname}>
-            <Input type='line' htmlFor='nickname' text='닉네임'>
+            <Input htmlFor='nickname' text='닉네임'>
               <input
                 type='text'
                 id='nickname'
