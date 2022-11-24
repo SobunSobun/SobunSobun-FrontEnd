@@ -47,7 +47,7 @@ const Signup = () => {
   const passwordCurrent = watch('password')
   const nicknameCurrent = watch('nickname')
 
-  const { mutate } = useMutation(signupAPI, {
+  const { mutate, isLoading } = useMutation(signupAPI, {
     onSuccess: () => {
       navigate('/complete', { state: { nickname: nicknameCurrent, address_name: locationState.address_name } })
     },
@@ -225,6 +225,7 @@ const Signup = () => {
               text='다음'
               isDisabled={!(nicknameActive && emailActive && isValid)}
               submit
+              loading={isLoading}
             />
           </div>
         </form>
