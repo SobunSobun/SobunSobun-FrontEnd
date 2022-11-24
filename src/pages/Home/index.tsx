@@ -42,6 +42,7 @@ const Home = () => {
           })}
         </ul>
         <div ref={readToLoad ? ref : undefined} style={{ height: 10 }} />
+        <div>배포 테스트</div>
       </section>
     </div>
   )
