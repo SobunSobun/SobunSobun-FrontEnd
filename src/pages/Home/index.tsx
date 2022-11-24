@@ -26,7 +26,7 @@ const Home = () => {
       </button>
       <section className={styles.headerSection}>
         {/* OO동 은 user 정보 가져오는 api를 useQuery로 가져와야 될 듯? */}
-        <Header headText='OO동 소분 시장' />
+        <h3>OO동 소분 시장</h3>
         <CategorySlider data={categories} now={selectedCategory} setNow={setSelectedCategory} />
       </section>
       <section className={styles.cardSection}>
