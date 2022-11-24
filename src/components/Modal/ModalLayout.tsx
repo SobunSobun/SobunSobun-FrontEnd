@@ -14,10 +14,8 @@ const ModalLayout = ({ children, show, isBottom = false, width = 'basic' }: Prop
   return show ? (
     <ModalPortal>
       <div className={styles.outer}>
-        <div style={{ alignItems: isBottom ? 'flex-end' : '' }} className={styles.backGround}>
-          <div style={{ backgroundColor: isBottom ? 'transparent' : '' }} className={cx(styles.inner, styles[width])}>
-            {children}
-          </div>
+        <div className={cx(styles.backGround, { [styles.isBottom]: isBottom })}>
+          <div className={cx(styles.inner, styles[width])}>{children}</div>
         </div>
       </div>
     </ModalPortal>

@@ -24,6 +24,14 @@
   max-width: 768px;
   height: 100%;
   background: rgba(81, 81, 81, 70%);
+
+  &.isBottom {
+    align-items: flex-end;
+
+    .inner {
+      background-color: transparent;
+    }
+  }
 }
 
 .inner {
