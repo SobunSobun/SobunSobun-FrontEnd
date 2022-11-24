@@ -33,7 +33,7 @@ const Home = () => {
         <ul className={styles.cardList}>
           {feedList?.map((item) => {
             return (
-              <li key={item.postId} role='presentation'>
+              <li key={item.postId} role='presentation' onClick={() => navigate(`/detail/${item.postId}`)}>
                 <button style={{ width: '100%' }} type='button'>
                   <Card data={item} />
                 </button>

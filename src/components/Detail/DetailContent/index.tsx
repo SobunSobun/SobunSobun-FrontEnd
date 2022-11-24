@@ -1,13 +1,40 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Button from 'components/Button'
 import { TwoButtonModal } from 'components/Modal'
 import useModal from 'hooks/useModal'
 import { LikeIcon, LikeOnIcon, LocationIcon, PeopleIcon, TimeIcon } from 'assets/svgs'
+import { authInstance } from 'apis/client'
+import { useNavigate } from 'react-router-dom'
 import styles from './detailContent.module.scss'
 
-const DetailContent = () => {
-  const [isJoin, setIsJoin] = useState<boolean>(false)
-  const [isLike, setIsLike] = useState<boolean>(false)
+interface Props {
+  id?: string
+}
+
+interface datailData {
+  nickname: string
+  title: string
+  content: string
+  category: string
+  meetingTime: string
+  market: string
+  recruitmentNumber: number
+  applyNumber: number
+  uploadTime: string
+}
+
+// interface RouteState {
+//   state: {
+//     category: string
+//   }
+// }
+
+const DetailContent = ({ id }: Props) => {
+  // const { state } = useLocation() as RouteState
+  const navigate = useNavigate()
+  const [isJoin, setIsJoin] = useState(false)
+  const [isLike, setIsLike] = useState(false)
+  const [result, setResult] = useState<datailData>()
   const { isOpen, onClose, setIsOpen } = useModal()
 
   const likeToggle = () => {
@@ -19,6 +46,23 @@ const DetailContent = () => {
     onClose()
   }
 
+  useEffect(() => {
+    const getDetailContent = async () => {
+      try {
+        const { data, status } = await authInstance.get(`post/${id}`)
+        if (status === 200) {
+          setResult(data)
+        }
+      } catch (error: any) {
+        if (error.response.status === 404) {
+          navigate('/error')
+        }
+      }
+      return {}
+    }
+    getDetailContent()
+  }, [id, navigate])
+
   return (
     <div className={styles.detailContent}>
       <div className={styles.like} onClick={likeToggle} role='presentation'>
@@ -26,32 +70,29 @@ const DetailContent = () => {
       </div>
       <div className={styles.detailNickname}>
         <span className={styles.profile} />
-        <span className={styles.nickname}>ZEONE</span>
+        <span className={styles.nickname}>{result?.nickname}</span>
       </div>
       <div className={styles.detailTitle}>
-        <h3>같이 양파 살 사람 구해요</h3>
+        <h3>{result?.title}</h3>
       </div>
       <div className={styles.detailText}>
-        <p>
-          오늘 카레 먹을 예정인데 양파가 부족하네요 저는 한개만 필요한데 같이 사실 분 참여하기 눌러주세요. 시간, 위치
-          조율 댓글로 가능합니다
-        </p>
+        <p>{result?.content}</p>
       </div>
       <div className={styles.detailList}>
         <ul>
           <li className={styles.location}>
             <LocationIcon />
-            서초 할인마트
+            {result?.market}
           </li>
           <li className={styles.time}>
             <TimeIcon />
-            2022.11.04 3시
+            {result?.meetingTime}
           </li>
           <li className={styles.people}>
             <PeopleIcon />
-            1/4
+            {result?.applyNumber} / {result?.recruitmentNumber}
           </li>
-          <li>9시간 전</li>
+          <li>{result?.uploadTime}</li>
         </ul>
       </div>
       <div className={styles.detailBtn}>
