@@ -6,15 +6,18 @@ import styles from './modal.module.scss'
 interface Props {
   children: ReactNode
   show: boolean
+  isBottom?: boolean
   width?: 'basic' | 'full' | 'small'
 }
 
-const ModalLayout = ({ children, show, width = 'basic' }: Props) => {
+const ModalLayout = ({ children, show, isBottom = false, width = 'basic' }: Props) => {
   return show ? (
     <ModalPortal>
       <div className={styles.outer}>
-        <div className={styles.backGround}>
-          <div className={cx(styles.inner, styles[width])}>{children}</div>
+        <div style={{ alignItems: isBottom ? 'flex-end' : '' }} className={styles.backGround}>
+          <div style={{ backgroundColor: isBottom ? 'transparent' : '' }} className={cx(styles.inner, styles[width])}>
+            {children}
+          </div>
         </div>
       </div>
     </ModalPortal>

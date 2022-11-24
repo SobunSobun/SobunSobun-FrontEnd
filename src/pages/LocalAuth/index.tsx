@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, FormEventHandler, useCallback, useState } from 'react'
+import React, { ChangeEvent, FormEvent, useCallback, useState } from 'react'
 import Header from 'components/Header'
 import Button from 'components/Button'
 import SearchBar from 'components/SearchBar'

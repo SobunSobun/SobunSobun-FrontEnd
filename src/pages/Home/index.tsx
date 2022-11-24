@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import Header from 'components/Header'
 import Card from 'components/Card'
 import { CategorySlider } from 'components/Slider'
 import { category } from 'types'
