@@ -30,7 +30,7 @@ const Signup = () => {
   const navigate = useNavigate()
   const { isOpen, onClose, setIsOpen } = useModal()
   const [isActive, setIsActive] = useState<boolean | undefined>(false)
-  const [nicknameDuplicate, setNicknameDuplicate] = useState<string>('')
+  const [nicknameDuplicate, setNicknameDuplicate] = useState('')
   const {
     register,
     handleSubmit,

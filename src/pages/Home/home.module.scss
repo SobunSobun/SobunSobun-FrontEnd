@@ -17,14 +17,26 @@
   z-index: 10;
   width: 100%;
   max-width: 768px;
-  height: 120px;
+  height: 100px;
   background-color: colors.$GRAYE;
+
+  h3 {
+    padding: 16px 16px 0;
+    font-size: 25px;
+    font-weight: 700;
+    color: colors.$BLACK;
+  }
 
   ul {
     padding: 16px 0 0 16px;
   }
   @media (max-width: sizes.$SCREEN_SM) {
-    @include vwConvert.mo(height, 120);
+    @include vwConvert.mo(height, 100);
+
+    h3 {
+      @include vwConvert.mo(padding, 16 16 0);
+      @include fontSize.emFontSizeMO(25);
+    }
 
     ul {
       @include vwConvert.mo(padding, 16 0 0 16);
@@ -33,10 +45,10 @@
 }
 
 .cardSection {
-  padding: 136px 16px 16px;
+  padding: 110px 16px 16px;
   background-color: colors.$GRAYE;
   @media (max-width: sizes.$SCREEN_SM) {
-    @include vwConvert.mo(padding, 136 16 16 16);
+    @include vwConvert.mo(padding, 110 16 16);
   }
 }
 

@@ -54,4 +54,37 @@
     right: 0;
     bottom: 0;
   }
+  @media (max-width: sizes.$SCREEN_SM) {
+    @include vwConvert.mo(padding, 12 21);
+    @include vwConvert.mo(border-radius, 15);
+
+    div {
+      @include fontSize.emFontSizeMO(12);
+    }
+
+    h3 {
+      @include vwConvert.mo(margin, 6 0);
+      @include fontSize.emFontSizeMO(12);
+    }
+
+    section {
+      p + p {
+        @include vwConvert.mo(margin-top, 6);
+      }
+    }
+
+    p {
+      & > svg {
+        @include vwConvert.mo(width, 12);
+      }
+      @include vwConvert.mo(gap, 5);
+      @include vwConvert.mo(height, 18);
+      @include fontSize.emFontSizeMO(12);
+    }
+
+    span {
+      @include vwConvert.mo(right, 12);
+      @include fontSize.emFontSizeMO(10);
+    }
+  }
 }

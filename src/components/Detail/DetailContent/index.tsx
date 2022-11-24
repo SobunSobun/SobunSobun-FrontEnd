@@ -32,8 +32,8 @@ interface datailData {
 const DetailContent = ({ id }: Props) => {
   // const { state } = useLocation() as RouteState
   const navigate = useNavigate()
-  const [isJoin, setIsJoin] = useState<boolean>(false)
-  const [isLike, setIsLike] = useState<boolean>(false)
+  const [isJoin, setIsJoin] = useState(false)
+  const [isLike, setIsLike] = useState(false)
   const [result, setResult] = useState<datailData>()
   const { isOpen, onClose, setIsOpen } = useModal()
 
@@ -46,26 +46,22 @@ const DetailContent = ({ id }: Props) => {
     onClose()
   }
 
-  const getDetailContent = async () => {
-    try {
-      const { data, status } = await authInstance.get(`post/${id}`)
-      if (status === 200) {
-        setResult(data)
-      }
-    } catch (error: any) {
-      if (error.response.status === 404) {
-        // eslint-disable-next-line no-alert
-        alert('존재하지 않는 게시물입니다.')
-        navigate('/home')
-      }
-    }
-    return {}
-  }
-
   useEffect(() => {
+    const getDetailContent = async () => {
+      try {
+        const { data, status } = await authInstance.get(`post/${id}`)
+        if (status === 200) {
+          setResult(data)
+        }
+      } catch (error: any) {
+        if (error.response.status === 404) {
+          navigate('/error')
+        }
+      }
+      return {}
+    }
     getDetailContent()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [id, navigate])
 
   return (
     <div className={styles.detailContent}>
