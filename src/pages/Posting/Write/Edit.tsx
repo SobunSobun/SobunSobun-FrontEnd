@@ -8,7 +8,7 @@ const Edit = () => {
     <div className={styles.edit}>
       <Header leftChild={<Button type='back' />} headText='게시글 수정' />
       <div className='contentsInner'>
-        <Editor />
+        <Editor isEdit />
       </div>
     </div>
   )

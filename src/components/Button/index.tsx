@@ -10,7 +10,7 @@ interface Props {
   type: 'back' | 'like' | 'more' | 'primary' | 'secondary' | 'negative' | 'customBack'
   onClick?: () => void
   text?: string
-  submit?: true
+  submit?: boolean
   basic?: true
   isDisabled?: boolean
   loading?: boolean
