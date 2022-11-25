@@ -1,5 +1,8 @@
-import { useCallback, useState } from 'react'
+import { useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useRecoilState } from 'recoil'
+
+import { categoryState } from 'recoil/post.atom'
 
 import Header from 'components/Header'
 import Button from 'components/Button'
@@ -10,15 +13,18 @@ import FloatingElem from 'components/FloatingElem'
 import styles from './category.module.scss'
 
 const Category = () => {
-  const [product, setProduct] = useState('')
+  const [product, setProduct] = useRecoilState(categoryState)
   const navigate = useNavigate()
   const handleMoveToWrite = () => {
-    navigate('/new', { state: { category: product } })
+    navigate('/new')
   }
 
-  const handleClickProduct = useCallback((item: string) => {
-    setProduct(item)
-  }, [])
+  const handleClickProduct = useCallback(
+    (item: string) => {
+      setProduct(item)
+    },
+    [setProduct]
+  )
 
   return (
     <div className={styles.category}>
