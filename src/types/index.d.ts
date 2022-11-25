@@ -128,3 +128,15 @@ type getFeedType = ({
   pageParam: number
   size: number
 }) => Promise<FeedResponse>
+
+interface datailData {
+  nickname: string
+  title: string
+  content: string
+  category: string
+  meetingTime: string
+  market: string
+  recruitmentNumber: number
+  applyNumber: number
+  uploadTime: string
+}
