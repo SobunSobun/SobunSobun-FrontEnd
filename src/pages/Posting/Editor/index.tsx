@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import cx from 'classnames'
 import { useRecoilValue } from 'recoil'
 
-import { postingDateState, postingTimeState, postingPlaceState } from 'recoil/post.atom'
+import { postingDateState, postingTimeState, postingPlaceState, categoryState } from 'recoil/post.atom'
 import { authInstance } from 'apis/client'
 import { ArrowPrevIcon } from 'assets/svgs'
 
@@ -17,6 +17,9 @@ import TimePicker from '../TimePicker'
 import './datepicker_custom.css'
 import styles from './editor.module.scss'
 
+interface Props {
+  isEdit: boolean
+}
 interface FormValues {
   title: string
   content: string
@@ -26,19 +29,13 @@ interface FormValues {
   market: string
 }
 
-interface RouteState {
-  state: {
-    category: string
-  }
-}
-
-const Editor = () => {
+const Editor = ({ isEdit }: Props) => {
   const navigate = useNavigate()
-  const { state } = useLocation() as RouteState
 
   const date = useRecoilValue(postingDateState)
   const time = useRecoilValue(postingTimeState)
   const market = useRecoilValue(postingPlaceState)
+  const category = useRecoilValue(categoryState)
   const [count, setCount] = useState<number>(2)
   const [fullTime, setFullTime] = useState('')
   const [timePickerModal, setTimePickerModal] = useState(false)
@@ -50,7 +47,7 @@ const Editor = () => {
     formData.append('title', data.title)
     formData.append('content', data.content)
     formData.append('recruitmentNumber', String(count))
-    formData.append('category', state.category)
+    formData.append('category', category)
     formData.append('market', market.place)
     formData.append('meetingTime', fullTime)
     formData.append('marketAddress', market.address)

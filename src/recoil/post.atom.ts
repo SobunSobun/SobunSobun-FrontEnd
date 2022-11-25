@@ -20,3 +20,8 @@ export const modalChangeState = atom({
   key: '#modalChangeState',
   default: false,
 })
+
+export const categoryState = atom({
+  key: '#categoryState',
+  default: '',
+})
