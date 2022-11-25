@@ -3,8 +3,9 @@
 @use 'src/styles/mixins/fontSize';
 @use '/src/styles/constants/sizes';
 
-.line {
+.input {
   padding-bottom: 35px;
+
   @media (max-width: sizes.$SCREEN_SM) {
     @include vwConvert.mo(padding-bottom, 35);
   }
@@ -12,6 +13,7 @@
   label {
     font-size: 14px;
     color: colors.$BLACK;
+
     @media (max-width: sizes.$SCREEN_SM) {
       @include fontSize.emFontSizeMO(14);
     }
@@ -24,6 +26,7 @@
     font-size: 13px;
     line-height: 28px;
     border-bottom: 2px solid colors.$GRAYD;
+
     @media (max-width: sizes.$SCREEN_SM) {
       @include fontSize.emFontSizeMO(13);
       @include vwConvert.mo(height, 28);
@@ -33,8 +36,52 @@
     &::placeholder {
       font-size: 15px;
       color: colors.$GRAYB;
+
       @media (max-width: sizes.$SCREEN_SM) {
         @include fontSize.emFontSizeMO(15);
+      }
+    }
+  }
+
+  &.round {
+    padding-bottom: 35px;
+
+    @media (max-width: sizes.$SCREEN_SM) {
+      @include vwConvert.mo(padding-bottom, 35);
+    }
+
+    label {
+      font-size: 15px;
+      color: #626262;
+    }
+
+    input {
+      width: 100%;
+      height: 49px;
+      padding: 0 13px;
+      margin-top: 5px;
+      font-size: 16px;
+      line-height: 49px;
+      background-color: #E3E3E3;
+      border-bottom: none;
+      border-radius: 15px;
+    }
+
+    @media (max-width: sizes.$SCREEN_SM) {
+      @include vwConvert.mo(padding-bottom, 35);
+
+      label {
+        @include fontSize.emFontSizeMO(14);
+      }
+
+      input {
+        @include fontSize.emFontSizeMO(13);
+        @include vwConvert.mo(height, 28);
+        @include vwConvert.mo(line-height, 28);
+
+        &::placeholder {
+          @include fontSize.emFontSizeMO(15);
+        }
       }
     }
   }

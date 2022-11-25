@@ -4,9 +4,17 @@
 @use '/src/styles/constants/sizes';
 
 .signup {
-  .nickname {
+  .formBox {
     position: relative;
 
+    &:first-child {
+      margin-top: 27px;
+
+      @media (max-width: sizes.$SCREEN_SM) {
+        @include vwConvert.mo(margin-top, 27);
+      }
+    }
+    
     button {
       position: absolute;
       right: 0;
@@ -35,17 +43,17 @@
     }
   }
 
-  .formBox {
-    position: relative;
+  // .formBox {
+  //   position: relative;
 
-    &:first-child {
-      margin-top: 27px;
+  //   &:first-child {
+  //     margin-top: 27px;
 
-      @media (max-width: sizes.$SCREEN_SM) {
-        @include vwConvert.mo(margin-top, 27);
-      }
-    }
-  }
+  //     @media (max-width: sizes.$SCREEN_SM) {
+  //       @include vwConvert.mo(margin-top, 27);
+  //     }
+  //   }
+  // }
 
   .errorMessage {
     position: absolute;
