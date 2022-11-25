@@ -18,6 +18,9 @@ const useApply = () => {
       return { prevUserData }
     },
     onError: (err: AxiosError, { postId }, context?: { prevUserData: detailData | undefined }) => {
+      if (err.response?.status === 403) {
+        // 모집이 완료된 게시물 일 경우
+      }
       if (context?.prevUserData) {
         queryClient.setQueryData<detailData>(['getDetailAPI', postId], context.prevUserData)
       }

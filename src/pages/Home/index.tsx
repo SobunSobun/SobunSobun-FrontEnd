@@ -7,6 +7,7 @@ import { CATEGORIES } from 'utils/constants'
 import { PlusIcon } from 'assets/svgs'
 import { useInView } from 'react-intersection-observer'
 import useFeed from 'hooks/useFeed'
+import useMyInfo from 'hooks/useMyInfo'
 
 import styles from './home.module.scss'
 
@@ -15,6 +16,7 @@ const Home = () => {
   const [selectedCategory, setSelectedCategory] = useState<category>('전체')
   const [ref, inView] = useInView()
 
+  const { location } = useMyInfo()
   const { feedList, readToLoad } = useFeed({ inView, selectedCategory })
   const categories = CATEGORIES
 
@@ -25,7 +27,7 @@ const Home = () => {
       </button>
       <section className={styles.headerSection}>
         {/* OO동 은 user 정보 가져오는 api를 useQuery로 가져와야 될 듯? */}
-        <h3>OO동 소분 시장</h3>
+        <h3>{location} 소분 시장</h3>
         <CategorySlider data={categories} now={selectedCategory} setNow={setSelectedCategory} />
       </section>
       <section className={styles.cardSection}>
