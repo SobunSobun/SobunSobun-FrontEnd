@@ -1,27 +1,32 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Button from 'components/Button'
 import { TwoButtonModal } from 'components/Modal'
 import useModal from 'hooks/useModal'
 import { LikeIcon, LikeOnIcon, LocationIcon, PeopleIcon, TimeIcon } from 'assets/svgs'
-import { datailData } from 'types'
+import { detailData } from 'types'
+import useLike from 'hooks/useLike'
+import useMyInfo from 'hooks/useMyInfo'
+import useApply from 'hooks/useApply'
 
 import styles from './detailContent.module.scss'
 
 interface Props {
-  data?: datailData
+  postId: string
+  data?: detailData
 }
 
-const DetailContent = ({ data }: Props) => {
-  const [isJoin, setIsJoin] = useState(false)
-  const [isLike, setIsLike] = useState(false)
+const DetailContent = ({ data, postId }: Props) => {
+  const { userId } = useMyInfo()
+  const { mutate: likeAPI } = useLike()
+  const { mutate: applyAPI } = useApply()
   const { isOpen, onClose, setIsOpen } = useModal()
 
   const likeToggle = () => {
-    setIsLike(!isLike)
+    likeAPI({ postId, userId: userId?.toString()! })
   }
 
   const handleJoin = () => {
-    setIsJoin(!isJoin)
+    applyAPI({ postId, userId: userId?.toString()! })
     onClose()
   }
 
@@ -30,7 +35,7 @@ const DetailContent = ({ data }: Props) => {
   return (
     <div className={styles.detailContent}>
       <div className={styles.like} onClick={likeToggle} role='presentation'>
-        {isLike ? <LikeOnIcon /> : <LikeIcon />}
+        {data.isLike ? <LikeOnIcon /> : <LikeIcon />}
       </div>
       <div className={styles.detailNickname}>
         <span className={styles.profile} />
@@ -62,15 +67,15 @@ const DetailContent = ({ data }: Props) => {
       <div className={styles.detailBtn}>
         <Button
           basic
-          type={isJoin ? 'primary' : 'negative'}
-          text={isJoin ? '참여완료' : '참여하기'}
+          type={data.isApply ? 'primary' : 'negative'}
+          text={data.isApply ? '참여완료' : '참여하기'}
           onClick={() => setIsOpen(true)}
         />
       </div>
       <TwoButtonModal
         show={isOpen}
         close={onClose}
-        message={isJoin ? '참여를 취소하시겠습니까?' : '참여하시겠습니까?'}
+        message={data.isApply ? '참여를 취소하시겠습니까?' : '참여하시겠습니까?'}
         yesCallBack={handleJoin}
       />
     </div>

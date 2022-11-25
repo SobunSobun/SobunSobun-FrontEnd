@@ -4,6 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import useModal from 'hooks/useModal'
 import { authInstance } from 'apis/client'
 import { MoreIcon } from 'assets/svgs'
+import { detailData, getDetailType } from 'types'
 
 import { UnderModal } from 'components/Modal'
 import Button from 'components/Button'
@@ -13,11 +14,11 @@ import Header from 'components/Header'
 
 import styles from './detail.module.scss'
 
-const getDetailAPI = (id: string | undefined) => authInstance.get(`post/${id}`)
+const getDetailAPI: getDetailType = (id: string | undefined) => authInstance.get(`post/${id}`)
 
 const Detail = () => {
   const { id } = useParams()
-  const { data } = useQuery(['getDetailAPI', id], () => getDetailAPI(id).then((res) => res.data))
+  const { data } = useQuery<detailData>(['getDetailAPI', id], () => getDetailAPI(id).then((res) => res.data))
   const navigate = useNavigate()
   const { isOpen, onClose, setIsOpen } = useModal()
 
@@ -36,7 +37,7 @@ const Detail = () => {
         />
       </div>
       <div className='contentsInner'>
-        <DetailContent data={data} />
+        <DetailContent data={data} postId={id!} />
         <Comment />
       </div>
       <UnderModal

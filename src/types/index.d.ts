@@ -1,3 +1,5 @@
+import { AxiosResponse } from 'axios'
+
 export interface authData {
   user: null | string
   pwd: null | string
@@ -68,19 +70,6 @@ export interface region {
   }
 }
 
-/*
-address_name	String	전체 지번 주소 또는 전체 도로명 주소, 입력에 따라 결정됨
-address_type	String	address_name의 값의 타입(Type)
-다음 중 하나:
-REGION(지명)
-ROAD(도로명)
-REGION_ADDR(지번 주소)
-ROAD_ADDR(도로명 주소)
-x	String	X 좌표값, 경위도인 경우 경도(longitude)
-y	String	Y 좌표값, 경위도인 경우 위도(latitude)
-address	Address	지번 주소 상세 정보, 아래 Address 참고
-road_address	RoadAaddress	도로명 주소 상세 정보, 아래 RoadAaddress 참고
-*/
 export interface kakaoResponse {
   meta: {
     total_count: number
@@ -118,6 +107,29 @@ interface FeedResponse {
 
 type category = '전체' | '과일' | '채소' | '계란' | '축산' | '생수' | '기타'
 
+interface detailData {
+  nickname: string
+  title: string
+  content: string
+  category: string
+  meetingTime: string
+  market: string
+  recruitmentNumber: number
+  applyNumber: number
+  uploadTime: string
+  isLike: boolean
+  isApply: boolean
+  isWriter: boolean
+}
+
+/* my-info type */
+interface myInfoType {
+  userId: number
+  nickname: string
+  email: string
+  location: string
+  profileUrl: string
+}
 /* api 리턴 타입 */
 type getFeedType = ({
   category,
@@ -129,14 +141,6 @@ type getFeedType = ({
   size: number
 }) => Promise<FeedResponse>
 
-interface datailData {
-  nickname: string
-  title: string
-  content: string
-  category: string
-  meetingTime: string
-  market: string
-  recruitmentNumber: number
-  applyNumber: number
-  uploadTime: string
-}
+type getDetailType = (id: string | undefined) => Promise<AxiosResponse<detailData>>
+
+type getMyInfoType = () => Promise<ImyInfoType>

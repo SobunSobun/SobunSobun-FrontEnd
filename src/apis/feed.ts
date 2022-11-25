@@ -32,3 +32,11 @@ export const getFeedAPI: getFeedType = ({ category, pageParam, size }) => {
       }
     })
 }
+
+export const postLikeAPI = ({ postId, userId }: { postId: string; userId: string }) => {
+  return authInstance.post(`/post/${postId}/${userId}/like`)
+}
+
+export const postApplyAPI = ({ postId, userId }: { postId: string; userId: string }) => {
+  return authInstance.post(`/post/${postId}/${userId}/apply`)
+}
