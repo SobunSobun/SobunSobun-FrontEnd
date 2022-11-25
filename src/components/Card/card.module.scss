@@ -5,7 +5,6 @@
 
 .card {
   position: relative;
-  width: 100%;
   padding: 12px 21px;
   text-align: left;
   background-color: #ffffff;
@@ -16,9 +15,13 @@
   }
 
   h3 {
+    max-width: 70%;
     margin: 6px 0;
+    overflow-x: hidden;
     font-size: 18px;
     font-weight: 700;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   section {
@@ -53,6 +56,8 @@
     position: absolute;
     right: 0;
     bottom: 0;
+    width: 120px;
+    height: 100px;
   }
   @media (max-width: sizes.$SCREEN_SM) {
     @include vwConvert.mo(padding, 12 21);
@@ -64,7 +69,7 @@
 
     h3 {
       @include vwConvert.mo(margin, 6 0);
-      @include fontSize.emFontSizeMO(12);
+      @include fontSize.emFontSizeMO(18);
     }
 
     section {
@@ -85,6 +90,46 @@
     span {
       @include vwConvert.mo(right, 12);
       @include fontSize.emFontSizeMO(10);
+    }
+
+    & > svg {
+      @include vwConvert.mo(width, 120);
+      @include vwConvert.mo(height, 100);
+    }
+  }
+
+  &.isBorder {
+    border: 1px solid colors.$PRIMARY;
+  }
+
+  &.isVertical {
+    padding: 10px 12px 0;
+
+    h3 {
+      max-width: 100%;
+      font-size: 14px;
+    }
+
+    & > svg {
+      position: relative;
+      left: 50%;
+      width: 100px;
+      height: 84px;
+      margin-top: 10px;
+      transform: translateX(-50%);
+    }
+    @media (max-width: sizes.$SCREEN_SM) {
+      @include vwConvert.mo(padding, 10 12 0);
+
+      h3 {
+        @include fontSize.emFontSizeMO(14);
+      }
+
+      & > svg {
+        @include vwConvert.mo(width, 100);
+        @include vwConvert.mo(height, 84);
+        @include vwConvert.mo(margin-top, 10);
+      }
     }
   }
 }
