@@ -10,7 +10,15 @@ import RootRoute from './routes'
 import './styles/index.scss'
 
 const queryClient = new QueryClient({
-  defaultOptions: { queries: { refetchOnMount: false, refetchOnWindowFocus: false, retry: 1 } },
+  defaultOptions: {
+    queries: {
+      refetchOnMount: false,
+      refetchOnWindowFocus: false,
+      retry: 1,
+      // eslint-disable-next-line no-console
+      onError: (error) => console.log((error as any).message),
+    },
+  },
 })
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
