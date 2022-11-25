@@ -35,7 +35,7 @@ const Card = ({ data, isVertical = false, isBorder = false }: Props) => {
         </p>
         <p>
           <PeopleIcon />
-          {data.recruitNumber}/4
+          {data.applyNumber}/{data.recruitNumber}
         </p>
       </section>
       <CategoryIcon type={data.category} />

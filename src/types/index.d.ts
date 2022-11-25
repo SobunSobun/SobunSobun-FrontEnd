@@ -94,6 +94,7 @@ export interface feed {
   market: string
   meetingTime: string
   recruitNumber: number
+  applyNumber: number
   createdAt: Date | number[]
   category: Omit<category, '전체'>
   last?: boolean

@@ -18,6 +18,7 @@ const useFeed = ({ inView, selectedCategory }: Props) => {
         if (!lastPage.isLast) return lastPage.nowPage + 1
         return undefined
       },
+      refetchOnMount: true,
     }
   )
 
