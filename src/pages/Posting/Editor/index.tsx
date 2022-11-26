@@ -119,8 +119,12 @@ const Editor = ({ isEdit }: Props) => {
         </div>
         <div className={cx(styles.line, styles.noPadding)}>
           <button type='button' className={styles.place} onClick={() => setMapModal(true)}>
-            <p className={styles.label}>만날 장소</p>
-            {market.place ? <span>{market.place}</span> : <ArrowPrevIcon className={styles.arrow} />}
+            <span className={styles.label}>만날 장소</span>
+            {market.place ? (
+              <span className={styles.placeName}>{market.place}</span>
+            ) : (
+              <ArrowPrevIcon className={styles.arrow} />
+            )}
           </button>
         </div>
         <div className={cx(styles.line, styles.noPadding)}>
