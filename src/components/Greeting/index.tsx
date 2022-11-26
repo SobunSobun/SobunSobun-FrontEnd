@@ -7,7 +7,7 @@ const Greeting = () => {
       <h1>
         <LogoImage className={styles.logo} />
       </h1>
-      <p className={styles.desc}>이웃과 소분해서 소분소분 함께해요</p>
+      <p className={styles.desc}>따뜻한 소분 이웃과 함께해요</p>
     </div>
   )
 }

@@ -4,7 +4,13 @@ import { useNavigate } from 'react-router-dom'
 import cx from 'classnames'
 import { useRecoilValue } from 'recoil'
 
-import { postingDateState, postingTimeState, postingPlaceState, categoryState } from 'recoil/post.atom'
+import {
+  postingDateState,
+  postingTimeState,
+  postingPlaceState,
+  categoryState,
+  modalChangeState,
+} from 'recoil/post.atom'
 import { authInstance } from 'apis/client'
 import { ArrowPrevIcon } from 'assets/svgs'
 
@@ -36,11 +42,22 @@ const Editor = ({ isEdit }: Props) => {
   const time = useRecoilValue(postingTimeState)
   const market = useRecoilValue(postingPlaceState)
   const category = useRecoilValue(categoryState)
+  const valueUpdate = useRecoilValue(modalChangeState)
   const [count, setCount] = useState<number>(2)
   const [fullTime, setFullTime] = useState('')
   const [timePickerModal, setTimePickerModal] = useState(false)
   const [mapModal, setMapModal] = useState(false)
-  const { register, handleSubmit } = useForm<FormValues>()
+  const { register, handleSubmit, watch } = useForm<FormValues>()
+
+  const watchTitleValue = watch('title', '')
+  const watchContentValue = watch('content', '')
+
+  const handleColor = () => {
+    if (market && valueUpdate && watchTitleValue && watchContentValue) {
+      return 'primary'
+    }
+    return 'negative'
+  }
 
   const onSubmit = async (data: FormValues) => {
     const formData = new FormData()
@@ -79,8 +96,8 @@ const Editor = ({ isEdit }: Props) => {
             className={styles.textInput}
             type='text'
             id='title'
-            maxLength={30}
-            placeholder='제목을 입력해주세요.(30자 내외)'
+            maxLength={24}
+            placeholder='제목을 입력해주세요.(24자 내외)'
             {...register('title', { required: true })}
           />
         </div>
@@ -106,7 +123,7 @@ const Editor = ({ isEdit }: Props) => {
           <TimePicker onClick={setTimePickerModal} />
         </div>
         <div className={styles.buttonWrap}>
-          <Button basic type='primary' text='완료' submit />
+          <Button basic type={handleColor()} text='완료' submit />
         </div>
       </form>
       <TimePickerModal show={timePickerModal} close={() => setTimePickerModal(false)} />

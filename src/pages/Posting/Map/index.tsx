@@ -1,11 +1,13 @@
 import { useState, useEffect, useRef } from 'react'
 import { useSetRecoilState } from 'recoil'
-import { UseGeoLocation } from 'hooks/useGeoLocation'
-import { IMAGE_PATH } from 'assets/images'
-import { Keyword, MapDataType } from 'types'
 import cx from 'classnames'
+
+import { UseGeoLocation } from 'hooks/useGeoLocation'
 import { postingPlaceState } from 'recoil/post.atom'
-import 'swiper/swiper.min.css'
+import { Keyword, MapDataType } from 'types'
+
+import { IMAGE_PATH } from 'assets/images'
+import { MapInfoIcon } from 'assets/svgs'
 import styles from './map.module.scss'
 
 declare global {
@@ -138,7 +140,7 @@ const Map = ({ searchKeyword, close }: Keyword) => {
             onClick={handleSetMarket}
           >
             <span className={styles.image}>
-              <img src={IMAGE_PATH.mapImage} alt='' />
+              <MapInfoIcon />
             </span>
             <dl className={styles.desc}>
               <dt className={styles.market}>{itemInfo.market}</dt>
