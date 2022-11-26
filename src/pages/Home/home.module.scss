@@ -56,6 +56,12 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 10px;
+  width: 100%;
+
+  li {
+    overflow: hidden;
+  }
+
   @media (max-width: sizes.$SCREEN_SM) {
     grid-template-columns: 1fr;
     @include vwConvert.mo(gap, 10);
