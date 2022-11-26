@@ -26,9 +26,14 @@
       border-bottom-right-radius: 13px;
     }
 
-    &.active {
+    &.write {
       color: colors.$BLACK;
       background-color: colors.$PRIMARY;
+    }
+
+    &.participate {
+      color: colors.$WHITE;
+      background-color: colors.$WARNING;
     }
   }
 }

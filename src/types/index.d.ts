@@ -145,3 +145,11 @@ type getFeedType = ({
 type getDetailType = (id: string | undefined) => Promise<AxiosResponse<detailData>>
 
 type getMyInfoType = () => Promise<ImyInfoType>
+
+type myWriteType = (userId: number) => Promise<Array<feed>>
+
+type myWriteCompleteType = (userId: number) => Promise<Array<feed>>
+
+type myParticipateType = (userId: number) => Promise<Array<feed>>
+
+type myParticipateCompleteType = (userId: number) => Promise<Array<feed>>

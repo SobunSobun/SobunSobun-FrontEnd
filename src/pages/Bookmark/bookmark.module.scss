@@ -1,4 +1,11 @@
+@use '/src/styles/mixins/fontSize';
+@use 'src/styles/mixins/vwConvert';
+@use 'src/styles/constants/sizes';
+@use 'src/styles/constants/colors';
+
 .bookmark {
+  height: 100%;
+
   h2 {
     padding-bottom: 16px;
     font-size: 25px;
@@ -9,14 +16,17 @@
 
 .headerSection {
   position: fixed;
+  z-index: 100;
   width: 100%;
   max-width: 768px;
   padding: 16px;
-  background-color: #fafafa;
+  background-color: colors.$BG;
 }
 
 .inner {
+  height: 100%;
   padding: 83px 16px 16px;
+  background-color: colors.$BG;
 }
 
 .list {

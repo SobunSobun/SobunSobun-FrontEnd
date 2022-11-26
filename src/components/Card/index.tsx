@@ -18,9 +18,17 @@ interface Props {
   isBorder?: boolean
   isComplete?: boolean
   isParticipating?: boolean
+  isWrite?: boolean
 }
 
-const Card = ({ data, isVertical = false, isBorder = false, isComplete = false, isParticipating = false }: Props) => {
+const Card = ({
+  data,
+  isVertical = false,
+  isBorder = false,
+  isComplete = false,
+  isParticipating = false,
+  isWrite = false,
+}: Props) => {
   return (
     <article
       className={cx(styles.card, {
@@ -28,6 +36,7 @@ const Card = ({ data, isVertical = false, isBorder = false, isComplete = false, 
         [styles.isBorder]: isBorder,
         [styles.isComplete]: isComplete,
         [styles.isParticipating]: isParticipating,
+        [styles.isWrite]: isWrite,
       })}
     >
       <span>{dayjs(data.createdAt as Date).fromNow()}</span>

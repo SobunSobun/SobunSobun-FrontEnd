@@ -1,4 +1,11 @@
+@use '/src/styles/mixins/fontSize';
+@use 'src/styles/mixins/vwConvert';
+@use 'src/styles/constants/sizes';
+@use 'src/styles/constants/colors';
+
 .myPost {
+  height: 100%;
+
   section {
     h3 {
       font-size: 15px;
@@ -6,6 +13,8 @@
     }
 
     ul {
+      display: grid;
+      gap: 10px;
       padding: 16px 0;
     }
   }
@@ -13,10 +22,11 @@
 
 .headerSection {
   position: fixed;
+  z-index: 100;
   width: 100%;
   max-width: 768px;
   padding: 16px;
-  background-color: #fafafa;
+  background-color: colors.$BG;
 
   h2 {
     font-size: 25px;
@@ -25,5 +35,7 @@
 }
 
 .inner {
+  height: 100%;
   padding: 120px 16px 16px;
+  background-color: colors.$BG;
 }
