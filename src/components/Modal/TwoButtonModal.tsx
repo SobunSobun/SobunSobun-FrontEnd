@@ -13,7 +13,7 @@ const TwoButtonModal = ({ show, close, message, yesCallBack }: Props) => {
   return (
     <ModalLayout show={show}>
       <div className={styles.twoButton_container}>
-        <p>{message}</p>
+        <pre>{message}</pre>
         <section className={styles.twoButton_buttonSection}>
           <button type='button' onClick={yesCallBack}>
             예

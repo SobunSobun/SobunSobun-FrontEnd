@@ -17,13 +17,13 @@ const MyPostHeader = () => {
 
   return (
     <div className={styles.container}>
-      <button type='button' onClick={buttonClickHandler} className={postState === 'myPost' ? styles.active : ''}>
+      <button type='button' onClick={buttonClickHandler} className={postState === 'myPost' ? styles.write : ''}>
         작성한 소분
       </button>
       <button
         type='button'
         onClick={buttonClickHandler}
-        className={postState === 'participatedPost' ? styles.active : ''}
+        className={postState === 'participatedPost' ? styles.participate : ''}
       >
         참여한 소분
       </button>

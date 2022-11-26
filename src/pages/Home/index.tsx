@@ -36,7 +36,7 @@ const Home = () => {
             return (
               <li key={item.postId} role='presentation' onClick={() => navigate(`/detail/${item.postId}`)}>
                 <button style={{ width: '100%' }} type='button'>
-                  <Card data={item} />
+                  <Card data={item} isComplete />
                 </button>
               </li>
             )
