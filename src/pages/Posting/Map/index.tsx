@@ -1,11 +1,13 @@
 import { useState, useEffect, useRef } from 'react'
-import { useRecoilState } from 'recoil'
-import { UseGeoLocation } from 'hooks/useGeoLocation'
-import { IMAGE_PATH } from 'assets/images'
-import { Keyword, MapDataType } from 'types'
+import { useSetRecoilState } from 'recoil'
 import cx from 'classnames'
+
+import { UseGeoLocation } from 'hooks/useGeoLocation'
 import { postingPlaceState } from 'recoil/post.atom'
-import 'swiper/swiper.min.css'
+import { Keyword, MapDataType } from 'types'
+
+import { IMAGE_PATH } from 'assets/images'
+import { MapInfoIcon } from 'assets/svgs'
 import styles from './map.module.scss'
 
 declare global {
@@ -14,13 +16,13 @@ declare global {
   }
 }
 
-const markerSize = new window.kakao.maps.Size(14, 20)
-const activeMarkerSize = new window.kakao.maps.Size(36, 50)
+const markerSize = new window.kakao.maps.Size(22, 31)
+const activeMarkerSize = new window.kakao.maps.Size(35, 50)
 
 const Map = ({ searchKeyword, close }: Keyword) => {
   const { lat, lng } = UseGeoLocation()
   const container = useRef(null)
-  const [, setMarket] = useRecoilState(postingPlaceState)
+  const setMarket = useSetRecoilState(postingPlaceState)
   const [itemActive, setItemActive] = useState(false)
   const [itemInfo, setItemInfo] = useState({ market: '', address: '' })
 
@@ -55,7 +57,7 @@ const Map = ({ searchKeyword, close }: Keyword) => {
     /* 마커 추가하기 */
     const addMarker = (data: Array<MapDataType>) => {
       const normalImage = createMarkerImage(IMAGE_PATH.mapMarker, markerSize)
-      const clickImage = createMarkerImage(IMAGE_PATH.mapMarkerActive, activeMarkerSize)
+      const clickImage = createMarkerImage(IMAGE_PATH.mapMarker, activeMarkerSize)
       data.forEach((el: MapDataType) => {
         const position = new window.kakao.maps.LatLng(el.y, el.x)
         const marker = new window.kakao.maps.Marker({
@@ -138,7 +140,7 @@ const Map = ({ searchKeyword, close }: Keyword) => {
             onClick={handleSetMarket}
           >
             <span className={styles.image}>
-              <img src={IMAGE_PATH.mapImage} alt='' />
+              <MapInfoIcon />
             </span>
             <dl className={styles.desc}>
               <dt className={styles.market}>{itemInfo.market}</dt>

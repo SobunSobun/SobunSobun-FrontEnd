@@ -100,7 +100,7 @@ const Login = () => {
           <div className={styles.buttonWrap}>
             <Button
               type={watchEmailValue && watchPasswordValue ? 'primary' : 'negative'}
-              text='로그인하기'
+              text='로그인'
               submit
               loading={isLoading}
             />

@@ -68,6 +68,8 @@
     }
 
     .arrow {
+      width: 26px;
+      height: 26px;
       margin-right: 5px;
       transform: scaleX(-1);
     }
@@ -114,6 +116,8 @@
       }
 
       .arrow {
+        @include vwConvert.mo(width, 26);
+        @include vwConvert.mo(height, 26);
         @include vwConvert.mo(margin-right, 5);
       }
     }

@@ -8,7 +8,7 @@
   @include flexbox.flexbox;
   transition: color 200ms;
 
-  +.button {
+  + .button {
     margin-left: 16px;
   }
 
@@ -17,6 +17,7 @@
     height: 57px;
     padding: 15px;
     font-size: 19px;
+    font-weight: 400;
     color: colors.$BLACK;
     background-color: colors.$PRIMARY;
     border-radius: 15px;

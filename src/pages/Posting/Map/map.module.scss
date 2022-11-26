@@ -12,22 +12,13 @@
     height: 100vh;
   }
 
-  .myLocation {
-    position: absolute;
-    top: 111px;
-    right: 38px;
-    z-index: 9;
-    border: 1px solid red;
-  }
-
   .item {
     position: absolute;
-    bottom: 30px;
+    bottom: 32px;
     left: 50%;
     z-index: 9;
-    width: 308px;
-    height: 111px;
-    padding-left: 12px;
+    width: 358px;
+    height: 107px;
     transform: translateX(-50%);
   }
 
@@ -36,22 +27,26 @@
     align-items: center;
     width: 100%;
     height: 107px;
-    padding: 18px;
-    background-color: colors.$WHITE;
+    padding: 18px 25px;
+    background-color: #fafafa;
     border-radius: 15px;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 25%);
 
     &.active {
       background-color: colors.$PRIMARY;
+
+      .image svg path {
+        fill: colors.$WHITE;
+      }
     }
 
     .image {
       flex-shrink: 0;
-      width: 76px;
-      height: 71px;
-      margin-right: 14px;
+      width: 68px;
+      height: 68px;
+      margin-right: 18px;
 
-      img {
+      svg {
         width: 100%;
       }
     }
@@ -81,22 +76,21 @@
 
     .item {
       position: absolute;
-      @include vwConvert.mo(bottom, 30);
-      @include vwConvert.mo(width, 308);
-      @include vwConvert.mo(height, 111);
-      @include vwConvert.mo(padding-left, 12);
+      @include vwConvert.mo(bottom, 32);
+      @include vwConvert.mo(width, 358);
+      @include vwConvert.mo(height, 107);
     }
 
     .itemInner {
       @include vwConvert.mo(height, 107);
-      @include vwConvert.mo(padding, 18);
+      @include vwConvert.mo(padding, 18 25);
       @include vwConvert.mo(border-radius, 15);
 
       .image {
         flex-shrink: 0;
-        @include vwConvert.mo(width, 76);
-        @include vwConvert.mo(height, 71);
-        @include vwConvert.mo(margin-right, 14);
+        @include vwConvert.mo(width, 68);
+        @include vwConvert.mo(height, 68);
+        @include vwConvert.mo(margin-right, 18);
       }
 
       .market {

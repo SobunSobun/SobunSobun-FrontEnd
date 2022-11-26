@@ -1,5 +1,5 @@
 import { useState, ChangeEvent, FormEvent } from 'react'
-import { SearchIcon } from 'assets/svgs'
+import { SearchIcon, MapBackIcon } from 'assets/svgs'
 import ModalLayout from 'components/Modal/ModalLayout'
 import { ModalPropsType } from 'types'
 import Map from '../Map'
@@ -33,7 +33,7 @@ const MapModal = ({ show, close }: ModalPropsType) => {
                 <SearchIcon />
               </button>
               <input
-                type='text'
+                type='search'
                 className={styles.searchInput}
                 value={searchInput}
                 onChange={handleChangeText}
@@ -41,6 +41,9 @@ const MapModal = ({ show, close }: ModalPropsType) => {
               />
             </div>
           </form>
+          <button type='button' className={styles.closeBtn} onClick={close}>
+            <MapBackIcon />
+          </button>
         </div>
         <Map searchKeyword={keyword} close={close} />
       </div>
