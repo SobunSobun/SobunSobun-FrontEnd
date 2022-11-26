@@ -192,7 +192,7 @@ const Signup = () => {
               </p>
             </div>
           </div>
-          <div className={styles.nickname}>
+          <div className={styles.formBox}>
             <Input htmlFor='nickname' text='닉네임'>
               <input
                 type='text'

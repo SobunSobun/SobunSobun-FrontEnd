@@ -14,7 +14,7 @@
         @include vwConvert.mo(margin-top, 27);
       }
     }
-    
+
     button {
       position: absolute;
       right: 0;
@@ -42,18 +42,6 @@
       color: colors.$RED;
     }
   }
-
-  // .formBox {
-  //   position: relative;
-
-  //   &:first-child {
-  //     margin-top: 27px;
-
-  //     @media (max-width: sizes.$SCREEN_SM) {
-  //       @include vwConvert.mo(margin-top, 27);
-  //     }
-  //   }
-  // }
 
   .errorMessage {
     position: absolute;
