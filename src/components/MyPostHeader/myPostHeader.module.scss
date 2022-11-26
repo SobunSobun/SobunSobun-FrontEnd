@@ -1,0 +1,34 @@
+@use '/src/styles/mixins/fontSize';
+@use 'src/styles/mixins/vwConvert';
+@use 'src/styles/constants/sizes';
+@use 'src/styles/constants/colors';
+
+.container {
+  display: flex;
+  width: 100%;
+  margin-top: 12px;
+  border-radius: 15px;
+
+  button {
+    width: 100%;
+    padding: 12px 0;
+    font-size: 14px;
+    color: colors.$GRAY_B9;
+    background-color: white;
+
+    &:first-child {
+      border-top-left-radius: 13px;
+      border-bottom-left-radius: 13px;
+    }
+
+    &:last-child {
+      border-top-right-radius: 13px;
+      border-bottom-right-radius: 13px;
+    }
+
+    &.active {
+      color: colors.$BLACK;
+      background-color: colors.$PRIMARY;
+    }
+  }
+}

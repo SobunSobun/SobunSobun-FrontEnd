@@ -1,3 +1,29 @@
 .myPost {
+  section {
+    h3 {
+      font-size: 15px;
+      font-weight: 700;
+    }
 
+    ul {
+      padding: 16px 0;
+    }
+  }
+}
+
+.headerSection {
+  position: fixed;
+  width: 100%;
+  max-width: 768px;
+  padding: 16px;
+  background-color: #fafafa;
+
+  h2 {
+    font-size: 25px;
+    font-weight: 700;
+  }
+}
+
+.inner {
+  padding: 120px 16px 16px;
 }
