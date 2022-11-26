@@ -59,6 +59,10 @@ const Editor = ({ isEdit }: Props) => {
     return 'negative'
   }
 
+  const handleDisabled = () => {
+    return handleColor() === 'negative'
+  }
+
   const onSubmit = async (data: FormValues) => {
     const formData = new FormData()
     formData.append('title', data.title)
@@ -123,7 +127,7 @@ const Editor = ({ isEdit }: Props) => {
           <TimePicker onClick={setTimePickerModal} />
         </div>
         <div className={styles.buttonWrap}>
-          <Button basic type={handleColor()} text='완료' submit />
+          <Button basic type={handleColor()} text='완료' submit isDisabled={handleDisabled()} />
         </div>
       </form>
       <TimePickerModal show={timePickerModal} close={() => setTimePickerModal(false)} />
