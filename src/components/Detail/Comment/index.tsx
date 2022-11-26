@@ -1,44 +1,61 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
+import { authInstance } from 'apis/client'
+import { useQuery } from 'react-query'
+import { CommentType } from 'types'
+import useComment from 'hooks/useComment'
+import useReplyComment from 'hooks/useCommentReply'
 import styles from './comment.module.scss'
 import SingleComment from './SingleComment'
 
-const Comment = () => {
+interface Props {
+  postId: string
+}
+
+const getCommentAPI = (postId: string | undefined) => authInstance.get(`parentComment/${postId}`)
+
+const Comment = ({ postId }: Props) => {
+  const { data } = useQuery(['getCommentAPI', postId], () => getCommentAPI(postId).then((res) => res.data))
+  const { mutate: postCommentAPI } = useComment()
+  const { mutate: postReplyCommentAPI } = useReplyComment()
+
   const [commentValue, setCommentValue] = useState('')
-  const [commentArray, setCommentArray] = useState([
-    {
-      id: 1,
-      nickname: 'Joo',
-      content: '혹시 5시 30분도 가능하나요?',
-      time: '9시간 전',
-    },
-  ])
+  const [parentCommentIdValue, setParentCommentIdValue] = useState(0)
 
   const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
     setCommentValue(e.target.value)
   }
 
+  const postComment = (formData: FormData) => {
+    postCommentAPI({ postId, formData })
+  }
+
+  const postReplyComment = (parentCommentId: number, formData: FormData) => {
+    postReplyCommentAPI({ postId, parentCommentId, formData })
+  }
+
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (commentValue === '') return
-    if (commentArray) {
-      setCommentArray((commentValueList) => [
-        ...commentValueList,
-        { id: 1, nickname: '', time: '', content: commentValue },
-      ])
-    }
+    const formData = new FormData()
+    formData.append('content', commentValue)
+    parentCommentIdValue ? postReplyComment(parentCommentIdValue, formData) : postComment(formData)
     setCommentValue('')
-
-    // console.log(commentArray)
-    // axios.post()
   }
 
   return (
     <div className={styles.comment}>
       <div className={styles.commentList}>
-        {commentArray ? (
+        {data?.length ? (
           <div className={styles.commentListBlock}>
-            {commentArray.map((comment) => {
-              return <SingleComment comment={comment} key={comment.id} />
+            {data.map((comment: CommentType) => {
+              return (
+                <SingleComment
+                  comment={comment}
+                  postId={postId}
+                  key={comment.parentCommentId}
+                  setParentCommentIdValue={setParentCommentIdValue}
+                />
+              )
             })}
           </div>
         ) : (
@@ -46,7 +63,12 @@ const Comment = () => {
         )}
       </div>
       <form className={styles.commentInput} onSubmit={onSubmit}>
-        <input type='text' value={commentValue} onChange={handleInput} placeholder='댓글을 입력해주세요.' />
+        <input
+          type='text'
+          value={commentValue}
+          onChange={handleInput}
+          placeholder={parentCommentIdValue ? '답글쓰기' : '댓글을 입력해주세요.'}
+        />
       </form>
     </div>
   )
