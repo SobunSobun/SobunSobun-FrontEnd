@@ -153,3 +153,5 @@ type myWriteCompleteType = (userId: number) => Promise<Array<feed>>
 type myParticipateType = (userId: number) => Promise<Array<feed>>
 
 type myParticipateCompleteType = (userId: number) => Promise<Array<feed>>
+
+type myLikeListType = () => Promise<Array<feed>>

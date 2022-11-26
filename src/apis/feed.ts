@@ -5,6 +5,7 @@ import {
   myParticipateType,
   myWriteCompleteType,
   myWriteType,
+  myLikeListType,
 } from 'types'
 import { authInstance } from './client'
 
@@ -75,6 +76,13 @@ export const myParticipateAPI: myParticipateType = (userId: number) => {
 
 export const myParticipateCompleteAPI: myParticipateCompleteType = (userId: number) => {
   return authInstance.get(`/myPosts/${userId}/ongoing/applied`).then((res) => {
+    return res.data.map((v: feed) => ({ ...v, createdAt: convertDate(v.createdAt as number[]) }))
+  })
+}
+
+// 관심 목록
+export const getMyLikeList: myLikeListType = () => {
+  return authInstance.get('/myLikes').then((res) => {
     return res.data.map((v: feed) => ({ ...v, createdAt: convertDate(v.createdAt as number[]) }))
   })
 }
