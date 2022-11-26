@@ -98,12 +98,72 @@
     }
   }
 
-  &.isBorder {
-    border: 1px solid colors.$PRIMARY;
+  &.isComplete {
+    p {
+      & > svg {
+        :nth-child(2) {
+          circle {
+            fill: colors.$GRAY_A4;
+          }
+        }
+
+        ellipse {
+          fill: colors.$GRAY_A4;
+        }
+
+        path {
+          fill: colors.$GRAY_A4;
+        }
+      }
+    }
+  }
+
+  &.isBorder.isComplete {
+    border: 1.5px solid colors.$PRIMARY;
+  }
+
+  &.isBorder.isParticipating {
+    border: 1.5px solid colors.$WARNING;
+
+    p {
+      & > svg {
+        :nth-child(2) {
+          circle {
+            fill: colors.$RED;
+          }
+        }
+
+        ellipse {
+          fill: colors.$RED;
+        }
+
+        path {
+          fill: colors.$RED;
+        }
+      }
+    }
   }
 
   &.isVertical {
     padding: 10px 12px 0;
+
+    p {
+      & > svg {
+        :nth-child(2) {
+          circle {
+            fill: colors.$RED;
+          }
+        }
+
+        ellipse {
+          fill: colors.$RED;
+        }
+
+        path {
+          fill: colors.$RED;
+        }
+      }
+    }
 
     h3 {
       max-width: 100%;

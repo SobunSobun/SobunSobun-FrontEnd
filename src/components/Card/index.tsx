@@ -16,11 +16,20 @@ interface Props {
   data: feed
   isVertical?: boolean
   isBorder?: boolean
+  isComplete?: boolean
+  isParticipating?: boolean
 }
 
-const Card = ({ data, isVertical = false, isBorder = false }: Props) => {
+const Card = ({ data, isVertical = false, isBorder = false, isComplete = false, isParticipating = false }: Props) => {
   return (
-    <article className={cx(styles.card, { [styles.isVertical]: isVertical, [styles.isBorder]: isBorder })}>
+    <article
+      className={cx(styles.card, {
+        [styles.isVertical]: isVertical,
+        [styles.isBorder]: isBorder,
+        [styles.isComplete]: isComplete,
+        [styles.isParticipating]: isParticipating,
+      })}
+    >
       <span>{dayjs(data.createdAt as Date).fromNow()}</span>
       <div>{data.nickname}</div>
       <h3>{data.title}</h3>
