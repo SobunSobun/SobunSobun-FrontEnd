@@ -109,18 +109,29 @@
     }
   }
 
-  form {
-    padding-top: 30px;
+  .textInput {
+    margin-top: 12px;
+    font-size: 13px;
+  }
 
-    label {
-      display: block;
-      padding-bottom: 12px;
-      font-size: 16px;
+  form {
+    .line {
+      position: relative;
+      margin-top: 25px;
+    }
+
+    .green {
+      color: colors.$PRIMARY_TEXT;
     }
 
     p {
-      font-size: 16px;
+      font-size: 13px;
     }
+  }
+
+  label {
+    display: block;
+    font-size: 14px;
   }
 
   @media (max-width: sizes.$SCREEN_SM) {

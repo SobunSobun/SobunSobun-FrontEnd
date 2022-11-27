@@ -68,8 +68,11 @@
   &_container {
     text-align: center;
 
-    p {
+    pre {
       padding: 24px 0;
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      font-weight: 400;
       border-bottom: 1px solid colors.$GRAY_CF;
 
       @media (max-width: sizes.$SCREEN_SM) {

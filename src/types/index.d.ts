@@ -122,6 +122,21 @@ interface detailData {
   isApply: boolean
   isWriter: boolean
 }
+export interface ReplyCommentType {
+  childCommentId: number
+  nickname: string
+  content: string
+  profileUrl: string
+  createdAt: number
+}
+export interface CommentType {
+  parentCommentId: number
+  nickname: string
+  content: string
+  profileUrl: string
+  createdAt: number
+  childComments: ReplyCommentType[]
+}
 
 /* my-info type */
 interface myInfoType {
@@ -145,3 +160,13 @@ type getFeedType = ({
 type getDetailType = (id: string | undefined) => Promise<AxiosResponse<detailData>>
 
 type getMyInfoType = () => Promise<ImyInfoType>
+
+type myWriteType = (userId: number) => Promise<Array<feed>>
+
+type myWriteCompleteType = (userId: number) => Promise<Array<feed>>
+
+type myParticipateType = (userId: number) => Promise<Array<feed>>
+
+type myParticipateCompleteType = (userId: number) => Promise<Array<feed>>
+
+type myLikeListType = () => Promise<Array<feed>>

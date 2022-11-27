@@ -1,22 +1,19 @@
+import { ReplyCommentType } from 'types'
 import styles from '../comment.module.scss'
 
 interface Props {
-  reply: {
-    nickname: string
-    time: string
-    content: string
-  }
+  reply: ReplyCommentType
 }
 const ReplyComment = ({ reply }: Props) => {
   return (
     <div className={styles.commentReply}>
       <div className={styles.commentBox}>
-        <span className={styles.profile} />
+        <span className={styles.profile}>{reply.profileUrl}</span>
         <span className={styles.nickname}>{reply.nickname}</span>
         <div className={styles.text}>{reply.content}</div>
       </div>
       <div className={styles.commentInfo}>
-        <span>9시간 전</span>
+        <span>{reply.createdAt}</span>
       </div>
     </div>
   )

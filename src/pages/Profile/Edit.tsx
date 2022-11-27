@@ -1,29 +1,57 @@
 import { ChangeEvent, useEffect, useState, useRef, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
-import useMyInfo from 'hooks/useMyInfo'
+import { useForm } from 'react-hook-form'
+import { useQueryClient } from 'react-query'
+import cx from 'classnames'
 
-import { authInstance } from 'apis/client'
-import { IMAGE_PATH } from 'assets/images'
+import useMyInfo from 'hooks/useMyInfo'
+import { authInstance, defaultInstance } from 'apis/client'
 
 import Button from 'components/Button'
 import Input from 'components/Input'
 import FloatingElem from 'components/FloatingElem'
-import { CameraIcon } from 'assets/svgs'
-import cx from 'classnames'
+import ErrorMessage from 'components/ErrorMessage'
+import { TwoButtonModal } from 'components/Modal'
 
+import useModal from 'hooks/useModal'
+
+import { IMAGE_PATH } from 'assets/images'
+import { CameraIcon } from 'assets/svgs'
 import styles from './profile.module.scss'
 
 const ProfileEdit = () => {
+  const queryClient = useQueryClient()
+  const { isOpen, onClose, setIsOpen } = useModal()
   const { nickname, email, userId, profileUrl } = useMyInfo()
   const navigate = useNavigate()
-  const [nicknameValue, setNicknameValue] = useState('')
   const inputRef = useRef<HTMLInputElement | null>(null)
+  const [image, setImage] = useState<any>(null)
   const [preImage, setPreImage] = useState<string | undefined>('')
   const [previewURL, setPreviewURL] = useState<string | undefined>('')
+  const [nicknameActive, setNicknameActive] = useState(false)
+  const [responseMessage, setResponseMessage] = useState('')
+
+  type FormValues = {
+    nickname: string
+  }
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<FormValues>({
+    mode: 'onChange',
+  })
+
+  const nicknameCurrent = watch('nickname')
 
   useEffect(() => {
-    setNicknameValue(nicknameValue)
-  }, [nicknameValue])
+    const subscription = watch(() => {
+      setResponseMessage('')
+    })
+    return () => subscription.unsubscribe()
+  }, [watch])
 
   useEffect(() => {
     if (profileUrl === '1') {
@@ -47,46 +75,125 @@ const ProfileEdit = () => {
     reader.onload = () => {
       setPreviewURL(String(reader.result))
     }
-    const formData = new FormData()
-    ;[].forEach.call(e.target.files, (f) => {
-      formData.append('image', f)
-    })
-    // api 요청 자리 (post)
+    setImage(e.currentTarget.files?.[0])
   }, [])
 
-  const handleSubmit = () => {
-    const formData = new FormData()
-    formData.append('nickname', nicknameValue)
-    // api 요청 자리 (patch)
+  const handleCheckNickName = async () => {
+    try {
+      const formData = new FormData()
+      formData.append('nickname', nicknameCurrent)
+
+      await defaultInstance.post('/join/nicknameDuplicateCheck', formData).then((response) => {
+        if (response.data === '가입 가능한 닉네임') {
+          setNicknameActive(true)
+          setResponseMessage('멋진 닉네임이네요!')
+        } else {
+          setNicknameActive(false)
+          setResponseMessage('다른 닉네임을 입력해주세요!')
+        }
+      })
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.log(error)
+    }
   }
 
-  const handleMoveCurrent = () => {
-    navigate('/profile')
+  const handleSubmitImage = async () => {
+    const formData = new FormData()
+    formData.append('multipartFile', image)
+
+    try {
+      await authInstance.post(`/myPage/${userId}/changeProfileUrl`, formData)
+      queryClient.invalidateQueries('myInfo')
+      navigate('/profile')
+    } catch {
+      // eslint-disable-next-line no-console, no-alert
+      alert('파일 업로드가 실패하였습니다. 파일을 확인해주세요')
+    }
+  }
+
+  const onSubmit = async (data: FormValues) => {
+    const formData = new FormData()
+    formData.append('nickname', data.nickname)
+
+    try {
+      await authInstance.post(`/myPage/${userId}/modifyNickname`, formData)
+      if (image) {
+        handleSubmitImage()
+      } else {
+        queryClient.invalidateQueries('myInfo')
+      }
+      navigate('/profile')
+    } catch (error) {
+      // eslint-disable-next-line no-console, no-alert
+      alert('앗! 에러가 발생했습니다. 다시 시도해주세요')
+    }
   }
 
   return (
     <div className={styles.profile}>
       <div className='contentsInner'>
         <h3>마이페이지</h3>
-        <div className={styles.top}>
-          <input type='file' ref={inputRef} accept='image/*' multiple hidden onChange={handleImageUpload} />
-          <div className={styles.image}>
-            <button type='button' className={styles.imageWrap} onClick={handleClickUploadBtn}>
-              {previewURL ? <img src={previewURL} alt='프로필이미지' /> : <img src={preImage} alt='프로필이미지' />}
-            </button>
-            <button type='button' className={styles.cameraBtn} onClick={handleClickUploadBtn}>
-              <CameraIcon />
-            </button>
+        <button type='button' onClick={() => setIsOpen(true)}>
+          back
+        </button>
+        <form encType='multipart/form-data' onSubmit={handleSubmit(onSubmit)}>
+          <div className={styles.top}>
+            <input type='file' ref={inputRef} accept='image/*' multiple hidden onChange={handleImageUpload} />
+            <div className={styles.image}>
+              <button type='button' className={styles.imageWrap} onClick={handleClickUploadBtn}>
+                <img src={previewURL || preImage} alt='프로필이미지' />
+              </button>
+              <button type='button' className={styles.cameraBtn} onClick={handleClickUploadBtn}>
+                <CameraIcon />
+              </button>
+            </div>
           </div>
-        </div>
-        <form onSubmit={handleSubmit} encType='multipart/form-data'>
+          <div className={styles.line}>
+            <Input htmlFor='nickname' text='닉네임'>
+              <input
+                type='text'
+                id='nickname'
+                className={styles.textInput}
+                defaultValue={nickname}
+                {...register('nickname', {
+                  maxLength: { value: 6, message: '6자 이하로 입력해주세요.' },
+                  onChange: () => setNicknameActive(false),
+                })}
+              />
+              <Button
+                secondary
+                type={nicknameActive ? 'primary' : 'secondary'}
+                text='중복체크'
+                onClick={handleCheckNickName}
+                isDisabled={!nicknameCurrent || nickname === nicknameCurrent || errors.nickname?.type === 'maxLength'}
+              />
+            </Input>
+            <ErrorMessage>
+              {responseMessage && <span className={cx({ [styles.green]: setNicknameActive })}>{responseMessage}</span>}
+              {errors.nickname?.type === 'maxLength' && errors.nickname.message}
+            </ErrorMessage>
+          </div>
           <label htmlFor='email'>이메일 주소</label>
-          <p>{email}</p>
+          <p className={styles.textInput}>{email}</p>
           <FloatingElem offsetBottom={43}>
-            <Button type='primary' text='수정 완료' onClick={handleMoveCurrent} />
+            <Button
+              type={image || nicknameActive ? 'primary' : 'negative'}
+              text='수정 완료'
+              submit
+              isDisabled={!image && !nicknameActive}
+            />
           </FloatingElem>
         </form>
       </div>
+      <TwoButtonModal
+        show={isOpen}
+        close={onClose}
+        message='프로필 변경을 취소 하시겠습니까?'
+        yesCallBack={() => {
+          navigate('/profile')
+        }}
+      />
     </div>
   )
 }
