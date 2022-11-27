@@ -4,9 +4,6 @@
 @use 'src/styles/mixins/fontSize';
 
 .profile {
-  height: fit-content;
-  background-color: #f5f5f5;
-
   h3 {
     padding: 75px 0 35px;
     font-size: 40px;
@@ -140,40 +137,69 @@
       @include fontSize.emFontSizeMO(25);
     }
 
-    .pcBlind {
-      display: block;
+    .top {
+      .userInfo {
+        .name {
+          @include fontSize.emFontSizeMO(25);
+          @include vwConvert.mo(padding-top, 13);
+        }
+
+        .email {
+          @include fontSize.emFontSizeMO(16);
+          @include vwConvert.mo(line-height, 22);
+        }
+      }
     }
 
-    .top {
-      .image {
-        position: relative;
-        @include vwConvert.mo(width, 88);
-        @include vwConvert.mo(height, 88);
-        @include vwConvert.mo(margin-right, 15);
-      }
+    // current
 
-      .greeting {
-        @include fontSize.emFontSizeMO(25);
+    .lineWrap {
+      @include vwConvert.mo(padding-bottom, 186);
+      @include vwConvert.mo(margin-top, 22);
+
+      button {
+        @include vwConvert.mo(padding, 19 0);
+
+        &.movePageBtn {
+          svg {
+            @include vwConvert.mo(width, 26);
+            @include vwConvert.mo(height, 26);
+            @include vwConvert.mo(margin-right, 5);
+          }
+        }
       }
+    }
+
+    // Edit
+    .image {
+      .cameraBtn {
+        @include vwConvert.mo(width, 48);
+        @include vwConvert.mo(height, 48);
+      }
+    }
+
+    .imageWrap {
+      @include vwConvert.mo(width, 142);
+      @include vwConvert.mo(height, 142);
+    }
+
+    .textInput {
+      @include vwConvert.mo(margin-top, 12);
+      @include fontSize.emFontSizeMO(13);
     }
 
     form {
-      @include vwConvert.mo(padding-top, 18);
+      .line {
+        @include vwConvert.mo(margin-top, 25);
+      }
 
-      .buttonWrap {
-        @include vwConvert.mo(margin-bottom, 42);
+      p {
+        @include fontSize.emFontSizeMO(13);
       }
     }
 
-    .setting {
-      p {
-        @include vwConvert.mo(padding-bottom, 5);
-        @include fontSize.emFontSizeMO(15);
-      }
-
-      button {
-        @include vwConvert.mo(padding, 10);
-      }
+    label {
+      @include fontSize.emFontSizeMO(14);
     }
   }
 }

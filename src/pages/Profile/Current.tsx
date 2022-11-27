@@ -1,9 +1,7 @@
-import { ChangeEvent, useEffect, useState, useRef, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import useMyInfo from 'hooks/useMyInfo'
 
 import { TwoButtonModal } from 'components/Modal'
-import cx from 'classnames'
 
 import { IMAGE_PATH } from 'assets/images'
 import useModal from 'hooks/useModal'
@@ -26,10 +24,35 @@ const ProfileCurrent = () => {
 
   const handleLogOut = () => {
     authInstance
-      .get(`/mypage/${userId}/logout`)
-      .then((res) => res.data)
+      .get(`/myPage/${userId}/logout`)
+      .then((res) => {
+        // eslint-disable-next-line no-console
+        console.log(res)
+        navigate('/login')
+        localStorage.setItem('sobunsobun', '')
+      })
       .catch((error) => {
+        // eslint-disable-next-line no-console
         console.log(error)
+        // eslint-disable-next-line no-console, no-alert
+        alert('로그아웃에 실패했습니다. 다시 시도해주세요')
+      })
+  }
+
+  const handleWithdrawal = () => {
+    authInstance
+      .delete(`/myPage/${userId}`)
+      .then((res) => {
+        // eslint-disable-next-line no-console
+        console.log(res)
+        localStorage.setItem('sobunsobun', '')
+        navigate('/login')
+      })
+      .catch((error) => {
+        // eslint-disable-next-line no-console
+        console.log(error)
+        // eslint-disable-next-line no-console, no-alert
+        alert('회원탈퇴에 실패했습니다. 다시 시도해주세요')
       })
   }
 
@@ -65,14 +88,7 @@ const ProfileCurrent = () => {
           </button>
         </div>
       </div>
-      <TwoButtonModal
-        show={isOpen}
-        close={onClose}
-        message='정말 탈퇴하시겠습니까?'
-        yesCallBack={() => {
-          navigate('/')
-        }}
-      />
+      <TwoButtonModal show={isOpen} close={onClose} message='정말 탈퇴하시겠습니까?' yesCallBack={handleWithdrawal} />
     </div>
   )
 }
