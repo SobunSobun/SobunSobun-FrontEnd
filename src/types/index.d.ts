@@ -122,6 +122,21 @@ interface detailData {
   isApply: boolean
   isWriter: boolean
 }
+export interface ReplyCommentType {
+  childCommentId: number
+  nickname: string
+  content: string
+  profileUrl: string
+  createdAt: number
+}
+export interface CommentType {
+  parentCommentId: number
+  nickname: string
+  content: string
+  profileUrl: string
+  createdAt: number
+  childComments: ReplyCommentType[]
+}
 
 /* my-info type */
 interface myInfoType {

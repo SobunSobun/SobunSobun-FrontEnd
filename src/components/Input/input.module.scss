@@ -25,7 +25,7 @@
     margin-top: 12px;
     font-size: 13px;
     line-height: 28px;
-    border-bottom: 2px solid colors.$GRAYD;
+    border-bottom: 2px solid colors.$GRAY_LINE;
 
     @media (max-width: sizes.$SCREEN_SM) {
       @include fontSize.emFontSizeMO(13);

@@ -38,7 +38,7 @@ const Detail = () => {
       </div>
       <div className='contentsInner'>
         <DetailContent data={data} postId={id!} />
-        <Comment />
+        <Comment postId={id!} />
       </div>
       <UnderModal
         show={isOpen}

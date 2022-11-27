@@ -9,6 +9,7 @@ import Input from 'components/Input'
 import { region } from 'types'
 import { defaultInstance } from 'apis/client'
 import useModal from 'hooks/useModal'
+import ErrorMessage from 'components/ErrorMessage'
 import styles from './signup.module.scss'
 
 type FormValues = {
@@ -140,18 +141,17 @@ const Signup = () => {
                 })}
               />
               <Button
-                type={emailActive ? 'primary' : 'negative'}
+                secondary
+                type={emailActive ? 'primary' : 'secondary'}
                 text='중복체크'
                 onClick={() => emailDuplicateCheck(emailCurrent)}
               />
             </Input>
-            <div className={styles.errorMessage}>
-              <p>
-                <span className={emailActive ? `${styles.duplicate}` : `${styles.red}`}>{emailDuplicate}</span>
-                {errors.email?.type === 'required' && errors.email.message}
-                {errors.email?.type === 'pattern' && errors.email.message}
-              </p>
-            </div>
+            <ErrorMessage>
+              <span className={emailActive ? `${styles.duplicate}` : `${styles.red}`}>{emailDuplicate}</span>
+              {errors.email?.type === 'required' && errors.email.message}
+              {errors.email?.type === 'pattern' && errors.email.message}
+            </ErrorMessage>
           </div>
           <div className={styles.formBox}>
             <Input htmlFor='password' text='비밀번호'>
@@ -165,12 +165,10 @@ const Signup = () => {
                 })}
               />
             </Input>
-            <div className={styles.errorMessage}>
-              <p>
-                {errors.password?.type === 'required' && errors.password.message}
-                {errors.password?.type === 'minLength' && errors.password.message}
-              </p>
-            </div>
+            <ErrorMessage>
+              {errors.password?.type === 'required' && errors.password.message}
+              {errors.password?.type === 'minLength' && errors.password.message}
+            </ErrorMessage>
           </div>
           <div className={styles.formBox}>
             <Input htmlFor='passwordConfirm' text='비밀번호 확인'>
@@ -185,12 +183,10 @@ const Signup = () => {
                 })}
               />
             </Input>
-            <div className={styles.errorMessage}>
-              <p>
-                {errors.passwordConfirm?.type === 'required' && errors.passwordConfirm.message}
-                {errors.passwordConfirm?.type === 'validate' && '비밀번호가 일치하지 않습니다.'}
-              </p>
-            </div>
+            <ErrorMessage>
+              {errors.passwordConfirm?.type === 'required' && errors.passwordConfirm.message}
+              {errors.passwordConfirm?.type === 'validate' && '비밀번호가 일치하지 않습니다.'}
+            </ErrorMessage>
           </div>
           <div className={styles.formBox}>
             <Input htmlFor='nickname' text='닉네임'>
@@ -206,18 +202,17 @@ const Signup = () => {
                 })}
               />
               <Button
-                type={nicknameActive ? 'primary' : 'negative'}
+                secondary
+                type={nicknameActive ? 'primary' : 'secondary'}
                 text='중복체크'
                 onClick={() => nicknameDuplicateCheck(nicknameCurrent)}
               />
             </Input>
-            <div className={styles.errorMessage}>
-              <p>
-                <span className={nicknameActive ? `${styles.duplicate}` : `${styles.red}`}>{nicknameDuplicate}</span>
-                {errors.nickname?.type === 'required' && errors.nickname.message}
-                {errors.nickname?.type === 'maxLength' && errors.nickname.message}
-              </p>
-            </div>
+            <ErrorMessage>
+              <span className={nicknameActive ? `${styles.duplicate}` : `${styles.red}`}>{nicknameDuplicate}</span>
+              {errors.nickname?.type === 'required' && errors.nickname.message}
+              {errors.nickname?.type === 'maxLength' && errors.nickname.message}
+            </ErrorMessage>
           </div>
           <div className={styles.signupBtn}>
             <Button

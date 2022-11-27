@@ -5,13 +5,6 @@
 @use '/src/styles/constants/sizes';
 
 .comment {
-  .commentList {
-    min-height: 300px;
-    @media (max-width: sizes.$SCREEN_SM) {
-      @include vwConvert.mo(min-height, 300);
-    }
-  }
-
   .commentSingle,
   .commentReply {
     margin-top: 17px;
@@ -87,11 +80,18 @@
   }
 
   .commentInput {
-    padding-top: 17px;
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    width: 728px;
+    padding: 17px 0 20px;
     margin-top: 20px;
+    background: colors.$BG_WHITE;
     border-top: 1px solid colors.$GRAYD;
+    transform: translate3d(-50%, 0, 0);
     @media (max-width: sizes.$SCREEN_SM) {
-      @include vwConvert.mo(padding-top, 17);
+      @include vwConvert.mo(width, 358);
+      @include vwConvert.mo(padding, 17 0 20);
       @include vwConvert.mo(margin-top, 20);
     }
 
@@ -117,6 +117,7 @@
     }
 
     &.replyInput {
+      z-index: 100;
       padding-left: 30px;
       margin-top: 0;
       border-top: none;
