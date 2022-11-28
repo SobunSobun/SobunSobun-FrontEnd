@@ -44,6 +44,7 @@ export interface MapDataType {
 export interface ModalPropsType {
   show: boolean
   close: () => void
+  isEdit?: boolean
 }
 
 export interface PaginationType {
@@ -115,6 +116,7 @@ interface detailData {
   category: string
   meetingTime: string
   market: string
+  marketAddress: string
   recruitmentNumber: number
   applyNumber: number
   uploadTime: string

@@ -1,7 +1,7 @@
 import Header from 'components/Header'
 import Button from 'components/Button'
-import Editor from '../Editor'
-import styles from './write.module.scss'
+import Editor from './Editor'
+import styles from './posting.module.scss'
 
 const New = () => {
   return (

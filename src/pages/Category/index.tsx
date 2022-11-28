@@ -1,20 +1,28 @@
 import { useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useRecoilState } from 'recoil'
+import { useRecoilState, useSetRecoilState } from 'recoil'
 
-import { categoryState } from 'recoil/post.atom'
+import { categoryState, postingContentState, postingTitleState } from 'recoil/post.atom'
 
 import Header from 'components/Header'
 import Button from 'components/Button'
 import { categoryList } from 'utils/categoryList'
 import CategoryItem from 'pages/Category/CategoryItem'
 import FloatingElem from 'components/FloatingElem'
+import { TwoButtonModal } from 'components/Modal'
+
+import useModal from 'hooks/useModal'
 
 import styles from './category.module.scss'
 
 const Category = () => {
-  const [product, setProduct] = useRecoilState(categoryState)
   const navigate = useNavigate()
+  const { isOpen, onClose, setIsOpen } = useModal()
+
+  const [product, setProduct] = useRecoilState(categoryState)
+  const setTitle = useSetRecoilState(postingTitleState)
+  const setContent = useSetRecoilState(postingContentState)
+  const setCategory = useSetRecoilState(categoryState)
   const handleMoveToWrite = () => {
     navigate('/new')
   }
@@ -28,7 +36,7 @@ const Category = () => {
 
   return (
     <div className={styles.category}>
-      <Header leftChild={<Button type='back' />} />
+      <Header leftChild={<Button type='customBack' onClick={() => setIsOpen(true)} />} />
       <div className='contentsInner'>
         <h1>
           카테고리를 <br />
@@ -53,6 +61,17 @@ const Category = () => {
           />
         </FloatingElem>
       </div>
+      <TwoButtonModal
+        show={isOpen}
+        close={onClose}
+        message='게시글 등록을 취소하시겠습니까?'
+        yesCallBack={() => {
+          navigate('/home')
+          setCategory('')
+          setTitle('')
+          setContent('')
+        }}
+      />
     </div>
   )
 }

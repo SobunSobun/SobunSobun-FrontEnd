@@ -1,10 +1,12 @@
-import { useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { ChangeEvent, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import cx from 'classnames'
-import { useRecoilValue } from 'recoil'
+import { useRecoilValue, useRecoilState } from 'recoil'
 
 import {
+  postingTitleState,
+  postingContentState,
+  postingCountState,
   postingDateState,
   postingTimeState,
   postingPlaceState,
@@ -12,11 +14,13 @@ import {
   modalChangeState,
 } from 'recoil/post.atom'
 import { authInstance } from 'apis/client'
-import { ArrowPrevIcon } from 'assets/svgs'
 
 import Button from 'components/Button'
 import TimePickerModal from 'pages/Posting/TimpickerModal'
 import MapModal from 'pages/Posting/MapModal'
+import { detailData } from 'types'
+import { ArrowPrevIcon } from 'assets/svgs'
+
 import Counter from '../Counter'
 import TimePicker from '../TimePicker'
 
@@ -25,35 +29,49 @@ import styles from './editor.module.scss'
 
 interface Props {
   isEdit: boolean
+  postId?: string
+  data?: detailData
 }
-interface FormValues {
-  title: string
-  content: string
-  recruitmentNumber: string
-  category: string
-  meetingTime: string
-  market: string
-}
-// eslint-disable-next-line
-const Editor = ({ isEdit }: Props) => {
-  const navigate = useNavigate()
+// interface FormValues {
+//   title: string
+//   content: string
+//   recruitmentNumber: string
+//   category: string
+//   meetingTime: string
+//   market: string
+// }
 
+const Editor = ({ isEdit, postId, data: propData }: Props) => {
+  const navigate = useNavigate()
+  const [titleValue, setTitleValue] = useRecoilState(postingTitleState)
+  const [contentValue, setContentValue] = useRecoilState(postingContentState)
   const date = useRecoilValue(postingDateState)
   const time = useRecoilValue(postingTimeState)
-  const market = useRecoilValue(postingPlaceState)
+  const [market, setMarket] = useRecoilState(postingPlaceState)
   const category = useRecoilValue(categoryState)
   const valueUpdate = useRecoilValue(modalChangeState)
-  const [count, setCount] = useState<number>(2)
+  const [count, setCount] = useRecoilState(postingCountState)
   const [fullTime, setFullTime] = useState('')
   const [timePickerModal, setTimePickerModal] = useState(false)
   const [mapModal, setMapModal] = useState(false)
-  const { register, handleSubmit, watch } = useForm<FormValues>()
 
-  const watchTitleValue = watch('title', '')
-  const watchContentValue = watch('content', '')
+  const handleChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
+    setTitleValue(e.currentTarget.value)
+  }
+  const handleChangeContent = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setContentValue(e.currentTarget.value)
+  }
+
+  // 불러온 데이터 일 때만 실행
+  useEffect(() => {
+    if (propData) {
+      setCount(propData.recruitmentNumber)
+      setMarket({ place: propData.market, address: propData.marketAddress })
+    }
+  }, [propData, setCount, setMarket])
 
   const handleColor = () => {
-    if (market && valueUpdate && watchTitleValue && watchContentValue) {
+    if (market && valueUpdate) {
       return 'primary'
     }
     return 'negative'
@@ -63,21 +81,35 @@ const Editor = ({ isEdit }: Props) => {
     return handleColor() === 'negative'
   }
 
-  const onSubmit = async (data: FormValues) => {
+  const handleFormData = () => {
     const formData = new FormData()
-    formData.append('title', data.title)
-    formData.append('content', data.content)
+    formData.append('title', titleValue)
+    formData.append('content', contentValue)
     formData.append('recruitmentNumber', String(count))
     formData.append('category', category)
     formData.append('market', market.place)
     formData.append('meetingTime', fullTime)
     formData.append('marketAddress', market.address)
 
+    return formData
+  }
+
+  const handleNewSubmit = async () => {
+    const formData = handleFormData()
     try {
-      const response = await authInstance.post('/post/register', formData)
-      // eslint-disable-next-line no-console
-      console.log(response)
+      await authInstance.post('/post/register', formData)
       navigate('/upload-complete', { state: { type: '작성' } })
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.log(error)
+    }
+  }
+
+  const handleEditSubmit = async () => {
+    const formData = handleFormData()
+    try {
+      await authInstance.post(`/post/${postId}`, formData)
+      navigate('/upload-complete', { state: { type: '수정' } })
     } catch (error) {
       // eslint-disable-next-line no-console
       console.log(error)
@@ -94,15 +126,17 @@ const Editor = ({ isEdit }: Props) => {
 
   return (
     <div className={styles.editor}>
-      <form className={styles.form} onSubmit={handleSubmit(onSubmit)} autoComplete='off'>
+      <form className={styles.form} onSubmit={isEdit ? handleEditSubmit : handleNewSubmit} autoComplete='off'>
         <div className={styles.line}>
           <input
             className={styles.textInput}
             type='text'
             id='title'
             maxLength={24}
+            defaultValue={isEdit ? propData?.title : ''}
             placeholder='제목을 입력해주세요.(24자 내외)'
-            {...register('title', { required: true })}
+            value={titleValue}
+            onChange={handleChangeTitle}
           />
         </div>
         <div className={styles.line}>
@@ -110,7 +144,9 @@ const Editor = ({ isEdit }: Props) => {
             className={styles.textarea}
             id='content'
             placeholder='내용을 입력해주세요'
-            {...register('content', { required: true })}
+            defaultValue={isEdit ? propData?.content : ''}
+            value={contentValue}
+            onChange={handleChangeContent}
           />
         </div>
         <div className={styles.line}>
@@ -128,13 +164,13 @@ const Editor = ({ isEdit }: Props) => {
           </button>
         </div>
         <div className={cx(styles.line, styles.noPadding)}>
-          <TimePicker onClick={setTimePickerModal} />
+          <TimePicker onClick={setTimePickerModal} propTime={propData?.meetingTime} />
         </div>
         <div className={styles.buttonWrap}>
           <Button basic type={handleColor()} text='완료' submit isDisabled={handleDisabled()} />
         </div>
       </form>
-      <TimePickerModal show={timePickerModal} close={() => setTimePickerModal(false)} />
+      <TimePickerModal show={timePickerModal} close={() => setTimePickerModal(false)} isEdit={isEdit} />
       <MapModal show={mapModal} close={() => setMapModal(false)} />
     </div>
   )
