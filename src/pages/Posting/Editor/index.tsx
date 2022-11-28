@@ -1,11 +1,9 @@
-import { ChangeEvent, useEffect, useState } from 'react'
+import { ChangeEvent, useEffect, useState, Dispatch, SetStateAction } from 'react'
 import { useNavigate } from 'react-router-dom'
 import cx from 'classnames'
 import { useRecoilValue, useRecoilState } from 'recoil'
 
 import {
-  postingTitleState,
-  postingContentState,
   postingCountState,
   postingDateState,
   postingTimeState,
@@ -13,14 +11,15 @@ import {
   categoryState,
   modalChangeState,
 } from 'recoil/post.atom'
+
+import { detailData } from 'types'
 import { authInstance } from 'apis/client'
 
-import Button from 'components/Button'
 import TimePickerModal from 'pages/Posting/TimpickerModal'
 import MapModal from 'pages/Posting/MapModal'
-import { detailData } from 'types'
-import { ArrowPrevIcon } from 'assets/svgs'
+import Button from 'components/Button'
 
+import { ArrowPrevIcon } from 'assets/svgs'
 import Counter from '../Counter'
 import TimePicker from '../TimePicker'
 
@@ -31,20 +30,23 @@ interface Props {
   isEdit: boolean
   postId?: string
   data?: detailData
+  localTitle: string
+  localContent: string
+  setLocalTitle: Dispatch<SetStateAction<string>>
+  setLocalContent: Dispatch<SetStateAction<string>>
 }
-// interface FormValues {
-//   title: string
-//   content: string
-//   recruitmentNumber: string
-//   category: string
-//   meetingTime: string
-//   market: string
-// }
 
-const Editor = ({ isEdit, postId, data: propData }: Props) => {
+const Editor = ({
+  isEdit,
+  postId,
+  data: propData,
+  localTitle,
+  setLocalTitle,
+  localContent,
+  setLocalContent,
+}: Props) => {
   const navigate = useNavigate()
-  const [titleValue, setTitleValue] = useRecoilState(postingTitleState)
-  const [contentValue, setContentValue] = useRecoilState(postingContentState)
+
   const date = useRecoilValue(postingDateState)
   const time = useRecoilValue(postingTimeState)
   const [market, setMarket] = useRecoilState(postingPlaceState)
@@ -56,22 +58,24 @@ const Editor = ({ isEdit, postId, data: propData }: Props) => {
   const [mapModal, setMapModal] = useState(false)
 
   const handleChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
-    setTitleValue(e.currentTarget.value)
+    setLocalTitle(e.currentTarget.value)
   }
   const handleChangeContent = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setContentValue(e.currentTarget.value)
+    setLocalContent(e.currentTarget.value)
   }
 
   // 불러온 데이터 일 때만 실행
   useEffect(() => {
     if (propData) {
+      setLocalTitle(propData.title)
+      setLocalContent(propData.content)
       setCount(propData.recruitmentNumber)
       setMarket({ place: propData.market, address: propData.marketAddress })
     }
-  }, [propData, setCount, setMarket])
+  }, [propData, setCount, setLocalContent, setLocalTitle, setMarket])
 
   const handleColor = () => {
-    if (market && valueUpdate) {
+    if (localTitle && localContent && market && valueUpdate) {
       return 'primary'
     }
     return 'negative'
@@ -83,8 +87,8 @@ const Editor = ({ isEdit, postId, data: propData }: Props) => {
 
   const handleFormData = () => {
     const formData = new FormData()
-    formData.append('title', titleValue)
-    formData.append('content', contentValue)
+    formData.append('title', localTitle)
+    formData.append('content', localContent)
     formData.append('recruitmentNumber', String(count))
     formData.append('category', category)
     formData.append('market', market.place)
@@ -133,9 +137,8 @@ const Editor = ({ isEdit, postId, data: propData }: Props) => {
             type='text'
             id='title'
             maxLength={24}
-            defaultValue={isEdit ? propData?.title : ''}
             placeholder='제목을 입력해주세요.(24자 내외)'
-            value={titleValue}
+            value={localTitle}
             onChange={handleChangeTitle}
           />
         </div>
@@ -144,8 +147,7 @@ const Editor = ({ isEdit, postId, data: propData }: Props) => {
             className={styles.textarea}
             id='content'
             placeholder='내용을 입력해주세요'
-            defaultValue={isEdit ? propData?.content : ''}
-            value={contentValue}
+            value={localContent}
             onChange={handleChangeContent}
           />
         </div>

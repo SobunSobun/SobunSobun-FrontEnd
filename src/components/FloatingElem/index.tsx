@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import useDebounce from 'utils/debounce'
+import useDebounce from 'hooks/useDebounce'
 import styles from './floatingElem.module.scss'
 
 interface Props {

@@ -73,20 +73,17 @@ const TimePickerModal = ({ show, close }: ModalPropsType) => {
             list={slotArr}
             value={localSlot}
             onChange={(e: ChangeEvent<HTMLSelectElement>) => handleChangeTime(setLocalSlot, e)}
-            defaultValue={time.slot}
           />
           <DropDown
             list={hourArr}
             value={localHour}
             onChange={(e: ChangeEvent<HTMLSelectElement>) => handleChangeTime(setLocalHour, e)}
-            defaultValue={time.hour}
           />
           <span className={styles.semi}>:</span>
           <DropDown
             list={minutesArr}
             value={localMinutes}
             onChange={(e: ChangeEvent<HTMLSelectElement>) => handleChangeTime(setLocalMinutes, e)}
-            defaultValue={time.minutes}
           />
         </div>
         <div className={styles.buttonWrap}>

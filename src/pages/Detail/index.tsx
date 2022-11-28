@@ -47,7 +47,7 @@ const Detail = () => {
           {
             name: '수정',
             callback: () => {
-              navigate(`/edit/${id}`)
+              navigate(`/edit/${id}`, { state: { data } })
             },
           },
           { name: '삭제', callback: () => {} },

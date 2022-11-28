@@ -1,8 +1,16 @@
 import { useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useRecoilState, useSetRecoilState } from 'recoil'
+import { useRecoilState, useResetRecoilState } from 'recoil'
 
-import { categoryState, postingContentState, postingTitleState } from 'recoil/post.atom'
+import {
+  categoryState,
+  postingContentState,
+  postingTitleState,
+  postingCountState,
+  postingPlaceState,
+  postingDateState,
+  postingTimeState,
+} from 'recoil/post.atom'
 
 import Header from 'components/Header'
 import Button from 'components/Button'
@@ -20,9 +28,13 @@ const Category = () => {
   const { isOpen, onClose, setIsOpen } = useModal()
 
   const [product, setProduct] = useRecoilState(categoryState)
-  const setTitle = useSetRecoilState(postingTitleState)
-  const setContent = useSetRecoilState(postingContentState)
-  const setCategory = useSetRecoilState(categoryState)
+  const resetTitle = useResetRecoilState(postingTitleState)
+  const resetContent = useResetRecoilState(postingContentState)
+  const resetCategory = useResetRecoilState(categoryState)
+  const resetCount = useResetRecoilState(postingCountState)
+  const resetMarket = useResetRecoilState(postingPlaceState)
+  const resetDate = useResetRecoilState(postingDateState)
+  const resetTime = useResetRecoilState(postingTimeState)
   const handleMoveToWrite = () => {
     navigate('/new')
   }
@@ -66,10 +78,14 @@ const Category = () => {
         close={onClose}
         message='게시글 등록을 취소하시겠습니까?'
         yesCallBack={() => {
+          resetCategory()
+          resetTitle()
+          resetContent()
+          resetCount()
+          resetMarket()
+          resetDate()
+          resetTime()
           navigate('/home')
-          setCategory('')
-          setTitle('')
-          setContent('')
         }}
       />
     </div>
