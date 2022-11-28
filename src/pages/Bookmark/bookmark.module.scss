@@ -11,6 +11,10 @@
     font-size: 25px;
     font-weight: 700;
     border-bottom: 1px solid rgba(0, 0, 0, 10%);
+    @media (max-width: sizes.$SCREEN_SM) {
+      @include vwConvert.mo(padding-bottom, 16);
+      @include fontSize.emFontSizeMO(25);
+    }
   }
 }
 
@@ -21,12 +25,18 @@
   max-width: 768px;
   padding: 16px;
   background-color: colors.$BG;
+  @media (max-width: sizes.$SCREEN_SM) {
+    @include vwConvert.mo(padding, 16);
+  }
 }
 
 .inner {
   height: 100%;
   padding: 83px 16px 16px;
   background-color: colors.$BG;
+  @media (max-width: sizes.$SCREEN_SM) {
+    @include vwConvert.mo(padding, 83 16 16);
+  }
 }
 
 .list {
@@ -34,4 +44,12 @@
   grid-template-columns: 1fr 1fr;
   gap: 12px;
   width: 100%;
+
+  li {
+    overflow: hidden;
+  }
+
+  @media (max-width: sizes.$SCREEN_SM) {
+    @include vwConvert.mo(gap, 12);
+  }
 }

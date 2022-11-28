@@ -24,6 +24,7 @@ const useLike = () => {
     },
     onSettled: (data, err, { postId }) => {
       queryClient.invalidateQueries(['getDetailAPI', postId])
+      queryClient.invalidateQueries(['LikeList'])
     },
   })
 }

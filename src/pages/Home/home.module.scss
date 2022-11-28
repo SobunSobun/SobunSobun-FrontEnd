@@ -3,7 +3,6 @@
 @use 'src/styles/constants/sizes';
 @use 'src/styles/constants/colors';
 
-/* 수정 해야하는 부분 */
 .container {
   position: relative;
   width: 100%;
@@ -31,7 +30,7 @@
     padding: 16px 0 0 16px;
   }
   @media (max-width: sizes.$SCREEN_SM) {
-    @include vwConvert.mo(height, 100);
+    @include vwConvert.mo(height, 110);
 
     h3 {
       @include vwConvert.mo(padding, 16 16 0);
@@ -47,6 +46,7 @@
 .cardSection {
   padding: 110px 16px 16px;
   background-color: colors.$BG;
+
   @media (max-width: sizes.$SCREEN_SM) {
     @include vwConvert.mo(padding, 110 16 16);
   }
