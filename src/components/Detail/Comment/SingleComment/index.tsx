@@ -1,65 +1,58 @@
 import { Dispatch, SetStateAction } from 'react'
 import { CommentType, ReplyCommentType } from 'types'
+import cx from 'classnames'
+import dayjs from 'dayjs'
+import relativeTime from 'dayjs/plugin/relativeTime'
 import styles from '../comment.module.scss'
 import ReplyComment from '../ReplyComment'
+import 'dayjs/locale/ko'
+
+dayjs.locale('ko')
+dayjs.extend(relativeTime)
 
 interface Props {
   comment: CommentType
-  postId: string
+  handleFocus: () => void
   setParentCommentIdValue: Dispatch<SetStateAction<number>>
+  parentCommentIdValue: number
+  isActive: boolean
 }
-const SingleComment = ({ comment, postId, setParentCommentIdValue }: Props) => {
-  // const [replyValue, setReplyValue] = useState('')
-  // const [replyShow, setReplyShow] = useState(false)
-
-  // const { mutate: postReplyCommentAPI } = useReplyComment()
-
-  // const postReplyComment = (parentCommentId: number, formData: FormData) => {
-  //   postReplyCommentAPI({ postId, parentCommentId, formData })
-  // }
-
-  // const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
-  //   setReplyValue(e.target.value)
-  // }
-
-  // const onSubmit = (e: FormEvent<HTMLFormElement>) => {
-  //   e.preventDefault()
-  //   if (replyValue === '') return
-
-  //   const formData = new FormData()
-  //   formData.append('content', replyValue)
-  //   postReplyComment(comment.parentCommentId, formData)
-  //   setReplyValue('')
-  // }
+const SingleComment = ({ comment, setParentCommentIdValue, parentCommentIdValue, handleFocus, isActive }: Props) => {
+  const days = dayjs(
+    `${comment.createdAt[0]}-${comment.createdAt[1]}-${comment.createdAt[2]} ${comment.createdAt[3]}:${comment.createdAt[4]}:${comment.createdAt[5]}`
+  ).fromNow()
 
   return (
     <div className={styles.commentSingle}>
-      <div className={styles.commentBox}>
-        <span className={styles.profile}>{comment.profileUrl}</span>
-        <span className={styles.nickname}>{comment.nickname}</span>
-        <div className={styles.text}>{comment.content}</div>
-      </div>
-      <div className={styles.commentInfo}>
-        <span>{comment.createdAt}</span>
-        {/* <span className={styles.btn} role='presentation' onClick={() => setReplyShow(!replyShow)}> */}
-        <span
-          className={styles.btn}
-          role='presentation'
-          onClick={() => {
-            setParentCommentIdValue(comment.parentCommentId)
-          }}
-        >
-          답글쓰기
-        </span>
+      <div
+        className={cx(styles.commentWrapper, {
+          [styles.active]: isActive && parentCommentIdValue === comment.parentCommentId,
+        })}
+      >
+        <div className={styles.commentBox}>
+          <span className={styles.profile}>
+            <img src={comment.profileUrl} alt='' />
+          </span>
+          <span className={styles.nickname}>{comment.nickname}</span>
+          <div className={styles.text}>{comment.content}</div>
+        </div>
+        <div className={styles.commentInfo}>
+          <span>{days}</span>
+          <span
+            className={styles.btn}
+            role='presentation'
+            onClick={() => {
+              handleFocus()
+              setParentCommentIdValue(comment.parentCommentId)
+            }}
+          >
+            답글쓰기
+          </span>
+        </div>
       </div>
       {comment.childComments?.map((reply: ReplyCommentType) => {
         return <ReplyComment reply={reply} key={reply.childCommentId} />
       })}
-      {/* {replyShow && (
-        <form className={`${styles.commentInput} ${styles.replyInput}`} onSubmit={onSubmit}>
-          <input type='text' value={replyValue} onChange={handleInput} placeholder='답글을 입력해주세요.' />
-        </form>
-      )} */}
     </div>
   )
 }

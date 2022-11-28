@@ -127,14 +127,14 @@ export interface ReplyCommentType {
   nickname: string
   content: string
   profileUrl: string
-  createdAt: number
+  createdAt: number[]
 }
 export interface CommentType {
   parentCommentId: number
   nickname: string
   content: string
   profileUrl: string
-  createdAt: number
+  createdAt: number[]
   childComments: ReplyCommentType[]
 }
 
