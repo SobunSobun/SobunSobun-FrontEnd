@@ -13,6 +13,7 @@
     ul {
       display: grid;
       gap: 10px;
+      min-height: 150px;
       padding: 16px 0;
     }
     @media (max-width: sizes.$SCREEN_SM) {
@@ -23,6 +24,7 @@
       ul {
         @include vwConvert.mo(gap, 10);
         @include vwConvert.mo(padding, 16 0);
+        @include vwConvert.mo(min-height, 160);
       }
     }
   }
