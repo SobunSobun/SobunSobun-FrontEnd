@@ -34,7 +34,7 @@ interface FormValues {
   meetingTime: string
   market: string
 }
-
+// eslint-disable-next-line
 const Editor = ({ isEdit }: Props) => {
   const navigate = useNavigate()
 
