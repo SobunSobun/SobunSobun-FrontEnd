@@ -1,7 +1,8 @@
 import { Route, Routes } from 'react-router-dom'
 
 import Home from 'pages/Home'
-import Profile from 'pages/Profile'
+import ProfileCurrent from 'pages/Profile/Current'
+import ProfileEdit from 'pages/Profile/Edit'
 import Signup from 'pages/Signup'
 import Login from 'pages/Login'
 import { Layout, LayoutGnb } from 'components/Layout'
@@ -32,13 +33,14 @@ const RootRoute = () => {
           <Route path='category' element={<Category />} />
           <Route path='new' element={<New />} />
           {/* <Route path='edit/:id' element={<Edit />} /> */}
+          <Route path='profile-edit' element={<ProfileEdit />} />
           <Route path='edit' element={<Edit />} />
           <Route path='upload-complete' element={<UploadComplete />} />
           <Route path='detail/:id' element={<Detail />} />
         </Route>
         <Route element={<LayoutGnb />}>
           <Route path='home' element={<Home />} />
-          <Route path='profile' element={<Profile />} />
+          <Route path='profile' element={<ProfileCurrent />} />
           <Route path='mypost' element={<MyPost />} />
           <Route path='bookmark' element={<Bookmark />} />
         </Route>

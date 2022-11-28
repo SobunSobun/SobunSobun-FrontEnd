@@ -5,14 +5,63 @@
 
 .profile {
   h3 {
-    padding: 40px 0 30px;
+    padding: 75px 0 35px;
     font-size: 40px;
     font-weight: bold;
   }
 
-  .pcBlind {
-    display: none;
+  // profile current
+  .top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .userInfo {
+      text-align: center;
+
+      .name {
+        padding-top: 13px;
+        font-size: 25px;
+        color: colors.$BLACK;
+      }
+
+      .email {
+        font-size: 16px;
+        line-height: 22px;
+        color: colors.$GRAY_B1;
+      }
+    }
   }
+
+  .lineWrap {
+    width: 100%;
+    padding-bottom: 186px;
+    margin-top: 22px;
+    border-top: 1px solid colors.$LINE_1;
+
+    button {
+      display: block;
+      width: 100%;
+      padding: 19px 0;
+      text-align: left;
+      border-bottom: 1px solid colors.$LINE_1;
+
+      &.movePageBtn {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        svg {
+          width: 26px;
+          height: 26px;
+          margin-right: 5px;
+          transform: scaleX(-1);
+        }
+      }
+    }
+  }
+
+  // Edit
 
   .uploadInput {
     position: absolute;
@@ -23,71 +72,63 @@
     border: 0;
   }
 
-  .top {
-    display: flex;
-    align-items: center;
+  .image {
+    position: relative;
 
-    .image {
-      position: relative;
-      width: 120px;
-      height: 120px;
-      margin-right: 30px;
-      overflow: hidden;
-      cursor: auto;
-      border-radius: 50%;
-
-      > * {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-      }
-
-      img {
-        width: 100%;
-      }
+    .cameraBtn {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      z-index: 9;
+      width: 48px;
+      height: 48px;
 
       svg {
-        display: none;
-      }
-
-      &.edit {
-        cursor: pointer;
-
-        img {
-          opacity: 0.7;
-        }
-
-        svg {
-          display: block;
-        }
+        width: 100%;
+        height: 100%;
       }
     }
+  }
 
-    .greeting {
-      font-size: 30px;
+  .imageWrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 142px;
+    height: 142px;
+    overflow: hidden;
+    border-radius: 50%;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
+  }
+
+  .textInput {
+    margin-top: 12px;
+    font-size: 13px;
   }
 
   form {
-    padding-top: 30px;
+    .line {
+      position: relative;
+      margin-top: 25px;
+    }
 
-    .buttonWrap {
-      margin-bottom: 42px;
+    .green {
+      color: colors.$PRIMARY_TEXT;
+    }
+
+    p {
+      font-size: 13px;
     }
   }
 
-  .setting {
-    p {
-      padding-bottom: 5px;
-      font-size: 15px;
-      color: #626262;
-    }
-
-    button {
-      padding: 10px;
-      border: 1px solid black;
-    }
+  label {
+    display: block;
+    font-size: 14px;
   }
 
   @media (max-width: sizes.$SCREEN_SM) {
@@ -96,40 +137,69 @@
       @include fontSize.emFontSizeMO(25);
     }
 
-    .pcBlind {
-      display: block;
+    .top {
+      .userInfo {
+        .name {
+          @include fontSize.emFontSizeMO(25);
+          @include vwConvert.mo(padding-top, 13);
+        }
+
+        .email {
+          @include fontSize.emFontSizeMO(16);
+          @include vwConvert.mo(line-height, 22);
+        }
+      }
     }
 
-    .top {
-      .image {
-        position: relative;
-        @include vwConvert.mo(width, 88);
-        @include vwConvert.mo(height, 88);
-        @include vwConvert.mo(margin-right, 15);
-      }
+    // current
 
-      .greeting {
-        @include fontSize.emFontSizeMO(25);
+    .lineWrap {
+      @include vwConvert.mo(padding-bottom, 186);
+      @include vwConvert.mo(margin-top, 22);
+
+      button {
+        @include vwConvert.mo(padding, 19 0);
+
+        &.movePageBtn {
+          svg {
+            @include vwConvert.mo(width, 26);
+            @include vwConvert.mo(height, 26);
+            @include vwConvert.mo(margin-right, 5);
+          }
+        }
       }
+    }
+
+    // Edit
+    .image {
+      .cameraBtn {
+        @include vwConvert.mo(width, 48);
+        @include vwConvert.mo(height, 48);
+      }
+    }
+
+    .imageWrap {
+      @include vwConvert.mo(width, 142);
+      @include vwConvert.mo(height, 142);
+    }
+
+    .textInput {
+      @include vwConvert.mo(margin-top, 12);
+      @include fontSize.emFontSizeMO(13);
     }
 
     form {
-      @include vwConvert.mo(padding-top, 18);
+      .line {
+        @include vwConvert.mo(margin-top, 25);
+      }
 
-      .buttonWrap {
-        @include vwConvert.mo(margin-bottom, 42);
+      p {
+        @include fontSize.emFontSizeMO(13);
       }
     }
 
-    .setting {
-      p {
-        @include vwConvert.mo(padding-bottom, 5);
-        @include fontSize.emFontSizeMO(15);
-      }
-
-      button {
-        @include vwConvert.mo(padding, 10);
-      }
+    label {
+      @include fontSize.emFontSizeMO(14);
     }
   }
 }
