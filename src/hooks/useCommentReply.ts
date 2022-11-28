@@ -26,6 +26,7 @@ const useReplyComment = () => {
       queryClient.invalidateQueries('getCommentAPI')
     },
     onError: (err: AxiosError) => {
+      // eslint-disable-next-line no-console
       console.log(err)
     },
   })
