@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useState } from 'react'
+import { ChangeEvent, FormEvent, useRef, useState } from 'react'
 import { authInstance } from 'apis/client'
 import { useQuery } from 'react-query'
 import { CommentType } from 'types'
@@ -21,16 +21,24 @@ const Comment = ({ postId }: Props) => {
   const [commentValue, setCommentValue] = useState('')
   const [parentCommentIdValue, setParentCommentIdValue] = useState(0)
 
-  const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
-    setCommentValue(e.target.value)
-  }
-
   const postComment = (formData: FormData) => {
     postCommentAPI({ postId, formData })
   }
 
   const postReplyComment = (parentCommentId: number, formData: FormData) => {
     postReplyCommentAPI({ postId, parentCommentId, formData })
+  }
+
+  const inputRef = useRef<HTMLInputElement>(null)
+  const [isActive, setIsActive] = useState(false)
+
+  const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
+    setCommentValue(e.target.value)
+  }
+
+  const handleFocus = () => {
+    inputRef.current?.focus()
+    setIsActive(true)
   }
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -40,6 +48,9 @@ const Comment = ({ postId }: Props) => {
     formData.append('content', commentValue)
     parentCommentIdValue ? postReplyComment(parentCommentIdValue, formData) : postComment(formData)
     setCommentValue('')
+    inputRef.current?.blur()
+    setIsActive(false)
+    setParentCommentIdValue(0)
   }
 
   return (
@@ -50,10 +61,12 @@ const Comment = ({ postId }: Props) => {
             {data.map((comment: CommentType) => {
               return (
                 <SingleComment
+                  handleFocus={handleFocus}
                   comment={comment}
-                  postId={postId}
                   key={comment.parentCommentId}
                   setParentCommentIdValue={setParentCommentIdValue}
+                  parentCommentIdValue={parentCommentIdValue}
+                  isActive={isActive}
                 />
               )
             })}
@@ -62,14 +75,23 @@ const Comment = ({ postId }: Props) => {
           <div className={styles.commentListNone}>아직 댓글이 없어요!</div>
         )}
       </div>
-      <form className={styles.commentInput} onSubmit={onSubmit}>
-        <input
-          type='text'
-          value={commentValue}
-          onChange={handleInput}
-          placeholder={parentCommentIdValue ? '답글쓰기' : '댓글을 입력해주세요.'}
-        />
-      </form>
+      <div className={styles.commentInput}>
+        <form onSubmit={onSubmit}>
+          <input
+            ref={inputRef}
+            type='text'
+            value={commentValue}
+            onChange={handleInput}
+            onBlur={() => {
+              if (!commentValue) {
+                setIsActive(false)
+                setParentCommentIdValue(0)
+              }
+            }}
+            placeholder={parentCommentIdValue && isActive ? '대댓글을 입력하세요.' : '댓글을 입력해주세요.'}
+          />
+        </form>
+      </div>
     </div>
   )
 }
