@@ -4,6 +4,7 @@
 @use '/src/styles/constants/sizes';
 
 .input {
+  position: relative;
   padding-bottom: 35px;
 
   @media (max-width: sizes.$SCREEN_SM) {
