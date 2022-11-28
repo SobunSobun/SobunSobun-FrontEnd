@@ -1,6 +1,21 @@
 import { atom } from 'recoil'
 import { Time, Place } from 'types/index'
 
+export const postingTitleState = atom({
+  key: '#postingTitleState',
+  default: '',
+})
+
+export const postingContentState = atom({
+  key: '#postingContentState',
+  default: '',
+})
+
+export const postingCountState = atom({
+  key: '#postingCountState',
+  default: 2,
+})
+
 export const postingDateState = atom<Date>({
   key: '#dateState',
   default: new Date(),
@@ -24,4 +39,9 @@ export const modalChangeState = atom({
 export const categoryState = atom({
   key: '#categoryState',
   default: '',
+})
+
+export const isEditDefaultValue = atom({
+  key: '#isEditDefaultValue',
+  default: false,
 })

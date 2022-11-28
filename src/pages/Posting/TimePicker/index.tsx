@@ -1,19 +1,36 @@
-import { Dispatch, SetStateAction } from 'react'
+import { Dispatch, SetStateAction, useEffect } from 'react'
 import cx from 'classnames'
-import { useRecoilValue } from 'recoil'
-
-import { postingDateState, postingTimeState, modalChangeState } from 'recoil/post.atom'
+import { useRecoilValue, useRecoilState } from 'recoil'
+import { postingDateState, postingTimeState, modalChangeState, isEditDefaultValue } from 'recoil/post.atom'
 
 import styles from './timePicker.module.scss'
 
 interface Props {
   onClick: Dispatch<SetStateAction<boolean>>
+  propTime?: string
 }
 
-const TimePicker = ({ onClick }: Props) => {
-  const date = useRecoilValue(postingDateState)
-  const time = useRecoilValue(postingTimeState)
+const TimePicker = ({ onClick, propTime }: Props) => {
+  const isDefaultValue = useRecoilValue(isEditDefaultValue)
+  const [time, setTime] = useRecoilState(postingTimeState)
+  const [date, setDate] = useRecoilState(postingDateState)
   const valueUpdate = useRecoilValue(modalChangeState)
+
+  // 상세에서 불러온 데이터 일 때만 실행
+  useEffect(() => {
+    if (propTime && isDefaultValue) {
+      const timeArr = propTime.split(' ')
+      const timeAll = timeArr[4].split(':')
+      const timeSlot = Number(timeAll[0]) >= 12 ? 'PM' : 'AM'
+      let timeHour = timeSlot === 'PM' ? Number(timeAll[0]) - 12 : timeAll[0]
+      if (timeHour < 10) {
+        timeHour = `0${String(timeHour)}`
+      }
+      const timeMinutes = timeAll[1]
+      setTime({ slot: timeSlot, hour: String(timeHour), minutes: timeMinutes })
+      setDate(new Date(`${timeArr[0]} ${timeArr[1]} ${timeArr[2]} ${timeArr[3]}`))
+    }
+  }, [isDefaultValue, propTime, setDate, setTime])
 
   return (
     <div className={styles.timePicker}>
