@@ -23,7 +23,7 @@
     flex: 1;
     height: calc(100vh - 83px);
     overflow-y: auto;
-    background-color: colors.$BG_WHITE;
+    background-color: colors.$BG;
   }
 
   @media (max-width: sizes.$SCREEN_SM) {
