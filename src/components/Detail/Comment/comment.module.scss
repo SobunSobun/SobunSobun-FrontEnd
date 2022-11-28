@@ -5,25 +5,33 @@
 @use '/src/styles/constants/sizes';
 
 .comment {
-  .commentList {
-    min-height: 300px;
+  margin: 0 -20px;
+  @media (max-width: sizes.$SCREEN_SM) {
+    @include vwConvert.mo(margin, 0 -20);
+  }
+
+  .commentWrapper {
+    padding: 14px 20px;
     @media (max-width: sizes.$SCREEN_SM) {
-      @include vwConvert.mo(min-height, 300);
+      @include vwConvert.mo(padding, 14 20);
+    }
+
+    &.active {
+      background: #fff5f4;
     }
   }
 
-  .commentSingle,
   .commentReply {
-    margin-top: 17px;
+    padding: 8px 20px 8px 50px;
     @media (max-width: sizes.$SCREEN_SM) {
-      @include vwConvert.mo(margin-top, 17);
+      @include vwConvert.mo(padding, 8 20 8 50);
     }
   }
 
-  .commentReply {
-    padding-left: 30px;
+  .commentListBlock {
+    margin-bottom: 83px;
     @media (max-width: sizes.$SCREEN_SM) {
-      @include vwConvert.mo(padding-left, 30);
+      @include vwConvert.mo(margin-bottom, 83);
     }
   }
 
@@ -44,11 +52,17 @@
       flex: none;
       width: 23px;
       height: 23px;
+      overflow: hidden;
       background: colors.$GRAY_CF;
       border-radius: 50%;
       @media (max-width: sizes.$SCREEN_SM) {
         @include vwConvert.mo(width, 23);
         @include vwConvert.mo(height, 23);
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
       }
     }
 
@@ -87,41 +101,55 @@
   }
 
   .commentInput {
-    padding-top: 17px;
-    margin-top: 20px;
-    border-top: 1px solid colors.$GRAYD;
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    width: 768px;
+    background: colors.$BG_WHITE;
+    transform: translate3d(-50%, 0, 0);
     @media (max-width: sizes.$SCREEN_SM) {
-      @include vwConvert.mo(padding-top, 17);
-      @include vwConvert.mo(margin-top, 20);
+      @include vwConvert.mo(width, 390);
     }
 
-    input {
-      width: 100%;
-      height: 46px;
-      padding: 10px 13px;
-      font-size: 15px;
-      background: colors.$GRAY_D9;
-      border-radius: 15px;
+    form {
+      width: 728px;
+      padding: 17px 0 20px;
+      margin: 0 auto;
+      border-top: 1px solid colors.$GRAY_LINE;
       @media (max-width: sizes.$SCREEN_SM) {
-        @include vwConvert.mo(height, 46);
-        @include vwConvert.mo(padding, 10 13);
-        @include fontSize.emFontSizeMO(15);
+        @include vwConvert.mo(width, 358);
+        @include vwConvert.mo(padding, 17 0 20);
       }
 
-      &::placeholder {
+      input {
+        width: 100%;
+        height: 46px;
+        padding: 10px 13px;
         font-size: 15px;
+        background: colors.$GRAY_EF;
+        border-radius: 15px;
         @media (max-width: sizes.$SCREEN_SM) {
+          @include vwConvert.mo(height, 46);
+          @include vwConvert.mo(padding, 10 13);
           @include fontSize.emFontSizeMO(15);
         }
-      }
-    }
 
-    &.replyInput {
-      padding-left: 30px;
-      margin-top: 0;
-      border-top: none;
-      @media (max-width: sizes.$SCREEN_SM) {
-        @include vwConvert.mo(padding-left, 30);
+        &::placeholder {
+          font-size: 15px;
+          @media (max-width: sizes.$SCREEN_SM) {
+            @include fontSize.emFontSizeMO(15);
+          }
+        }
+      }
+
+      &.replyInput {
+        z-index: 100;
+        padding-left: 30px;
+        margin-top: 0;
+        border-top: none;
+        @media (max-width: sizes.$SCREEN_SM) {
+          @include vwConvert.mo(padding-left, 30);
+        }
       }
     }
   }

@@ -1,3 +1,60 @@
-.myPost {
+@use '/src/styles/mixins/fontSize';
+@use 'src/styles/mixins/vwConvert';
+@use 'src/styles/constants/sizes';
+@use 'src/styles/constants/colors';
 
+.myPost {
+  section {
+    h3 {
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    ul {
+      display: grid;
+      gap: 10px;
+      padding: 16px 0;
+    }
+    @media (max-width: sizes.$SCREEN_SM) {
+      h3 {
+        @include fontSize.emFontSizeMO(15);
+      }
+
+      ul {
+        @include vwConvert.mo(gap, 10);
+        @include vwConvert.mo(padding, 16 0);
+      }
+    }
+  }
+}
+
+.headerSection {
+  position: fixed;
+  z-index: 100;
+  width: 100%;
+  max-width: 768px;
+  padding: 16px;
+  background-color: colors.$BG;
+
+  h2 {
+    font-size: 25px;
+    font-weight: 700;
+  }
+  @media (max-width: sizes.$SCREEN_SM) {
+    @include vwConvert.mo(padding, 16);
+
+    h2 {
+      @include fontSize.emFontSizeMO(25);
+    }
+  }
+}
+
+.inner {
+  height: 100%;
+  padding: 120px 16px 16px;
+  background-color: colors.$BG;
+
+  @media (max-width: sizes.$SCREEN_SM) {
+    @include vwConvert.mo(padding, 120 16 16);
+  }
 }

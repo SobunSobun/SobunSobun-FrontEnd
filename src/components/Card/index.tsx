@@ -1,6 +1,7 @@
 import React from 'react'
 import { feed } from 'types'
 import { LocationIcon, PeopleIcon, TimeIcon } from 'assets/svgs'
+import { cx } from 'styles'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import CategoryIcon from './CategoryIcon'
@@ -13,11 +14,31 @@ dayjs.locale('ko')
 dayjs.extend(relativeTime)
 interface Props {
   data: feed
+  isVertical?: boolean
+  isBorder?: boolean
+  isComplete?: boolean
+  isParticipating?: boolean
+  isWrite?: boolean
 }
 
-const Card = ({ data }: Props) => {
+const Card = ({
+  data,
+  isVertical = false,
+  isBorder = false,
+  isComplete = false,
+  isParticipating = false,
+  isWrite = false,
+}: Props) => {
   return (
-    <article className={styles.card}>
+    <article
+      className={cx(styles.card, {
+        [styles.isVertical]: isVertical,
+        [styles.isBorder]: isBorder,
+        [styles.isComplete]: isComplete,
+        [styles.isParticipating]: isParticipating,
+        [styles.isWrite]: isWrite,
+      })}
+    >
       <span>{dayjs(data.createdAt as Date).fromNow()}</span>
       <div>{data.nickname}</div>
       <h3>{data.title}</h3>
@@ -32,7 +53,7 @@ const Card = ({ data }: Props) => {
         </p>
         <p>
           <PeopleIcon />
-          {data.recruitNumber}/4
+          {data.applyNumber}/{data.recruitNumber}
         </p>
       </section>
       <CategoryIcon type={data.category} />

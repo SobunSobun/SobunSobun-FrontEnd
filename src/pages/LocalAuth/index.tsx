@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useCallback, useState } from 'react'
+import React, { ChangeEvent, FormEvent, useCallback, useState } from 'react'
 import Header from 'components/Header'
 import Button from 'components/Button'
 import SearchBar from 'components/SearchBar'
@@ -8,6 +8,8 @@ import { useNavigate } from 'react-router-dom'
 import useModal from 'hooks/useModal'
 import { TwoButtonModal } from 'components/Modal'
 import { region } from 'types'
+import { UseGeoLocation } from 'hooks/useGeoLocation'
+import { getDistance } from 'utils/getDistance'
 import styles from './localAuth.module.scss'
 
 const LocalAuth = () => {
@@ -15,7 +17,9 @@ const LocalAuth = () => {
   const [searchValue, setSearchValue] = useState<string>('')
   const [myRegion, setMyRegion] = useState<region | null>(null)
 
+  const { lat, lng } = UseGeoLocation()
   const { isOpen, onClose, setIsOpen } = useModal()
+  const { isOpen: alertOpen, onClose: alertClose, setIsOpen: setAlert } = useModal()
 
   const navigate = useNavigate()
 
@@ -42,20 +46,43 @@ const LocalAuth = () => {
     },
     [setMyRegion]
   )
+
+  const nextButtonHandler = useCallback(() => {
+    const flag = getDistance({
+      targetLocation: {
+        lat: Number(myRegion?.location.lat!),
+        lng: Number(myRegion?.location.lon!),
+      },
+      myLocation: {
+        lat: lat!,
+        lng: lng!,
+      },
+    })
+    if (flag >= 6) {
+      setAlert(true)
+    } else {
+      navigate('/signup', { state: { myRegion } })
+    }
+  }, [lat, lng, myRegion, navigate, setAlert])
+
   return (
     <>
       <Header headText='내 동네 설정하기' leftChild={<Button type='customBack' onClick={() => setIsOpen(true)} />} />
-      <div className={styles.wrapper}>
+      <form
+        onSubmit={(e: FormEvent<HTMLFormElement>) => {
+          e.preventDefault()
+          onSearch()
+        }}
+        className={styles.wrapper}
+      >
         <SearchBar value={searchValue} onChange={onChangeSearchValue} onSearch={onSearch} />
-      </div>
+      </form>
       {regions && <RegionList data={regions} setRegion={onSetMyRegion} />}
       <div className={styles.nextButton}>
         <Button
           type={myRegion ? 'primary' : 'negative'}
           text='다음'
-          onClick={() => {
-            navigate('/signup', { state: { myRegion } })
-          }}
+          onClick={nextButtonHandler}
           isDisabled={myRegion === null}
         />
       </div>
@@ -65,6 +92,14 @@ const LocalAuth = () => {
         message='회원가입을 종료하시겠습니까?'
         yesCallBack={() => {
           navigate('/')
+        }}
+      />
+      <TwoButtonModal
+        show={alertOpen}
+        close={alertClose}
+        message={`현재 위치에서 6km 이상 떨어져 있습니다\n회원가입을 진행하시겠습니까?`}
+        yesCallBack={() => {
+          navigate('/signup', { state: { myRegion } })
         }}
       />
     </>

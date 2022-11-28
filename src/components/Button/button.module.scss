@@ -8,7 +8,7 @@
   @include flexbox.flexbox;
   transition: color 200ms;
 
-  +.button {
+  + .button {
     margin-left: 16px;
   }
 
@@ -17,6 +17,7 @@
     height: 57px;
     padding: 15px;
     font-size: 19px;
+    font-weight: 400;
     color: colors.$BLACK;
     background-color: colors.$PRIMARY;
     border-radius: 15px;
@@ -29,12 +30,34 @@
     }
   }
 
+  &.secondary {
+    position: absolute;
+    right: 0;
+    bottom: 42px;
+    width: 84px;
+    height: 23px;
+    padding: 0;
+    font-size: 11px;
+    line-height: 23px;
+    background-color: colors.$GRAY_EF;
+    border-radius: 6px;
+
+    @media (max-width: sizes.$SCREEN_SM) {
+      @include vwConvert.mo(bottom, 42);
+      @include vwConvert.mo(width, 84);
+      @include vwConvert.mo(height, 23);
+      @include fontSize.emFontSizeMO(11);
+      @include vwConvert.mo(line-height, 23);
+      @include vwConvert.mo(border-radius, 6);
+    }
+  }
+
   &.primary {
     background-color: colors.$PRIMARY;
   }
 
   &.negative {
-    background-color: colors.$GRAY_D9;
+    background-color: colors.$GRAY_EF;
   }
 
   &.loading {
@@ -47,10 +70,6 @@
       margin-right: 10px;
     }
   }
-
-  // &:disabled {
-  //   background-color: colors.$GRAY_D9;
-  // }
 
   &.back,
   &.customBack {

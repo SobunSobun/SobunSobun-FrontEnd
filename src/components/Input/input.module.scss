@@ -3,8 +3,10 @@
 @use 'src/styles/mixins/fontSize';
 @use '/src/styles/constants/sizes';
 
-.line {
+.input {
+  position: relative;
   padding-bottom: 35px;
+
   @media (max-width: sizes.$SCREEN_SM) {
     @include vwConvert.mo(padding-bottom, 35);
   }
@@ -12,6 +14,7 @@
   label {
     font-size: 14px;
     color: colors.$BLACK;
+
     @media (max-width: sizes.$SCREEN_SM) {
       @include fontSize.emFontSizeMO(14);
     }
@@ -20,21 +23,67 @@
   input {
     width: 100%;
     height: 28px;
-    margin-top: 16px;
+    margin-top: 12px;
     font-size: 13px;
     line-height: 28px;
-    border-bottom: 2px solid colors.$GRAYD;
+    border-bottom: 2px solid colors.$GRAY_LINE;
+
     @media (max-width: sizes.$SCREEN_SM) {
       @include fontSize.emFontSizeMO(13);
       @include vwConvert.mo(height, 28);
+      @include vwConvert.mo(margin-top, 12);
       @include vwConvert.mo(line-height, 28);
     }
 
     &::placeholder {
       font-size: 15px;
       color: colors.$GRAYB;
+
       @media (max-width: sizes.$SCREEN_SM) {
         @include fontSize.emFontSizeMO(15);
+      }
+    }
+  }
+
+  &.round {
+    padding-bottom: 35px;
+
+    @media (max-width: sizes.$SCREEN_SM) {
+      @include vwConvert.mo(padding-bottom, 35);
+    }
+
+    label {
+      font-size: 15px;
+      color: #626262;
+    }
+
+    input {
+      width: 100%;
+      height: 49px;
+      padding: 0 13px;
+      margin-top: 5px;
+      font-size: 16px;
+      line-height: 49px;
+      background-color: #e3e3e3;
+      border-bottom: none;
+      border-radius: 15px;
+    }
+
+    @media (max-width: sizes.$SCREEN_SM) {
+      @include vwConvert.mo(padding-bottom, 35);
+
+      label {
+        @include fontSize.emFontSizeMO(14);
+      }
+
+      input {
+        @include fontSize.emFontSizeMO(13);
+        @include vwConvert.mo(height, 28);
+        @include vwConvert.mo(line-height, 28);
+
+        &::placeholder {
+          @include fontSize.emFontSizeMO(15);
+        }
       }
     }
   }

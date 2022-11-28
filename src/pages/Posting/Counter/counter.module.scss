@@ -26,9 +26,8 @@
   }
 
   .current {
-    width: 40px;
-    min-width: 20px;
-    padding: 0 5px;
+    display: block;
+    padding: 0 8px;
     text-align: center;
   }
 
@@ -40,9 +39,7 @@
     }
 
     .current {
-      @include vwConvert.mo(width, 40);
-      @include vwConvert.mo(max-width, 20);
-      @include vwConvert.mo(padding, 0 5);
+      @include vwConvert.mo(padding, 0 8);
     }
   }
 }

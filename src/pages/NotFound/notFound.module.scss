@@ -28,7 +28,7 @@
   }
 
   .buttonWrap {
-    padding: 37px 63px 0;
+    padding: 32px 63px 0;
   }
 
   @media (max-width: sizes.$SCREEN_SM) {
@@ -46,7 +46,7 @@
     }
 
     .buttonWrap {
-      @include vwConvert.mo(padding, 37 63 0);
+      @include vwConvert.mo(padding, 33 63 0);
     }
   }
 }

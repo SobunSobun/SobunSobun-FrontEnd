@@ -26,10 +26,16 @@
 
     & li {
       flex: 1;
-      padding: 5px 28px;
+
+      button {
+        padding: 5px 28px;
+      }
       @media (max-width: sizes.$SCREEN_SM) {
         flex: 0 0 auto;
-        @include vwConvert.mo(padding, 5 28);
+
+        button {
+          @include vwConvert.mo(padding, 5 28);
+        }
       }
     }
   }

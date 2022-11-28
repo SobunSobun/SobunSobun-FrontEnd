@@ -3,13 +3,12 @@
 @use 'src/styles/constants/sizes';
 @use 'src/styles/constants/colors';
 
-/* 수정 해야하는 부분 */
 .container {
   position: relative;
   width: 100%;
   height: 100%;
   overflow-y: auto;
-  background-color: colors.$GRAYE;
+  background-color: colors.$BG;
 }
 
 .headerSection {
@@ -17,14 +16,26 @@
   z-index: 10;
   width: 100%;
   max-width: 768px;
-  height: 120px;
-  background-color: colors.$GRAYE;
+  height: 100px;
+  background-color: colors.$BG;
+
+  h3 {
+    padding: 16px 16px 0;
+    font-size: 25px;
+    font-weight: 700;
+    color: colors.$BLACK;
+  }
 
   ul {
     padding: 16px 0 0 16px;
   }
   @media (max-width: sizes.$SCREEN_SM) {
-    @include vwConvert.mo(height, 120);
+    @include vwConvert.mo(height, 110);
+
+    h3 {
+      @include vwConvert.mo(padding, 16 16 0);
+      @include fontSize.emFontSizeMO(25);
+    }
 
     ul {
       @include vwConvert.mo(padding, 16 0 0 16);
@@ -33,10 +44,11 @@
 }
 
 .cardSection {
-  padding: 136px 16px 16px;
-  background-color: colors.$GRAYE;
+  padding: 110px 16px 16px;
+  background-color: colors.$BG;
+
   @media (max-width: sizes.$SCREEN_SM) {
-    @include vwConvert.mo(padding, 136 16 16 16);
+    @include vwConvert.mo(padding, 110 16 16);
   }
 }
 
@@ -44,6 +56,12 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 10px;
+  width: 100%;
+
+  li {
+    overflow: hidden;
+  }
+
   @media (max-width: sizes.$SCREEN_SM) {
     grid-template-columns: 1fr;
     @include vwConvert.mo(gap, 10);

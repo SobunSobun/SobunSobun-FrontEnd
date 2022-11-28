@@ -7,6 +7,7 @@
 .detail {
   .headerWrap {
     padding: 21px 16px 0;
+
     @media (max-width: sizes.$SCREEN_SM) {
       @include vwConvert.mo(padding, 21 16 0);
     }
@@ -17,42 +18,54 @@
       justify-content: space-between;
       padding: 0 0 11px;
       border-bottom: 1px solid colors.$GRAYD;
+
       @media (max-width: sizes.$SCREEN_SM) {
         @include vwConvert.mo(padding, 0 0 11);
       }
 
-      .edit {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        width: 24px;
-        height: 24px;
-        cursor: pointer;
+      .editButton {
+        // display: flex;
+        // flex-direction: column;
+        // align-items: center;
+        // justify-content: center;
+        // cursor: pointer;
+        width: 48px;
+        height: 48px;
+
+        svg {
+          width: 40%;
+          height: 40%;
+        }
+
         @media (max-width: sizes.$SCREEN_SM) {
-          @include vwConvert.mo(width, 24);
-          @include vwConvert.mo(height, 24);
-        }
+          @include vwConvert.mo(width, 48);
+          @include vwConvert.mo(height, 48);
 
-        i {
-          display: block;
-          width: 4px;
-          height: 4px;
-          background: colors.$BLACK;
-          border-radius: 50%;
-
-          @media (max-width: sizes.$SCREEN_SM) {
-            @include vwConvert.mo(width, 4);
-            @include vwConvert.mo(height, 4);
-          }
-
-          & + i {
-            margin-top: 2px;
-            @media (max-width: sizes.$SCREEN_SM) {
-              @include vwConvert.mo(margin-top, 2);
-            }
+          svg {
+            width: 30%;
+            height: 30%;
           }
         }
+
+        // i {
+        //   display: block;
+        //   width: 4px;
+        //   height: 4px;
+        //   background: colors.$BLACK;
+        //   border-radius: 50%;
+
+        //   @media (max-width: sizes.$SCREEN_SM) {
+        //     @include vwConvert.mo(width, 4);
+        //     @include vwConvert.mo(height, 4);
+        //   }
+
+        //   & + i {
+        //     margin-top: 2px;
+        //     @media (max-width: sizes.$SCREEN_SM) {
+        //       @include vwConvert.mo(margin-top, 2);
+        //     }
+        //   }
+        // }
       }
     }
   }

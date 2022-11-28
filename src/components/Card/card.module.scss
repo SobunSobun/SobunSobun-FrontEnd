@@ -5,7 +5,6 @@
 
 .card {
   position: relative;
-  width: 100%;
   padding: 12px 21px;
   text-align: left;
   background-color: #ffffff;
@@ -16,9 +15,13 @@
   }
 
   h3 {
+    max-width: 70%;
     margin: 6px 0;
+    overflow-x: hidden;
     font-size: 18px;
     font-weight: 700;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   section {
@@ -53,5 +56,140 @@
     position: absolute;
     right: 0;
     bottom: 0;
+    width: 120px;
+    height: 100px;
+  }
+  @media (max-width: sizes.$SCREEN_SM) {
+    @include vwConvert.mo(padding, 12 21);
+    @include vwConvert.mo(border-radius, 15);
+
+    div {
+      @include fontSize.emFontSizeMO(12);
+    }
+
+    h3 {
+      @include vwConvert.mo(margin, 6 0);
+      @include fontSize.emFontSizeMO(18);
+    }
+
+    section {
+      p + p {
+        @include vwConvert.mo(margin-top, 6);
+      }
+    }
+
+    p {
+      & > svg {
+        @include vwConvert.mo(width, 12);
+      }
+      @include vwConvert.mo(gap, 5);
+      @include vwConvert.mo(height, 18);
+      @include fontSize.emFontSizeMO(12);
+    }
+
+    span {
+      @include vwConvert.mo(right, 12);
+      @include fontSize.emFontSizeMO(10);
+    }
+
+    & > svg {
+      @include vwConvert.mo(width, 120);
+      @include vwConvert.mo(height, 100);
+    }
+  }
+
+  &.isComplete {
+    p {
+      & > svg {
+        :nth-child(2) {
+          circle {
+            fill: colors.$GRAY_A4;
+          }
+        }
+
+        ellipse {
+          fill: colors.$GRAY_A4;
+        }
+
+        path {
+          fill: colors.$GRAY_A4;
+        }
+      }
+    }
+  }
+
+  &.isBorder.isWrite {
+    border: 1.5px solid colors.$PRIMARY;
+  }
+
+  &.isBorder.isParticipating {
+    border: 1.5px solid colors.$WARNING;
+
+    p {
+      & > svg {
+        :nth-child(2) {
+          circle {
+            fill: colors.$RED;
+          }
+        }
+
+        ellipse {
+          fill: colors.$RED;
+        }
+
+        path {
+          fill: colors.$RED;
+        }
+      }
+    }
+  }
+
+  &.isVertical {
+    padding: 10px 12px 0;
+
+    p {
+      & > svg {
+        :nth-child(2) {
+          circle {
+            fill: colors.$RED;
+          }
+        }
+
+        ellipse {
+          fill: colors.$RED;
+        }
+
+        path {
+          fill: colors.$RED;
+        }
+      }
+    }
+
+    h3 {
+      max-width: 100%;
+      font-size: 14px;
+    }
+
+    & > svg {
+      position: relative;
+      left: 50%;
+      width: 100px;
+      height: 84px;
+      margin-top: 10px;
+      transform: translateX(-50%);
+    }
+    @media (max-width: sizes.$SCREEN_SM) {
+      @include vwConvert.mo(padding, 10 12 0);
+
+      h3 {
+        @include fontSize.emFontSizeMO(14);
+      }
+
+      & > svg {
+        @include vwConvert.mo(width, 100);
+        @include vwConvert.mo(height, 84);
+        @include vwConvert.mo(margin-top, 10);
+      }
+    }
   }
 }

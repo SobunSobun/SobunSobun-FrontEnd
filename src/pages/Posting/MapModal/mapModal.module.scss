@@ -9,14 +9,16 @@
     position: absolute;
     top: 39px;
     z-index: 9;
+    display: flex;
     width: 100%;
     height: 57px;
+    padding: 0 16px;
   }
 
   .searchForm {
-    width: 100%;
+    flex: 1;
     height: 100%;
-    padding: 0 16px;
+    padding-right: 7px;
   }
 
   .searchInner {
@@ -48,14 +50,26 @@
     padding: 18px 10px 18px 0;
   }
 
+  .closeBtn {
+    width: 62px;
+    height: 62px;
+    font-size: 0;
+
+    svg {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
   @media (max-width: sizes.$SCREEN_SM) {
     .search {
       @include vwConvert.mo(top, 39);
       @include vwConvert.mo(height, 57);
+      @include vwConvert.mo(padding, 0 16);
     }
 
     .searchForm {
-      @include vwConvert.mo(padding, 0 16);
+      @include vwConvert.mo(padding-right, 7);
     }
 
     .searchInner {
@@ -69,6 +83,12 @@
 
     .searchInput {
       @include vwConvert.mo(padding, 18 10 18 0);
+    }
+
+    .closeBtn {
+      @include vwConvert.mo(width, 63);
+      @include vwConvert.mo(height, 63);
+      font-size: 0;
     }
   }
 }
