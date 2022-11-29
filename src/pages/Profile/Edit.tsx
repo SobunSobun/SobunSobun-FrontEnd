@@ -16,7 +16,6 @@ import Header from 'components/Header'
 
 import useModal from 'hooks/useModal'
 
-import { IMAGE_PATH } from 'assets/images'
 import { CameraIcon } from 'assets/svgs'
 import styles from './profile.module.scss'
 
