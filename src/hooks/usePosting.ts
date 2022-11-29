@@ -1,9 +1,23 @@
 import { isAxiosError } from 'apis/client'
 import { newPostingAPI, editPostingAPI, deletePostingAPI } from 'apis/posting'
 import { useMutation, useQueryClient } from 'react-query'
+import { useResetRecoilState } from 'recoil'
 import { useNavigate } from 'react-router-dom'
+import {
+  postingDateState,
+  postingTimeState,
+  postingPlaceState,
+  categoryState,
+  postingCountState,
+} from 'recoil/post.atom'
 
 const useCreatePost = () => {
+  const resetDate = useResetRecoilState(postingDateState)
+  const resetTime = useResetRecoilState(postingTimeState)
+  const resetMarket = useResetRecoilState(postingPlaceState)
+  const resetCategory = useResetRecoilState(categoryState)
+  const resetCount = useResetRecoilState(postingCountState)
+
   const queryClient = useQueryClient()
   const navigate = useNavigate()
   return useMutation(newPostingAPI, {
@@ -11,6 +25,11 @@ const useCreatePost = () => {
       // eslint-disable-next-line
       console.log(response)
       queryClient.invalidateQueries('feedList')
+      resetDate()
+      resetTime()
+      resetMarket()
+      resetCategory()
+      resetCount()
       navigate('/upload-complete', { state: { type: '작성' } })
     },
     onError(err) {
@@ -25,10 +44,20 @@ const useCreatePost = () => {
 const useEditPost = () => {
   const queryClient = useQueryClient()
   const navigate = useNavigate()
+  const resetDate = useResetRecoilState(postingDateState)
+  const resetTime = useResetRecoilState(postingTimeState)
+  const resetMarket = useResetRecoilState(postingPlaceState)
+  const resetCategory = useResetRecoilState(categoryState)
+  const resetCount = useResetRecoilState(postingCountState)
   return useMutation(editPostingAPI, {
     onSuccess(response) {
       // eslint-disable-next-line
       console.log(response)
+      resetDate()
+      resetTime()
+      resetMarket()
+      resetCategory()
+      resetCount()
       navigate('/upload-complete', { state: { type: '수정' } })
     },
     onError(err) {

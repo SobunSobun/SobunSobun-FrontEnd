@@ -35,6 +35,7 @@ const Category = () => {
   const resetMarket = useResetRecoilState(postingPlaceState)
   const resetDate = useResetRecoilState(postingDateState)
   const resetTime = useResetRecoilState(postingTimeState)
+
   const handleMoveToWrite = () => {
     navigate('/new')
   }

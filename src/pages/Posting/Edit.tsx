@@ -3,7 +3,6 @@ import { useNavigate, useLocation, useParams } from 'react-router-dom'
 import { useSetRecoilState, useResetRecoilState } from 'recoil'
 
 import { detailData } from 'types'
-
 import Header from 'components/Header'
 import Button from 'components/Button'
 import {
@@ -19,7 +18,6 @@ import {
 import useModal from 'hooks/useModal'
 import { TwoButtonModal } from 'components/Modal'
 import Editor from './Editor'
-import styles from './posting.module.scss'
 
 interface RouteState {
   state: {
@@ -50,7 +48,7 @@ const Edit = () => {
   })
 
   return (
-    <div className={styles.edit}>
+    <div>
       <Header leftChild={<Button type='customBack' onClick={() => setIsOpen(true)} />} headText='게시글 수정' />
       <div className='contentsInner'>
         <Editor

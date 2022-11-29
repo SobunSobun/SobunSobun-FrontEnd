@@ -73,7 +73,7 @@
       display: inline-block;
       width: 17px;
       height: 17px;
-      margin-right: 25px;
+      margin-right: 10px;
       font-size: 0;
       border: 2px solid colors.$GRAY_EF;
       border-top: 3px solid colors.$WHITE;
@@ -83,6 +83,7 @@
       @media (max-width: sizes.$SCREEN_SM) {
         @include vwConvert.mo(width, 17);
         @include vwConvert.mo(height, 17);
+        @include vwConvert.mo(margin-right, 10);
       }
     }
   }

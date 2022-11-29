@@ -51,8 +51,9 @@ const Editor = ({
   const category = useRecoilValue(categoryState)
   const valueUpdate = useRecoilValue(modalChangeState)
   const [count, setCount] = useRecoilState(postingCountState)
-  const [fullTime, setFullTime] = useState('')
+
   const [timePickerModal, setTimePickerModal] = useState(false)
+  const [fullTime, setFullTime] = useState('')
   const [mapModal, setMapModal] = useState(false)
 
   const { mutate: newPostAPI } = useCreatePost()
@@ -67,6 +68,14 @@ const Editor = ({
       setMarket({ place: propData.market, address: propData.marketAddress })
     }
   }, [propData, setCount, setLocalContent, setLocalTitle, setMarket])
+
+  useEffect(() => {
+    const transHour = time.slot === 'PM' ? Number(time.hour) + 12 : time.hour
+    const timeString = new Date(
+      `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${transHour}:${time.minutes}:00`
+    )
+    setFullTime(String(timeString))
+  }, [time.slot, time.hour, time.minutes, date])
 
   const handleChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
     setLocalTitle(e.currentTarget.value)
@@ -110,14 +119,6 @@ const Editor = ({
     const formData = handleFormData()
     editPostAPI({ postId, formData })
   }
-
-  useEffect(() => {
-    const transHour = time.slot === 'PM' ? Number(time.hour) + 12 : time.hour
-    const timeString = new Date(
-      `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${transHour}:${time.minutes}:00`
-    )
-    setFullTime(String(timeString))
-  }, [time.slot, time.hour, time.minutes, date])
 
   return (
     <div className={styles.editor}>
