@@ -8,7 +8,7 @@
 
   .greeting {
     text-align: center;
-  
+
     .logo {
       width: 163px;
       height: 47px;
@@ -17,7 +17,7 @@
         @include vwConvert.mo(height, 47);
       }
     }
-  
+
     .desc {
       font-size: 18px;
       font-weight: 700;

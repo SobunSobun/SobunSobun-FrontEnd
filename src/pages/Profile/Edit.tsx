@@ -9,7 +9,6 @@ import { authInstance, defaultInstance } from 'apis/client'
 
 import Button from 'components/Button'
 import Input from 'components/Input'
-import FloatingElem from 'components/FloatingElem'
 import ErrorMessage from 'components/ErrorMessage'
 import { TwoButtonModal } from 'components/Modal'
 import Header from 'components/Header'
@@ -174,14 +173,14 @@ const ProfileEdit = () => {
           </div>
           <label htmlFor='email'>이메일 주소</label>
           <p className={styles.textInput}>{email}</p>
-          <FloatingElem offsetBottom={43}>
+          <div className={styles.buttonWrap}>
             <Button
               type={image || nicknameActive ? 'primary' : 'negative'}
               text='수정 완료'
               submit
               isDisabled={!image && !nicknameActive}
             />
-          </FloatingElem>
+          </div>
         </form>
       </div>
       <TwoButtonModal

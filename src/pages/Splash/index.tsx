@@ -8,9 +8,12 @@ const Splash = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       navigate('/intro')
-    }, 3000)
+    }, 8000)
+    return () => {
+      clearTimeout(timer)
+    }
   })
   return (
     <div className={styles.splash}>
