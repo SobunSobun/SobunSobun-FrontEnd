@@ -117,13 +117,14 @@ const ProfileEdit = () => {
       await authInstance.post(`/myPage/${userId}/modifyNickname`, formData)
       if (image) {
         handleSubmitImage()
-      } else {
-        queryClient.invalidateQueries('myInfo')
       }
       navigate('/profile')
     } catch (error) {
       // eslint-disable-next-line no-console, no-alert
       alert('앗! 에러가 발생했습니다. 다시 시도해주세요')
+    } finally {
+      queryClient.invalidateQueries('myInfo')
+      queryClient.invalidateQueries('feedList')
     }
   }
 
