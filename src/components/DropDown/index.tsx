@@ -3,17 +3,13 @@ import styles from './dropDown.module.scss'
 
 interface Props {
   list: Array<string>
-  value: string
   onChange: (e: ChangeEvent<HTMLSelectElement>) => void
+  value?: string
 }
 
-const DropDown = ({ list, value, onChange }: Props) => {
-  // const [selected, setSelected] = useState('')
-  // const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
-  //   setSelected(e.target.value)
-  // }
+const DropDown = ({ list, onChange, value }: Props) => {
   return (
-    <select name='' id='' className={styles.dropDown} value={value} onChange={onChange}>
+    <select className={styles.dropDown} value={value} onChange={onChange}>
       {list.map((item) => {
         return (
           <option key={item} value={item}>

@@ -1,9 +1,9 @@
-import { useState, ChangeEvent, Dispatch, SetStateAction } from 'react'
-import { useRecoilState } from 'recoil'
+import { useState, ChangeEvent, Dispatch, SetStateAction, useEffect } from 'react'
+import { useRecoilState, useSetRecoilState } from 'recoil'
 import cx from 'classnames'
 import DatePicker from 'react-datepicker'
 import Button from 'components/Button'
-import { postingDateState, postingTimeState, modalChangeState } from 'recoil/post.atom'
+import { postingDateState, postingTimeState, modalChangeState, isEditDefaultValue } from 'recoil/post.atom'
 import DropDown from 'components/DropDown'
 import ModalLayout from 'components/Modal/ModalLayout'
 import { ModalPropsType } from 'types'
@@ -17,13 +17,22 @@ const minutesArr = ['00', '10', '20', '30', '40', '50']
 const TimePickerModal = ({ show, close }: ModalPropsType) => {
   const [date, setDate] = useRecoilState(postingDateState)
   const [time, setTime] = useRecoilState(postingTimeState)
-  const [, setTimeChange] = useRecoilState(modalChangeState)
+  const setIsDefaultValue = useSetRecoilState(isEditDefaultValue)
+  const setTimeChange = useSetRecoilState(modalChangeState)
   const [localDate, setLocalDate] = useState(date)
   const [localSlot, setLocalSlot] = useState(time.slot)
   const [localHour, setLocalHour] = useState(time.hour)
   const [localMinutes, setLocalMinutes] = useState(time.minutes)
 
+  useEffect(() => {
+    setLocalDate(date)
+    setLocalSlot(time.slot)
+    setLocalHour(time.hour)
+    setLocalMinutes(time.minutes)
+  }, [time.slot, time.hour, time.minutes, date])
+
   const handleSetData = () => {
+    setIsDefaultValue(false)
     if (localDate !== date || localSlot !== time.slot || localHour !== time.hour || localMinutes !== time.minutes) {
       setTimeChange(true)
     }

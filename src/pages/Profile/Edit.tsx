@@ -42,6 +42,7 @@ const ProfileEdit = () => {
     formState: { errors },
   } = useForm<FormValues>({
     mode: 'onChange',
+    defaultValues: { nickname },
   })
 
   const nicknameCurrent = watch('nickname')
@@ -155,7 +156,7 @@ const ProfileEdit = () => {
                 type='text'
                 id='nickname'
                 className={styles.textInput}
-                defaultValue={nickname}
+                // defaultValue={nickname}
                 {...register('nickname', {
                   maxLength: { value: 6, message: '6자 이하로 입력해주세요.' },
                   onChange: () => setNicknameActive(false),
