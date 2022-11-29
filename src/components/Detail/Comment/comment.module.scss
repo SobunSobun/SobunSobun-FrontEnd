@@ -17,7 +17,7 @@
     }
 
     &.active {
-      background: #fff5f4;
+      background: #f1fff7;
     }
   }
 
@@ -53,7 +53,6 @@
       width: 23px;
       height: 23px;
       overflow: hidden;
-      background: colors.$GRAY_CF;
       border-radius: 50%;
       @media (max-width: sizes.$SCREEN_SM) {
         @include vwConvert.mo(width, 23);
@@ -105,7 +104,7 @@
     bottom: 0;
     left: 50%;
     width: 768px;
-    background: colors.$BG_WHITE;
+    background: #ffffff;
     transform: translate3d(-50%, 0, 0);
     @media (max-width: sizes.$SCREEN_SM) {
       @include vwConvert.mo(width, 390);
@@ -115,7 +114,7 @@
       width: 728px;
       padding: 17px 0 20px;
       margin: 0 auto;
-      border-top: 1px solid colors.$GRAY_LINE;
+      border-top: 1px solid colors.$LINE_1;
       @media (max-width: sizes.$SCREEN_SM) {
         @include vwConvert.mo(width, 358);
         @include vwConvert.mo(padding, 17 0 20);
