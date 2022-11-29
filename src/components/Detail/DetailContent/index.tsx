@@ -71,14 +71,16 @@ const DetailContent = ({ data, postId }: Props) => {
           <li>{data.uploadTime}</li>
         </ul>
       </div>
-      <div className={styles.detailBtn}>
-        <Button
-          basic
-          type={data.isApply ? 'primary' : 'negative'}
-          text={data.isApply ? '참여완료' : '참여하기'}
-          onClick={() => setIsOpen(true)}
-        />
-      </div>
+      {!data.isWriter && (
+        <div className={styles.detailBtn}>
+          <Button
+            basic
+            type={data.isApply ? 'primary' : 'negative'}
+            text={data.isApply ? '참여완료' : '참여하기'}
+            onClick={() => setIsOpen(true)}
+          />
+        </div>
+      )}
       <TwoButtonModal
         show={isOpen}
         close={onClose}

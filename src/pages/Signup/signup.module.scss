@@ -23,4 +23,13 @@
       color: colors.$RED;
     }
   }
+
+  .signupBtn {
+    margin-top: 50px;
+
+    @media (max-width: sizes.$SCREEN_SM) {
+      @include vwConvert.mo(margin-top, 50);
+      @include vwConvert.mo(padding-bottom, 25);
+    }
+  }
 }
