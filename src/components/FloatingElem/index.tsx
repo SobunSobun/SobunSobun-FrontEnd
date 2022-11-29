@@ -10,10 +10,15 @@ interface Props {
 const FloatingElem = ({ children, offsetBottom }: Props) => {
   const [bottom, setBottom] = useState<string>(`${offsetBottom}px`)
   const handleCalcVw = useDebounce(() => {
-    setBottom(`${(offsetBottom * 100) / 390}vw`)
+    if (window.innerWidth > 768) {
+      setBottom(`${offsetBottom}px`)
+    } else {
+      setBottom(`${(offsetBottom * 100) / 390}vw`)
+    }
   }, 300)
 
   useEffect(() => {
+    handleCalcVw()
     window.addEventListener('resize', handleCalcVw)
     return () => {
       window.removeEventListener('resize', handleCalcVw)

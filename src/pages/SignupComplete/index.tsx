@@ -1,7 +1,10 @@
-import { ProfileImage } from 'assets/svgs'
+import { useLocation, useNavigate } from 'react-router-dom'
+
 import Button from 'components/Button'
 import Header from 'components/Header'
-import { useLocation, useNavigate } from 'react-router-dom'
+
+import FloatingElem from 'components/FloatingElem'
+import { IMAGE_PATH } from 'assets/images'
 import styles from './signupComplete.module.scss'
 
 interface RouteState {
@@ -25,22 +28,24 @@ const SignupComplete = () => {
 
   return (
     <div className={styles.signupComplete}>
-      <Header leftChild={<Button type='back' />} headText='반가워요' />
+      <Header headText='반가워요' />
       <div className={styles.inner}>
         <p className={styles.greeting}>{state.nickname}님</p>
-        <p className={styles.desc}>이웃과 소분해서 소분소분 함께해요</p>
+        <p className={styles.desc}>따뜻한 소분 이웃과 함께해요</p>
         <div className={styles.profile}>
-          <ProfileImage className={styles.image} />
+          <img src={IMAGE_PATH.profile} className={styles.image} alt='' />
           {handleRegion()}
         </div>
-        <Button
-          type='primary'
-          text='로그인 하기'
-          submit
-          onClick={() => {
-            navigate('/login')
-          }}
-        />
+        <FloatingElem offsetBottom={43}>
+          <Button
+            type='primary'
+            text='로그인 하기'
+            submit
+            onClick={() => {
+              navigate('/login')
+            }}
+          />
+        </FloatingElem>
       </div>
     </div>
   )

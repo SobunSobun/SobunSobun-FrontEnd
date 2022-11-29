@@ -50,10 +50,10 @@ const Category = () => {
     <div className={styles.category}>
       <Header leftChild={<Button type='customBack' onClick={() => setIsOpen(true)} />} />
       <div className='contentsInner'>
-        <h1>
+        <p className={styles.title}>
           카테고리를 <br />
           선택해주세요
-        </h1>
+        </p>
         <ul className={styles.list}>
           {categoryList.map((item) => (
             <CategoryItem

@@ -1,7 +1,7 @@
 import { useNavigate, useLocation } from 'react-router-dom'
 import Button from 'components/Button'
-import { IMAGE_PATH } from 'assets/images'
 import FloatingElem from 'components/FloatingElem'
+import { IMAGE_PATH } from 'assets/images'
 import styles from './uploadComplete.module.scss'
 
 interface RouteState {
@@ -18,18 +18,16 @@ const UploadComplete = () => {
   }
   return (
     <div className={styles.uploadComplete}>
-      <div className='contentsInner'>
-        <div className={styles.image}>
-          <img src={IMAGE_PATH.basket} alt='장바구니 이미지' />
-        </div>
-        <p className={styles.message}>
-          소분게시물 {state.type}이
-          <br /> 완료 되었어요!
-        </p>
-        <FloatingElem offsetBottom={45}>
-          <Button type='primary' text='확인' onClick={handleMoveToHome} />
-        </FloatingElem>
+      <div className={styles.image}>
+        <img src={IMAGE_PATH.basket} alt='장바구니 이미지' />
       </div>
+      <p className={styles.message}>
+        소분게시물 {state.type}이
+        <br /> 완료 되었어요!
+      </p>
+      <FloatingElem offsetBottom={45}>
+        <Button type='primary' text='확인' onClick={handleMoveToHome} />
+      </FloatingElem>
     </div>
   )
 }

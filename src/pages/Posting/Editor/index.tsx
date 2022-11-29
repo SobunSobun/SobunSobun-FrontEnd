@@ -1,10 +1,6 @@
 import { ChangeEvent, useEffect, useState, Dispatch, SetStateAction, FormEvent } from 'react'
-import { useMutation, useQueryClient } from 'react-query'
-import { useNavigate } from 'react-router-dom'
 import cx from 'classnames'
 import { useRecoilValue, useRecoilState } from 'recoil'
-
-import { newPostingAPI, editPostingAPI } from 'apis/posting'
 
 import {
   postingCountState,
@@ -15,8 +11,8 @@ import {
   modalChangeState,
 } from 'recoil/post.atom'
 
+import { useCreatePost, useEditPost } from 'hooks/usePosting'
 import { detailData } from 'types'
-import { isAxiosError } from 'apis/client'
 
 import TimePickerModal from 'pages/Posting/TimpickerModal'
 import MapModal from 'pages/Posting/MapModal'
@@ -49,9 +45,6 @@ const Editor = ({
   localContent,
   setLocalContent,
 }: Props) => {
-  const navigate = useNavigate()
-  const queryClient = useQueryClient()
-
   const date = useRecoilValue(postingDateState)
   const time = useRecoilValue(postingTimeState)
   const [market, setMarket] = useRecoilState(postingPlaceState)
@@ -62,46 +55,10 @@ const Editor = ({
   const [timePickerModal, setTimePickerModal] = useState(false)
   const [mapModal, setMapModal] = useState(false)
 
-  const handleChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
-    setLocalTitle(e.currentTarget.value)
-  }
-  const handleChangeContent = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setLocalContent(e.currentTarget.value)
-  }
+  const { mutate: newPostAPI } = useCreatePost()
+  const { mutate: editPostAPI } = useEditPost()
 
-  const { mutate: newPostAPI } = useMutation(newPostingAPI, {
-    onSuccess(response) {
-      // eslint-disable-next-line
-      console.log(response)
-      queryClient.invalidateQueries('feedList')
-      navigate('/upload-complete', { state: { type: '작성' } })
-    },
-    onError(err) {
-      if (isAxiosError(err)) {
-        // eslint-disable-next-line no-alert
-        alert('게시물 업로드에 실패하였습니다.')
-      }
-    },
-  })
-  const { mutate: editPostAPI } = useMutation(editPostingAPI, {
-    onSuccess(response) {
-      // eslint-disable-next-line
-      console.log(response)
-      navigate('/upload-complete', { state: { type: '수정' } })
-    },
-    onError(err) {
-      if (isAxiosError(err)) {
-        // eslint-disable-next-line no-alert
-        alert('게시물 수정이 실패하였습니다.')
-      }
-    },
-    onSettled: () => {
-      queryClient.invalidateQueries(['getDetailAPI', postId])
-      queryClient.invalidateQueries(['feedList'])
-    },
-  })
-
-  // 불러온 데이터 일 때만 실행
+  // edit 에서 불러온 데이터 일 때만 실행
   useEffect(() => {
     if (propData) {
       setLocalTitle(propData.title)
@@ -110,6 +67,13 @@ const Editor = ({
       setMarket({ place: propData.market, address: propData.marketAddress })
     }
   }, [propData, setCount, setLocalContent, setLocalTitle, setMarket])
+
+  const handleChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
+    setLocalTitle(e.currentTarget.value)
+  }
+  const handleChangeContent = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setLocalContent(e.currentTarget.value)
+  }
 
   const handleColor = () => {
     let status: 'primary' | 'negative' = 'negative'
@@ -120,10 +84,6 @@ const Editor = ({
       status = common && valueUpdate ? 'primary' : 'negative'
     }
     return status
-  }
-
-  const handleDisabled = () => {
-    return handleColor() === 'negative'
   }
 
   const handleFormData = () => {
@@ -175,7 +135,6 @@ const Editor = ({
         </div>
         <div className={styles.line}>
           <textarea
-            // className={styles.textarea }
             className={cx(styles.textarea, { [styles.highlight]: isEdit })}
             id='content'
             placeholder='내용을 입력해주세요'
@@ -201,7 +160,7 @@ const Editor = ({
           <TimePicker onClick={setTimePickerModal} propTime={propData?.meetingTime} />
         </div>
         <div className={styles.buttonWrap}>
-          <Button basic type={handleColor()} text='완료' submit isDisabled={handleDisabled()} />
+          <Button basic type={handleColor()} text='완료' submit isDisabled={handleColor() === 'negative'} />
         </div>
       </form>
       <TimePickerModal show={timePickerModal} close={() => setTimePickerModal(false)} isEdit={isEdit} />

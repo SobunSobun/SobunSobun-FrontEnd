@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import useMyInfo from 'hooks/useMyInfo'
 
 import { TwoButtonModal } from 'components/Modal'
+import Header from 'components/Header'
 
 import { IMAGE_PATH } from 'assets/images'
 import useModal from 'hooks/useModal'
@@ -58,8 +59,8 @@ const ProfileCurrent = () => {
 
   return (
     <div className={styles.profile}>
+      <Header headText='마이페이지' />
       <div className='contentsInner'>
-        <h3>마이페이지</h3>
         <div className={styles.top}>
           <div className={styles.imageWrap}>
             <img src={handleImageSet()} alt='프로필이미지' />
