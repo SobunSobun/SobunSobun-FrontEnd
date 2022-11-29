@@ -8,11 +8,11 @@ import Login from 'pages/Login'
 import { Layout, LayoutGnb } from 'components/Layout'
 import NotFound from 'pages/NotFound'
 import Category from 'pages/Category'
-// import { PostDetail, PostEdit, PostWrite } from 'pages/Posting'
 import MyPost from 'pages/MyPost'
 import Bookmark from 'pages/Bookmark'
 import LocalAuth from 'pages/LocalAuth'
 import Splash from 'pages/Splash'
+import Intro from 'pages/Intro'
 import SignupComplete from 'pages/SignupComplete'
 import New from 'pages/Posting/New'
 import Edit from 'pages/Posting/Edit'
@@ -26,6 +26,7 @@ const RootRoute = () => {
       <Routes>
         <Route path='/' element={<Layout />}>
           <Route path='' element={<Splash />} />
+          <Route path='intro' element={<Intro />} />
           <Route path='login' element={<Login />} />
           <Route path='local' element={<LocalAuth />} />
           <Route path='signup' element={<Signup />} />

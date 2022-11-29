@@ -11,7 +11,7 @@ const NotFound = () => {
     if (hasToken) {
       navigate('/home')
     } else {
-      navigate('/')
+      navigate('/intro')
     }
   }
   return (

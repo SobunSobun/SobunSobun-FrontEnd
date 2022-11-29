@@ -1,0 +1,30 @@
+@use '/src/styles/constants/sizes';
+@use '/src/styles/mixins/vwConvert';
+@use '/src/styles/constants/colors';
+
+.intro {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background: no-repeat center/100% auto;
+  background-color: colors.$PRIMARY;
+  background-image: url('../../assets/images/intro_bg.png');
+
+  .loginButton {
+    display: inline-block;
+    margin-top: 17px;
+    color: colors.$BLACK;
+    text-align: center;
+  }
+
+  .bold {
+    font-weight: bold;
+  }
+
+  @media (max-width: sizes.$SCREEN_SM) {
+    .loginButton {
+      @include vwConvert.mo(margin-top, 17);
+    }
+  }
+}
