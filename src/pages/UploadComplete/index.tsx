@@ -18,18 +18,17 @@ const UploadComplete = () => {
   }
   return (
     <div className={styles.uploadComplete}>
-      <div className='contentsInner'>
-        <div className={styles.image}>
-          <img src={IMAGE_PATH.basket} alt='장바구니 이미지' />
-        </div>
-        <p className={styles.message}>
-          소분게시물 {state.type}이
-          <br /> 완료 되었어요!
-        </p>
-        <FloatingElem offsetBottom={45}>
-          <Button type='primary' text='확인' onClick={handleMoveToHome} />
-        </FloatingElem>
+      <div className={styles.image}>
+        <img src={IMAGE_PATH.basket} alt='장바구니 이미지' />
       </div>
+      <p className={styles.message}>
+        소분게시물 {state.type}이
+        <br /> 완료 되었어요!
+      </p>
+      <div className={styles.buttonWrap}>
+        <Button type='primary' text='확인' onClick={handleMoveToHome} />
+      </div>
+      <div className='contentsInner'>{/* <FloatingElem offsetBottom={45}></FloatingElem> */}</div>
     </div>
   )
 }

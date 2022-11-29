@@ -12,6 +12,7 @@ import Input from 'components/Input'
 import FloatingElem from 'components/FloatingElem'
 import ErrorMessage from 'components/ErrorMessage'
 import { TwoButtonModal } from 'components/Modal'
+import Header from 'components/Header'
 
 import useModal from 'hooks/useModal'
 
@@ -55,12 +56,8 @@ const ProfileEdit = () => {
   }, [watch])
 
   useEffect(() => {
-    if (profileUrl === '1') {
-      setPreImage(IMAGE_PATH.profile)
-      return
-    }
     setPreImage(profileUrl)
-  }, [previewURL, profileUrl])
+  }, [profileUrl])
 
   const handleClickUploadBtn = useCallback(() => {
     if (inputRef.current) {
@@ -133,11 +130,8 @@ const ProfileEdit = () => {
 
   return (
     <div className={styles.profile}>
+      <Header headText='마이페이지' leftChild={<Button type='customBack' onClick={() => setIsOpen(true)} />} />
       <div className='contentsInner'>
-        <h3>마이페이지</h3>
-        <button type='button' onClick={() => setIsOpen(true)}>
-          back
-        </button>
         <form encType='multipart/form-data' onSubmit={handleSubmit(onSubmit)}>
           <div className={styles.top}>
             <input type='file' ref={inputRef} accept='image/*' multiple hidden onChange={handleImageUpload} />
@@ -156,7 +150,6 @@ const ProfileEdit = () => {
                 type='text'
                 id='nickname'
                 className={styles.textInput}
-                // defaultValue={nickname}
                 {...register('nickname', {
                   maxLength: { value: 6, message: '6자 이하로 입력해주세요.' },
                   onChange: () => setNicknameActive(false),
@@ -165,7 +158,7 @@ const ProfileEdit = () => {
               <Button
                 secondary
                 type={nicknameActive ? 'primary' : 'secondary'}
-                text='중복체크'
+                text='중복확인'
                 onClick={handleCheckNickName}
                 isDisabled={!nicknameCurrent || nickname === nicknameCurrent || errors.nickname?.type === 'maxLength'}
               />
