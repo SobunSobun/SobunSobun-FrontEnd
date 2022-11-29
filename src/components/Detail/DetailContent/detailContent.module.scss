@@ -9,11 +9,10 @@
 
   .like {
     position: absolute;
-    top: -3px;
-    right: 0;
+    right: 7px;
     cursor: pointer;
     @media (max-width: sizes.$SCREEN_SM) {
-      @include vwConvert.mo(top, -3);
+      @include vwConvert.mo(right, 7);
     }
 
     svg {
@@ -35,11 +34,15 @@
       width: 25px;
       height: 25px;
       overflow: hidden;
-      background: colors.$GRAYA;
       border-radius: 50%;
       @media (max-width: sizes.$SCREEN_SM) {
         @include vwConvert.mo(width, 25);
         @include vwConvert.mo(height, 25);
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
       }
     }
 
@@ -114,8 +117,8 @@
   .detailBtn {
     padding: 16px 0;
     margin-top: 18px;
-    border-top: 1px solid colors.$GRAYD;
-    border-bottom: 1px solid colors.$GRAYD;
+    border-top: 1px solid colors.$LINE_1;
+    border-bottom: 1px solid colors.$LINE_1;
     @media (max-width: sizes.$SCREEN_SM) {
       @include vwConvert.mo(padding, 16 0);
       @include vwConvert.mo(margin-top, 18);
@@ -123,8 +126,10 @@
 
     button {
       height: 47px;
+      font-size: 16px;
       @media (max-width: sizes.$SCREEN_SM) {
         @include vwConvert.mo(height, 47);
+        @include fontSize.emFontSizeMO(16);
       }
     }
   }

@@ -6,13 +6,14 @@ interface Props {
   leftChild?: ReactNode
   headText?: string
   rightChild?: ReactNode
+  largeText?: boolean
 }
 
-const Header = ({ leftChild, headText, rightChild }: Props) => {
+const Header = ({ leftChild, headText, rightChild, largeText = false }: Props) => {
   return (
     <header className={styles.header}>
       {leftChild && <div className={cx({ [styles.leftChild]: headText })}>{leftChild}</div>}
-      {headText && <h2 className={styles.headText}>{headText}</h2>}
+      {headText && <h2 className={cx(styles.headText, { [styles.largeText]: largeText })}>{headText}</h2>}
       {rightChild && <div className={styles.rightChild}>{rightChild}</div>}
     </header>
   )

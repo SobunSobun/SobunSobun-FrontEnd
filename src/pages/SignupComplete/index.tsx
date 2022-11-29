@@ -28,7 +28,7 @@ const SignupComplete = () => {
 
   return (
     <div className={styles.signupComplete}>
-      <Header headText='반가워요' />
+      <Header largeText headText='반가워요' />
       <div className={styles.inner}>
         <p className={styles.greeting}>{state.nickname}님</p>
         <p className={styles.desc}>따뜻한 소분 이웃과 함께해요</p>
