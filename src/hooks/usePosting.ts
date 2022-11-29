@@ -21,9 +21,8 @@ const useCreatePost = () => {
   const queryClient = useQueryClient()
   const navigate = useNavigate()
   return useMutation(newPostingAPI, {
-    onSuccess(response) {
+    onSuccess() {
       // eslint-disable-next-line
-      console.log(response)
       queryClient.invalidateQueries('feedList')
       resetDate()
       resetTime()
@@ -50,9 +49,8 @@ const useEditPost = () => {
   const resetCategory = useResetRecoilState(categoryState)
   const resetCount = useResetRecoilState(postingCountState)
   return useMutation(editPostingAPI, {
-    onSuccess(response) {
+    onSuccess() {
       // eslint-disable-next-line
-      console.log(response)
       resetDate()
       resetTime()
       resetMarket()

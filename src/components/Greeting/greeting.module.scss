@@ -5,14 +5,14 @@
 
 .greeting {
   position: absolute;
-  top: 155px;
+  top: 140px;
   left: 50%;
   z-index: 9;
   color: colors.$WHITE;
   text-align: center;
   transform: translateX(-50%);
   @media (max-width: sizes.$SCREEN_SM) {
-    @include vwConvert.mo(top, 155);
+    @include vwConvert.mo(top, 140);
   }
 
   .logo {
