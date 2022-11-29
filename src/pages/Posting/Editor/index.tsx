@@ -1,7 +1,10 @@
-import { ChangeEvent, useEffect, useState, Dispatch, SetStateAction } from 'react'
+import { ChangeEvent, useEffect, useState, Dispatch, SetStateAction, FormEvent } from 'react'
+import { useMutation, useQueryClient } from 'react-query'
 import { useNavigate } from 'react-router-dom'
 import cx from 'classnames'
 import { useRecoilValue, useRecoilState } from 'recoil'
+
+import { newPostingAPI, editPostingAPI } from 'apis/posting'
 
 import {
   postingCountState,
@@ -13,13 +16,14 @@ import {
 } from 'recoil/post.atom'
 
 import { detailData } from 'types'
-import { authInstance } from 'apis/client'
+import { isAxiosError } from 'apis/client'
 
 import TimePickerModal from 'pages/Posting/TimpickerModal'
 import MapModal from 'pages/Posting/MapModal'
 import Button from 'components/Button'
 
 import { ArrowPrevIcon } from 'assets/svgs'
+
 import Counter from '../Counter'
 import TimePicker from '../TimePicker'
 
@@ -46,6 +50,7 @@ const Editor = ({
   setLocalContent,
 }: Props) => {
   const navigate = useNavigate()
+  const queryClient = useQueryClient()
 
   const date = useRecoilValue(postingDateState)
   const time = useRecoilValue(postingTimeState)
@@ -64,6 +69,38 @@ const Editor = ({
     setLocalContent(e.currentTarget.value)
   }
 
+  const { mutate: newPostAPI } = useMutation(newPostingAPI, {
+    onSuccess(response) {
+      // eslint-disable-next-line
+      console.log(response)
+      queryClient.invalidateQueries('feedList')
+      navigate('/upload-complete', { state: { type: '작성' } })
+    },
+    onError(err) {
+      if (isAxiosError(err)) {
+        // eslint-disable-next-line no-alert
+        alert('게시물 업로드에 실패하였습니다.')
+      }
+    },
+  })
+  const { mutate: editPostAPI } = useMutation(editPostingAPI, {
+    onSuccess(response) {
+      // eslint-disable-next-line
+      console.log(response)
+      navigate('/upload-complete', { state: { type: '수정' } })
+    },
+    onError(err) {
+      if (isAxiosError(err)) {
+        // eslint-disable-next-line no-alert
+        alert('게시물 수정이 실패하였습니다.')
+      }
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries(['getDetailAPI', postId])
+      queryClient.invalidateQueries(['feedList'])
+    },
+  })
+
   // 불러온 데이터 일 때만 실행
   useEffect(() => {
     if (propData) {
@@ -75,10 +112,14 @@ const Editor = ({
   }, [propData, setCount, setLocalContent, setLocalTitle, setMarket])
 
   const handleColor = () => {
-    if (localTitle && localContent && market && valueUpdate) {
-      return 'primary'
+    let status: 'primary' | 'negative' = 'negative'
+    const common = localTitle && localContent && market
+    if (isEdit) {
+      status = common ? 'primary' : 'negative'
+    } else {
+      status = common && valueUpdate ? 'primary' : 'negative'
     }
-    return 'negative'
+    return status
   }
 
   const handleDisabled = () => {
@@ -98,26 +139,16 @@ const Editor = ({
     return formData
   }
 
-  const handleNewSubmit = async () => {
+  const handleNewSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
     const formData = handleFormData()
-    try {
-      await authInstance.post('/post/register', formData)
-      navigate('/upload-complete', { state: { type: '작성' } })
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.log(error)
-    }
+    newPostAPI(formData)
   }
 
-  const handleEditSubmit = async () => {
+  const handleEditSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
     const formData = handleFormData()
-    try {
-      await authInstance.post(`/post/${postId}`, formData)
-      navigate('/upload-complete', { state: { type: '수정' } })
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.log(error)
-    }
+    editPostAPI({ postId, formData })
   }
 
   useEffect(() => {
@@ -144,7 +175,8 @@ const Editor = ({
         </div>
         <div className={styles.line}>
           <textarea
-            className={styles.textarea}
+            // className={styles.textarea }
+            className={cx(styles.textarea, { [styles.highlight]: isEdit })}
             id='content'
             placeholder='내용을 입력해주세요'
             value={localContent}

@@ -18,7 +18,7 @@ const New = () => {
   const handleSaveValue = () => {
     setRecoilTitle(localTitle)
     setRecoilContent(localContent)
-    navigate(-1)
+    navigate('/category')
   }
 
   return (
