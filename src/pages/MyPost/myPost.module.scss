@@ -35,7 +35,7 @@
   z-index: 100;
   width: 100%;
   max-width: 768px;
-  padding: 16px;
+  padding: 75px 16px 16px;
   background-color: colors.$BG;
 
   h2 {
@@ -43,7 +43,7 @@
     font-weight: 700;
   }
   @media (max-width: sizes.$SCREEN_SM) {
-    @include vwConvert.mo(padding, 16);
+    @include vwConvert.mo(padding, 75 16 16);
 
     h2 {
       @include fontSize.emFontSizeMO(25);
@@ -53,10 +53,10 @@
 
 .inner {
   height: 100%;
-  padding: 120px 16px 16px;
+  padding: 179px 16px 16px;
   background-color: colors.$BG;
 
   @media (max-width: sizes.$SCREEN_SM) {
-    @include vwConvert.mo(padding, 120 16 16);
+    @include vwConvert.mo(padding, 179 16 16);
   }
 }

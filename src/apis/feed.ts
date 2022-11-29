@@ -13,7 +13,7 @@ import { authInstance } from './client'
 function convertDate(data: Array<number>) {
   return new Date(
     (data as number[])[0],
-    (data as number[])[1],
+    (data as number[])[1] - 1,
     (data as number[])[2],
     (data as number[])[3],
     (data as number[])[4],

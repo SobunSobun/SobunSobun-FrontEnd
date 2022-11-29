@@ -32,7 +32,7 @@
 
   p {
     & > svg {
-      width: 12px;
+      width: 16px;
       transform: translateY(1px);
     }
     display: flex;
@@ -54,10 +54,10 @@
 
   & > svg {
     position: absolute;
-    right: 0;
+    right: 16px;
     bottom: 0;
-    width: 120px;
-    height: 100px;
+    width: 104px;
+    height: 95px;
   }
   @media (max-width: sizes.$SCREEN_SM) {
     @include vwConvert.mo(padding, 12 21);
@@ -79,9 +79,6 @@
     }
 
     p {
-      & > svg {
-        @include vwConvert.mo(width, 12);
-      }
       @include vwConvert.mo(gap, 5);
       @include vwConvert.mo(height, 18);
       @include fontSize.emFontSizeMO(12);
@@ -93,8 +90,7 @@
     }
 
     & > svg {
-      @include vwConvert.mo(width, 120);
-      @include vwConvert.mo(height, 100);
+      @include vwConvert.mo(right, 16);
     }
   }
 

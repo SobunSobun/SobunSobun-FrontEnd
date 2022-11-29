@@ -23,19 +23,19 @@
   z-index: 100;
   width: 100%;
   max-width: 768px;
-  padding: 16px;
+  padding: 75px 16px 16px;
   background-color: colors.$BG;
   @media (max-width: sizes.$SCREEN_SM) {
-    @include vwConvert.mo(padding, 16);
+    @include vwConvert.mo(padding, 75 16 16);
   }
 }
 
 .inner {
   height: 100%;
-  padding: 83px 16px 16px;
+  padding: 142px 16px 16px;
   background-color: colors.$BG;
   @media (max-width: sizes.$SCREEN_SM) {
-    @include vwConvert.mo(padding, 83 16 16);
+    @include vwConvert.mo(padding, 142 16 16);
   }
 }
 

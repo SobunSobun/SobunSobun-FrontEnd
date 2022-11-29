@@ -27,7 +27,7 @@ const Home = () => {
         <PlusIcon className={styles.plusIcon} />
       </button>
       <section className={styles.headerSection}>
-        <h3>{location} 소분 시장</h3>
+        <h3>{location && location.split(' ')[1]} 소분 시장</h3>
         <CategorySlider data={categories} now={selectedCategory} setNow={setSelectedCategory} />
       </section>
       <section className={styles.cardSection}>

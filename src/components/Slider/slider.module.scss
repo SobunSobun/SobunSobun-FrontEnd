@@ -29,12 +29,15 @@
 
       button {
         padding: 5px 28px;
+        font-size: 12px;
+        font-weight: 400;
       }
       @media (max-width: sizes.$SCREEN_SM) {
         flex: 0 0 auto;
 
         button {
           @include vwConvert.mo(padding, 5 28);
+          @include fontSize.emFontSizeMO(12);
         }
       }
     }
