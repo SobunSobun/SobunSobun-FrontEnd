@@ -27,7 +27,10 @@ const useLike = () => {
         queryKey: ['getDetailAPI', postId],
         refetchActive: false,
       })
-      queryClient.invalidateQueries(['LikeList'])
+      queryClient.invalidateQueries({
+        queryKey: ['LikeList'],
+        refetchInactive: true,
+      })
     },
   })
 }
