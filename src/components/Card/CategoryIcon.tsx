@@ -1,5 +1,5 @@
 import React from 'react'
-import { FruitIcon } from 'assets/svgs'
+import { EggIcon, EtcIcon, FruitIcon, MeatIcon, VegetableIcon, WaterIcon } from 'assets/svgs'
 import { category } from 'types'
 
 const CategoryIcon = ({ type }: { type: Omit<category, '전체'> }) => {
@@ -7,15 +7,15 @@ const CategoryIcon = ({ type }: { type: Omit<category, '전체'> }) => {
     case '과일':
       return <FruitIcon />
     case '채소':
-      return <FruitIcon />
+      return <VegetableIcon />
     case '계란':
-      return <FruitIcon />
+      return <EggIcon />
     case '생수':
-      return <FruitIcon />
+      return <WaterIcon />
     case '축산':
-      return <FruitIcon />
+      return <MeatIcon />
     case '기타':
-      return <FruitIcon />
+      return <EtcIcon />
     default:
       return <FruitIcon />
   }

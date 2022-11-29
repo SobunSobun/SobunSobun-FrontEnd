@@ -18,11 +18,18 @@ const getDetailAPI: getDetailType = (id: string | undefined) => authInstance.get
 
 const Detail = () => {
   const { id } = useParams()
-  const { data } = useQuery<detailData>(['getDetailAPI', id], () => getDetailAPI(id).then((res) => res.data))
+  const { data, isFetching } = useQuery<detailData>(
+    ['getDetailAPI', id],
+    () => getDetailAPI(id).then((res) => res.data),
+    {
+      staleTime: Infinity,
+      refetchOnMount: true,
+    }
+  )
   const navigate = useNavigate()
   const { isOpen, onClose, setIsOpen } = useModal()
 
-  if (!data) return null
+  if (!data || isFetching) return null
 
   return (
     <div className={styles.detail}>
