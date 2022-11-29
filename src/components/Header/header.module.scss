@@ -4,26 +4,26 @@
 @use 'src/styles/mixins/fontSize';
 
 .header {
-  padding: 21px 16px 0;
+  padding: 48px 16px 0;
 
   .leftChild {
-    margin-bottom: 25px;
+    margin-bottom: 21px;
   }
 
   .headText {
-    font-size: 33px;
+    font-size: 25px;
     color: colors.$GRAY2;
   }
 
   @media (max-width: sizes.$SCREEN_SM) {
-    @include vwConvert.mo(padding, 21 16 0);
+    @include vwConvert.mo(padding, 48 16 0);
 
     .leftChild {
-      @include vwConvert.mo(margin-bottom, 25);
+      @include vwConvert.mo(margin-bottom, 21);
     }
 
     .headText {
-      @include fontSize.emFontSizeMO(33);
+      @include fontSize.emFontSizeMO(25);
     }
   }
 }

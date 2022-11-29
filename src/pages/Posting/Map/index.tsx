@@ -32,6 +32,7 @@ const Map = ({ searchKeyword, close }: Keyword) => {
     // 지도 생성 및 객체 리턴
     const options = {
       center: new window.kakao.maps.LatLng(lat, lng), // 지도의 중심좌표
+      // center: new window.kakao.maps.LatLng(37.48764, 126.72736), // 지도의 중심좌표
       level: 3,
     }
     const map = new window.kakao.maps.Map(container.current, options)

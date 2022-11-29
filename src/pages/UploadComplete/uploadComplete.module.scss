@@ -4,8 +4,10 @@
 @use 'src/styles/mixins/fontSize';
 
 .uploadComplete {
+  padding: 20px;
+
   .image {
-    margin-top: 80px;
+    margin-top: 180px;
     text-align: center;
 
     img {
@@ -15,7 +17,8 @@
   }
 
   .message {
-    padding-top: 30px;
+    padding-top: 20px;
+    margin-bottom: 125px;
     font-size: 25px;
     font-weight: 500;
     line-height: 30px;
@@ -23,8 +26,10 @@
   }
 
   @media (max-width: sizes.$SCREEN_SM) {
+    @include vwConvert.mo(padding, 20);
+
     .image {
-      @include vwConvert.mo(margin-top, 100);
+      @include vwConvert.mo(margin-top, 180);
 
       img {
         @include vwConvert.mo(width, 271);
@@ -33,7 +38,8 @@
     }
 
     .message {
-      @include vwConvert.mo(padding-top, 30);
+      @include vwConvert.mo(padding-top, 20);
+      @include vwConvert.mo(margin-bottom, 125);
       @include vwConvert.mo(font-size, 25);
       @include vwConvert.mo(line-height, 30);
     }

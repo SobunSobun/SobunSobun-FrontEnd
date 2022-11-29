@@ -35,7 +35,7 @@
 
   .lineWrap {
     width: 100%;
-    padding-bottom: 186px;
+    // padding-bottom: 160px;
     margin-top: 22px;
     border-top: 1px solid colors.$LINE_1;
 
@@ -154,7 +154,6 @@
     // current
 
     .lineWrap {
-      @include vwConvert.mo(padding-bottom, 186);
       @include vwConvert.mo(margin-top, 22);
 
       button {
@@ -185,10 +184,13 @@
 
     .textInput {
       @include vwConvert.mo(margin-top, 12);
+
       @include fontSize.emFontSizeMO(13);
     }
 
     form {
+      @include vwConvert.mo(margin-bottom, 100);
+
       .line {
         @include vwConvert.mo(margin-top, 25);
       }

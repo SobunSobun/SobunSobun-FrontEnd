@@ -62,24 +62,45 @@
 
   &.loading {
     cursor: default;
-    opacity: 0.6;
+    opacity: 0.8;
 
     .spinner {
-      width: 20px;
-      height: 20px;
-      margin-right: 10px;
+      display: inline-block;
+      width: 17px;
+      height: 17px;
+      margin-right: 25px;
+      font-size: 0;
+      border: 2px solid colors.$GRAY_EF;
+      border-top: 3px solid colors.$WHITE;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+
+      @media (max-width: sizes.$SCREEN_SM) {
+        @include vwConvert.mo(width, 17);
+        @include vwConvert.mo(height, 17);
+      }
     }
   }
 
   &.back,
   &.customBack {
-    width: 19.5px;
-    height: 34.5px;
-    background: url('../../assets/svgs/arrow_prev.svg') no-repeat center/70% auto;
+    width: 40px;
+    height: 40px;
+    background: url('../../assets/svgs/arrow_prev.svg') no-repeat center/100% auto;
 
     @media (max-width: sizes.$SCREEN_SM) {
-      @include vwConvert.mo(width, 19.5);
-      @include vwConvert.mo(height, 34.5);
+      @include vwConvert.mo(width, 27);
+      @include vwConvert.mo(height, 27);
     }
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0);
+  }
+
+  to {
+    transform: rotate(360deg);
   }
 }

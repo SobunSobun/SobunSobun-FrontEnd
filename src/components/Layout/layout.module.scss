@@ -16,14 +16,14 @@
     max-width: 768px;
     min-height: 100vh;
     margin: 0 auto;
-    background-color: colors.$BG;
+    // background-color: colors.$BG;
   }
 
   .inner {
     flex: 1;
     height: calc(100vh - 83px);
     overflow-y: auto;
-    background-color: colors.$BG;
+    // background-color: colors.$BG;
   }
 
   @media (max-width: sizes.$SCREEN_SM) {

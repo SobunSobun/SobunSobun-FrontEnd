@@ -20,7 +20,7 @@
   }
 
   .profile {
-    padding-top: 84px;
+    padding-top: 96px;
     margin-bottom: 123px;
     text-align: center;
 
@@ -44,7 +44,7 @@
     }
 
     .profile {
-      @include vwConvert.mo(padding-top, 30);
+      @include vwConvert.mo(padding-top, 96);
       @include vwConvert.mo(margin-bottom, 123);
     }
   }
