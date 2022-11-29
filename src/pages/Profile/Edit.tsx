@@ -125,6 +125,10 @@ const ProfileEdit = () => {
     } finally {
       queryClient.invalidateQueries('myInfo')
       queryClient.invalidateQueries('feedList')
+      queryClient.invalidateQueries({
+        queryKey: ['myPost'],
+        refetchInactive: true,
+      })
     }
   }
 

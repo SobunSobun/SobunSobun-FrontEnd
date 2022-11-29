@@ -34,8 +34,7 @@ const ProfileCurrent = () => {
         // eslint-disable-next-line no-console
         console.log(res)
         localStorage.setItem('sobunsobun', '')
-        // queryClient.invalidateQueries(['myInfo'])
-        queryClient.cancelQueries(['myInfo'])
+        queryClient.resetQueries()
         navigate('/login')
       })
       .catch((error) => {
@@ -54,7 +53,8 @@ const ProfileCurrent = () => {
         console.log(res)
         localStorage.setItem('sobunsobun', '')
         // queryClient.invalidateQueries(['myInfo'])
-        queryClient.cancelQueries(['myInfo'])
+        // queryClient.cancelQueries(['myInfo'])
+        queryClient.removeQueries()
         navigate('/login')
       })
       .catch((error) => {
