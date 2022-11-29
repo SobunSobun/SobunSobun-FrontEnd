@@ -7,8 +7,13 @@ import { detailData } from 'types'
 import useLike from 'hooks/useLike'
 import useMyInfo from 'hooks/useMyInfo'
 import useApply from 'hooks/useApply'
-
+import dayjs from 'dayjs'
+import relativeTime from 'dayjs/plugin/relativeTime'
 import styles from './detailContent.module.scss'
+import 'dayjs/locale/ko'
+
+dayjs.locale('ko')
+dayjs.extend(relativeTime)
 
 interface Props {
   postId: string
@@ -38,7 +43,9 @@ const DetailContent = ({ data, postId }: Props) => {
         {data.isLike ? <LikeOnIcon /> : <LikeIcon />}
       </div>
       <div className={styles.detailNickname}>
-        <span className={styles.profile} />
+        <span className={styles.profile}>
+          <img src={data.profileUrl} alt='' />
+        </span>
         <span className={styles.nickname}>{data.nickname}</span>
       </div>
       <div className={styles.detailTitle}>
@@ -55,7 +62,7 @@ const DetailContent = ({ data, postId }: Props) => {
           </li>
           <li className={styles.time}>
             <TimeIcon />
-            {data.meetingTime}
+            {`${dayjs(data.meetingTime).format('YYYY. MM. DD \xa0 hh시 m분')} `}
           </li>
           <li className={styles.people}>
             <PeopleIcon />

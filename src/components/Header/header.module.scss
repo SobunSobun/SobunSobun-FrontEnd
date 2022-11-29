@@ -15,6 +15,10 @@
     color: colors.$GRAY2;
   }
 
+  .largeText {
+    font-size: 33px;
+  }
+
   @media (max-width: sizes.$SCREEN_SM) {
     @include vwConvert.mo(padding, 48 16 0);
 
@@ -24,6 +28,10 @@
 
     .headText {
       @include fontSize.emFontSizeMO(25);
+    }
+
+    .largeText {
+      @include fontSize.emFontSizeMO(33);
     }
   }
 }

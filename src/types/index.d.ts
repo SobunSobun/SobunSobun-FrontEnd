@@ -123,6 +123,7 @@ interface detailData {
   isLike: boolean
   isApply: boolean
   isWriter: boolean
+  profileUrl: string
 }
 export interface ReplyCommentType {
   childCommentId: number

@@ -6,6 +6,7 @@
 
 .button {
   @include flexbox.flexbox;
+  font-weight: 400;
   transition: color 200ms;
 
   + .button {

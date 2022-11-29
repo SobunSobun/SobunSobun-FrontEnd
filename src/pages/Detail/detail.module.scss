@@ -17,18 +17,13 @@
       align-items: center;
       justify-content: space-between;
       padding: 0 0 11px;
-      border-bottom: 1px solid colors.$GRAYD;
+      border-bottom: 1px solid colors.$LINE_1;
 
       @media (max-width: sizes.$SCREEN_SM) {
         @include vwConvert.mo(padding, 0 0 11);
       }
 
       .editButton {
-        // display: flex;
-        // flex-direction: column;
-        // align-items: center;
-        // justify-content: center;
-        // cursor: pointer;
         width: 48px;
         height: 48px;
 
@@ -46,26 +41,6 @@
             height: 30%;
           }
         }
-
-        // i {
-        //   display: block;
-        //   width: 4px;
-        //   height: 4px;
-        //   background: colors.$BLACK;
-        //   border-radius: 50%;
-
-        //   @media (max-width: sizes.$SCREEN_SM) {
-        //     @include vwConvert.mo(width, 4);
-        //     @include vwConvert.mo(height, 4);
-        //   }
-
-        //   & + i {
-        //     margin-top: 2px;
-        //     @media (max-width: sizes.$SCREEN_SM) {
-        //       @include vwConvert.mo(margin-top, 2);
-        //     }
-        //   }
-        // }
       }
     }
   }
