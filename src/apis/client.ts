@@ -27,3 +27,13 @@ export const isAxiosError = <E>(err: unknown | AxiosError<E>): err is AxiosError
 
 export const defaultInstance = axiosApi()
 export const authInstance = axiosAuthApi()
+
+authInstance.interceptors.request.use((config) => {
+  const token = localStorage.getItem('sobunsobun')
+  if (!config.headers || !token) return config
+  const headerToken = config.headers.SOBUNSOBUN
+  if (headerToken === token) return config
+
+  config.headers.SOBUNSOBUN = token
+  return config
+})
