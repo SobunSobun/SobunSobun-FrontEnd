@@ -16,11 +16,11 @@
   z-index: 10;
   width: 100%;
   max-width: 768px;
-  height: 100px;
+  height: 159px;
   background-color: colors.$BG;
 
   h3 {
-    padding: 16px 16px 0;
+    padding: 75px 16px 0;
     font-size: 25px;
     font-weight: 700;
     color: colors.$BLACK;
@@ -30,10 +30,10 @@
     padding: 16px 0 0 16px;
   }
   @media (max-width: sizes.$SCREEN_SM) {
-    @include vwConvert.mo(height, 110);
+    @include vwConvert.mo(height, 169);
 
     h3 {
-      @include vwConvert.mo(padding, 16 16 0);
+      @include vwConvert.mo(padding, 75 16 0);
       @include fontSize.emFontSizeMO(25);
     }
 
@@ -44,11 +44,11 @@
 }
 
 .cardSection {
-  padding: 110px 16px 16px;
+  padding: 169px 16px 16px;
   background-color: colors.$BG;
 
   @media (max-width: sizes.$SCREEN_SM) {
-    @include vwConvert.mo(padding, 110 16 16);
+    @include vwConvert.mo(padding, 169 16 16);
   }
 }
 
@@ -76,13 +76,14 @@
   justify-content: center;
   width: 54px;
   height: 54px;
-  background-color: colors.$PRIMARY;
+  background-color: colors.$WHITE;
   filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 25%));
+  border: 1px solid colors.$PRIMARY;
   border-radius: 50%;
 
   &Icon {
     path {
-      fill: white;
+      fill: colors.$PRIMARY;
     }
     width: 20px;
     height: 20px;

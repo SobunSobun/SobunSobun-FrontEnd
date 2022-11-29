@@ -133,7 +133,7 @@
 
   @media (max-width: sizes.$SCREEN_SM) {
     h3 {
-      @include vwConvert.mo(padding, 75 0 30);
+      @include vwConvert.mo(padding, 59 0 30);
       @include fontSize.emFontSizeMO(25);
     }
 

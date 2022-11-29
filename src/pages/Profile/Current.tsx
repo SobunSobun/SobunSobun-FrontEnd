@@ -1,3 +1,5 @@
+import { useQueryClient } from 'react-query'
+
 import { useNavigate } from 'react-router-dom'
 import useMyInfo from 'hooks/useMyInfo'
 
@@ -13,6 +15,8 @@ import styles from './profile.module.scss'
 
 const ProfileCurrent = () => {
   const { nickname, email, userId, profileUrl } = useMyInfo()
+
+  const queryClient = useQueryClient()
   const navigate = useNavigate()
   const { isOpen, onClose, setIsOpen } = useModal()
 
@@ -29,8 +33,10 @@ const ProfileCurrent = () => {
       .then((res) => {
         // eslint-disable-next-line no-console
         console.log(res)
-        navigate('/login')
         localStorage.setItem('sobunsobun', '')
+        // queryClient.invalidateQueries(['myInfo'])
+        queryClient.cancelQueries(['myInfo'])
+        navigate('/login')
       })
       .catch((error) => {
         // eslint-disable-next-line no-console
@@ -47,6 +53,8 @@ const ProfileCurrent = () => {
         // eslint-disable-next-line no-console
         console.log(res)
         localStorage.setItem('sobunsobun', '')
+        // queryClient.invalidateQueries(['myInfo'])
+        queryClient.cancelQueries(['myInfo'])
         navigate('/login')
       })
       .catch((error) => {

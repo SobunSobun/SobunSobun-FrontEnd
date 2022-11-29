@@ -15,7 +15,7 @@ const CategoryIcon = ({ type }: { type: Omit<category, '전체'> }) => {
     case '축산':
       return <MeatIcon />
     case '기타':
-      return <EtcIcon />
+      return <EtcIcon style={{ width: 104, height: 81 }} />
     default:
       return <FruitIcon />
   }

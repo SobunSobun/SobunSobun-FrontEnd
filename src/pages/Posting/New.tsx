@@ -5,7 +5,6 @@ import Button from 'components/Button'
 import { useNavigate } from 'react-router-dom'
 import { postingTitleState, postingContentState } from 'recoil/post.atom'
 import Editor from './Editor'
-import styles from './posting.module.scss'
 
 const New = () => {
   const navigate = useNavigate()
@@ -22,7 +21,7 @@ const New = () => {
   }
 
   return (
-    <div className={styles.new}>
+    <div>
       <Header leftChild={<Button type='customBack' onClick={handleSaveValue} />} headText='게시글 작성' />
       <div className='contentsInner'>
         <Editor

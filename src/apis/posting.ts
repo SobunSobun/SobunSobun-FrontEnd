@@ -12,3 +12,7 @@ export const newPostingAPI = (formData: FormData) => {
 export const editPostingAPI = ({ postId, formData }: Props) => {
   return authInstance.patch(`/post/${postId}`, formData)
 }
+
+export const deletePostingAPI = (postId: string | undefined) => {
+  return authInstance.delete(`/post/${postId}`)
+}

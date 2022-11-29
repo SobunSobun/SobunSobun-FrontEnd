@@ -6,7 +6,10 @@ import { feed } from 'types'
 import styles from './bookmark.module.scss'
 
 const Bookmark = () => {
-  const { data, isLoading } = useQuery<Array<feed>>(['LikeList'], getMyLikeList)
+  const { data, isLoading } = useQuery<Array<feed>>(['LikeList'], getMyLikeList, {
+    staleTime: Infinity,
+    cacheTime: Infinity,
+  })
   return (
     <div className={styles.bookmark}>
       <section className={styles.headerSection}>
