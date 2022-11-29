@@ -3,29 +3,22 @@
 @use '/src/styles/constants/colors';
 
 .splash {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  position: relative;
+  width: 100%;
   height: 100vh;
+  overflow: hidden;
+  background-color: colors.$PRIMARY;
 
-  .buttonWrap {
-    margin-top: 185px;
-    text-align: center;
-  }
+  .image {
+    position: absolute;
+    bottom: -5px;
+    width: 100%;
 
-  .loginButton {
-    display: inline-block;
-    margin-top: 19px;
-    color: colors.$BLACK;
-  }
-
-  @media (max-width: sizes.$SCREEN_SM) {
-    .buttonWrap {
-      @include vwConvert.mo(margin-top, 185);
+    img {
+      width: 100%;
     }
-
-    .loginButton {
-      @include vwConvert.mo(margin-top, 19);
+    @media (max-width: sizes.$SCREEN_SM) {
+      @include vwConvert.mo(bottom, -9);
     }
   }
 }

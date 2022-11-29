@@ -6,6 +6,27 @@
 .login {
   padding-top: 60px;
 
+  .greeting {
+    text-align: center;
+  
+    .logo {
+      width: 163px;
+      height: 47px;
+      @media (max-width: sizes.$SCREEN_SM) {
+        @include vwConvert.mo(width, 163);
+        @include vwConvert.mo(height, 47);
+      }
+    }
+  
+    .desc {
+      font-size: 18px;
+      font-weight: 700;
+      @media (max-width: sizes.$SCREEN_SM) {
+        @include fontSize.emFontSizeMO(18);
+      }
+    }
+  }
+
   .form {
     padding-top: 82px;
   }
