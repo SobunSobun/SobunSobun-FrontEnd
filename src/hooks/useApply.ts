@@ -26,8 +26,9 @@ const useApply = () => {
       }
     },
     onSettled: (data, err, { postId }) => {
-      queryClient.invalidateQueries(['getDetailAPI', postId])
+      queryClient.invalidateQueries({ queryKey: ['getDetailAPI', postId], refetchActive: false })
       queryClient.invalidateQueries(['feedList', '전체'], { refetchPage: (page, index) => index === 0 })
+      queryClient.invalidateQueries({ queryKey: ['participatedPost'], refetchInactive: true })
     },
   })
 }
