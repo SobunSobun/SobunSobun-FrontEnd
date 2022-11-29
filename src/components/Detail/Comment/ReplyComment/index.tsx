@@ -17,7 +17,9 @@ const ReplyComment = ({ reply }: Props) => {
   return (
     <div className={styles.commentReply}>
       <div className={styles.commentBox}>
-        <span className={styles.profile}>{reply.profileUrl}</span>
+        <span className={styles.profile}>
+          <img src={reply.profileUrl} alt='' />
+        </span>
         <span className={styles.nickname}>{reply.nickname}</span>
         <div className={styles.text}>{reply.content}</div>
       </div>

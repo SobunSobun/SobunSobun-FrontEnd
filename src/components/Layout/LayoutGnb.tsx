@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Outlet } from 'react-router-dom'
-import useDebounce from 'utils/debounce'
+import useDebounce from 'hooks/useDebounce'
 
 import GNB from '../GNB'
 import styles from './layout.module.scss'

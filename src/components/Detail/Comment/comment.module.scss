@@ -52,11 +52,17 @@
       flex: none;
       width: 23px;
       height: 23px;
+      overflow: hidden;
       background: colors.$GRAY_CF;
       border-radius: 50%;
       @media (max-width: sizes.$SCREEN_SM) {
         @include vwConvert.mo(width, 23);
         @include vwConvert.mo(height, 23);
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
       }
     }
 
