@@ -8,13 +8,22 @@
   height: 100vh;
   overflow: hidden;
   background: no-repeat center/100% auto;
-  background-color: colors.$PRIMARY;
+  background-color: colors.$LIGHT_GREEN;
   background-image: url('../../assets/images/intro_bg_small.png');
 
   .loginButton {
     display: inline-block;
     margin-top: 17px;
     color: colors.$BLACK;
+    text-align: center;
+  }
+
+  .buttonWrap {
+    position: fixed;
+    bottom: 58px;
+    width: 100%;
+    max-width: 768px;
+    padding: 0 16px;
     text-align: center;
   }
 
@@ -25,6 +34,12 @@
   @media (max-width: sizes.$SCREEN_SM) {
     .loginButton {
       @include vwConvert.mo(margin-top, 17);
+    }
+
+    .buttonWrap {
+      position: fixed;
+      @include vwConvert.mo(bottom, 58);
+      @include vwConvert.mo(padding, 0 16);
     }
   }
 }
