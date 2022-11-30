@@ -1,7 +1,9 @@
+/* eslint-disable no-nested-ternary */
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Card from 'components/Card'
 import Spinner from 'components/Spinner'
+import NoResult from 'components/NoResult'
 import { CategorySlider } from 'components/Slider'
 import { category } from 'types'
 import { CATEGORIES } from 'utils/constants'
@@ -33,7 +35,7 @@ const Home = () => {
       <section className={styles.cardSection}>
         {isLoading ? (
           <Spinner />
-        ) : (
+        ) : feedList?.length !== 0 ? (
           <ul className={styles.cardList}>
             {feedList?.map((item) => {
               return (
@@ -45,6 +47,10 @@ const Home = () => {
               )
             })}
           </ul>
+        ) : (
+          <div className={styles.noResult}>
+            <NoResult message='게시물이 없습니다.' />
+          </div>
         )}
         <div ref={readToLoad ? ref : undefined} style={{ height: 10 }} />
       </section>

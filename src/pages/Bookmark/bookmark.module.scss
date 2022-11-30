@@ -4,7 +4,10 @@
 @use 'src/styles/constants/colors';
 
 .bookmark {
+  position: relative;
   height: 100%;
+  overflow-y: auto;
+  background-color: colors.$BG;
 
   h2 {
     padding-bottom: 16px;

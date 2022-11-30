@@ -1,5 +1,6 @@
 import Card from 'components/Card'
 import MyPostHeader from 'components/MyPostHeader'
+import NoResult from 'components/NoResult'
 import Spinner from 'components/Spinner'
 import useMyInfo from 'hooks/useMyInfo'
 import useMyPost from 'hooks/useMyPost'
@@ -24,9 +25,8 @@ const MyPost = () => {
           {isLoading ? (
             <Spinner />
           ) : (
-            <ul>
-              {data &&
-                data[0] &&
+            <ul style={data && data[0] && data[0].length !== 0 ? { minHeight: 0 } : {}}>
+              {data && data[0] && data[0].length !== 0 ? (
                 data[0].map((v) => (
                   <Card
                     key={v.postId}
@@ -35,7 +35,10 @@ const MyPost = () => {
                     isWrite={postState === 'myPost'}
                     isParticipating={postState === 'participatedPost'}
                   />
-                ))}
+                ))
+              ) : (
+                <NoResult message='진행 중인 소분이 없습니다.' />
+              )}
             </ul>
           )}
         </section>
@@ -44,7 +47,13 @@ const MyPost = () => {
           {isLoading ? (
             <Spinner />
           ) : (
-            <ul>{data && data[1] && data[1].map((v) => <Card key={v.postId} data={v} isComplete />)}</ul>
+            <ul style={data && data[0] && data[0].length !== 0 ? { minHeight: 0 } : {}}>
+              {data && data[1] && data[1].length !== 0 ? (
+                data[1].map((v) => <Card key={v.postId} data={v} isComplete />)
+              ) : (
+                <NoResult message='완료된 소분이 없습니다.' />
+              )}
+            </ul>
           )}
         </section>
       </div>
