@@ -8,7 +8,7 @@ interface Props {
 const NoResult = ({ message }: Props) => {
   return (
     <div className={styles.wrapper}>
-      <h3>{message}</h3>
+      <h3 style={{ fontWeight: 500 }}>{message}</h3>
     </div>
   )
 }
