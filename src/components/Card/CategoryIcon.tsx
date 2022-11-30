@@ -1,23 +1,24 @@
+/* eslint-disable */
 import React from 'react'
-import { EggIcon, EtcIcon, FruitIcon, MeatIcon, VegetableIcon, WaterIcon } from 'assets/svgs'
 import { category } from 'types'
+import { ICONS } from 'utils/constants'
 
-const CategoryIcon = ({ type }: { type: Omit<category, '전체'> }) => {
-  switch (type) {
+const CategoryIcon = ({ icon }: { icon: category }) => {
+  switch (icon) {
     case '과일':
-      return <FruitIcon />
+      return <img src={ICONS['FRUIT']} />
     case '채소':
-      return <VegetableIcon />
+      return <img src={ICONS['VEGETABLE']} />
     case '계란':
-      return <EggIcon />
+      return <img src={ICONS['EGG']} />
     case '생수':
-      return <WaterIcon />
+      return <img src={ICONS['WATER']} />
     case '축산':
-      return <MeatIcon />
+      return <img src={ICONS['MEAT']} />
     case '기타':
-      return <EtcIcon style={{ width: 104, height: 81 }} />
+      return <img src={ICONS['ETC']} style={{ width: 104, height: 81 }} />
     default:
-      return <FruitIcon />
+      return <img src={ICONS['EGG']} />
   }
 }
 

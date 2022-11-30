@@ -8,8 +8,8 @@ import { useNavigate } from 'react-router-dom'
 import useModal from 'hooks/useModal'
 import { TwoButtonModal } from 'components/Modal'
 import { region } from 'types'
-import { UseGeoLocation } from 'hooks/useGeoLocation'
-import { getDistance } from 'utils/getDistance'
+// import { UseGeoLocation } from 'hooks/useGeoLocation'
+// import { getDistance } from 'utils/getDistance'
 import FloatingElem from 'components/FloatingElem'
 import styles from './localAuth.module.scss'
 
@@ -18,9 +18,9 @@ const LocalAuth = () => {
   const [searchValue, setSearchValue] = useState<string>('')
   const [myRegion, setMyRegion] = useState<region | null>(null)
 
-  const { lat, lng } = UseGeoLocation()
+  // const { lat, lng } = UseGeoLocation()
   const { isOpen, onClose, setIsOpen } = useModal()
-  const { isOpen: alertOpen, onClose: alertClose, setIsOpen: setAlert } = useModal()
+  // const { isOpen: alertOpen, onClose: alertClose, setIsOpen: setAlert } = useModal()
 
   const navigate = useNavigate()
 
@@ -49,22 +49,8 @@ const LocalAuth = () => {
   )
 
   const nextButtonHandler = useCallback(() => {
-    const flag = getDistance({
-      targetLocation: {
-        lat: Number(myRegion?.location.lat!),
-        lng: Number(myRegion?.location.lon!),
-      },
-      myLocation: {
-        lat: lat!,
-        lng: lng!,
-      },
-    })
-    if (flag >= 6) {
-      setAlert(true)
-    } else {
-      navigate('/signup', { state: { myRegion } })
-    }
-  }, [lat, lng, myRegion, navigate, setAlert])
+    navigate('/signup', { state: { myRegion } })
+  }, [myRegion, navigate])
 
   return (
     <>
@@ -99,14 +85,14 @@ const LocalAuth = () => {
           navigate('/intro')
         }}
       />
-      <TwoButtonModal
+      {/* <TwoButtonModal
         show={alertOpen}
         close={alertClose}
         message={`현재 위치에서 6km 이상 떨어져 있습니다\n회원가입을 진행하시겠습니까?`}
         yesCallBack={() => {
           navigate('/signup', { state: { myRegion } })
         }}
-      />
+      /> */}
     </>
   )
 }

@@ -1,5 +1,7 @@
+/* eslint-disable no-nested-ternary */
 import { getMyLikeList } from 'apis/feed'
 import Card from 'components/Card'
+import NoResult from 'components/NoResult'
 import Spinner from 'components/Spinner'
 import { useQuery } from 'react-query'
 import { feed } from 'types'
@@ -18,7 +20,7 @@ const Bookmark = () => {
       <div className={styles.inner}>
         {isLoading ? (
           <Spinner />
-        ) : (
+        ) : data?.length !== 0 ? (
           <ul className={styles.list}>
             {data?.map((v) => (
               <li key={v.postId}>
@@ -26,6 +28,8 @@ const Bookmark = () => {
               </li>
             ))}
           </ul>
+        ) : (
+          <NoResult message='관심목록이 없습니다.' />
         )}
       </div>
     </div>

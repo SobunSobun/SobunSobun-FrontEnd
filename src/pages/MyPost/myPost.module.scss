@@ -4,7 +4,10 @@
 @use 'src/styles/constants/colors';
 
 .myPost {
+  position: relative;
   height: 100%;
+  overflow-y: auto;
+  background-color: colors.$BG;
 
   section {
     h3 {
@@ -15,7 +18,7 @@
     ul {
       display: grid;
       gap: 10px;
-      min-height: 150px;
+      min-height: calc((100vh - 320px) / 2);
       padding: 16px 0;
     }
     @media (max-width: sizes.$SCREEN_SM) {
@@ -26,7 +29,6 @@
       ul {
         @include vwConvert.mo(gap, 10);
         @include vwConvert.mo(padding, 16 0);
-        @include vwConvert.mo(min-height, 160);
       }
     }
   }
