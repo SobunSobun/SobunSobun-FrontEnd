@@ -4,7 +4,10 @@
 @use 'src/styles/constants/colors';
 
 .myPost {
+  position: relative;
   height: 100%;
+  overflow-y: auto;
+  background-color: colors.$BG;
 
   section {
     h3 {

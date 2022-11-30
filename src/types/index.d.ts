@@ -1,4 +1,5 @@
 import { AxiosResponse } from 'axios'
+import { ICONS } from 'utils/constants'
 
 export interface authData {
   user: null | string
@@ -88,6 +89,7 @@ export interface kakaoResponse {
 }
 
 /* 메인페이지 */
+type IconType = keyof typeof ICONS
 export interface feed {
   postId: number
   nickname: string
@@ -97,7 +99,7 @@ export interface feed {
   recruitNumber: number
   applyNumber: number
   createdAt: Date | number[]
-  category: Omit<category, '전체'>
+  category: category
   last?: boolean
 }
 

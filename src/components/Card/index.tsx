@@ -56,7 +56,7 @@ const Card = ({
           {data.applyNumber}/{data.recruitNumber}
         </p>
       </section>
-      <CategoryIcon type={data.category} />
+      <CategoryIcon icon={data.category} />
     </article>
   )
 }
