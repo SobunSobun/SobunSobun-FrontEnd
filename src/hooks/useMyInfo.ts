@@ -14,6 +14,8 @@ const useMyInfo = () => {
     location: data?.location,
     profileUrl: data?.profileUrl,
     userId: data?.userId,
+    lat: data?.lat,
+    lon: data?.lon,
     isError,
     isLoading,
   }

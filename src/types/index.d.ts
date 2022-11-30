@@ -148,6 +148,8 @@ interface myInfoType {
   email: string
   location: string
   profileUrl: string
+  lat: string
+  lon: string
 }
 /* api 리턴 타입 */
 type getFeedType = ({

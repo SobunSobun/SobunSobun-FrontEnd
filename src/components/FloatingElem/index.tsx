@@ -15,7 +15,7 @@ const FloatingElem = ({ children, offsetBottom }: Props) => {
     } else {
       setBottom(`${(offsetBottom * 100) / 390}vw`)
     }
-  }, 300)
+  }, 100)
 
   useEffect(() => {
     handleCalcVw()

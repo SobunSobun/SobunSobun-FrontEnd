@@ -11,15 +11,14 @@ import {
   modalChangeState,
 } from 'recoil/post.atom'
 
-import { useCreatePost, useEditPost } from 'hooks/usePosting'
 import { detailData } from 'types'
 
 import TimePickerModal from 'pages/Posting/TimpickerModal'
 import MapModal from 'pages/Posting/MapModal'
 import Button from 'components/Button'
+import { useCreatePost, useEditPost } from 'hooks/usePosting'
 
 import { ArrowPrevIcon } from 'assets/svgs'
-
 import Counter from '../Counter'
 import TimePicker from '../TimePicker'
 
@@ -85,8 +84,8 @@ const Editor = ({
   }
 
   const handleColor = () => {
-    let status: 'primary' | 'negative' = 'negative'
     const common = localTitle && localContent && market
+    let status: 'primary' | 'negative' = 'negative'
     if (isEdit) {
       status = common ? 'primary' : 'negative'
     } else {

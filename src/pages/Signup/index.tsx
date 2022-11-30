@@ -230,7 +230,7 @@ const Signup = () => {
         close={onClose}
         message='회원가입을 종료하시겠습니까?'
         yesCallBack={() => {
-          navigate('/')
+          navigate('/intro')
         }}
       />
     </div>

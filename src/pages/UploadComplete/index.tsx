@@ -16,15 +16,27 @@ const UploadComplete = () => {
   const handleMoveToHome = () => {
     navigate('/home')
   }
+
+  const gifPath = {
+    작성: IMAGE_PATH.postCreate,
+    수정: IMAGE_PATH.postEdit,
+    삭제: IMAGE_PATH.postDeleted,
+    마감: IMAGE_PATH.postClosed,
+  }[state.type]
+
+  const message = {
+    작성: '게시물 작성 완료!',
+    수정: '게시물 수정 완료!',
+    삭제: '게시물 삭제 완료!',
+    마감: '모집 마감',
+  }[state.type]
+
   return (
     <div className={styles.uploadComplete}>
       <div className={styles.image}>
-        <img src={IMAGE_PATH.basket} alt='장바구니 이미지' />
+        <img src={gifPath} alt='장바구니 이미지' />
       </div>
-      <p className={styles.message}>
-        소분게시물 {state.type}이
-        <br /> 완료 되었어요!
-      </p>
+      <p className={styles.message}>{message}</p>
       <FloatingElem offsetBottom={45}>
         <Button type='primary' text='확인' onClick={handleMoveToHome} />
       </FloatingElem>

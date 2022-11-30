@@ -1,8 +1,9 @@
-import { isAxiosError } from 'apis/client'
-import { newPostingAPI, editPostingAPI, deletePostingAPI } from 'apis/posting'
 import { useMutation, useQueryClient } from 'react-query'
 import { useResetRecoilState } from 'recoil'
 import { useNavigate } from 'react-router-dom'
+
+import { isAxiosError } from 'utils/axios'
+import { newPostingAPI, editPostingAPI, deletePostingAPI } from 'apis/posting'
 import {
   postingDateState,
   postingTimeState,
@@ -79,10 +80,11 @@ const useDeletePost = () => {
       // eslint-disable-next-line
       if (response.data === '게시글 삭제 완료') {
         queryClient.invalidateQueries('feedList')
-        navigate('/home')
+        navigate('/upload-complete', { state: { type: '삭제' } })
       } else if (response.data === '작성자만 삭제 가능') {
         // eslint-disable-next-line no-alert
         alert('작성자만 삭제 가능합니다.')
+        navigate('/home')
       }
     },
     onError(err) {

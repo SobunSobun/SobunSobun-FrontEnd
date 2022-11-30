@@ -13,7 +13,6 @@ const MapModal = ({ show, close }: ModalPropsType) => {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (!searchInput) {
-      // alert('검색어를 입력해주세요')
       return
     }
     setKeyword(searchInput)

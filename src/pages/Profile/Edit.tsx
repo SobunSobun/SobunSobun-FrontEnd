@@ -128,6 +128,10 @@ const ProfileEdit = () => {
         queryKey: ['myPost'],
         refetchInactive: true,
       })
+      queryClient.invalidateQueries({
+        queryKey: ['LikeList'],
+        refetchInactive: true,
+      })
     }
   }
 
@@ -137,7 +141,7 @@ const ProfileEdit = () => {
       <div className='contentsInner'>
         <form encType='multipart/form-data' onSubmit={handleSubmit(onSubmit)}>
           <div className={styles.top}>
-            <input type='file' ref={inputRef} accept='image/*' multiple hidden onChange={handleImageUpload} />
+            <input type='file' ref={inputRef} accept='.jpg, .png' multiple hidden onChange={handleImageUpload} />
             <div className={styles.image}>
               <button type='button' className={styles.imageWrap} onClick={handleClickUploadBtn}>
                 <img src={previewURL || preImage} alt='프로필이미지' />
