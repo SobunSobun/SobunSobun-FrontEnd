@@ -10,7 +10,7 @@ const LayoutGnb = () => {
 
   const handleResize = useDebounce(() => {
     setInnerHeight(window.innerHeight)
-  }, 300)
+  }, 100)
 
   useEffect(() => {
     handleResize()

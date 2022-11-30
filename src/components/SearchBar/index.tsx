@@ -11,7 +11,7 @@ const SearchBar = ({ value, onChange, onSearch }: Props) => {
   return (
     <div className={styles.wrapper}>
       <SearchIcon className={styles.searchIcon} onClick={onSearch} />
-      <input type='text' value={value} onChange={onChange} placeholder='동명(읍,면)으로 검색(ex.서초동)' />
+      <input type='search' value={value} onChange={onChange} placeholder='동명(읍,면)으로 검색(ex.서초동)' />
     </div>
   )
 }

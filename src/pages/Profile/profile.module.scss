@@ -35,7 +35,6 @@
 
   .lineWrap {
     width: 100%;
-    // padding-bottom: 160px;
     margin-top: 22px;
     border-top: 1px solid colors.$LINE_1;
 
@@ -124,6 +123,17 @@
     p {
       font-size: 13px;
     }
+
+    .buttonWrap {
+      position: fixed;
+      bottom: 43px;
+      left: 50%;
+      width: 100%;
+      max-width: 768px;
+      padding: 0 16px;
+      text-align: center;
+      transform: translateX(-50%);
+    }
   }
 
   label {
@@ -197,6 +207,13 @@
 
       p {
         @include fontSize.emFontSizeMO(13);
+      }
+
+      .buttonWrap {
+        position: static;
+        padding: 0;
+        @include vwConvert.mo(margin-top, 150);
+        transform: translateX(0);
       }
     }
 

@@ -6,9 +6,14 @@ import categoryWater from 'assets/images/category_water.png'
 import categoryEtc from 'assets/images/category_etc.png'
 import mapMarker from 'assets/images/map_marker.svg'
 import mapMarkerActive from 'assets/images/map_marker_active.svg'
-import basket from 'assets/images/basket.gif'
 import profile from 'assets/images/profile_img.png'
-import spinner from 'assets/images/spinner.gif'
+import logoWhite from 'assets/images/logo_white_2.svg'
+import basket from 'assets/images/basket.gif'
+import splash from 'assets/images/splash_small.gif'
+import postClosed from 'assets/images/post_closed.gif'
+import postCreate from 'assets/images/post_create.gif'
+import postDeleted from 'assets/images/post_deleted.gif'
+import postEdit from 'assets/images/post_edit.gif'
 
 export const IMAGE_PATH = {
   categoryFruit,
@@ -20,6 +25,11 @@ export const IMAGE_PATH = {
   mapMarker,
   mapMarkerActive,
   basket,
-  spinner,
   profile,
+  logoWhite,
+  splash,
+  postClosed,
+  postCreate,
+  postDeleted,
+  postEdit,
 } as const

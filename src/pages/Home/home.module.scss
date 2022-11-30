@@ -20,7 +20,7 @@
   background-color: colors.$BG;
 
   h3 {
-    padding: 75px 16px 0;
+    padding: 67px 16px 0;
     font-size: 25px;
     font-weight: 700;
     color: colors.$BLACK;
@@ -33,7 +33,7 @@
     @include vwConvert.mo(height, 169);
 
     h3 {
-      @include vwConvert.mo(padding, 75 16 0);
+      @include vwConvert.mo(padding, 67 16 0);
       @include fontSize.emFontSizeMO(25);
     }
 

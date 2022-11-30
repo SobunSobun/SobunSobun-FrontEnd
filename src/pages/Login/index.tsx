@@ -2,11 +2,14 @@ import { useState, useEffect } from 'react'
 import { useMutation } from 'react-query'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
-import Button from 'components/Button'
 
-import Greeting from 'components/Greeting'
+import { defaultInstance } from 'apis/client'
+import { isAxiosError } from 'utils/axios'
+
+import Button from 'components/Button'
 import Input from 'components/Input'
-import { defaultInstance, isAxiosError } from 'apis/client'
+
+import { LogoImage } from 'assets/svgs'
 import styles from './login.module.scss'
 
 type FormValues = {
@@ -75,7 +78,12 @@ const Login = () => {
   return (
     <div className={styles.login}>
       <div className='contentsInner'>
-        <Greeting />
+        <div className={styles.greeting}>
+          <h1>
+            <LogoImage className={styles.logo} />
+          </h1>
+          <p className={styles.desc}>따뜻한 소분 이웃과 함께해요</p>
+        </div>
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)} autoComplete='off'>
           <div className={styles.line}>
             <Input htmlFor='email' text='이메일'>

@@ -1,16 +1,35 @@
-import { isAxiosError } from 'apis/client'
-import { newPostingAPI, editPostingAPI, deletePostingAPI } from 'apis/posting'
 import { useMutation, useQueryClient } from 'react-query'
+import { useResetRecoilState } from 'recoil'
 import { useNavigate } from 'react-router-dom'
 
+import { isAxiosError } from 'utils/axios'
+import { newPostingAPI, editPostingAPI, deletePostingAPI } from 'apis/posting'
+import {
+  postingDateState,
+  postingTimeState,
+  postingPlaceState,
+  categoryState,
+  postingCountState,
+} from 'recoil/post.atom'
+
 const useCreatePost = () => {
+  const resetDate = useResetRecoilState(postingDateState)
+  const resetTime = useResetRecoilState(postingTimeState)
+  const resetMarket = useResetRecoilState(postingPlaceState)
+  const resetCategory = useResetRecoilState(categoryState)
+  const resetCount = useResetRecoilState(postingCountState)
+
   const queryClient = useQueryClient()
   const navigate = useNavigate()
   return useMutation(newPostingAPI, {
-    onSuccess(response) {
+    onSuccess() {
       // eslint-disable-next-line
-      console.log(response)
       queryClient.invalidateQueries('feedList')
+      resetDate()
+      resetTime()
+      resetMarket()
+      resetCategory()
+      resetCount()
       navigate('/upload-complete', { state: { type: '작성' } })
     },
     onError(err) {
@@ -25,10 +44,19 @@ const useCreatePost = () => {
 const useEditPost = () => {
   const queryClient = useQueryClient()
   const navigate = useNavigate()
+  const resetDate = useResetRecoilState(postingDateState)
+  const resetTime = useResetRecoilState(postingTimeState)
+  const resetMarket = useResetRecoilState(postingPlaceState)
+  const resetCategory = useResetRecoilState(categoryState)
+  const resetCount = useResetRecoilState(postingCountState)
   return useMutation(editPostingAPI, {
-    onSuccess(response) {
+    onSuccess() {
       // eslint-disable-next-line
-      console.log(response)
+      resetDate()
+      resetTime()
+      resetMarket()
+      resetCategory()
+      resetCount()
       navigate('/upload-complete', { state: { type: '수정' } })
     },
     onError(err) {
@@ -52,10 +80,11 @@ const useDeletePost = () => {
       // eslint-disable-next-line
       if (response.data === '게시글 삭제 완료') {
         queryClient.invalidateQueries('feedList')
-        navigate('/home')
+        navigate('/upload-complete', { state: { type: '삭제' } })
       } else if (response.data === '작성자만 삭제 가능') {
         // eslint-disable-next-line no-alert
         alert('작성자만 삭제 가능합니다.')
+        navigate('/home')
       }
     },
     onError(err) {

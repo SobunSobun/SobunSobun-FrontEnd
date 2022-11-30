@@ -4,10 +4,15 @@
 @use 'src/styles/mixins/fontSize';
 
 .uploadComplete {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
   padding: 20px;
 
+
   .image {
-    margin-top: 180px;
     text-align: center;
 
     img {
@@ -29,8 +34,6 @@
     @include vwConvert.mo(padding, 20);
 
     .image {
-      @include vwConvert.mo(margin-top, 180);
-
       img {
         @include vwConvert.mo(width, 271);
         @include vwConvert.mo(height, 281);

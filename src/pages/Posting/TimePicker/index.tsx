@@ -23,7 +23,7 @@ const TimePicker = ({ onClick, propTime }: Props) => {
       const timeAll = timeArr[4].split(':')
       const timeSlot = Number(timeAll[0]) >= 12 ? 'PM' : 'AM'
       let timeHour = timeSlot === 'PM' ? Number(timeAll[0]) - 12 : timeAll[0]
-      if (timeHour < 10) {
+      if (timeHour < 10 && String(timeHour).length < 2) {
         timeHour = `0${String(timeHour)}`
       }
       const timeMinutes = timeAll[1]

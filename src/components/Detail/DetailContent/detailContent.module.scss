@@ -76,8 +76,11 @@
   }
 
   .detailList {
+    padding-bottom: 20px;
     margin-top: 10px;
+    border-bottom: 1px solid colors.$LINE_1;
     @media (max-width: sizes.$SCREEN_SM) {
+      @include vwConvert.mo(padding-bottom, 20);
       @include vwConvert.mo(margin-top, 10);
     }
 
@@ -116,12 +119,9 @@
 
   .detailBtn {
     padding: 16px 0;
-    margin-top: 18px;
-    border-top: 1px solid colors.$LINE_1;
     border-bottom: 1px solid colors.$LINE_1;
     @media (max-width: sizes.$SCREEN_SM) {
       @include vwConvert.mo(padding, 16 0);
-      @include vwConvert.mo(margin-top, 18);
     }
 
     button {

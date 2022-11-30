@@ -1,9 +1,19 @@
 @use 'src/styles/mixins/fontSize';
 @use '/src/styles/constants/sizes';
 @use '/src/styles/mixins/vwConvert';
+@use '/src/styles/constants/colors';
 
 .greeting {
+  position: absolute;
+  top: 140px;
+  left: 50%;
+  z-index: 9;
+  color: colors.$WHITE;
   text-align: center;
+  transform: translateX(-50%);
+  @media (max-width: sizes.$SCREEN_SM) {
+    @include vwConvert.mo(top, 140);
+  }
 
   .logo {
     width: 163px;

@@ -1,4 +1,4 @@
-import axios, { AxiosError } from 'axios'
+import axios from 'axios'
 
 const BASE_URL = 'http://15.164.112.119:8080'
 
@@ -19,10 +19,6 @@ const axiosAuthApi = () => {
     headers: { SOBUNSOBUN: `${localStorage.getItem('sobunsobun')}` },
   })
   return instance
-}
-
-export const isAxiosError = <E>(err: unknown | AxiosError<E>): err is AxiosError => {
-  return axios.isAxiosError(err)
 }
 
 export const defaultInstance = axiosApi()

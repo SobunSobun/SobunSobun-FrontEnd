@@ -30,16 +30,12 @@ const ProfileCurrent = () => {
   const handleLogOut = () => {
     authInstance
       .get(`/myPage/${userId}/logout`)
-      .then((res) => {
-        // eslint-disable-next-line no-console
-        console.log(res)
+      .then(() => {
         localStorage.setItem('sobunsobun', '')
         queryClient.resetQueries()
         navigate('/login')
       })
-      .catch((error) => {
-        // eslint-disable-next-line no-console
-        console.log(error)
+      .catch(() => {
         // eslint-disable-next-line no-console, no-alert
         alert('로그아웃에 실패했습니다. 다시 시도해주세요')
       })
@@ -48,18 +44,12 @@ const ProfileCurrent = () => {
   const handleWithdrawal = () => {
     authInstance
       .delete(`/myPage/${userId}`)
-      .then((res) => {
-        // eslint-disable-next-line no-console
-        console.log(res)
+      .then(() => {
         localStorage.setItem('sobunsobun', '')
-        // queryClient.invalidateQueries(['myInfo'])
-        // queryClient.cancelQueries(['myInfo'])
         queryClient.removeQueries()
         navigate('/login')
       })
-      .catch((error) => {
-        // eslint-disable-next-line no-console
-        console.log(error)
+      .catch(() => {
         // eslint-disable-next-line no-console, no-alert
         alert('회원탈퇴에 실패했습니다. 다시 시도해주세요')
       })
