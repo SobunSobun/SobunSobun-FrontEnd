@@ -25,7 +25,7 @@ const MyPost = () => {
           {isLoading ? (
             <Spinner />
           ) : (
-            <ul>
+            <ul style={data && data[0] && data[0].length !== 0 ? { minHeight: 0 } : {}}>
               {data && data[0] && data[0].length !== 0 ? (
                 data[0].map((v) => (
                   <Card
@@ -47,7 +47,7 @@ const MyPost = () => {
           {isLoading ? (
             <Spinner />
           ) : (
-            <ul>
+            <ul style={data && data[0] && data[0].length !== 0 ? { minHeight: 0 } : {}}>
               {data && data[1] && data[1].length !== 0 ? (
                 data[1].map((v) => <Card key={v.postId} data={v} isComplete />)
               ) : (

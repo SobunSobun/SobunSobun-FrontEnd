@@ -25,6 +25,10 @@ const useCreatePost = () => {
     onSuccess() {
       // eslint-disable-next-line
       queryClient.invalidateQueries('feedList')
+      queryClient.invalidateQueries({
+        queryKey: ['myPost'],
+        refetchInactive: true,
+      })
       resetDate()
       resetTime()
       resetMarket()
@@ -68,6 +72,10 @@ const useEditPost = () => {
     onSettled: (data, err, { postId }) => {
       queryClient.invalidateQueries(['getDetailAPI', postId])
       queryClient.invalidateQueries(['feedList'])
+      queryClient.invalidateQueries({
+        queryKey: ['myPost'],
+        refetchInactive: true,
+      })
     },
   })
 }
@@ -80,6 +88,10 @@ const useDeletePost = () => {
       // eslint-disable-next-line
       if (response.data === '게시글 삭제 완료') {
         queryClient.invalidateQueries('feedList')
+        queryClient.invalidateQueries({
+          queryKey: ['myPost'],
+          refetchInactive: true,
+        })
         navigate('/upload-complete', { state: { type: '삭제' } })
       } else if (response.data === '작성자만 삭제 가능') {
         // eslint-disable-next-line no-alert
