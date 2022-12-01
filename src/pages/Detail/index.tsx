@@ -1,8 +1,10 @@
-import { useQuery } from 'react-query'
+import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { useParams, useNavigate } from 'react-router-dom'
 
 import { detailData, getDetailType } from 'types'
 import { authInstance } from 'apis/client'
+
+import { closePostingAPI } from 'apis/posting'
 
 import { UnderModal } from 'components/Modal'
 import Button from 'components/Button'
@@ -21,6 +23,7 @@ const getDetailAPI: getDetailType = (id: string | undefined) => authInstance.get
 
 const Detail = () => {
   const { id } = useParams()
+  const queryClient = useQueryClient()
   const { data, isFetching, isLoading } = useQuery<detailData>(
     ['getDetailAPI', id],
     () => getDetailAPI(id).then((res) => res.data),
@@ -33,6 +36,26 @@ const Detail = () => {
   const { isOpen, onClose, setIsOpen } = useModal()
 
   const { mutate } = useDeletePost()
+
+  const { mutate: closePostAPI } = useMutation(closePostingAPI, {
+    onSuccess: (res) => {
+      navigate('/upload-complete', { state: { type: '마감' } })
+      queryClient.invalidateQueries('myInfo')
+      queryClient.invalidateQueries('feedList')
+      queryClient.invalidateQueries({
+        queryKey: ['myPost'],
+        refetchInactive: true,
+      })
+      queryClient.invalidateQueries({
+        queryKey: ['LikeList'],
+        refetchInactive: true,
+      })
+    },
+    onError: () => {
+      // eslint-disable-next-line no-alert
+      alert('게시물 마감이 실패하였습니다. 다시한번 시도해주세요.')
+    },
+  })
 
   if (!data || isFetching) return null
 
@@ -77,7 +100,7 @@ const Detail = () => {
               {
                 name: '마감하기',
                 callback: () => {
-                  navigate('/upload-complete', { state: { type: '마감' } })
+                  closePostAPI(id)
                 },
               },
             ]}
