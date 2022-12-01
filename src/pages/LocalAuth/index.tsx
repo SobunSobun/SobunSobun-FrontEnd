@@ -33,7 +33,8 @@ const LocalAuth = () => {
   const onSearch = async () => {
     try {
       const res = await getRegions({ data: searchValue })
-      setRegions([...res])
+      const filteredList = res.filter((v) => v.address_name.charAt(v.address_name.length - 1) === '동')
+      setRegions([...filteredList])
       setSearchValue('')
     } catch (e) {
       navigate('/error')
