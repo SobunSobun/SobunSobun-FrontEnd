@@ -75,7 +75,7 @@ export const myParticipateAPI: myParticipateType = (userId: number) => {
 }
 
 export const myParticipateCompleteAPI: myParticipateCompleteType = (userId: number) => {
-  return authInstance.get(`/myPosts/${userId}/ongoing/applied`).then((res) => {
+  return authInstance.get(`/myPosts/${userId}/finished/applied`).then((res) => {
     return res.data.map((v: feed) => ({ ...v, createdAt: convertDate(v.createdAt as number[]) }))
   })
 }

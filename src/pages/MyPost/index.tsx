@@ -4,12 +4,14 @@ import NoResult from 'components/NoResult'
 import Spinner from 'components/Spinner'
 import useMyInfo from 'hooks/useMyInfo'
 import useMyPost from 'hooks/useMyPost'
+import { useNavigate } from 'react-router-dom'
 import { useRecoilValue } from 'recoil'
 import { postStateAtom } from 'recoil/myPost.atom'
 
 import styles from './myPost.module.scss'
 
 const MyPost = () => {
+  const navigate = useNavigate()
   const { userId } = useMyInfo()
   const postState = useRecoilValue(postStateAtom)
   const { data, isLoading } = useMyPost({ userId: userId!, postState })
@@ -28,13 +30,14 @@ const MyPost = () => {
             <ul style={data && data[0] && data[0].length !== 0 ? { minHeight: 0 } : {}}>
               {data && data[0] && data[0].length !== 0 ? (
                 data[0].map((v) => (
-                  <Card
-                    key={v.postId}
-                    data={v}
-                    isBorder
-                    isWrite={postState === 'myPost'}
-                    isParticipating={postState === 'participatedPost'}
-                  />
+                  <button key={v.postId} type='button' onClick={() => navigate(`/detail/${v.postId}`)}>
+                    <Card
+                      data={v}
+                      isBorder
+                      isWrite={postState === 'myPost'}
+                      isParticipating={postState === 'participatedPost'}
+                    />
+                  </button>
                 ))
               ) : (
                 <NoResult message='진행 중인 소분이 없습니다.' />
