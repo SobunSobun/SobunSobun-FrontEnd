@@ -10,6 +10,7 @@ import {
   postingPlaceState,
   categoryState,
   postingCountState,
+  modalChangeState,
 } from 'recoil/post.atom'
 
 const useCreatePost = () => {
@@ -18,6 +19,7 @@ const useCreatePost = () => {
   const resetMarket = useResetRecoilState(postingPlaceState)
   const resetCategory = useResetRecoilState(categoryState)
   const resetCount = useResetRecoilState(postingCountState)
+  const resetTimeColor = useResetRecoilState(modalChangeState)
 
   const queryClient = useQueryClient()
   const navigate = useNavigate()
@@ -34,6 +36,7 @@ const useCreatePost = () => {
       resetMarket()
       resetCategory()
       resetCount()
+      resetTimeColor()
       navigate('/upload-complete', { state: { type: '작성' } })
     },
     onError(err) {
@@ -53,6 +56,7 @@ const useEditPost = () => {
   const resetMarket = useResetRecoilState(postingPlaceState)
   const resetCategory = useResetRecoilState(categoryState)
   const resetCount = useResetRecoilState(postingCountState)
+  const resetTimeColor = useResetRecoilState(modalChangeState)
   return useMutation(editPostingAPI, {
     onSuccess() {
       // eslint-disable-next-line
@@ -61,6 +65,7 @@ const useEditPost = () => {
       resetMarket()
       resetCategory()
       resetCount()
+      resetTimeColor()
       navigate('/upload-complete', { state: { type: '수정' } })
     },
     onError(err) {

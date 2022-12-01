@@ -10,6 +10,7 @@ import {
   postingPlaceState,
   postingDateState,
   postingTimeState,
+  modalChangeState,
 } from 'recoil/post.atom'
 
 import Header from 'components/Header'
@@ -34,6 +35,7 @@ const Category = () => {
   const resetMarket = useResetRecoilState(postingPlaceState)
   const resetDate = useResetRecoilState(postingDateState)
   const resetTime = useResetRecoilState(postingTimeState)
+  const resetTimeColor = useResetRecoilState(modalChangeState)
 
   const handleMoveToWrite = () => {
     navigate('/new')
@@ -87,6 +89,7 @@ const Category = () => {
           resetMarket()
           resetDate()
           resetTime()
+          resetTimeColor()
           navigate('/home')
         }}
       />
