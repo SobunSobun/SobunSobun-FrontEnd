@@ -199,7 +199,7 @@
     }
 
     form {
-      @include vwConvert.mo(margin-bottom, 100);
+      @include vwConvert.mo(margin-bottom, 60);
 
       .line {
         @include vwConvert.mo(margin-top, 25);

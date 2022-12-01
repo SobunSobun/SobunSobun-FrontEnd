@@ -6,7 +6,6 @@ import useMyInfo from 'hooks/useMyInfo'
 import { TwoButtonModal } from 'components/Modal'
 import Header from 'components/Header'
 
-import { IMAGE_PATH } from 'assets/images'
 import useModal from 'hooks/useModal'
 import { authInstance } from 'apis/client'
 import { ArrowPrevIcon } from 'assets/svgs'
@@ -19,13 +18,6 @@ const ProfileCurrent = () => {
   const queryClient = useQueryClient()
   const navigate = useNavigate()
   const { isOpen, onClose, setIsOpen } = useModal()
-
-  const handleImageSet = () => {
-    if (profileUrl === '1') {
-      return IMAGE_PATH.profile
-    }
-    return profileUrl
-  }
 
   const handleLogOut = () => {
     authInstance
@@ -61,7 +53,7 @@ const ProfileCurrent = () => {
       <div className='contentsInner'>
         <div className={styles.top}>
           <div className={styles.imageWrap}>
-            <img src={handleImageSet()} alt='프로필이미지' />
+            <img src={profileUrl} alt='프로필이미지' />
           </div>
           <div className={styles.userInfo}>
             <p className={styles.name}>{nickname}</p>
