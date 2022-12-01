@@ -11,8 +11,8 @@ const useApply = () => {
       const prevUserData = queryClient.getQueryData<detailData>(['getDetailAPI', postId])
       if (prevUserData) {
         const newUserDetail = prevUserData.isApply
-          ? { ...prevUserData, isApply: false, recruitmentNumber: prevUserData.recruitmentNumber - 1 }
-          : { ...prevUserData, isApply: true, recruitmentNumber: prevUserData.recruitmentNumber + 1 }
+          ? { ...prevUserData, isApply: false, applyNumber: prevUserData.applyNumber - 1 }
+          : { ...prevUserData, isApply: true, applyNumber: prevUserData.applyNumber + 1 }
         queryClient.setQueryData<detailData>(['getDetailAPI', postId], newUserDetail)
       }
       return { prevUserData }
