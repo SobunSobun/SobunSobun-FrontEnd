@@ -55,8 +55,8 @@ const Editor = ({
   const [fullTime, setFullTime] = useState('')
   const [mapModal, setMapModal] = useState(false)
 
-  const { mutate: newPostAPI } = useCreatePost()
-  const { mutate: editPostAPI } = useEditPost()
+  const { mutate: newPostAPI, isLoading: newLoading } = useCreatePost()
+  const { mutate: editPostAPI, isLoading: editLoading } = useEditPost()
 
   // edit 에서 불러온 데이터 일 때만 실행
   useEffect(() => {
@@ -160,7 +160,13 @@ const Editor = ({
           <TimePicker onClick={setTimePickerModal} propTime={propData?.meetingTime} />
         </div>
         <div className={styles.buttonWrap}>
-          <Button basic type={handleColor()} text='완료' submit isDisabled={handleColor() === 'negative'} />
+          <Button
+            basic
+            type={handleColor()}
+            text='완료'
+            submit
+            isDisabled={handleColor() === 'negative' || newLoading || editLoading}
+          />
         </div>
       </form>
       <TimePickerModal show={timePickerModal} close={() => setTimePickerModal(false)} isEdit={isEdit} />
