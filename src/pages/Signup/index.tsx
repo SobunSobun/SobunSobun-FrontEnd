@@ -10,6 +10,7 @@ import { region } from 'types'
 import { defaultInstance } from 'apis/client'
 import useModal from 'hooks/useModal'
 import ErrorMessage from 'components/ErrorMessage'
+import FloatingElem from 'components/FloatingElem'
 import styles from './signup.module.scss'
 
 type FormValues = {
@@ -214,7 +215,7 @@ const Signup = () => {
               {errors.nickname?.type === 'maxLength' && errors.nickname.message}
             </ErrorMessage>
           </div>
-          <div className={styles.signupBtn}>
+          <FloatingElem offsetBottom={45}>
             <Button
               type={!(nicknameActive && emailActive && isValid) ? 'negative' : 'primary'}
               text='다음'
@@ -222,7 +223,7 @@ const Signup = () => {
               submit
               loading={isLoading}
             />
-          </div>
+          </FloatingElem>
         </form>
       </div>
       <TwoButtonModal
