@@ -16,7 +16,6 @@ import Header from 'components/Header'
 import Button from 'components/Button'
 import { categoryList } from 'utils/categoryList'
 import CategoryItem from 'pages/Category/CategoryItem'
-import FloatingElem from 'components/FloatingElem'
 import { TwoButtonModal } from 'components/Modal'
 
 import useModal from 'hooks/useModal'
