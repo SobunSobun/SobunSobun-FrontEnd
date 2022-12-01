@@ -2,10 +2,31 @@
 @use 'src/styles/mixins/fontSize';
 @use '/src/styles/constants/sizes';
 
-.wrapper {
-  position: relative;
-  padding: 16px;
-  @media (max-width: sizes.$SCREEN_SM) {
-    @include vwConvert.mo(padding, 16);
+.localAuth {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+
+  .wrapper {
+    position: relative;
+    padding: 16px;
+    @media (max-width: sizes.$SCREEN_SM) {
+      @include vwConvert.mo(padding, 16);
+    }
+  }
+
+  ul {
+    margin-bottom: 50px;
+    @media (max-width: sizes.$SCREEN_SM) {
+      @include vwConvert.mo(margin-bottom, 50);
+    }
+  }
+
+  .localBtn {
+    padding: 0 20px 45px;
+    margin-top: auto;
+    @media (max-width: sizes.$SCREEN_SM) {
+      @include vwConvert.mo(padding, 0 16 45);
+    }
   }
 }
