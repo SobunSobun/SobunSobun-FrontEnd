@@ -56,7 +56,7 @@ const ProfileCurrent = () => {
 
   const handleWithdrawalButton = () => {
     setIsOpen(true)
-    setMessage('탈퇴')
+    setMessage('정말 탈퇴')
   }
 
   return (
@@ -94,7 +94,7 @@ const ProfileCurrent = () => {
       <TwoButtonModal
         show={isOpen}
         close={onClose}
-        message={`정말 ${message}하시겠습니까?`}
+        message={`${message} 하시겠습니까?`}
         yesCallBack={message === '로그아웃' ? handleLogOut : handleWithdrawal}
       />
     </div>

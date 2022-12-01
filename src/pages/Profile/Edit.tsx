@@ -90,6 +90,8 @@ const ProfileEdit = () => {
     } catch (error) {
       // eslint-disable-next-line no-console
       console.log(error)
+      // eslint-disable-next-line no-console, no-alert
+      alert('닉네임 인증이 실패하였습니다.')
     }
   }
 

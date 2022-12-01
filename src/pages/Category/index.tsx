@@ -65,14 +65,16 @@ const Category = () => {
             />
           ))}
         </ul>
-        <FloatingElem offsetBottom={45}>
-          <Button
-            type={product === '' ? 'negative' : 'primary'}
-            text='다음'
-            onClick={handleMoveToWrite}
-            isDisabled={product === ''}
-          />
-        </FloatingElem>
+        {/* <FloatingElem offsetBottom={45}>
+        </FloatingElem> */}
+      </div>
+      <div className={styles.buttonWrap}>
+        <Button
+          type={product === '' ? 'negative' : 'primary'}
+          text='다음'
+          onClick={handleMoveToWrite}
+          isDisabled={product === ''}
+        />
       </div>
       <TwoButtonModal
         show={isOpen}

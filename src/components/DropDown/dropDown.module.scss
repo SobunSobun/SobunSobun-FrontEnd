@@ -8,9 +8,9 @@
   width: 86px;
   height: 35px;
   padding: 5px 10px 5px 20px;
-  margin-right: 8px;
+  margin-right: 7px;
   font-size: 16px;
-  color: colors.$GRAY_92;
+  color: colors.$GRAY_72;
   background: url('../../assets/svgs/dropdown_arrow.svg') no-repeat calc(100% - 8px) / 100% auto;
   background-color: #f3f3f3;
   background-size: 11px;
@@ -24,7 +24,7 @@
   }
 
   @media (max-width: sizes.$SCREEN_SM) {
-    @include vwConvert.mo(width, 84);
+    @include vwConvert.mo(width, 90);
     @include vwConvert.mo(height, 35);
     @include vwConvert.mo(padding, 5 10 5 20);
     @include vwConvert.mo(margin-right, 8);

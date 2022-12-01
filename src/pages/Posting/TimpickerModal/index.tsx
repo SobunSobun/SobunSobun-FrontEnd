@@ -8,6 +8,7 @@ import DropDown from 'components/DropDown'
 import ModalLayout from 'components/Modal/ModalLayout'
 import { ModalPropsType } from 'types'
 
+import { DotsIcon } from 'assets/svgs'
 import styles from './timePickerModal.module.scss'
 
 const slotArr = ['AM', 'PM']
@@ -79,7 +80,8 @@ const TimePickerModal = ({ show, close }: ModalPropsType) => {
             value={localHour}
             onChange={(e: ChangeEvent<HTMLSelectElement>) => handleChangeTime(setLocalHour, e)}
           />
-          <span className={styles.semi}>:</span>
+          <DotsIcon className={styles.semi} />
+          {/* <span className={styles.semi}>:</span> */}
           <DropDown
             list={minutesArr}
             value={localMinutes}

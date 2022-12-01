@@ -18,6 +18,14 @@
     font-weight: bold;
   }
 
+  .buttonWrap {
+    position: fixed;
+    bottom: 45px;
+    width: 100%;
+    max-width: 768px;
+    padding: 0 16px;
+  }
+
   @media (max-width: sizes.$SCREEN_SM) {
     .list {
       @include vwConvert.mo(margin-top, 25);
@@ -27,6 +35,12 @@
 
     .title {
       @include fontSize.emFontSizeMO(25);
+    }
+
+    .buttonWrap {
+      position: fixed;
+      @include vwConvert.mo(padding, 0 16);
+      @include vwConvert.mo(bottom, 45);
     }
   }
 }
