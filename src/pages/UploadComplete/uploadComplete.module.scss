@@ -9,15 +9,17 @@
   align-items: center;
   justify-content: center;
   height: 100vh;
-  padding: 20px;
-
+  // padding: 20px;
 
   .image {
     text-align: center;
 
     img {
-      width: 271px;
-      height: 281px;
+      width: 100%;
+
+      &.widthSmall {
+        width: 93%;
+      }
     }
   }
 
@@ -31,15 +33,6 @@
   }
 
   @media (max-width: sizes.$SCREEN_SM) {
-    @include vwConvert.mo(padding, 20);
-
-    .image {
-      img {
-        @include vwConvert.mo(width, 271);
-        @include vwConvert.mo(height, 281);
-      }
-    }
-
     .message {
       @include vwConvert.mo(padding-top, 20);
       @include vwConvert.mo(margin-bottom, 125);

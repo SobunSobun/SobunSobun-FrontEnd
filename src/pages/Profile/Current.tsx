@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useQueryClient } from 'react-query'
 
 import { useNavigate } from 'react-router-dom'
@@ -6,7 +7,6 @@ import useMyInfo from 'hooks/useMyInfo'
 import { TwoButtonModal } from 'components/Modal'
 import Header from 'components/Header'
 
-import { IMAGE_PATH } from 'assets/images'
 import useModal from 'hooks/useModal'
 import { authInstance } from 'apis/client'
 import { ArrowPrevIcon } from 'assets/svgs'
@@ -14,18 +14,12 @@ import { ArrowPrevIcon } from 'assets/svgs'
 import styles from './profile.module.scss'
 
 const ProfileCurrent = () => {
+  const [message, setMessage] = useState('')
   const { nickname, email, userId, profileUrl } = useMyInfo()
 
   const queryClient = useQueryClient()
   const navigate = useNavigate()
   const { isOpen, onClose, setIsOpen } = useModal()
-
-  const handleImageSet = () => {
-    if (profileUrl === '1') {
-      return IMAGE_PATH.profile
-    }
-    return profileUrl
-  }
 
   const handleLogOut = () => {
     authInstance
@@ -55,13 +49,23 @@ const ProfileCurrent = () => {
       })
   }
 
+  const handleLogoutButton = () => {
+    setIsOpen(true)
+    setMessage('로그아웃')
+  }
+
+  const handleWithdrawalButton = () => {
+    setIsOpen(true)
+    setMessage('정말 탈퇴')
+  }
+
   return (
     <div className={styles.profile}>
       <Header headText='마이페이지' />
       <div className='contentsInner'>
         <div className={styles.top}>
           <div className={styles.imageWrap}>
-            <img src={handleImageSet()} alt='프로필이미지' />
+            <img src={profileUrl} alt='프로필이미지' />
           </div>
           <div className={styles.userInfo}>
             <p className={styles.name}>{nickname}</p>
@@ -79,15 +83,20 @@ const ProfileCurrent = () => {
             <span>회원정보 수정</span>
             <ArrowPrevIcon className={styles.arrow} />
           </button>
-          <button type='button' onClick={handleLogOut}>
+          <button type='button' onClick={handleLogoutButton}>
             로그아웃
           </button>
-          <button type='button' onClick={() => setIsOpen(true)}>
+          <button type='button' onClick={handleWithdrawalButton}>
             탈퇴하기
           </button>
         </div>
       </div>
-      <TwoButtonModal show={isOpen} close={onClose} message='정말 탈퇴하시겠습니까?' yesCallBack={handleWithdrawal} />
+      <TwoButtonModal
+        show={isOpen}
+        close={onClose}
+        message={`${message} 하시겠습니까?`}
+        yesCallBack={message === '로그아웃' ? handleLogOut : handleWithdrawal}
+      />
     </div>
   )
 }

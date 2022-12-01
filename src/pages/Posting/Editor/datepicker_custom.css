@@ -191,7 +191,7 @@
 }
 
 .react-datepicker__navigation {
-  background: url('../../../assets/svgs/arrow_prev.svg') no-repeat center/25% auto;
+  background: url('../../../assets/svgs/arrow_prev.svg') no-repeat center/60% auto;
   height: 30px;
   width: 30px;
   opacity: 0.7;
@@ -226,7 +226,7 @@
 
 @media (max-width: 768px) {
   .react-datepicker__navigation {
-    background: url('../../../assets/svgs/arrow_prev.svg') no-repeat center/30% auto;
+    background: url('../../../assets/svgs/arrow_prev.svg') no-repeat center/70% auto;
     height: 7vw;
     width: 7vw;
     top: 1vw;

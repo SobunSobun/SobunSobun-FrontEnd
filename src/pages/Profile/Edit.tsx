@@ -1,11 +1,10 @@
 import { ChangeEvent, useEffect, useState, useRef, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
-import { useQueryClient } from 'react-query'
 import cx from 'classnames'
 
 import useMyInfo from 'hooks/useMyInfo'
-import { authInstance, defaultInstance } from 'apis/client'
+import { defaultInstance } from 'apis/client'
 
 import Button from 'components/Button'
 import Input from 'components/Input'
@@ -14,12 +13,12 @@ import { TwoButtonModal } from 'components/Modal'
 import Header from 'components/Header'
 
 import useModal from 'hooks/useModal'
+import useProfile from 'hooks/useProfile'
 
 import { CameraIcon } from 'assets/svgs'
 import styles from './profile.module.scss'
 
 const ProfileEdit = () => {
-  const queryClient = useQueryClient()
   const { isOpen, onClose, setIsOpen } = useModal()
   const { nickname, email, userId, profileUrl } = useMyInfo()
   const navigate = useNavigate()
@@ -91,47 +90,47 @@ const ProfileEdit = () => {
     } catch (error) {
       // eslint-disable-next-line no-console
       console.log(error)
-    }
-  }
-
-  const handleSubmitImage = async () => {
-    const formData = new FormData()
-    formData.append('multipartFile', image)
-
-    try {
-      await authInstance.post(`/myPage/${userId}/changeProfileUrl`, formData)
-      queryClient.invalidateQueries('myInfo')
-      navigate('/profile')
-    } catch {
       // eslint-disable-next-line no-console, no-alert
-      alert('파일 업로드가 실패하였습니다. 파일을 확인해주세요')
+      alert('닉네임 인증이 실패하였습니다.')
     }
   }
+
+  const { imageMutate, nickNameMutate } = useProfile()
 
   const onSubmit = async (data: FormValues) => {
     const formData = new FormData()
-    formData.append('nickname', data.nickname)
+    if (image && nicknameActive) {
+      formData.append('nickname', data.nickname)
+      formData.append('multipartFile', image)
+      try {
+        const imgResult = await imageMutate.mutateAsync({ userId, formData })
+        const nickNameResult = await nickNameMutate.mutateAsync({ userId, formData })
 
-    try {
-      await authInstance.post(`/myPage/${userId}/modifyNickname`, formData)
-      if (image) {
-        handleSubmitImage()
+        if (imgResult && nickNameResult) {
+          navigate('/profile')
+        }
+      } catch {
+        // eslint-disable-next-line no-console, no-alert
+        alert('에러가 발생했습니다. 다시 시도해주세요!')
       }
-      navigate('/profile')
-    } catch (error) {
-      // eslint-disable-next-line no-console, no-alert
-      alert('앗! 에러가 발생했습니다. 다시 시도해주세요')
-    } finally {
-      queryClient.invalidateQueries('myInfo')
-      queryClient.invalidateQueries('feedList')
-      queryClient.invalidateQueries({
-        queryKey: ['myPost'],
-        refetchInactive: true,
-      })
-      queryClient.invalidateQueries({
-        queryKey: ['LikeList'],
-        refetchInactive: true,
-      })
+    } else if (image && !nicknameActive) {
+      formData.append('multipartFile', image)
+      try {
+        const imgResult = await imageMutate.mutateAsync({ userId, formData })
+        if (imgResult) {
+          navigate('/profile')
+        }
+      } catch {
+        // eslint-disable-next-line no-console, no-alert
+        alert('에러가 발생했습니다. 다시 시도해주세요!')
+      }
+    } else if (!image && nicknameActive) {
+      formData.append('nickname', data.nickname)
+      const nickNameResult = await nickNameMutate.mutateAsync({ userId, formData })
+
+      if (nickNameResult) {
+        navigate('/profile')
+      }
     }
   }
 

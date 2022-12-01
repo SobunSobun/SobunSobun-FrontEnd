@@ -2,6 +2,7 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import Button from 'components/Button'
 import FloatingElem from 'components/FloatingElem'
 import { IMAGE_PATH } from 'assets/images'
+import { cx } from 'styles'
 import styles from './uploadComplete.module.scss'
 
 interface RouteState {
@@ -28,13 +29,13 @@ const UploadComplete = () => {
     작성: '게시물 작성 완료!',
     수정: '게시물 수정 완료!',
     삭제: '게시물 삭제 완료!',
-    마감: '모집 마감',
+    마감: '게시물 모집 마감!',
   }[state.type]
 
   return (
     <div className={styles.uploadComplete}>
       <div className={styles.image}>
-        <img src={gifPath} alt='장바구니 이미지' />
+        <img src={gifPath} className={cx({ [styles.widthSmall]: state.type === '마감' })} alt='' />
       </div>
       <p className={styles.message}>{message}</p>
       <FloatingElem offsetBottom={45}>

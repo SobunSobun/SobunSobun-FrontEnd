@@ -107,7 +107,7 @@
     }
 
     .textarea {
-      @include vwConvert.mo(height, 200);
+      @include vwConvert.mo(height, 190);
     }
 
     // 장소
@@ -122,7 +122,7 @@
     }
 
     .buttonWrap {
-      @include vwConvert.mo(padding-top, 84);
+      @include vwConvert.mo(padding-top, 47);
     }
   }
 }

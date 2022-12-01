@@ -20,12 +20,18 @@
 
   .line {
     display: flex;
+    align-items: center;
     padding-bottom: 9px;
   }
 
   .semi {
-    display: block;
-    padding-right: 4px;
+    width: 4px;
+    height: 16px;
+    margin-right: 4px;
+
+    circle {
+      fill: colors.$GRAY_72;
+    }
   }
 
   .buttonWrap {
@@ -58,7 +64,9 @@
     }
 
     .semi {
-      @include vwConvert.mo(padding-right, 4);
+      @include vwConvert.mo(width, 4);
+      @include vwConvert.mo(height, 16);
+      @include vwConvert.mo(margin-right, 8);
     }
 
     .buttonWrap {

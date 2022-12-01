@@ -16,3 +16,7 @@ export const editPostingAPI = ({ postId, formData }: Props) => {
 export const deletePostingAPI = (postId: string | undefined) => {
   return authInstance.delete(`/post/${postId}`)
 }
+
+export const closePostingAPI = (postId: string | undefined) => {
+  return authInstance.post(`/post/${postId}/close`)
+}
