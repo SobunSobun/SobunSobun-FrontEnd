@@ -20,7 +20,7 @@
 
   .buttonWrap {
     position: fixed;
-    bottom: 58px;
+    bottom: 110px;
     width: 100%;
     max-width: 768px;
     padding: 0 16px;
@@ -38,7 +38,7 @@
 
     .buttonWrap {
       position: fixed;
-      @include vwConvert.mo(bottom, 58);
+      @include vwConvert.mo(bottom, 110);
       @include vwConvert.mo(padding, 0 16);
     }
   }

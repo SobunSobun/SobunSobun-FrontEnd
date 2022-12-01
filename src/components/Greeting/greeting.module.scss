@@ -11,24 +11,27 @@
   color: colors.$WHITE;
   text-align: center;
   transform: translateX(-50%);
+
   @media (max-width: sizes.$SCREEN_SM) {
     @include vwConvert.mo(top, 140);
   }
 
   .logo {
-    width: 163px;
+    width: 162px;
     height: 47px;
+
     @media (max-width: sizes.$SCREEN_SM) {
-      @include vwConvert.mo(width, 163);
+      @include vwConvert.mo(width, 162);
       @include vwConvert.mo(height, 47);
     }
   }
 
   .desc {
-    font-size: 18px;
+    font-size: 19px;
     font-weight: 700;
+
     @media (max-width: sizes.$SCREEN_SM) {
-      @include fontSize.emFontSizeMO(18);
+      @include fontSize.emFontSizeMO(19);
     }
   }
 }
