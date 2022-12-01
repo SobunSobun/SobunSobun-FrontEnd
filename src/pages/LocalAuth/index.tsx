@@ -10,6 +10,7 @@ import { TwoButtonModal } from 'components/Modal'
 import { region } from 'types'
 // import { UseGeoLocation } from 'hooks/useGeoLocation'
 // import { getDistance } from 'utils/getDistance'
+import FloatingElem from 'components/FloatingElem'
 import styles from './localAuth.module.scss'
 
 const LocalAuth = () => {
@@ -69,14 +70,14 @@ const LocalAuth = () => {
         <SearchBar value={searchValue} onChange={onChangeSearchValue} onSearch={onSearch} />
       </form>
       {regions && <RegionList data={regions} setRegion={onSetMyRegion} />}
-      <div className={styles.localBtn}>
+      <FloatingElem offsetBottom={45}>
         <Button
           type={myRegion ? 'primary' : 'negative'}
           text='다음'
           onClick={nextButtonHandler}
           isDisabled={myRegion === null}
         />
-      </div>
+      </FloatingElem>
       <TwoButtonModal
         show={isOpen}
         close={onClose}
