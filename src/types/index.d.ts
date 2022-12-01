@@ -15,11 +15,6 @@ export interface Time {
   hour: string
   minutes: string
 }
-export interface Place {
-  place: string
-  address: string
-}
-
 export interface Keyword {
   searchKeyword: string
   close: () => void

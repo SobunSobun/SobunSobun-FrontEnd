@@ -57,11 +57,9 @@ const Detail = () => {
     },
   })
 
-  if (!data || isFetching) return null
-
   return (
     <div>
-      {isLoading ? (
+      {!data || isFetching || isLoading ? (
         <Spinner />
       ) : (
         <div className={styles.detail}>

@@ -27,7 +27,9 @@ const ProfileEdit = () => {
   const [preImage, setPreImage] = useState<string | undefined>('')
   const [previewURL, setPreviewURL] = useState<string | undefined>('')
   const [nicknameActive, setNicknameActive] = useState(false)
+  const [submitBtnActive, setSubmitBtnActive] = useState(false)
   const [responseMessage, setResponseMessage] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
 
   type FormValues = {
     nickname: string
@@ -99,6 +101,7 @@ const ProfileEdit = () => {
 
   const onSubmit = async (data: FormValues) => {
     const formData = new FormData()
+    setIsLoading(true)
     if (image && nicknameActive) {
       formData.append('nickname', data.nickname)
       formData.append('multipartFile', image)
@@ -111,7 +114,9 @@ const ProfileEdit = () => {
         }
       } catch {
         // eslint-disable-next-line no-console, no-alert
-        alert('에러가 발생했습니다. 다시 시도해주세요!')
+        alert('에러가 발생했습니다. 네트워크 연결을 확인해주세요')
+      } finally {
+        setIsLoading(false)
       }
     } else if (image && !nicknameActive) {
       formData.append('multipartFile', image)
@@ -122,17 +127,33 @@ const ProfileEdit = () => {
         }
       } catch {
         // eslint-disable-next-line no-console, no-alert
-        alert('에러가 발생했습니다. 다시 시도해주세요!')
+        alert('에러가 발생했습니다. 네트워크 연결을 확인해주세요')
+      } finally {
+        setIsLoading(false)
       }
     } else if (!image && nicknameActive) {
       formData.append('nickname', data.nickname)
       const nickNameResult = await nickNameMutate.mutateAsync({ userId, formData })
-
-      if (nickNameResult) {
-        navigate('/profile')
+      try {
+        if (nickNameResult) {
+          navigate('/profile')
+        }
+      } catch {
+        // eslint-disable-next-line no-console, no-alert
+        alert('에러가 발생했습니다. 네트워크 연결을 확인해주세요')
+      } finally {
+        setIsLoading(false)
       }
     }
   }
+
+  useEffect(() => {
+    if ((image && nicknameActive) || (!image && nicknameActive) || (image && nicknameCurrent === nickname)) {
+      setSubmitBtnActive(true)
+    } else {
+      setSubmitBtnActive(false)
+    }
+  }, [image, nickname, nicknameActive, nicknameCurrent])
 
   return (
     <div className={styles.profile}>
@@ -178,10 +199,11 @@ const ProfileEdit = () => {
           <p className={styles.textInput}>{email}</p>
           <div className={styles.buttonWrap}>
             <Button
-              type={image || nicknameActive ? 'primary' : 'negative'}
+              type={submitBtnActive ? 'primary' : 'negative'}
               text='수정 완료'
               submit
-              isDisabled={!image && !nicknameActive}
+              isDisabled={!submitBtnActive}
+              loading={isLoading}
             />
           </div>
         </form>
