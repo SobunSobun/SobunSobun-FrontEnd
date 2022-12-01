@@ -12,6 +12,12 @@ import postClosed from 'assets/images/post_closed.gif'
 import postCreate from 'assets/images/post_create.gif'
 import postDeleted from 'assets/images/post_deleted.gif'
 import postEdit from 'assets/images/post_edit.gif'
+import water from 'assets/images/water.png'
+import meat from 'assets/images/meat.png'
+import vegetable from 'assets/images/vegetable.png'
+import etc from 'assets/images/etc.png'
+import egg from 'assets/images/egg.png'
+import fruit from 'assets/images/fruit.png'
 
 export const IMAGE_PATH = {
   categoryFruit,
@@ -28,4 +34,10 @@ export const IMAGE_PATH = {
   postCreate,
   postDeleted,
   postEdit,
+  meat,
+  egg,
+  etc,
+  vegetable,
+  water,
+  fruit,
 } as const
