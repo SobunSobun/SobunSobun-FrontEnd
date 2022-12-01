@@ -38,7 +38,7 @@ const Detail = () => {
   const { mutate } = useDeletePost()
 
   const { mutate: closePostAPI } = useMutation(closePostingAPI, {
-    onSuccess: (res) => {
+    onSuccess: () => {
       navigate('/upload-complete', { state: { type: '마감' } })
       queryClient.invalidateQueries('myInfo')
       queryClient.invalidateQueries('feedList')
