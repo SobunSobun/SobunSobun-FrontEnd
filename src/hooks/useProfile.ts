@@ -1,6 +1,5 @@
 import { useMutation, useQueryClient } from 'react-query'
 
-import { isAxiosError } from 'utils/axios'
 import { profileImageAPI, profileNameAPI } from 'apis/profile'
 
 const useProfile = () => {
@@ -31,22 +30,10 @@ const useProfile = () => {
     onSuccess() {
       updatePageData()
     },
-    onError(err) {
-      if (isAxiosError(err)) {
-        // eslint-disable-next-line no-console, no-alert
-        alert('파일 업로드가 실패하였습니다. 파일을 확인해주세요')
-      }
-    },
   })
   const nickNameMutate = useMutation(profileNameAPI, {
     onSuccess() {
       updatePageData()
-    },
-    onError(err) {
-      if (isAxiosError(err)) {
-        // eslint-disable-next-line no-console, no-alert
-        alert('닉네임 변경이 실패하였습니다. 다시 시도해주세요')
-      }
     },
   })
 

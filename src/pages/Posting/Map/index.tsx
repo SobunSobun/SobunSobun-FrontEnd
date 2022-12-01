@@ -124,7 +124,7 @@ const Map = ({ searchKeyword, close }: Keyword) => {
 
   const handleSetMarket = () => {
     setItemActive(true)
-    setMarket({ place: itemInfo.market, address: itemInfo.address })
+    setMarket(itemInfo.market)
     setTimeout(() => {
       close()
     }, 300)
