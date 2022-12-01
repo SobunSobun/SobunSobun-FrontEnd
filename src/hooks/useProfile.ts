@@ -17,6 +17,14 @@ const useProfile = () => {
       queryKey: ['LikeList'],
       refetchInactive: true,
     })
+    queryClient.invalidateQueries({
+      queryKey: ['getDetailAPI'],
+      refetchInactive: true,
+    })
+    queryClient.invalidateQueries({
+      queryKey: ['getCommentAPI'],
+      refetchInactive: true,
+    })
   }
 
   const imageMutate = useMutation(profileImageAPI, {
