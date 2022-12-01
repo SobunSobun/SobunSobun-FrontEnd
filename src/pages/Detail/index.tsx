@@ -63,15 +63,21 @@ const Detail = () => {
             close={onClose}
             items={[
               {
-                name: '수정',
+                name: '수정하기',
                 callback: () => {
                   navigate(`/edit/${id}`, { state: { data } })
                 },
               },
               {
-                name: '삭제',
+                name: '삭제하기',
                 callback: () => {
                   mutate(id)
+                },
+              },
+              {
+                name: '마감하기',
+                callback: () => {
+                  navigate('/upload-complete', { state: { type: '마감' } })
                 },
               },
             ]}
