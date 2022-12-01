@@ -64,7 +64,7 @@ const Editor = ({
       setLocalTitle(propData.title)
       setLocalContent(propData.content)
       setCount(propData.recruitmentNumber)
-      setMarket({ place: propData.market, address: propData.marketAddress })
+      setMarket(propData.market)
     }
   }, [propData, setCount, setLocalContent, setLocalTitle, setMarket])
 
@@ -100,9 +100,9 @@ const Editor = ({
     formData.append('content', localContent)
     formData.append('recruitmentNumber', String(count))
     formData.append('category', category)
-    formData.append('market', market.place)
+    formData.append('market', market)
     formData.append('meetingTime', fullTime)
-    formData.append('marketAddress', market.address)
+    formData.append('marketAddress', '')
 
     return formData
   }
@@ -135,7 +135,7 @@ const Editor = ({
         </div>
         <div className={styles.line}>
           <textarea
-            className={cx(styles.textarea, { [styles.highlight]: isEdit })}
+            className={cx(styles.textarea)}
             id='content'
             placeholder='내용을 입력해주세요'
             value={localContent}
@@ -149,11 +149,7 @@ const Editor = ({
         <div className={cx(styles.line, styles.noPadding)}>
           <button type='button' className={styles.place} onClick={() => setMapModal(true)}>
             <span className={styles.label}>만날 장소</span>
-            {market.place ? (
-              <span className={styles.placeName}>{market.place}</span>
-            ) : (
-              <ArrowPrevIcon className={styles.arrow} />
-            )}
+            {market ? <span className={styles.placeName}>{market}</span> : <ArrowPrevIcon className={styles.arrow} />}
           </button>
         </div>
         <div className={cx(styles.line, styles.noPadding)}>
