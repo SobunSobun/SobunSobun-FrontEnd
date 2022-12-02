@@ -36,7 +36,4 @@ http://sobunsobun.s3-website.ap-northeast-2.amazonaws.com/
 댓글, 대댓글
 좋아요
 프로필수정
-<br/>
 
-
-# 💡 기능구현
