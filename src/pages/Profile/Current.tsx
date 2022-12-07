@@ -25,8 +25,9 @@ const ProfileCurrent = () => {
     authInstance
       .get(`/myPage/${userId}/logout`)
       .then(() => {
-        localStorage.setItem('sobunsobun', '')
-        queryClient.resetQueries()
+        localStorage.removeItem('sobunsobun')
+        // queryClient.invalidateQueries({ refetchActive: false })
+        queryClient.removeQueries()
         navigate('/login')
       })
       .catch(() => {
