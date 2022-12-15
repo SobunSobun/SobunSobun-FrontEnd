@@ -1,4 +1,4 @@
-import { authInstance } from 'apis/client'
+import { getInstance } from 'apis/client'
 import { AxiosError } from 'axios'
 import { useMutation, useQueryClient } from 'react-query'
 
@@ -11,7 +11,7 @@ export const postReplyCommentAPI = ({
   parentCommentId: number
   formData: FormData
 }) => {
-  return authInstance.post(`/childComment/${postId}/${parentCommentId}`, formData)
+  return getInstance(true).post(`/childComment/${postId}/${parentCommentId}`, formData)
 }
 
 const useReplyComment = () => {

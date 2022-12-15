@@ -8,7 +8,7 @@ import { TwoButtonModal } from 'components/Modal'
 import Header from 'components/Header'
 
 import useModal from 'hooks/useModal'
-import { authInstance } from 'apis/client'
+import { getInstance } from 'apis/client'
 import { ArrowPrevIcon } from 'assets/svgs'
 
 import styles from './profile.module.scss'
@@ -22,7 +22,7 @@ const ProfileCurrent = () => {
   const { isOpen, onClose, setIsOpen } = useModal()
 
   const handleLogOut = () => {
-    authInstance
+    getInstance(true)
       .get(`/myPage/${userId}/logout`)
       .then(() => {
         localStorage.removeItem('sobunsobun')
@@ -37,7 +37,7 @@ const ProfileCurrent = () => {
   }
 
   const handleWithdrawal = () => {
-    authInstance
+    getInstance(true)
       .delete(`/myPage/${userId}`)
       .then(() => {
         localStorage.setItem('sobunsobun', '')
