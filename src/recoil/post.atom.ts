@@ -31,8 +31,8 @@ export const postingPlaceState = atom({
   default: '',
 })
 
-export const modalChangeState = atom({
-  key: '#modalChangeState',
+export const postingModalState = atom({
+  key: '#postingModalState',
   default: false,
 })
 

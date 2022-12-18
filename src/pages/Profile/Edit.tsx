@@ -6,11 +6,11 @@ import cx from 'classnames'
 import useMyInfo from 'hooks/useMyInfo'
 import { getInstance } from 'apis/client'
 
+import Header from 'components/Header'
 import Button from 'components/Button'
 import Input from 'components/Input'
 import ErrorMessage from 'components/ErrorMessage'
 import { TwoButtonModal } from 'components/Modal'
-import Header from 'components/Header'
 
 import useModal from 'hooks/useModal'
 import useProfile from 'hooks/useProfile'
@@ -80,7 +80,7 @@ const ProfileEdit = () => {
       const formData = new FormData()
       formData.append('nickname', nicknameCurrent)
 
-      await getInstance(false)
+      await getInstance()
         .post('/join/nicknameDuplicateCheck', formData)
         .then((response) => {
           if (response.data === '가입 가능한 닉네임') {

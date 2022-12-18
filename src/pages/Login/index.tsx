@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef } from 'react'
-import { useMutation } from 'react-query'
+import { useState, useEffect } from 'react'
+import { useMutation, useQueryClient } from 'react-query'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
 
@@ -17,11 +17,10 @@ type FormValues = {
   password: string
 }
 
-const loginAPI = (formData: FormData) => getInstance(false).post('/login', formData)
+const loginAPI = (formData: FormData) => getInstance().post('/login', formData)
 
 const Login = () => {
-  // const userRef = useRef()
-  // const errRef = useRef()
+  const queryClient = useQueryClient()
   const [emailError, setEmailError] = useState('')
   const [passwordError, setPasswordError] = useState('')
   const [otherError, setOtherError] = useState('')
@@ -36,11 +35,6 @@ const Login = () => {
   const watchEmailValue = watch('email', '')
   const watchPasswordValue = watch('password', '')
 
-  // useEffect(() => {
-  //   if (!userRef.current) return
-  //   userRef.current.focus()
-  // }, [])
-
   useEffect(() => {
     const subscription = watch(() => {
       setEmailError('')
@@ -51,9 +45,10 @@ const Login = () => {
   }, [watch])
 
   // login form 제출
-  const { mutate, isLoading } = useMutation(loginAPI, {
+  const { mutate, isLoading } = useMutation('myInfo', loginAPI, {
     onSuccess(response) {
       localStorage.setItem('sobunsobun', response.data)
+      queryClient.invalidateQueries('myInfo')
       navigate('/home')
     },
     onError(err) {
@@ -71,7 +66,6 @@ const Login = () => {
         } else {
           setOtherError('앗! 로그인에 실패하였습니다.')
         }
-        // errRef.current.focus()
       }
     },
   })
@@ -95,9 +89,6 @@ const Login = () => {
         </div>
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)} autoComplete='off'>
           <div className={styles.line}>
-            <div role='alert' aria-live='assertive'>
-              이메일 형식이 올바르지 않습니다.
-            </div>
             <Input htmlFor='email' text='이메일'>
               <input
                 type='email'

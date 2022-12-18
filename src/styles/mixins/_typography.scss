@@ -1,7 +1,7 @@
 @mixin lineClamp($line, $lineHeight) {
   /* stylelint-disable-next-line value-no-vendor-prefix */
   display: -webkit-box;
-  max-height: #{$lineHeight * $line}px;
+  max-height: #{$line * $lineHeight}px;
   overflow: hidden;
   word-break: break-all;
   -webkit-line-clamp: $line;

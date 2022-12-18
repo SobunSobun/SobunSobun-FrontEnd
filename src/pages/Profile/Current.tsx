@@ -26,9 +26,8 @@ const ProfileCurrent = () => {
       .get(`/myPage/${userId}/logout`)
       .then(() => {
         localStorage.removeItem('sobunsobun')
-        // queryClient.invalidateQueries({ refetchActive: false })
         queryClient.removeQueries()
-        navigate('/login')
+        navigate('/intro')
       })
       .catch(() => {
         // eslint-disable-next-line no-console, no-alert
@@ -40,9 +39,9 @@ const ProfileCurrent = () => {
     getInstance(true)
       .delete(`/myPage/${userId}`)
       .then(() => {
-        localStorage.setItem('sobunsobun', '')
+        localStorage.removeItem('sobunsobun')
         queryClient.removeQueries()
-        navigate('/login')
+        navigate('/intro')
       })
       .catch(() => {
         // eslint-disable-next-line no-console, no-alert
@@ -50,14 +49,9 @@ const ProfileCurrent = () => {
       })
   }
 
-  const handleLogoutButton = () => {
+  const openModal = (isLogOut?: Boolean) => {
     setIsOpen(true)
-    setMessage('로그아웃')
-  }
-
-  const handleWithdrawalButton = () => {
-    setIsOpen(true)
-    setMessage('정말 탈퇴')
+    isLogOut ? setMessage('로그아웃') : setMessage('정말 탈퇴')
   }
 
   return (
@@ -84,10 +78,10 @@ const ProfileCurrent = () => {
             <span>회원정보 수정</span>
             <ArrowPrevIcon className={styles.arrow} />
           </button>
-          <button type='button' onClick={handleLogoutButton}>
+          <button type='button' onClick={() => openModal(true)}>
             로그아웃
           </button>
-          <button type='button' onClick={handleWithdrawalButton}>
+          <button type='button' onClick={() => openModal()}>
             탈퇴하기
           </button>
         </div>

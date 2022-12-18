@@ -26,7 +26,7 @@ type SignupFormValues = {
   location?: string
 }
 
-const signupAPI = (formData: FormData) => getInstance(false).post('/join', formData)
+const signupAPI = (formData: FormData) => getInstance().post('/join', formData)
 
 const Signup = () => {
   const { state } = useLocation()
@@ -75,7 +75,7 @@ const Signup = () => {
       const formData = new FormData()
       formData.append('nickname', _nickData)
       if (nicknameCurrent && errors.nickname?.type !== 'maxLength') {
-        await getInstance(false)
+        await getInstance()
           .post('/join/nicknameDuplicateCheck', formData)
           .then((response) => {
             if (response.data === '가입 가능한 닉네임') {
@@ -98,7 +98,7 @@ const Signup = () => {
       const formData = new FormData()
       formData.append('email', _emailData)
       if (emailCurrent && errors.email?.type !== 'pattern') {
-        await getInstance(false)
+        await getInstance()
           .post('/join/emailDuplicateCheck', formData)
           .then((response) => {
             if (response.data === '가입 가능한 이메일') {

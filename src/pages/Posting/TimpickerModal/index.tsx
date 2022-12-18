@@ -3,7 +3,7 @@ import { useRecoilState, useSetRecoilState } from 'recoil'
 import cx from 'classnames'
 import DatePicker from 'react-datepicker'
 import Button from 'components/Button'
-import { postingDateState, postingTimeState, modalChangeState, isEditDefaultValue } from 'recoil/post.atom'
+import { postingDateState, postingTimeState, postingModalState, isEditDefaultValue } from 'recoil/post.atom'
 import DropDown from 'components/DropDown'
 import ModalLayout from 'components/Modal/ModalLayout'
 import { ModalPropsType } from 'types'
@@ -19,7 +19,7 @@ const TimePickerModal = ({ show, close }: ModalPropsType) => {
   const [date, setDate] = useRecoilState(postingDateState)
   const [time, setTime] = useRecoilState(postingTimeState)
   const setIsDefaultValue = useSetRecoilState(isEditDefaultValue)
-  const setTimeChange = useSetRecoilState(modalChangeState)
+  const setTimeChange = useSetRecoilState(postingModalState)
   const [localDate, setLocalDate] = useState(date)
   const [localSlot, setLocalSlot] = useState(time.slot)
   const [localHour, setLocalHour] = useState(time.hour)

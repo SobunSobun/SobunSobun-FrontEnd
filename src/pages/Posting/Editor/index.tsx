@@ -8,7 +8,7 @@ import {
   postingTimeState,
   postingPlaceState,
   categoryState,
-  modalChangeState,
+  postingModalState,
 } from 'recoil/post.atom'
 
 import { detailData } from 'types'
@@ -47,8 +47,8 @@ const Editor = ({
   const date = useRecoilValue(postingDateState)
   const time = useRecoilValue(postingTimeState)
   const [market, setMarket] = useRecoilState(postingPlaceState)
-  const category = useRecoilValue(categoryState)
-  const valueUpdate = useRecoilValue(modalChangeState)
+  const [category, setCategory] = useRecoilState(categoryState)
+  const valueUpdate = useRecoilValue(postingModalState)
   const [count, setCount] = useRecoilState(postingCountState)
 
   const [timePickerModal, setTimePickerModal] = useState(false)
@@ -65,8 +65,9 @@ const Editor = ({
       setLocalContent(propData.content)
       setCount(propData.recruitmentNumber)
       setMarket(propData.market)
+      setCategory(propData.category)
     }
-  }, [propData, setCount, setLocalContent, setLocalTitle, setMarket])
+  }, [propData, setCategory, setCount, setLocalContent, setLocalTitle, setMarket])
 
   useEffect(() => {
     const transHour = time.slot === 'PM' ? Number(time.hour) + 12 : time.hour
@@ -96,6 +97,7 @@ const Editor = ({
 
   const handleFormData = () => {
     const formData = new FormData()
+    console.log('카테고리', category)
     formData.append('title', localTitle)
     formData.append('content', localContent)
     formData.append('recruitmentNumber', String(count))
