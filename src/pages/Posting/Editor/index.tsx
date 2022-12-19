@@ -97,7 +97,6 @@ const Editor = ({
 
   const handleFormData = () => {
     const formData = new FormData()
-    console.log('카테고리', category)
     formData.append('title', localTitle)
     formData.append('content', localContent)
     formData.append('recruitmentNumber', String(count))

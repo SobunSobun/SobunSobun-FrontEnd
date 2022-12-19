@@ -1,4 +1,5 @@
 import { IMAGE_PATH } from 'assets/images'
+import styles from 'styles'
 import { category } from 'types'
 import { ICONS } from 'utils/constants'
 
@@ -15,7 +16,7 @@ const CategoryIcon = ({ icon, isVertical = false }: { icon: category; isVertical
     case '축산':
       return <img src={!isVertical ? IMAGE_PATH.meat : ICONS.MEAT} alt='축산' />
     default:
-      return <img src={!isVertical ? IMAGE_PATH.etc : ICONS.ETC} style={{ width: 104, height: 81 }} alt='기타' />
+      return <img src={!isVertical ? IMAGE_PATH.etc : ICONS.ETC} className={styles.etc} alt='기타' />
   }
 }
 

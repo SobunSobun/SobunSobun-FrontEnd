@@ -46,7 +46,7 @@ const Card = ({
           <LocationIcon />
           {data.market}
         </p>
-        <p>
+        <p className={styles.time}>
           <TimeIcon />
           {`${dayjs(data.meetingTime).format('YYYY. MM. DD \xa0 hh시 m분')} `}
         </p>
