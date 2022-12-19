@@ -25,24 +25,22 @@
     white-space: nowrap;
   }
 
-  section {
-    p + p {
-      margin-top: 6px;
-    }
-  }
-
   p {
-    & > svg {
-      width: 16px;
-      transform: translateY(1px);
-    }
     display: flex;
     gap: 5px;
     align-items: center;
-    height: 18px;
     font-size: 12px;
     font-weight: 400;
     color: rgb(81, 81, 81);
+
+    svg {
+      width: 16px;
+      transform: translateY(1px);
+    }
+
+    + p {
+      margin-top: 6px;
+    }
   }
 
   span {
@@ -53,17 +51,25 @@
     color: colors.$GRAY_A3;
   }
 
-  & > img {
+  img {
     position: absolute;
     right: 16px;
     bottom: 0;
     width: 104px;
-    height: 95px;
   }
 
   .market {
-    @include typography.lineClamp(1, 18);
     width: 70%;
+  }
+
+  .market,
+  .time {
+    /* stylelint-disable-next-line value-no-vendor-prefix */
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
   }
 
   @media (max-width: sizes.$SCREEN_SM) {
@@ -79,16 +85,13 @@
       @include fontSize.emFontSizeMO(18);
     }
 
-    section {
-      p + p {
-        @include vwConvert.mo(margin-top, 6);
-      }
-    }
-
     p {
       @include vwConvert.mo(gap, 5);
-      @include vwConvert.mo(height, 18);
       @include fontSize.emFontSizeMO(12);
+
+      + p {
+        @include vwConvert.mo(margin-top, 6);
+      }
     }
 
     span {
@@ -96,14 +99,19 @@
       @include fontSize.emFontSizeMO(10);
     }
 
-    & > svg {
+    svg {
+      @include vwConvert.mo(right, 16);
+    }
+
+    img {
+      @include vwConvert.mo(width, 104);
       @include vwConvert.mo(right, 16);
     }
   }
 
   &.isComplete {
     p {
-      & > svg {
+      svg {
         :nth-child(2) {
           circle {
             fill: colors.$GRAY_A4;
@@ -129,7 +137,7 @@
     border: 1.5px solid colors.$WARNING;
 
     p {
-      & > svg {
+      svg {
         :nth-child(2) {
           circle {
             fill: colors.$RED;
@@ -148,10 +156,11 @@
   }
 
   &.isVertical {
+    height: 230px;
     padding: 10px 12px 0;
 
     p {
-      & > svg {
+      svg {
         :nth-child(2) {
           circle {
             fill: colors.$RED;
@@ -173,24 +182,29 @@
       font-size: 14px;
     }
 
-    & > img {
-      position: relative;
+    img {
+      position: absolute;
+      bottom: 0;
       left: 50%;
-      width: 100px;
-      height: 84px;
+      width: 120px;
       margin-top: 10px;
       transform: translateX(-50%);
     }
+
+    .market {
+      width: 100%;
+    }
+
     @media (max-width: sizes.$SCREEN_SM) {
       @include vwConvert.mo(padding, 10 12 0);
+      @include vwConvert.mo(height, 230);
 
       h3 {
         @include fontSize.emFontSizeMO(14);
       }
 
-      & > svg {
+      img {
         @include vwConvert.mo(width, 100);
-        @include vwConvert.mo(height, 84);
         @include vwConvert.mo(margin-top, 10);
       }
     }
