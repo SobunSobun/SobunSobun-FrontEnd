@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
-import { useMutation } from 'react-query'
+import { useMutation, useQueryClient } from 'react-query'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
 
-import { defaultInstance } from 'apis/client'
+import { getInstance } from 'apis/client'
 import { isAxiosError } from 'utils/axios'
 
 import Button from 'components/Button'
@@ -17,9 +17,10 @@ type FormValues = {
   password: string
 }
 
-const loginAPI = (formData: FormData) => defaultInstance.post('/login', formData)
+const loginAPI = (formData: FormData) => getInstance().post('/login', formData)
 
 const Login = () => {
+  const queryClient = useQueryClient()
   const [emailError, setEmailError] = useState('')
   const [passwordError, setPasswordError] = useState('')
   const [otherError, setOtherError] = useState('')
@@ -44,9 +45,10 @@ const Login = () => {
   }, [watch])
 
   // login form 제출
-  const { mutate, isLoading } = useMutation(loginAPI, {
+  const { mutate, isLoading } = useMutation('myInfo', loginAPI, {
     onSuccess(response) {
       localStorage.setItem('sobunsobun', response.data)
+      queryClient.invalidateQueries('myInfo')
       navigate('/home')
     },
     onError(err) {
@@ -55,13 +57,14 @@ const Login = () => {
       setOtherError('')
 
       if (isAxiosError(err)) {
-        const status = err.response?.status
-        if (status === 401) {
+        if (!err.response) {
+          setOtherError('앗! 서버가 응답이 없습니다.')
+        } else if (err.response?.status === 401) {
           setPasswordError('비밀번호를 잘못 입력하셨습니다.')
-        } else if (status === 404) {
+        } else if (err.response?.status === 404) {
           setEmailError('존재하는 이메일이 없습니다.')
         } else {
-          setOtherError('앗! 에러가 발생했습니다. 다시 시도해주세요')
+          setOtherError('앗! 로그인에 실패하였습니다.')
         }
       }
     },

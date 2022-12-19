@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { useParams, useNavigate } from 'react-router-dom'
 
 import { detailData, getDetailType } from 'types'
-import { authInstance } from 'apis/client'
+import { getInstance } from 'apis/client'
 
 import { closePostingAPI } from 'apis/posting'
 
@@ -19,7 +19,7 @@ import { MoreIcon } from 'assets/svgs'
 import Spinner from 'components/Spinner'
 import styles from './detail.module.scss'
 
-const getDetailAPI: getDetailType = (id: string | undefined) => authInstance.get(`post/${id}`)
+const getDetailAPI: getDetailType = (id: string | undefined) => getInstance(true).get(`post/${id}`)
 
 const Detail = () => {
   const { id } = useParams()

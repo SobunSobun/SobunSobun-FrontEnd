@@ -1,5 +1,5 @@
 import { ChangeEvent, FormEvent, useRef, useState } from 'react'
-import { authInstance } from 'apis/client'
+import { getInstance } from 'apis/client'
 import { useQuery } from 'react-query'
 import { CommentType } from 'types'
 import useComment from 'hooks/useComment'
@@ -11,7 +11,7 @@ interface Props {
   postId: string
 }
 
-const getCommentAPI = (postId: string | undefined) => authInstance.get(`parentComment/${postId}`)
+const getCommentAPI = (postId: string | undefined) => getInstance(true).get(`parentComment/${postId}`)
 
 const Comment = ({ postId }: Props) => {
   const { data } = useQuery(['getCommentAPI', postId], () => getCommentAPI(postId).then((res) => res.data))

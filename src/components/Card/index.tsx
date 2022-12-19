@@ -1,4 +1,3 @@
-import React from 'react'
 import { feed } from 'types'
 import { LocationIcon, PeopleIcon, TimeIcon } from 'assets/svgs'
 import { cx } from 'styles'
@@ -43,7 +42,7 @@ const Card = ({
       <div>{data.nickname}</div>
       <h3>{data.title}</h3>
       <section>
-        <p>
+        <p className={styles.market}>
           <LocationIcon />
           {data.market}
         </p>

@@ -1,46 +1,44 @@
-# Getting Started with Create React App
+## 프로젝트 이름
+### 소분소분
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 배포링크
+http://sobunsobun.s3-website.ap-northeast-2.amazonaws.com/
 
-## Available Scripts
+## 프로젝트 기한
+2022.10.21 - 2022.12.01
+<br/>
 
-In the project directory, you can run:
+## 프로젝트 소개
+이웃과 함께 구매하고 나누는 지역기반 서비스 소분소분
 
-### `yarn start`
+소분소분은 1인가구를 위한 지역기반 공동구매 커뮤니티 서비스입니다.
+사용자들이 스스로 주최하는 공동구매를 통해 마음맞는 이웃들을 모은 뒤
+함께 장보고 나누며 새로운 연결의 가치를 제공하길 기대합니다
+<br/>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## ⚒ Skills
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
+<br/>
+![React Query](https://img.shields.io/badge/-React%20Query-FF4154?style=for-the-badge&logo=react%20query&logoColor=white)
+![React Router](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white)
+![React Hook Form](https://img.shields.io/badge/React%20Hook%20Form-%23EC5990.svg?style=for-the-badge&logo=reacthookform&logoColor=white)
+![SASS](https://img.shields.io/badge/SASS-hotpink.svg?style=for-the-badge&logo=SASS&logoColor=white)
+<br/>
+![Yarn](https://img.shields.io/badge/yarn-%232C8EBB.svg?style=for-the-badge&logo=yarn&logoColor=white)
+ 
+<br/>
 
-### `yarn test`
+## 주요 기능
+- 로그인
+- 회원가입
+- 게시물 생성, 수정, 삭제
+- 무한스크롤
+- 동네 검색
+- 지도 구현
+- 달력 구현
+- 댓글, 대댓글
+- 좋아요
+- 프로필수정
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).

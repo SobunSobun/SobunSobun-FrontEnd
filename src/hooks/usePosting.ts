@@ -10,7 +10,7 @@ import {
   postingPlaceState,
   categoryState,
   postingCountState,
-  modalChangeState,
+  postingModalState,
 } from 'recoil/post.atom'
 
 const useCreatePost = () => {
@@ -19,13 +19,12 @@ const useCreatePost = () => {
   const resetMarket = useResetRecoilState(postingPlaceState)
   const resetCategory = useResetRecoilState(categoryState)
   const resetCount = useResetRecoilState(postingCountState)
-  const resetTimeColor = useResetRecoilState(modalChangeState)
+  const resetTimeColor = useResetRecoilState(postingModalState)
 
   const queryClient = useQueryClient()
   const navigate = useNavigate()
   return useMutation(newPostingAPI, {
     onSuccess() {
-      // eslint-disable-next-line
       queryClient.invalidateQueries('feedList')
       queryClient.invalidateQueries({
         queryKey: ['myPost'],
@@ -56,10 +55,9 @@ const useEditPost = () => {
   const resetMarket = useResetRecoilState(postingPlaceState)
   const resetCategory = useResetRecoilState(categoryState)
   const resetCount = useResetRecoilState(postingCountState)
-  const resetTimeColor = useResetRecoilState(modalChangeState)
+  const resetTimeColor = useResetRecoilState(postingModalState)
   return useMutation(editPostingAPI, {
     onSuccess() {
-      // eslint-disable-next-line
       resetDate()
       resetTime()
       resetMarket()

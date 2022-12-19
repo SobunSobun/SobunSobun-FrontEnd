@@ -7,10 +7,9 @@ import Header from 'components/Header'
 import { TwoButtonModal } from 'components/Modal'
 import Input from 'components/Input'
 import { region } from 'types'
-import { defaultInstance } from 'apis/client'
+import { getInstance } from 'apis/client'
 import useModal from 'hooks/useModal'
 import ErrorMessage from 'components/ErrorMessage'
-import FloatingElem from 'components/FloatingElem'
 import styles from './signup.module.scss'
 
 type FormValues = {
@@ -27,7 +26,7 @@ type SignupFormValues = {
   location?: string
 }
 
-const signupAPI = (formData: FormData) => defaultInstance.post('/join', formData)
+const signupAPI = (formData: FormData) => getInstance().post('/join', formData)
 
 const Signup = () => {
   const { state } = useLocation()
@@ -76,15 +75,17 @@ const Signup = () => {
       const formData = new FormData()
       formData.append('nickname', _nickData)
       if (nicknameCurrent && errors.nickname?.type !== 'maxLength') {
-        await defaultInstance.post('/join/nicknameDuplicateCheck', formData).then((response) => {
-          if (response.data === '가입 가능한 닉네임') {
-            setNicknameActive(true)
-            setNicknameDuplicate('멋진 닉네임이네요!')
-          } else {
-            setNicknameActive(false)
-            setNicknameDuplicate('중복된 닉네임입니다.')
-          }
-        })
+        await getInstance()
+          .post('/join/nicknameDuplicateCheck', formData)
+          .then((response) => {
+            if (response.data === '가입 가능한 닉네임') {
+              setNicknameActive(true)
+              setNicknameDuplicate('멋진 닉네임이네요!')
+            } else {
+              setNicknameActive(false)
+              setNicknameDuplicate('중복된 닉네임입니다.')
+            }
+          })
       }
     } catch (error: any) {
       // eslint-disable-next-line no-console
@@ -97,15 +98,17 @@ const Signup = () => {
       const formData = new FormData()
       formData.append('email', _emailData)
       if (emailCurrent && errors.email?.type !== 'pattern') {
-        await defaultInstance.post('/join/emailDuplicateCheck', formData).then((response) => {
-          if (response.data === '가입 가능한 이메일') {
-            setEmailActive(true)
-            setEmailDuplicate('사용 가능한 이메일입니다.')
-          } else {
-            setEmailActive(false)
-            setEmailDuplicate('중복된 이메일입니다.')
-          }
-        })
+        await getInstance()
+          .post('/join/emailDuplicateCheck', formData)
+          .then((response) => {
+            if (response.data === '가입 가능한 이메일') {
+              setEmailActive(true)
+              setEmailDuplicate('사용 가능한 이메일입니다.')
+            } else {
+              setEmailActive(false)
+              setEmailDuplicate('중복된 이메일입니다.')
+            }
+          })
       }
     } catch (error: any) {
       // eslint-disable-next-line no-console
@@ -215,7 +218,7 @@ const Signup = () => {
               {errors.nickname?.type === 'maxLength' && errors.nickname.message}
             </ErrorMessage>
           </div>
-          <FloatingElem offsetBottom={45}>
+          <div className={styles.signupBtn}>
             <Button
               type={!(nicknameActive && emailActive && isValid) ? 'negative' : 'primary'}
               text='다음'
@@ -223,7 +226,7 @@ const Signup = () => {
               submit
               loading={isLoading}
             />
-          </FloatingElem>
+          </div>
         </form>
       </div>
       <TwoButtonModal

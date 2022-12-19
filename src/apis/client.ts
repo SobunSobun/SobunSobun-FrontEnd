@@ -21,8 +21,8 @@ const axiosAuthApi = () => {
   return instance
 }
 
-export const defaultInstance = axiosApi()
-export const authInstance = axiosAuthApi()
+const defaultInstance = axiosApi()
+const authInstance = axiosAuthApi()
 
 authInstance.interceptors.request.use((config) => {
   const token = localStorage.getItem('sobunsobun')
@@ -33,3 +33,5 @@ authInstance.interceptors.request.use((config) => {
   config.headers.SOBUNSOBUN = token
   return config
 })
+
+export const getInstance = (withAuth?: boolean) => (withAuth ? authInstance : defaultInstance)

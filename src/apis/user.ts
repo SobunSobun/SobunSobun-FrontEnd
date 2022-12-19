@@ -1,6 +1,6 @@
-import { getMyInfoType } from 'types'
-import { authInstance } from './client'
+import { getInstance } from './client'
 
-export const getMyInfoAPI: getMyInfoType = () => {
-  return authInstance.get('/myInfo').then((res) => res.data)
+export const getMyInfoAPI = async () => {
+  const res = await getInstance(true).get('/myInfo')
+  return res.data
 }

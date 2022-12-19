@@ -4,13 +4,13 @@ import { useForm } from 'react-hook-form'
 import cx from 'classnames'
 
 import useMyInfo from 'hooks/useMyInfo'
-import { defaultInstance } from 'apis/client'
+import { getInstance } from 'apis/client'
 
+import Header from 'components/Header'
 import Button from 'components/Button'
 import Input from 'components/Input'
 import ErrorMessage from 'components/ErrorMessage'
 import { TwoButtonModal } from 'components/Modal'
-import Header from 'components/Header'
 
 import useModal from 'hooks/useModal'
 import useProfile from 'hooks/useProfile'
@@ -80,15 +80,17 @@ const ProfileEdit = () => {
       const formData = new FormData()
       formData.append('nickname', nicknameCurrent)
 
-      await defaultInstance.post('/join/nicknameDuplicateCheck', formData).then((response) => {
-        if (response.data === '가입 가능한 닉네임') {
-          setNicknameActive(true)
-          setResponseMessage('멋진 닉네임이네요!')
-        } else {
-          setNicknameActive(false)
-          setResponseMessage('다른 닉네임을 입력해주세요!')
-        }
-      })
+      await getInstance()
+        .post('/join/nicknameDuplicateCheck', formData)
+        .then((response) => {
+          if (response.data === '가입 가능한 닉네임') {
+            setNicknameActive(true)
+            setResponseMessage('멋진 닉네임이네요!')
+          } else {
+            setNicknameActive(false)
+            setResponseMessage('다른 닉네임을 입력해주세요!')
+          }
+        })
     } catch (error) {
       // eslint-disable-next-line no-console
       console.log(error)

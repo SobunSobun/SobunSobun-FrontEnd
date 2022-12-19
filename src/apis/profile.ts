@@ -1,4 +1,4 @@
-import { authInstance } from './client'
+import { getInstance } from './client'
 
 interface Props {
   formData: FormData
@@ -6,9 +6,9 @@ interface Props {
 }
 
 export const profileImageAPI = ({ formData, userId }: Props) => {
-  return authInstance.post(`/myPage/${userId}/changeProfileUrl`, formData)
+  return getInstance(true).post(`/myPage/${userId}/changeProfileUrl`, formData)
 }
 
 export const profileNameAPI = ({ userId, formData }: Props) => {
-  return authInstance.post(`/myPage/${userId}/modifyNickname`, formData)
+  return getInstance(true).post(`/myPage/${userId}/modifyNickname`, formData)
 }

@@ -1,4 +1,4 @@
-import { authInstance } from './client'
+import { getInstance } from './client'
 
 interface Props {
   formData: FormData
@@ -6,17 +6,17 @@ interface Props {
 }
 
 export const newPostingAPI = (formData: FormData) => {
-  return authInstance.post('/post/register', formData)
+  return getInstance(true).post('/post/register', formData)
 }
 
 export const editPostingAPI = ({ postId, formData }: Props) => {
-  return authInstance.patch(`/post/${postId}`, formData)
+  return getInstance(true).patch(`/post/${postId}`, formData)
 }
 
 export const deletePostingAPI = (postId: string | undefined) => {
-  return authInstance.delete(`/post/${postId}`)
+  return getInstance(true).delete(`/post/${postId}`)
 }
 
 export const closePostingAPI = (postId: string | undefined) => {
-  return authInstance.post(`/post/${postId}/close`)
+  return getInstance(true).post(`/post/${postId}/close`)
 }
