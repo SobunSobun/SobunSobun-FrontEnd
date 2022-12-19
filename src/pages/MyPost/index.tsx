@@ -30,14 +30,16 @@ const MyPost = () => {
             <ul style={data && data[0] && data[0].length !== 0 ? { minHeight: 0 } : {}}>
               {data && data[0] && data[0].length !== 0 ? (
                 data[0].map((v) => (
-                  <button key={v.postId} type='button' onClick={() => navigate(`/detail/${v.postId}`)}>
-                    <Card
-                      data={v}
-                      isBorder
-                      isWrite={postState === 'myPost'}
-                      isParticipating={postState === 'participatedPost'}
-                    />
-                  </button>
+                  <li key={v.postId}>
+                    <button type='button' onClick={() => navigate(`/detail/${v.postId}`)}>
+                      <Card
+                        data={v}
+                        isBorder
+                        isWrite={postState === 'myPost'}
+                        isParticipating={postState === 'participatedPost'}
+                      />
+                    </button>
+                  </li>
                 ))
               ) : (
                 <NoResult message='진행 중인 소분이 없습니다.' />

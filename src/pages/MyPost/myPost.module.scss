@@ -20,6 +20,11 @@
       gap: 10px;
       min-height: calc((100vh - 320px) / 2);
       padding: 16px 0;
+
+      li,
+      button {
+        width: 100%;
+      }
     }
     @media (max-width: sizes.$SCREEN_SM) {
       h3 {

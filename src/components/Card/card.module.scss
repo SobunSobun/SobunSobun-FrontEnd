@@ -38,7 +38,7 @@
       transform: translateY(1px);
     }
 
-    +p {
+    + p {
       margin-top: 6px;
     }
   }
@@ -59,12 +59,17 @@
   }
 
   .market {
-    @include typography.lineClamp(1, 20);
     width: 70%;
   }
 
+  .market,
   .time {
-    @include typography.lineClamp(1, 20);
+    /* stylelint-disable-next-line value-no-vendor-prefix */
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
   }
 
   @media (max-width: sizes.$SCREEN_SM) {
@@ -84,7 +89,7 @@
       @include vwConvert.mo(gap, 5);
       @include fontSize.emFontSizeMO(12);
 
-      +p {
+      + p {
         @include vwConvert.mo(margin-top, 6);
       }
     }
@@ -181,7 +186,7 @@
       position: absolute;
       bottom: 0;
       left: 50%;
-      width: 100px;
+      width: 120px;
       margin-top: 10px;
       transform: translateX(-50%);
     }
