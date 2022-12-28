@@ -1,6 +1,5 @@
-import Greeting from 'components/Greeting'
-import Button from 'components/Button'
 import { Link, useNavigate } from 'react-router-dom'
+import { Greeting, Button } from 'components'
 import styles from './intro.module.scss'
 
 const Intro = () => {

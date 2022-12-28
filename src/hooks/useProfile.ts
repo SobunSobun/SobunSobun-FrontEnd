@@ -26,18 +26,31 @@ const useProfile = () => {
     })
   }
 
-  const imageMutate = useMutation(profileImageAPI, {
-    onSuccess() {
-      updatePageData()
-    },
-  })
-  const nickNameMutate = useMutation(profileNameAPI, {
-    onSuccess() {
-      updatePageData()
-    },
-  })
+  const {
+    mutateAsync: imgMutateAsync,
+    mutate: imgMutate,
+    isLoading: imgLoading,
+    isError: imgError,
+  } = useMutation(profileImageAPI)
 
-  return { imageMutate, nickNameMutate }
+  const {
+    mutateAsync: nickNameMutateAsync,
+    mutate: nickNameMutate,
+    isLoading: nickNameLoading,
+    isError: nickNameError,
+  } = useMutation(profileNameAPI)
+
+  return {
+    imgMutateAsync,
+    imgMutate,
+    imgLoading,
+    imgError,
+    nickNameMutateAsync,
+    nickNameMutate,
+    nickNameLoading,
+    updatePageData,
+    nickNameError,
+  }
 }
 
 export default useProfile

@@ -15,7 +15,7 @@ import { detailData } from 'types'
 
 import TimePickerModal from 'pages/Posting/TimpickerModal'
 import MapModal from 'pages/Posting/MapModal'
-import Button from 'components/Button'
+import { Button } from 'components'
 import { useCreatePost, useEditPost } from 'hooks/usePosting'
 
 import { ArrowPrevIcon } from 'assets/svgs'

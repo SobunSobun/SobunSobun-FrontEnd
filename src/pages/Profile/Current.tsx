@@ -4,8 +4,7 @@ import { useQueryClient } from 'react-query'
 import { useNavigate } from 'react-router-dom'
 import useMyInfo from 'hooks/useMyInfo'
 
-import { TwoButtonModal } from 'components/Modal'
-import Header from 'components/Header'
+import { Header, TwoButtonModal } from 'components'
 
 import useModal from 'hooks/useModal'
 import { getInstance } from 'apis/client'

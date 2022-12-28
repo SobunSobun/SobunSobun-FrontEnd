@@ -1,6 +1,5 @@
 import { useNavigate, useLocation } from 'react-router-dom'
-import Button from 'components/Button'
-import FloatingElem from 'components/FloatingElem'
+import { FloatingElem, Button } from 'components'
 import { IMAGE_PATH } from 'assets/images'
 import { cx } from 'styles'
 import styles from './uploadComplete.module.scss'

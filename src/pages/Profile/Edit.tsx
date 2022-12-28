@@ -3,15 +3,11 @@ import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import cx from 'classnames'
 
-import useMyInfo from 'hooks/useMyInfo'
 import { getInstance } from 'apis/client'
 
-import Header from 'components/Header'
-import Button from 'components/Button'
-import Input from 'components/Input'
-import ErrorMessage from 'components/ErrorMessage'
-import { TwoButtonModal } from 'components/Modal'
+import { Header, Button, Input, ErrorMessage, TwoButtonModal } from 'components'
 
+import useMyInfo from 'hooks/useMyInfo'
 import useModal from 'hooks/useModal'
 import useProfile from 'hooks/useProfile'
 
@@ -29,7 +25,6 @@ const ProfileEdit = () => {
   const [nicknameActive, setNicknameActive] = useState(false)
   const [submitBtnActive, setSubmitBtnActive] = useState(false)
   const [responseMessage, setResponseMessage] = useState('')
-  const [isLoading, setIsLoading] = useState(false)
 
   type FormValues = {
     nickname: string
@@ -92,62 +87,72 @@ const ProfileEdit = () => {
           }
         })
     } catch (error) {
-      // eslint-disable-next-line no-console
-      console.log(error)
       // eslint-disable-next-line no-console, no-alert
       alert('닉네임 인증이 실패하였습니다.')
     }
   }
 
-  const { imageMutate, nickNameMutate } = useProfile()
+  const handleUpdateData = () => {
+    updatePageData()
+    navigate('/profile')
+  }
+
+  const {
+    imgMutateAsync,
+    imgMutate,
+    imgLoading,
+    imgError,
+    nickNameMutateAsync,
+    nickNameMutate,
+    nickNameLoading,
+    updatePageData,
+    nickNameError,
+  } = useProfile()
 
   const onSubmit = async (data: FormValues) => {
     const formData = new FormData()
-    setIsLoading(true)
+
     if (image && nicknameActive) {
       formData.append('nickname', data.nickname)
       formData.append('multipartFile', image)
-      try {
-        const imgResult = await imageMutate.mutateAsync({ userId, formData })
-        const nickNameResult = await nickNameMutate.mutateAsync({ userId, formData })
+      const imgResult = await imgMutateAsync({ userId, formData })
+      const nickNameResult = await nickNameMutateAsync({ userId, formData })
 
-        if (imgResult && nickNameResult) {
-          navigate('/profile')
-        }
-      } catch {
-        // eslint-disable-next-line no-console, no-alert
-        alert('에러가 발생했습니다. 네트워크 연결을 확인해주세요')
-      } finally {
-        setIsLoading(false)
-      }
-    } else if (image && !nicknameActive) {
+      if (!(imgResult && nickNameResult)) return
+      handleUpdateData()
+    }
+
+    if (image && !nicknameActive) {
       formData.append('multipartFile', image)
-      try {
-        const imgResult = await imageMutate.mutateAsync({ userId, formData })
-        if (imgResult) {
-          navigate('/profile')
+      imgMutate(
+        { userId, formData },
+        {
+          onSuccess() {
+            handleUpdateData()
+          },
         }
-      } catch {
-        // eslint-disable-next-line no-console, no-alert
-        alert('에러가 발생했습니다. 네트워크 연결을 확인해주세요')
-      } finally {
-        setIsLoading(false)
-      }
-    } else if (!image && nicknameActive) {
+      )
+    }
+
+    if (!image && nicknameActive) {
       formData.append('nickname', data.nickname)
-      const nickNameResult = await nickNameMutate.mutateAsync({ userId, formData })
-      try {
-        if (nickNameResult) {
-          navigate('/profile')
+      nickNameMutate(
+        { userId, formData },
+        {
+          onSuccess() {
+            handleUpdateData()
+          },
         }
-      } catch {
-        // eslint-disable-next-line no-console, no-alert
-        alert('에러가 발생했습니다. 네트워크 연결을 확인해주세요')
-      } finally {
-        setIsLoading(false)
-      }
+      )
     }
   }
+
+  useEffect(() => {
+    if (imgError || nickNameError) {
+      // eslint-disable-next-line no-alert
+      alert('에러가 발생했습니다. 네트워크 연결을 확인해주세요.')
+    }
+  })
 
   useEffect(() => {
     if ((image && nicknameActive) || (!image && nicknameActive) || (image && nicknameCurrent === nickname)) {
@@ -205,7 +210,7 @@ const ProfileEdit = () => {
               text='수정 완료'
               submit
               isDisabled={!submitBtnActive}
-              loading={isLoading}
+              loading={imgLoading && nickNameLoading}
             />
           </div>
         </form>

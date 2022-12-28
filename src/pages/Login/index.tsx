@@ -6,8 +6,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { getInstance } from 'apis/client'
 import { isAxiosError } from 'utils/axios'
 
-import Button from 'components/Button'
-import Input from 'components/Input'
+import { Button, Input } from 'components'
 
 import { LogoImage } from 'assets/svgs'
 import styles from './login.module.scss'
