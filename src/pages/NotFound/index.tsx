@@ -1,6 +1,8 @@
 import { useNavigate } from 'react-router-dom'
+
 import { ErrorIcon } from 'assets/svgs'
-import Button from 'components/Button'
+import { Button } from 'components'
+
 import styles from './notFound.module.scss'
 
 const NotFound = () => {

@@ -2,10 +2,9 @@ import { useState, ChangeEvent, Dispatch, SetStateAction, useEffect } from 'reac
 import { useRecoilState, useSetRecoilState } from 'recoil'
 import cx from 'classnames'
 import DatePicker from 'react-datepicker'
-import Button from 'components/Button'
 import { postingDateState, postingTimeState, postingModalState, isEditDefaultValue } from 'recoil/post.atom'
-import DropDown from 'components/DropDown'
-import ModalLayout from 'components/Modal/ModalLayout'
+import { DropDown, Button, ModalLayout } from 'components'
+
 import { ModalPropsType } from 'types'
 
 import { DotsIcon } from 'assets/svgs'

@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import Greeting from 'components/Greeting'
+import { Greeting } from 'components'
 import { IMAGE_PATH } from 'assets/images'
 import { useNavigate } from 'react-router-dom'
 import styles from './splash.module.scss'

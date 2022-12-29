@@ -1,6 +1,6 @@
 import { useState, ChangeEvent, FormEvent } from 'react'
 import { SearchIcon, MapBackIcon } from 'assets/svgs'
-import ModalLayout from 'components/Modal/ModalLayout'
+import { ModalLayout } from 'components'
 import { ModalPropsType } from 'types'
 import Map from '../Map'
 

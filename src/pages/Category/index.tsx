@@ -13,11 +13,10 @@ import {
   postingModalState,
 } from 'recoil/post.atom'
 
-import Header from 'components/Header'
-import Button from 'components/Button'
+import { Header, Button, TwoButtonModal } from 'components'
+
 import { categoryList } from 'utils/categoryList'
 import CategoryItem from 'pages/Category/CategoryItem'
-import { TwoButtonModal } from 'components/Modal'
 
 import useModal from 'hooks/useModal'
 

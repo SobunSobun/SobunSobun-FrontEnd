@@ -3,8 +3,8 @@ import { useNavigate, useLocation, useParams } from 'react-router-dom'
 import { useSetRecoilState, useResetRecoilState } from 'recoil'
 
 import { detailData } from 'types'
-import Header from 'components/Header'
-import Button from 'components/Button'
+import { Header, Button, TwoButtonModal } from 'components'
+
 import {
   postingTitleState,
   postingContentState,
@@ -16,7 +16,6 @@ import {
   postingTimeState,
 } from 'recoil/post.atom'
 import useModal from 'hooks/useModal'
-import { TwoButtonModal } from 'components/Modal'
 import Editor from './Editor'
 
 interface RouteState {

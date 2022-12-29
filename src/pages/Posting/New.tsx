@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { useRecoilState } from 'recoil'
-import Header from 'components/Header'
-import Button from 'components/Button'
 import { useNavigate } from 'react-router-dom'
+
+import { Header, Button } from 'components'
 import { postingTitleState, postingContentState } from 'recoil/post.atom'
 import Editor from './Editor'
 

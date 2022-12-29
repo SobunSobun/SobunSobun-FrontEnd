@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import { ReactNode } from 'react'
 import { cx } from 'styles'
 import { ModalPortal } from 'utils/portal'
 import styles from './modal.module.scss'
