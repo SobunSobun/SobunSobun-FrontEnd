@@ -1,6 +1,5 @@
 import React from 'react'
-import Button from 'components/Button'
-import { TwoButtonModal } from 'components/Modal'
+import { Button, TwoButtonModal } from 'components'
 import useModal from 'hooks/useModal'
 import { LikeIcon, LikeOnIcon, LocationIcon, PeopleIcon, TimeIcon } from 'assets/svgs'
 import { detailData } from 'types'

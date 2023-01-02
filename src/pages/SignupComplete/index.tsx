@@ -1,7 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom'
 
-import Button from 'components/Button'
-import Header from 'components/Header'
+import { Header, Button } from 'components'
 
 import FloatingElem from 'components/FloatingElem'
 import { IMAGE_PATH } from 'assets/images'

@@ -7,10 +7,9 @@ import { getInstance } from 'apis/client'
 import { closePostingAPI } from 'apis/posting'
 
 import { UnderModal } from 'components/Modal'
-import Button from 'components/Button'
+import { Header, Button } from 'components'
 import Comment from 'components/Detail/Comment'
 import DetailContent from 'components/Detail/DetailContent'
-import Header from 'components/Header'
 
 import useModal from 'hooks/useModal'
 import { useDeletePost } from 'hooks/usePosting'
