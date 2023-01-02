@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import Input from 'components/Input'
-import ErrorMessage from 'components/ErrorMessage'
+import { Input, ErrorMessage } from 'components'
 import { FormValues, CurrentType, ValidType } from 'types/signup'
 import styles from '../../pages/Signup/signup.module.scss'
 

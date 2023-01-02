@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react'
 import { cx } from 'styles'
 import { useForm } from 'react-hook-form'
-import Button from 'components/Button'
-import Input from 'components/Input'
 import { getInstance } from 'apis/client'
-import ErrorMessage from 'components/ErrorMessage'
+import { Button, Input, ErrorMessage } from 'components'
 import { FormValues, SignupFormValues, CurrentType, ValidType } from 'types/signup'
 import styles from '../../pages/Signup/signup.module.scss'
 
